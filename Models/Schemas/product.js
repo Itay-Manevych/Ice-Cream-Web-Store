@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import category from "./category";
-import allergies from "./allergies";
+import category from "./category.js";
+import allergies from "./allergies.js";
 
 const productSchema = new mongoose.Schema({
     id: Number,
