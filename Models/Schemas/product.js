@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
     description: String,
     image: Buffer,
     in_stock: Boolean,
+    amount: Number,
     allergies: allergies.schema,
     category: category.schema,
 })

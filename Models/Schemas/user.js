@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     id: Number,
-    userName: Number,
+    user_name: String,
     email: String,
-    paswword: Number,
+    password: String,
     is_admin: Boolean,
 })
 
