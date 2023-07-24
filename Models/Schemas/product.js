@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import category from "./category.js";
 import allergies from "./allergies.js";
 
-const productSchema = new mongoose.Schema({
+const product_schema = new mongoose.Schema({
     id: Number,
     name: String,
     description: String,
@@ -13,4 +13,4 @@ const productSchema = new mongoose.Schema({
     category: category.schema,
 })
 
-export default mongoose.model("product", productSchema);
+export default mongoose.model("product", product_schema);

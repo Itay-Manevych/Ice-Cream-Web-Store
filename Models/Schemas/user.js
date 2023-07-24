@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const user_schema = new mongoose.Schema({
     id: Number,
     user_name: String,
     email: String,
@@ -8,4 +8,4 @@ const userSchema = new mongoose.Schema({
     is_admin: Boolean,
 })
 
-export default mongoose.model("user", userSchema);
+export default mongoose.model("user", user_schema);
