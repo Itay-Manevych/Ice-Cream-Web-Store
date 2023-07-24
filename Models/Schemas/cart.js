@@ -14,7 +14,7 @@ const product_info = new mongoose.Schema({
 
 const cart_schema = new mongoose.Schema({
     id: Number,
-    productsInfo: [product_info]
+    products_info: [product_info]
 })
 
 export default mongoose.model("cart", cart_schema);
