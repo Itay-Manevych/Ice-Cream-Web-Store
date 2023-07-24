@@ -1,20 +1,20 @@
 import mongoose from "mongoose";
 
-const additions_schema = new mongoose.Schema({
+const Additions = new mongoose.Schema({
     sprinkles: Boolean,
     hot_chocolate: Boolean,
     gummy_bears: Boolean
 })
 
-const product_info = new mongoose.Schema({
+const ProductInfo = new mongoose.Schema({
     product_id: Number,
-    additions: additions_schema,
+    additions: Additions,
     amount: Number,
 })
 
-const cart_schema = new mongoose.Schema({
+const Cart = new mongoose.Schema({
     id: Number,
-    products_info: [product_info]
+    products_info: [ProductInfo]
 })
 
-export default mongoose.model("cart", cart_schema);
+export default mongoose.model("Cart", Cart);

@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
-import address from "./address.js";
-import cart from "./cart.js";
+import Address from "./address.js";
+import Cart from "./cart.js";
 
-const order_schema = new mongoose.Schema({
+const Order = new mongoose.Schema({
     id: Number,
     name: String,
     email: String,
-    products_info: cart.schema,
+    products_info: Cart.schema,
     phone_number: Number,
-    address: address.schema,
+    address: Address.schema,
     amount: Number,
     date: Date,
     status: Number, // pending=0, approved=1, on-the-way=2, delivered=3  
 })
 
-export default mongoose.model("order", order_schema);
+export default mongoose.model("Order", Order);
