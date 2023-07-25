@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const Additions = new mongoose.Schema({
     sprinkles: Boolean,
     hot_chocolate: Boolean,
-    gummy_bears: Boolean
+    gummy_bears: Boolean,
 })
 
 const ProductInfo = new mongoose.Schema({
@@ -14,7 +14,7 @@ const ProductInfo = new mongoose.Schema({
 
 const Cart = new mongoose.Schema({
     id: Number,
-    products_info: [ProductInfo]
+    products_info: [ProductInfo],
 })
 
 export default mongoose.model("Cart", Cart);
