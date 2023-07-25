@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import allergies from "./allergies.js";
 
-const categorySchema = new mongoose.Schema({
+const Category = new mongoose.Schema({
     id: Number,
     name: String,
-    description: String,
+    allergies: allergies.schema
 })
 
-export default mongoose.model("category", categorySchema);
+export default mongoose.model("Category", Category);

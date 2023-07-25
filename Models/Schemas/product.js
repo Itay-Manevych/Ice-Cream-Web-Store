@@ -1,15 +1,16 @@
 import mongoose from "mongoose";
-import category from "./category.js";
-import allergies from "./allergies.js";
+import Allergies from "./allergies.js";
+import Category from "./category.js";
 
-const productSchema = new mongoose.Schema({
+const Product = new mongoose.Schema({
     id: Number,
     name: String,
     description: String,
     image: Buffer,
     in_stock: Boolean,
-    allergies: allergies.schema,
-    category: category.schema,
+    amount: Number,
+    allergies: Allergies.schema,
+    category: Category.schema,
 })
 
-export default mongoose.model("product", productSchema);
+export default mongoose.model("Product", Product);
