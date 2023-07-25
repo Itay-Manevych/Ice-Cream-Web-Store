@@ -21,3 +21,4 @@ const deleteInstance = async (Model, id) => {
 }
 
 export const ModelServices = {createInstance, getInstanceById, getAllInstances, updateInstance, deleteInstance};
+ 
