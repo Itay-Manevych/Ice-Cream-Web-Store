@@ -7,7 +7,7 @@ const createProduct = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-        error: 'Error creating an product', 
+        error: "Error creating a product", 
         message: error.message
         });
     }
@@ -20,7 +20,7 @@ const getProductById = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-            error: 'Error finding an product by id',
+            error: "Error finding a product by id",
             message: error.message
         });
     }
@@ -33,7 +33,7 @@ const getAllProducts = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-            error: 'Error getting all products',
+            error: "Error getting all products",
             message: error.message
         })
     }
@@ -47,7 +47,7 @@ const updateProduct = async (req, res) => {
 
     catch(error) {
         res.status(500).json({
-            error: 'Error updating an product',
+            error: "Error updating a product",
             message: error.message
         })
     }
@@ -61,7 +61,7 @@ const deleteProduct = async (req, res) => {
 
     catch(error) {
         res.status(500).json({
-            error: 'Error deleting an product',
+            error: "Error deleting a product",
             message: error.message
         })
     }
