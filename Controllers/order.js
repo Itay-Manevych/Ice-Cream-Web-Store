@@ -7,7 +7,7 @@ const createOrder = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-        error: 'Error creating an order', 
+        error: "Error creating an order", 
         message: error.message
         });
     }
@@ -20,7 +20,7 @@ const getOrderById = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-            error: 'Error finding an order by id',
+            error: "Error finding an order by id",
             message: error.message
         });
     }
@@ -33,7 +33,7 @@ const getAllOrders = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-            error: 'Error getting all orders',
+            error: "Error getting all orders",
             message: error.message
         })
     }
@@ -47,7 +47,7 @@ const updateOrder = async (req, res) => {
 
     catch(error) {
         res.status(500).json({
-            error: 'Error updating an order',
+            error: "Error updating an order",
             message: error.message
         })
     }
@@ -61,7 +61,7 @@ const deleteOrder = async (req, res) => {
 
     catch(error) {
         res.status(500).json({
-            error: 'Error deleting an order',
+            error: "Error deleting an order",
             message: error.message
         })
     }

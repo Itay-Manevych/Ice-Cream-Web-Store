@@ -7,7 +7,7 @@ const createUser = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-        error: 'Error creating an user', 
+        error: "Error creating a user", 
         message: error.message
         });
     }
@@ -20,7 +20,7 @@ const getUserById = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-            error: 'Error finding an user by id',
+            error: "Error finding a user by id",
             message: error.message
         });
     }
@@ -33,7 +33,7 @@ const getAllUsers = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-            error: 'Error getting all users',
+            error: "Error getting all users",
             message: error.message
         })
     }
@@ -47,7 +47,7 @@ const updateUser = async (req, res) => {
 
     catch(error) {
         res.status(500).json({
-            error: 'Error updating an user',
+            error: "Error updating a user",
             message: error.message
         })
     }
@@ -61,7 +61,7 @@ const deleteUser = async (req, res) => {
 
     catch(error) {
         res.status(500).json({
-            error: 'Error deleting an user',
+            error: "Error deleting a user",
             message: error.message
         })
     }
