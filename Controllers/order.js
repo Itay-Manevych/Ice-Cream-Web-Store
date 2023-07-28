@@ -7,21 +7,24 @@ const createOrder = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-        error: "Error creating an order", 
-        message: error.message
+        error: "Error creating an order model", 
+        message: error.message,
         });
     }
 }
 
 const getOrderById = async (req, res) => {
     try {
-        const order = await OrderService.getOrderById(req.body.id);
+        const order = await OrderService.getOrderById(req.params.id);
+        if(!order) {
+            throw new Error("There is not an existing order model with that id");
+        }
         res.status(201).json(order);
     }
     catch(error) {
         res.status(500).json({
-            error: "Error finding an order by id",
-            message: error.message
+            error: "Error finding an order model by id",
+            message: error.message,
         });
     }
 }
@@ -29,12 +32,15 @@ const getOrderById = async (req, res) => {
 const getAllOrders = async (req, res) => {
     try {
         const orders = await OrderService.getAllOrders();
+        if(!orders) {
+            throw new Error("There are no existing order models");
+        }
         res.status(201).json(orders);
     }
     catch(error) {
         res.status(500).json({
-            error: "Error getting all orders",
-            message: error.message
+            error: "Error getting all order models",
+            message: error.message,
         })
     }
 }
@@ -44,11 +50,10 @@ const updateOrder = async (req, res) => {
         const updated_order = await OrderService.updateOrder(req.body.id, req.body);
         res.status(201).json(updated_order);
     }
-
     catch(error) {
         res.status(500).json({
-            error: "Error updating an order",
-            message: error.message
+            error: "Error updating an order model",
+            message: error.message,
         })
     }
 }
@@ -56,13 +61,15 @@ const updateOrder = async (req, res) => {
 const deleteOrder = async (req, res) => {
     try {
         const deleted_order = await OrderService.deleteOrder(req.body.id);
+        if(!deleted_order) {
+            throw new Error("The order model you are trying to delete does not exist");
+        }
         res.status(201).json(deleted_order);
     }
-
     catch(error) {
         res.status(500).json({
-            error: "Error deleting an order",
-            message: error.message
+            error: "Error deleting an order model",
+            message: error.message,
         })
     }
 }
