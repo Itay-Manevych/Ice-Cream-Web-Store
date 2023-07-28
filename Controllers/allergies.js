@@ -1,4 +1,4 @@
-import { AllergiesService } from "../Services/allergies";
+import { AllergiesService } from "../Services/allergies.js";
 
 const createAllergies = async (req, res) => {
     try {
