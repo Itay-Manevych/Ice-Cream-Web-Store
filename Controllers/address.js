@@ -1,4 +1,4 @@
-import { AddressService } from "../Services/address";
+import { AddressService } from "../Services/address.js";
 
 const createAddress = async (req, res) => {
     try {
