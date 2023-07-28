@@ -1,4 +1,4 @@
-import Product from "../Models/Schemas/product"
+import Product from "../Models/Schemas/product.js"
 
 const createProduct = async (data) => {
     const new_product = new Product(data);

@@ -1,4 +1,4 @@
-import Category from "../Models/Schemas/category"
+import Category from "../Models/Schemas/category.js"
 
 const createCategory = async (data) => {
     const new_category = new Category(data);

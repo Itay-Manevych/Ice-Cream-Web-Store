@@ -1,4 +1,4 @@
-import { ProductService } from "../Services/product";
+import { ProductService } from "../Services/product.js";
 
 const createProduct = async (req, res) => {
     try {
@@ -16,6 +16,9 @@ const createProduct = async (req, res) => {
 const getProductById = async (req, res) => {
     try {
         const product = await ProductService.getProductById(req.body.id);
+        if(!product) {
+            throw new Error("The product is null");
+        }
         res.status(201).json(product);
     }
     catch(error) {
@@ -28,7 +31,7 @@ const getProductById = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
     try {
-        const Products = await ProductService.getAllProducts();
+        const products = await ProductService.getAllProducts();
         res.status(201).json(products);
     }
     catch(error) {
