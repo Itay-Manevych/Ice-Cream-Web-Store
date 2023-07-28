@@ -11,6 +11,9 @@ const Product = new mongoose.Schema({
     amount: Number,
     allergies: Allergies.schema,
     category: Category.schema,
-})
+}, {
+    required: true,
+    _id: false,
+});
 
 export default mongoose.model("Product", Product);
