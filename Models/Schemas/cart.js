@@ -11,7 +11,15 @@ const Additions = new mongoose.Schema({
 const ProductInfo = new mongoose.Schema({
     _id: Number,
     additions: Additions,
-    amount: Number,
+    amount: {
+        type: Number,
+        validate: {
+            validator: (value) => {
+                return value >= 0;
+            },
+            message: `${value} is not a valid value`,
+        },
+    },
 }, {
     required: true,
 });
