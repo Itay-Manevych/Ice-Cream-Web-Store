@@ -12,7 +12,7 @@ const port = 3000;
 
 const connectToMongoDB = async () => {
   try {
-    await mongoose.connect(process.env.CONNECTION_STRING, {
+    await mongoose.connect(process.env.DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
