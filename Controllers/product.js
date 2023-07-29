@@ -47,7 +47,7 @@ const getAllProducts = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
-        const updated_product = await ProductService.updateProduct(req.body.id, req.body);
+        const updated_product = await ProductService.updateProduct(req.params.id, req.body);
         res.status(201).json(updated_product);
     }
     catch(error) {
@@ -60,7 +60,7 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
-        const deleted_product = await ProductService.deleteProduct(req.body.id);
+        const deleted_product = await ProductService.deleteProduct(req.params.id);
         if(!deleted_product) {
             throw new Error("The product model you are trying to delete does not exist");
         }

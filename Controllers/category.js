@@ -47,7 +47,7 @@ const getAllCategories = async (req, res) => {
 
 const updateCategory = async (req, res) => {
     try {
-        const updated_category = await CategoryService.updateCategory(req.body.id, req.body);
+        const updated_category = await CategoryService.updateCategory(req.params.id, req.body);
         res.status(201).json(updated_category);
     }
     catch(error) {
@@ -60,7 +60,7 @@ const updateCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
     try {
-        const deleted_category = await CategoryService.deleteCategory(req.body.id);
+        const deleted_category = await CategoryService.deleteCategory(req.params.id);
         if(!deleted_category) {
             throw new Error("The category model you are trying to delete does not exist");
         }

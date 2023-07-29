@@ -47,7 +47,7 @@ const getAllAllergies = async (req, res) => {
 
 const updateAllergies = async (req, res) => {
     try {
-        const updated_allergies = await AllergiesService.updateAllergies(req.body.id, req.body);
+        const updated_allergies = await AllergiesService.updateAllergies(req.params.id, req.body);
         res.status(201).json(updated_allergies);
     }
     catch(error) {
@@ -60,7 +60,7 @@ const updateAllergies = async (req, res) => {
 
 const deleteAllergies = async (req, res) => {
     try {
-        const deleted_allergies = await AllergiesService.deleteAllergies(req.body.id);
+        const deleted_allergies = await AllergiesService.deleteAllergies(req.params.id);
         if(!deleted_allergies) {
             throw new Error("The allergies model you are trying to delete does not exist");
         }
