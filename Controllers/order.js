@@ -47,7 +47,7 @@ const getAllOrders = async (req, res) => {
 
 const updateOrder = async (req, res) => {
     try {
-        const updated_order = await OrderService.updateOrder(req.body.id, req.body);
+        const updated_order = await OrderService.updateOrder(req.params.id, req.body);
         res.status(201).json(updated_order);
     }
     catch(error) {
@@ -60,7 +60,7 @@ const updateOrder = async (req, res) => {
 
 const deleteOrder = async (req, res) => {
     try {
-        const deleted_order = await OrderService.deleteOrder(req.body.id);
+        const deleted_order = await OrderService.deleteOrder(req.params.id);
         if(!deleted_order) {
             throw new Error("The order model you are trying to delete does not exist");
         }
