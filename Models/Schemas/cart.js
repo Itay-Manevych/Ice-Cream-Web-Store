@@ -9,20 +9,18 @@ const Additions = new mongoose.Schema({
 });
 
 const ProductInfo = new mongoose.Schema({
-    id: Number,
+    _id: Number,
     additions: Additions,
     amount: Number,
 }, {
     required: true,
-    _id: false,
 });
 
 const Cart = new mongoose.Schema({
-    id: Number,
+    _id: Number,
     products_info: [ProductInfo],
 }, {
     required: true,
-    _id: false,
 });
 
 export default mongoose.model("Cart", Cart);

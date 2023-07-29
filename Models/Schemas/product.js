@@ -3,7 +3,7 @@ import Allergies from "./allergies.js";
 import Category from "./category.js";
 
 const Product = new mongoose.Schema({
-    id: Number,
+    _id: Number,
     name: String,
     description: String,
     image: Buffer,
@@ -13,7 +13,6 @@ const Product = new mongoose.Schema({
     category: Category.schema,
 }, {
     required: true,
-    _id: false,
 });
 
 export default mongoose.model("Product", Product);
