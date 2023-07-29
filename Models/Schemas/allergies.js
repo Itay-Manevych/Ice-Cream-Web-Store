@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const Allergies = new mongoose.Schema({
-    id: Number,
+    _id: Number,
     lactose: Boolean,
     nuts: Boolean,
     soy: Boolean,
@@ -9,7 +9,6 @@ const Allergies = new mongoose.Schema({
     eggs: Boolean,
 }, {
     required: true,
-    _id: false,
 });
 
 export default mongoose.model("Allergies", Allergies);
