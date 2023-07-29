@@ -1,20 +1,22 @@
+import dotenv from "dotenv"; 
 import express from "express";
 import bodyParser from "body-parser";
 import ProductRouter from "./Routes/product.js"
 import mongoose from "mongoose";
 
+const env_path = "./Config/.env";
+dotenv.config({path: env_path}); 
+
 const app = express();
 const port = 3000;
 
-// Step 1: Refactoring the MongoDB connection code into a function
 const connectToMongoDB = async () => {
   try {
-    await mongoose.connect(`mongodb://127.0.0.1:27017`, {
+    await mongoose.connect(process.env.CONNECTION_STRING, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-
-    console.log("Connected to MongoDB!");
+    console.log("Connected successfully to MongoDB!");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error.message);
   }
