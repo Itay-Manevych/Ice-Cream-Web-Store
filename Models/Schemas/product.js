@@ -4,7 +4,10 @@ import Category from "./category.js";
 
 const Product = new mongoose.Schema({
     _id: Number,
-    name: String,
+    name: {
+        type: String,
+        unique: true,
+    },
     description: String,
     image: Buffer,
     price: {
@@ -13,7 +16,7 @@ const Product = new mongoose.Schema({
             validator: (value) => {
                 return value >= 0;
             },
-            message: `${value} is not a valid value`,
+            message: "Price must have a valid value",
         },
     },
     quantity: {
@@ -22,7 +25,7 @@ const Product = new mongoose.Schema({
           validator: (value) => {
             return Number.isInteger(value) && value >= 0;
           },
-          message: `${VALUE} is not a valid value`,
+          message: "Quantity must have a valid value",
         },
     },
     allergies: Allergies.schema,
