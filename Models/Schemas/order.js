@@ -15,7 +15,7 @@ const Order = new mongoose.Schema({
             validator: (value) => {
                 return value > 0;
             },
-            message: `${value} is not a valid value`,
+            message: "Amount must be a valid value",
         },
     },
     date: Date,
