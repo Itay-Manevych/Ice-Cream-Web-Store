@@ -3,7 +3,7 @@ import Address from "./address.js";
 import Cart from "./cart.js";
 
 const Order = new mongoose.Schema({
-    id: Number,
+    _id: Number,
     name: String,
     email: String,
     products_info: Cart.schema,
@@ -14,7 +14,6 @@ const Order = new mongoose.Schema({
     status: { type: Number, enum: [0,1,2,3] } // pending = 0, approved = 1, on-the-way = 2, delivered = 3  
 }, {
     required: true,
-    _id: false,
 });
 
 export default mongoose.model("Order", Order);
