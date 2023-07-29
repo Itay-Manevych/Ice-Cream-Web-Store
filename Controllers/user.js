@@ -47,7 +47,7 @@ const getAllUsers = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        const updated_user = await UserService.updateUser(req.body.id, req.body);
+        const updated_user = await UserService.updateUser(req.params.id, req.body);
         res.status(201).json(updated_user);
     }
     catch(error) {
@@ -60,7 +60,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        const deleted_user = await UserService.deleteUser(req.body.id);
+        const deleted_user = await UserService.deleteUser(req.params.id);
         if(!deleted_user) {
             throw new Error("The user model you are trying to delete does not exist");
         }
