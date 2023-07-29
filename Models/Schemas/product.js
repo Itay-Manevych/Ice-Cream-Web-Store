@@ -7,8 +7,24 @@ const Product = new mongoose.Schema({
     name: String,
     description: String,
     image: Buffer,
-    in_stock: Boolean,
-    amount: Number,
+    price: {
+        type: Number,
+        validate: {
+            validator: (value) => {
+                return value >= 0;
+            },
+            message: `${value} is not a valid value`,
+        },
+    },
+    quantity: {
+        type: Number,
+        validate: {
+          validator: (value) => {
+            return Number.isInteger(value) && value >= 0;
+          },
+          message: `${VALUE} is not a valid value`,
+        },
+    },
     allergies: Allergies.schema,
     category: Category.schema,
 }, {
