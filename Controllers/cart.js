@@ -47,7 +47,7 @@ const getAllCarts = async (req, res) => {
 
 const updateCart = async (req, res) => {
     try {
-        const updated_cart = await CartService.updateCart(req.body.id, req.body);
+        const updated_cart = await CartService.updateCart(req.params.id, req.body);
         res.status(201).json(updated_cart);
     }
     catch(error) {
@@ -60,7 +60,7 @@ const updateCart = async (req, res) => {
 
 const deleteCart = async (req, res) => {
     try {
-        const deleted_cart = await CartService.deleteCart(req.body.id);
+        const deleted_cart = await CartService.deleteCart(req.params.id);
         if(!deleted_cart) {
             throw new Error("The cart model you are trying to delete does not exist");
         }

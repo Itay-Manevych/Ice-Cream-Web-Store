@@ -47,7 +47,7 @@ const getAllAddresses = async (req, res) => {
 
 const updateAddress = async (req, res) => {
     try {
-        const updated_address = await AddressService.updateAddress(req.body.id, req.body);
+        const updated_address = await AddressService.updateAddress(req.params.id, req.body);
         res.status(201).json(updated_address);
     }
     catch(error) {
@@ -60,7 +60,7 @@ const updateAddress = async (req, res) => {
 
 const deleteAddress = async (req, res) => {
     try {
-        const deleted_address = await AddressService.deleteAddress(req.body.id);
+        const deleted_address = await AddressService.deleteAddress(req.params.id);
         if(!deleted_address) {
             throw new Error("The address model you are trying to delete does not exist");
         }
