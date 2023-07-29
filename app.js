@@ -8,7 +8,6 @@ const env_path = "./Config/.env";
 dotenv.config({path: env_path}); 
 
 const app = express();
-const port = 3000;
 
 const connectToMongoDB = async () => {
   try {
@@ -32,8 +31,8 @@ app.get("/", (req, res) => {
   res.send("test");
 });
 
-app.listen(port, () => {
-  console.log(`server runs on port ${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`server runs on port ${process.env.PORT}`);
 });
 
 
