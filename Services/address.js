@@ -1,4 +1,4 @@
-import Address from "../Models/Schemas/address"
+import Address from "../Models/Schemas/address.js"
 
 const createAddress = async (data) => {
     const new_address = new Address(data);

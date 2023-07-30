@@ -1,4 +1,4 @@
-import Order from "../Models/Schemas/order"
+import Order from "../Models/Schemas/order.js"
 
 const createOrder = async (data) => {
     const new_order = new Order(data);
