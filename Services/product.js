@@ -1,6 +1,11 @@
 import Product from "../Models/Schemas/product.js"
+import { CategoryService } from "./category.js";
 
 const createProduct = async (data) => {
+    const category = await CategoryService.getCategoryByName(data.category.name);
+    if(!category) {
+        await CategoryService.createCategory(data.category);
+    }
     const new_product = new Product(data);
     return await new_product.save();
 }
