@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Product from "./product";
 
 const Additions = new mongoose.Schema({
     sprinkles: Boolean,
@@ -9,7 +10,7 @@ const Additions = new mongoose.Schema({
 });
 
 const ProductInfo = new mongoose.Schema({
-    _id: Number,
+    product: Product.schema,
     additions: Additions,
     amount: {
         type: Number,
