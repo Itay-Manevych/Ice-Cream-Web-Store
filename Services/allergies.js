@@ -1,4 +1,4 @@
-import Allergies from "../Models/Schemas/allergies.js"
+import Allergies from "../Models/Schemas/allergies.js";
 
 const createAllergies = async (data) => {
     const new_allergies = new Allergies(data);

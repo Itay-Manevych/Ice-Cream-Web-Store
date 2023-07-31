@@ -1,4 +1,4 @@
-import User from "../Models/Schemas/user.js"
+import User from "../Models/Schemas/user.js";
 
 const createUser = async (data) => {
     const new_user = new User(data);
