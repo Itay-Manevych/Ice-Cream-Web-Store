@@ -29,7 +29,7 @@ const Product = new mongoose.Schema({
         },
     },
     allergies: Allergies.schema,
-    category: Category.schema,
+    category: [Category.schema],
 }, {
     required: true,
 });
