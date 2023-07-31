@@ -2,14 +2,6 @@ import mongoose from "mongoose";
 import Allergies from "./allergies.js";
 import Category from "./category.js";
 
-const Additions = new mongoose.Schema({
-    sprinkles: Boolean,
-    hot_chocolate: Boolean,
-    gummy_bears: Boolean,
-}, {
-    required: true,
-});
-
 const Product = new mongoose.Schema({
     _id: Number,
     name: {
@@ -18,7 +10,6 @@ const Product = new mongoose.Schema({
     },
     description: String,
     image: Buffer,
-    additions: Additions,
     price: {
         type: Number,
         validate: {
