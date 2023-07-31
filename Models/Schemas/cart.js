@@ -1,8 +1,17 @@
 import mongoose from "mongoose";
 import Product from "./product";
 
+const Additions = new mongoose.Schema({
+    sprinkles: Boolean,
+    hot_chocolate: Boolean,
+    gummy_bears: Boolean,
+}, {
+    required: true,
+});
+
 const ProductInfo = new mongoose.Schema({
     product: Product.schema,
+    additions: Additions,
     amount: {
         type: Number,
         validate: {
