@@ -1,10 +1,17 @@
 import dotenv from "dotenv"; 
 import express from "express";
 import bodyParser from "body-parser";
-import ProductRouter from "./Routes/product.js"
 import mongoose from "mongoose";
 
+import ProductRouter from "./Routes/product.js";
+import CategoryRouter from "./Routes/category.js";
+import OrderRouter from "./Routes/order.js";
+import UserRouter from "./Routes/user.js";
+import CartRouter from "./Routes/cart.js";
+
+
 const env_path = "./Config/.env";
+
 dotenv.config({path: env_path}); 
 
 const app = express();
@@ -26,6 +33,10 @@ connectToMongoDB();
 app.use(bodyParser.json());
 
 app.use("/products", ProductRouter);
+app.use("/categories", CategoryRouter);
+app.use("/orders", OrderRouter);
+app.use("/users", UserRouter);
+app.use("/carts", CartRouter);
 
 app.get("/", (req, res) => {
   res.send("test");

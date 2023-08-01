@@ -7,7 +7,7 @@ const createProduct = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-        error: "Error creating an product model", 
+        error: "Error creating a product model", 
         message: error.message,
         });
     }
@@ -23,7 +23,7 @@ const getProductById = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-            error: "Error finding an product model by id",
+            error: "Error finding a product model by id",
             message: error.message,
         });
     }

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Product from "./product";
+import Product from "./product.js";
 
 const Additions = new mongoose.Schema({
     sprinkles: Boolean,
@@ -18,7 +18,7 @@ const ProductInfo = new mongoose.Schema({
             validator: (value) => {
                 return value >= 0;
             },
-            message: `${value} is not a valid value`,
+            message: "Amount must have a valid value",
         },
     },
 }, {
