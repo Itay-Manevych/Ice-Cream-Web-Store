@@ -1,4 +1,4 @@
-import Cart from "../Models/Schemas/cart.js"
+import Cart from "../Models/Schemas/cart.js";
 
 const createCart = async (data) => {
     const new_cart = new Cart(data);

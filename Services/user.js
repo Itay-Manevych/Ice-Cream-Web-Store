@@ -1,4 +1,4 @@
-import User from "../Models/Schemas/user.js"
+import User from "../Models/Schemas/user.js";
 
 const createUser = async (data) => {
     const new_user = new User(data);
@@ -21,4 +21,4 @@ const deleteUser = async (id) => {
     return await User.findByIdAndDelete(id);
 }
 
-export const userService = {createUser, getUserById, getAllUsers, updateUser, deleteUser};
+export const UserService = {createUser, getUserById, getAllUsers, updateUser, deleteUser};

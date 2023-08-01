@@ -13,17 +13,17 @@ const createCategory = async (req, res) => {
     }
 }
 
-const getCategoryById = async (req, res) => {
+const getCategoryByName = async (req, res) => {
     try {
-        const category = await CategoryService.getCategoryById(req.params.id);
+        const category = await CategoryService.getCategoryByName(req.params.name);
         if(!category) {
-            throw new Error("There is not an existing category model with that id");
+            throw new Error("There is not an existing category model with that name");
         }
         res.status(201).json(category);
     }
     catch(error) {
         res.status(500).json({
-            error: "Error finding a category model by id",
+            error: "Error finding a category model by name",
             message: error.message,
         });
     }
@@ -47,7 +47,7 @@ const getAllCategories = async (req, res) => {
 
 const updateCategory = async (req, res) => {
     try {
-        const updated_category = await CategoryService.updateCategory(req.params.id, req.body);
+        const updated_category = await CategoryService.updateCategory(req.params.name, req.body);
         res.status(201).json(updated_category);
     }
     catch(error) {
@@ -60,7 +60,7 @@ const updateCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
     try {
-        const deleted_category = await CategoryService.deleteCategory(req.params.id);
+        const deleted_category = await CategoryService.deleteCategory(req.params.name);
         if(!deleted_category) {
             throw new Error("The category model you are trying to delete does not exist");
         }
@@ -74,4 +74,4 @@ const deleteCategory = async (req, res) => {
     }
 }
 
-export const CategoryController = {createCategory, getCategoryById, getAllCategories, updateCategory, deleteCategory};
+export const CategoryController = {createCategory, getCategoryByName, getAllCategories, updateCategory, deleteCategory};
