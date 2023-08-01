@@ -21,4 +21,4 @@ const deleteUser = async (id) => {
     return await User.findByIdAndDelete(id);
 }
 
-export const userService = {createUser, getUserById, getAllUsers, updateUser, deleteUser};
+export const UserService = {createUser, getUserById, getAllUsers, updateUser, deleteUser};
