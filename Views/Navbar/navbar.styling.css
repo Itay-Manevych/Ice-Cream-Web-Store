@@ -1,0 +1,33 @@
+.navbar{
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: bisque;
+    height: 3.3rem;
+}
+.nav_item {
+    background-color: #4970e5;
+    color: white;
+    margin: 0rem 0.4rem;
+    padding: 0.7rem 1rem;
+    text-align: center;
+    font-size: x-large;
+}
+.nav_item:hover{
+    background-color: #5b83fd;
+}
+#logo_btn{
+    margin-left: 11.1rem;
+}
+#search_input{
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    text-align: start;
+    width: 30rem;
+   margin-left: 4rem;
+}
+#search_btn{
+    border-radius: 10px;
+    background-color: gray;
+    margin-right: 4rem;
+}
