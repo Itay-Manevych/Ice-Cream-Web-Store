@@ -31,6 +31,9 @@ const connectToMongoDB = async () => {
 connectToMongoDB();
 
 app.use(bodyParser.json());
+app.use(express.static('Views'))
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
 app.use("/products", ProductRouter);
 app.use("/categories", CategoryRouter);
@@ -39,7 +42,7 @@ app.use("/users", UserRouter);
 app.use("/carts", CartRouter);
 
 app.get("/", (req, res) => {
-  res.send("test");
+  res.render('./Navbar/navbar');
 });
 
 app.listen(process.env.PORT, () => {
