@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .navbar{
+            display: flex;
+            flex-wrap: nowrap;
+            background-color: bisque;
+            height: 3.3rem;
+        }
+        .nav_item {
+            background-color: #4970e5;
+            color: white;
+            margin: 0rem 0.4rem;
+            padding: 0.7rem 1rem;
+            text-align: center;
+            font-size: x-large;
+        }
+        .nav_item:hover{
+            background-color: #5b83fd;
+        }
+        #logo_btn{
+            margin-left: 11.1rem;
+        }
+        #search_input{
+            border-radius: 10px;
+            background-color: white;
+            color: black;
+            text-align: start;
+            width: 30rem;
+           margin-left: 4rem;
+        }
+        #search_btn{
+            border-radius: 10px;
+            background-color: gray;
+            margin-right: 4rem;
+        }
+        
+    </style>
+
+    <nav class = "navbar"> 
+        <button id = "logo_btn" class = "nav_item">logo</button> 
+        <button id = "about_btn" class = "nav_item">about us</button>
+        <input id = "search_input" class = "nav_item"> <button id = "search_btn" class = "nav_item">search</button>
+        <button id = "user_btn" class = "nav_item">user</button>
+        <button id = "cart_btn" class = "nav_item">cart</button>
+    </nav>
+</html>
+
+<script>
+    const logo_btn = $("#logo_btn")[0];
+    const about_btn = $("#about_btn")[0];
+    const search_input = $("#search_input")[0];
+    const search_btn = $("#search_btn")[0];
+    const user_btn = $("#user_btn")[0];
+    const cart_btn = $("#cart_btn")[0];
+
+    function MainPage(){
+        window.location.href = "https://localhost:3000/";
+    }
+
+    function aboutPage(){
+        //window.location.href = "https://localhost:3000/about_us";
+    }
+
+    function search(){
+        //if(search_input.nodeValue != ""){
+             
+        //}
+    }
+
+    function user(){
+        
+    }
+
+    function cart(){
+        
+    }
+
+    logo_btn.onclick = MainPage;
+    about_btn.onclick = aboutPage;
+    search_btn.onclick = search;
+    user_btn.onclick = user;
+    cart_btn.onclick = cart;
+</script>
