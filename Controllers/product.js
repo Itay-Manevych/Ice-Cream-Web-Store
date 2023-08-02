@@ -29,6 +29,22 @@ const getProductById = async (req, res) => {
     }
 }
 
+const getAllProductsByCategory = async (req, res) => {
+    try {
+        const products = await ProductService.getAllProductsByCategory(req.body);
+        if(!products) {
+            throw new Error("There are no existing products in that category");
+        }
+        res.status(201).json(products);
+    }
+    catch(error) {
+        res.status(500).json({
+            error: `Error getting all products in ${req.params.category_name} category`,
+            message: error.message,
+        })
+    }
+}
+
 const getAllProducts = async (req, res) => {
     try {
         const products = await ProductService.getAllProducts();
@@ -74,4 +90,4 @@ const deleteProduct = async (req, res) => {
     }
 }
 
-export const ProductController = {createProduct, getProductById, getAllProducts, updateProduct, deleteProduct};
+export const ProductController = {createProduct, getProductById, getAllProductsByCategory, getAllProducts, updateProduct, deleteProduct};
