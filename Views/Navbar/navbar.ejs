@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="../Navbar/navbar.styling.css">
-
+        <link rel = "stylesheet" type = "text/css" href = "../Navbar/navbar.styling.css">
     </head>
 
     <body class = "body">
         <nav class = "navbar"> 
-            <div class="us_box">
+            <div class = "us_box">
                 <button id = "logo_btn" class = "nav_item">logo</button> 
                 <button id = "about_btn" class = "nav_item">about us</button>
             </div>
-            <div class="search_box">
+            <form class = "search_box">
                 <input id = "search_input" class = "nav_item"> 
                 <button class = "search nav_item" id = "search_btn"></button>
-            </div>
-            <div class="user_box">
-                <button id = "user_btn" class = "nav_item">user</button>
-                <button id = "cart_btn" class = "nav_item">cart</button>
+            </form>
+            <div class = "user_box">
+                <button id = "user_btn" class = "nav_item"></button>
+                <button id = "cart_btn" class = "nav_item"></button>
             </div>
         </nav>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+        <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity = "sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+        <script src = "https://code.jquery.com/jquery-3.7.0.js" integrity = "sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM = " crossorigin = "anonymous"></script>
+        
         <script>
             const logo_btn = $("#logo_btn")[0];
             const about_btn = $("#about_btn")[0];
@@ -31,7 +32,7 @@
             const cart_btn = $("#cart_btn")[0];
         
             function MainPage(){
-                //window.location.href = "https://localhost:3000";
+                //window.location.href = "https://localhost:3000/";
             }
         
             function aboutPage(){
