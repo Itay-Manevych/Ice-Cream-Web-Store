@@ -11,11 +11,12 @@
 .nav_item {
     background-color: #4970e5;
     color: white;
-    margin: 0rem 0.4rem;
+    margin: 0.2rem 0.4rem;
     padding: 0.7rem 1rem;
     text-align: center;
     font-size: x-large;
     border: none;
+    border-radius: 1rem;
 }
 .nav_item:hover{
     background-color: dodgerblue;
@@ -27,7 +28,7 @@
     text-align: start;
     width: 30rem;
     padding: 0.4rem 0.7rem;
-    margin: 0.3rem 0rem;
+    margin: 0.4rem 0rem;
     margin-left: 7.3rem;
 }
 #search_input:focus,#search_input:hover{
@@ -35,25 +36,19 @@
     color: dodgerblue;
     outline: none;
 }
-#search_btn:hover{
-    color: bisque;
-}
-.img{
-    width: 2.8rem;
-    height: 2.8rem;
-    border-radius: 50%;
-    border: none;
-    margin-top: 0.2rem;
-}
-.img:hover{ 
-}
 #search_btn{
-    background-color: inherit;
-    color: bisque;
-    appearance: none;
-    cursor: pointer;
-    border: none;
+    background-color: rgb(149, 200, 250);
+    background-image: url(SearchIcon2.jpg);
     border-radius: 50%;
-    padding: 0rem;
+    background-size: 97%;
+    padding:0rem;
+    width: 2.9rem;
+    height:2.9rem;
     margin-right: 3rem;
+    margin-top: 0.2rem;
+    
 }
+#search_btn:hover{
+    background-color: dodgerblue;
+}
+
