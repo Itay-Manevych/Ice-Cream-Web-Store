@@ -29,6 +29,27 @@ const getProductById = async (req, res) => {
     }
 }
 
+const filterProductsByCategory = async (category_name) => {
+    const pipeline = [
+      {
+        $match: {
+          "categories.name": category_name
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          description: 1,
+          price: 1,
+          quantity: 1,
+        }
+      }
+    ];
+
+    return await Product.aggregate(pipeline);
+};
+
 const getAllProducts = async (req, res) => {
     try {
         const products = await ProductService.getAllProducts();
@@ -74,4 +95,4 @@ const deleteProduct = async (req, res) => {
     }
 }
 
-export const ProductController = {createProduct, getProductById, getAllProducts, updateProduct, deleteProduct};
+export const ProductController = {createProduct, getProductById, filterProductsByCategory, getAllProducts, updateProduct, deleteProduct};
