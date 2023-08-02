@@ -5,16 +5,17 @@
 .navbar {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content:space-around;
     align-items: center;
-    background-color:dodgerblue;
+    background-color: rgb(139, 193, 247);
     height: 4rem;
 }
 
 .nav_item {
-    background-color: #4970e5;
-    width: 4rem;
-    height: 2.5rem;
+    font-size: large;
+    background-color: rgb(79, 166, 253);
+    width: 4.5rem;
+    height: 2.7rem;
     color: white;
     border: none;
     border-radius: 0.7rem;
@@ -24,30 +25,51 @@
     background-color: dodgerblue;
 }
 
+#about_btn{
+    width: 6rem;
+}
+
 #search_input {
     border-radius: 1rem;
-    background-color: rgb(149, 200, 250);
     color: whitesmoke;
     text-align: start;
     width: 25rem;
     height: 2.5rem;
 }
 
-#search_input:focus,#search_input:hover {
+#search_input:focus, #search_input:hover, #search_btn:hover{
     background-color: gainsboro;
     color: dodgerblue;
     outline: none;
 }
 
 #search_btn {
-    background-color: rgb(149, 200, 250);
     background-image: url(SearchIcon2.jpg);
     background-size: contain;
-    width: 2.5rem;
+    width: 2.7rem;
     border-radius: 50%;
 }
 
-#search_btn:hover {
-    background-color: dodgerblue;
+.us_box{
+    column-gap: 6rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
 
+.search_box{
+    column-gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.user_box{
+    column-gap: 6rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
