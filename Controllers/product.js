@@ -1,4 +1,3 @@
-import { CategoryService } from "../Services/category.js";
 import { ProductService } from "../Services/product.js";
 
 const createProduct = async (req, res) => {
