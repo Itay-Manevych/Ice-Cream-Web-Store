@@ -1,3 +1,4 @@
+import { CategoryService } from "../Services/category.js";
 import { ProductService } from "../Services/product.js";
 
 const createProduct = async (req, res) => {
@@ -31,15 +32,15 @@ const getProductById = async (req, res) => {
 
 const getAllProductsByCategory = async (req, res) => {
     try {
-        const products = await ProductService.getAllProductsByCategory(req.body);
-        if(!products) {
+        const products = await ProductService.filterProductsByCategory(req.params.name);
+        if(products.length === 0) {
             throw new Error("There are no existing products in that category");
         }
         res.status(201).json(products);
     }
     catch(error) {
         res.status(500).json({
-            error: `Error getting all products in ${req.params.category_name} category`,
+            error: `Error getting all products in ${req.params.name} category`,
             message: error.message,
         })
     }
