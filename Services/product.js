@@ -15,15 +15,6 @@ const filterProductsByCategory = async (category_name) => {
         $match: {
           "categories.name": category_name
         }
-      },
-      {
-        $project: {
-          _id: 1,
-          name: 1,
-          description: 1,
-          price: 1,
-          quantity: 1,
-        }
       }
     ];
 
