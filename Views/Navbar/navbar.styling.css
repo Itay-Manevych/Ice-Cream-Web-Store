@@ -1,33 +1,99 @@
-.navbar{
+.body {
+    margin: 0rem;
+}
+
+.navbar {
     display: flex;
-    flex-wrap: nowrap;
-    background-color: bisque;
-    height: 3.3rem;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(139, 193, 247);
+    height: 4rem;
 }
+
 .nav_item {
-    background-color: #4970e5;
+    font-size: large;
+    background-color: rgb(139, 193, 247);
+    /* background-color: rgb(79, 166, 253); */
+    width: 4.5rem;
+    height: 2.7rem;
     color: white;
-    margin: 0rem 0.4rem;
-    padding: 0.7rem 1rem;
-    text-align: center;
-    font-size: x-large;
+    border: none;
+    border-radius: 0.7rem;
 }
-.nav_item:hover{
-    background-color: #5b83fd;
+
+.nav_item:hover {
+    background-color: dodgerblue;
+    cursor: pointer;
 }
-#logo_btn{
-    margin-left: 11.1rem;
+
+#about_btn{
+    width: 6rem;
+    /* background-color: rgb(139, 193, 247); */
 }
-#search_input{
-    border-radius: 10px;
-    background-color: white;
-    color: black;
+
+#about_btn:hover {
+    /* background-color: rgb(79, 166, 253); */
+}
+
+#search_input {
+    border-radius: 1rem;
+    color: whitesmoke;
     text-align: start;
-    width: 30rem;
-   margin-left: 4rem;
+    width: 25rem;
+    height: 2.5rem;
 }
-#search_btn{
-    border-radius: 10px;
-    background-color: gray;
-    margin-right: 4rem;
+
+#search_input:focus, #search_input:hover, #search_btn:hover{
+    cursor: text;
+    background-color: gainsboro;
+    color: dodgerblue;
+    outline: none;
+}
+
+#search_btn {
+    background-image: url("../Assets/SearchIcon2.jpg");
+    background-size: contain;
+    width: 2.59rem;
+    height: 2.59rem;
+    border-radius: 50%;
+    position: absolute;
+    margin-right: -0.3rem;
+}
+
+#user_btn{
+    background-image: url("../Assets/user.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#cart_btn{
+    background-image: url("../Assets/cart.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: 1rem 0.25rem;
+}
+
+.us_box{
+    column-gap: 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.search_box{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+}
+
+.user_box{
+    column-gap: 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
