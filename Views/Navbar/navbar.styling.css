@@ -28,6 +28,15 @@
     cursor: pointer;
 }
 
+#logo_btn{
+    background-image: url("../Assets/frozen-fatntasies-logo.png");
+    background-size:125%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 5rem;
+    height: 3rem;
+}
+
 #about_btn{
     width: 6rem;
     /* background-color: rgb(139, 193, 247); */
