@@ -76,7 +76,7 @@
 }
 
 .us_box{
-    column-gap: 4rem;
+    gap: 4rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -91,7 +91,7 @@
 }
 
 .user_box{
-    column-gap: 4rem;
+    gap: 2rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
