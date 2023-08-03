@@ -9,16 +9,16 @@
             <div class = "us_box">
                 <button id = "logo_btn" class = "nav_item">logo</button> 
                 <button id = "about_btn" class = "nav_item">About Us</button>
-                <button id = "about_btn" class = "nav_item">Shop</button>
-                <button id = "about_btn" class = "nav_item">Sale</button>
+                <button id = "shop_btn" class = "nav_item">Shop</button>
+                <button id = "sale_btn" class = "nav_item">Sale</button>
             </div>
-            <form class = "search_box">
-                <input id = "search_input" class = "nav_item"> 
-            </form>
             <div class = "user_box">
                 <button class = "search nav_item" id = "search_btn"></button>
                 <button id = "user_btn" class = "nav_item"></button>
                 <button id = "cart_btn" class = "nav_item"></button>
+            </div>
+            <div class = "search_box">
+                <input id = "search_input" class = "nav_item"> 
             </div>
         </nav>
 
@@ -28,12 +28,14 @@
         <script>
             const logo_btn = $("#logo_btn")[0];
             const about_btn = $("#about_btn")[0];
-            const search_input = $("#search_input")[0];
             const search_btn = $("#search_btn")[0];
             const user_btn = $("#user_btn")[0];
             const cart_btn = $("#cart_btn")[0];
+            const search_input = $("#search_input")[0];
+            const search_box = $("#search_box")[0];
+
         
-            function MainPage(){
+            function mainPage(){
                 //window.location.href = "https://localhost:3000/";
             }
         
@@ -41,10 +43,8 @@
                 //window.location.href = "https://localhost:3000/about_us/";
             }
         
-            function search(){
-                //if(search_input.nodeValue != ""){
-                     
-                //}
+            function openSearch(){
+                search_box.style.display = flex;
             }
         
             function user(){
@@ -55,9 +55,9 @@
                 
             }
         
-            logo_btn.onclick = MainPage;
+            logo_btn.onclick = mainPage;
             about_btn.onclick = aboutPage;
-            search_btn.onclick = search;
+            search_btn.onclick = openSearch;
             user_btn.onclick = user;
             cart_btn.onclick = cart;
         </script>

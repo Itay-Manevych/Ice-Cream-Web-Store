@@ -23,7 +23,8 @@
 }
 
 .nav_item:hover {
-    background-color: dodgerblue;
+    text-decoration: underline;
+    color:gray;
     cursor: pointer;
 }
 
@@ -32,33 +33,24 @@
     /* background-color: rgb(139, 193, 247); */
 }
 
-#about_btn:hover {
-    /* background-color: rgb(79, 166, 253); */
-}
-
 #search_input {
     border-radius: 1rem;
-    color: whitesmoke;
+    color: black;
     text-align: start;
     width: 25rem;
     height: 2.5rem;
+    background-color: gainsboro;
 }
 
-#search_input:focus, #search_input:hover, #search_btn:hover{
+#search_input:focus, #search_input:hover{
     cursor: text;
-    background-color: gainsboro;
-    color: dodgerblue;
     outline: none;
 }
 
 #search_btn {
     background-image: url("../Assets/SearchIcon2.jpg");
     background-size: contain;
-    width: 2.59rem;
-    height: 2.59rem;
-    border-radius: 50%;
-    position: absolute;
-    margin-right: -0.3rem;
+    width: 2.8rem;
 }
 
 #user_btn{
@@ -75,6 +67,10 @@
     background-position: 1rem 0.25rem;
 }
 
+#cart_btn:hover{
+    filter: brightness(120%);
+}
+
 .us_box{
     gap: 4rem;
     display: flex;
@@ -84,7 +80,7 @@
 }
 
 .search_box{
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: end;
     align-items: center;
