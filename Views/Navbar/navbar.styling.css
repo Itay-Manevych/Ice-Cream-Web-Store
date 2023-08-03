@@ -33,24 +33,10 @@
     /* background-color: rgb(139, 193, 247); */
 }
 
-#search_input {
-    border-radius: 1rem;
-    color: black;
-    text-align: start;
-    width: 25rem;
-    height: 2.5rem;
-    background-color: gainsboro;
-}
-
-#search_input:focus, #search_input:hover{
-    cursor: text;
-    outline: none;
-}
-
 #search_btn {
     background-image: url("../Assets/SearchIcon2.jpg");
     background-size: contain;
-    width: 2.8rem;
+    width: 2.7rem;
 }
 
 #user_btn{
@@ -79,17 +65,57 @@
     align-items: center;
 }
 
-.search_box{
-    display: none;
-    flex-direction: row;
-    justify-content: end;
-    align-items: center;
-}
-
 .user_box{
     gap: 2rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+}
+
+.search_box{
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color:whitesmoke;
+    height: 4rem;
+    display: none;
+    gap: 1rem;
+}
+
+.search_item{
+    font-size: large;
+    background-color: whitesmoke;
+    color: gray;
+    border: none;
+    border-radius: 0.7rem;
+}
+
+#search_exit{
+    background-color: blue;
+    width: 2.7rem;
+    height: 2.7rem;
+}
+
+#search_input {
+    border-radius: 1rem;
+    color: black;
+    text-align: start;
+    width: 25rem;
+    height: 2.5rem;
+    border: none;
+    background-color: white;
+    border-radius: 0.7rem;
+    font-size: large;
+    cursor: pointer;
+}
+
+#search_input:focus, #search_input:hover{
+    cursor: text;
+}
+
+#search_box_btn{
+    background-color: blue;
+    width: 2.7rem;
+    height: 2.7rem;
 }
