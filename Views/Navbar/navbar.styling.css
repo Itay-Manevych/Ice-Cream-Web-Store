@@ -24,13 +24,13 @@
 
 .nav_item:hover {
     text-decoration: underline;
-    color:gray;
+    color: gray;
     cursor: pointer;
 }
 
 #logo_btn{
     background-image: url("../Assets/frozen-fatntasies-logo.png");
-    background-size:125%;
+    background-size: 125%;
     background-repeat: no-repeat;
     background-position: center;
     width: 5rem;
@@ -39,15 +39,18 @@
 
 #about_btn{
     width: 6rem;
-    /* background-color: rgb(139, 193, 247); */
 }
 
 #search_btn {
     background-image: url("../Assets/SearchIcon2.jpg");
-    background-size: 88%;
-    width: 2.7rem;
+    background-size: 82%;
+    width: 3rem;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+#search_btn:hover{
+    background-size: 84.1%;
 }
 
 #user_btn{
@@ -55,6 +58,10 @@
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+#user_btn:hover{
+    background-size: 52%;
 }
 
 #cart_btn{
@@ -65,7 +72,8 @@
 }
 
 #cart_btn:hover{
-    filter: brightness(120%);
+    background-size: 52%;
+    background-position: 0.98rem 0.15rem;
 }
 
 .us_box{
@@ -88,7 +96,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    background-color:whitesmoke;
+    background-color: whitesmoke;
     height: 4rem;
     display: none;
     gap: 1rem;
@@ -100,12 +108,26 @@
     color: gray;
     border: none;
     border-radius: 0.7rem;
+    cursor: pointer;
+}
+
+.box{
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: whitesmoke;
+    height: 4rem;
+    display: flex;
+    gap: 2rem;
 }
 
 #search_exit{
-    background-color: blue;
-    width: 2.7rem;
-    height: 2.7rem;
+    background-image: url("../Assets/xIcon.png");
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 2.9rem;
+    height: 2.9rem;
 }
 
 #search_input {
@@ -118,7 +140,6 @@
     background-color: white;
     border-radius: 0.7rem;
     font-size: large;
-    cursor: pointer;
 }
 
 #search_input:focus, #search_input:hover{
@@ -128,7 +149,6 @@
 #search_box_btn{
     background-image: url("../Assets/SearchIcon2.jpg");
     background-size: 88%;
-    width: 2.7rem;
     background-repeat: no-repeat;
     background-position: center;
     width: 2.7rem;
