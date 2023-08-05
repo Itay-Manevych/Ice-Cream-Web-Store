@@ -1,4 +1,5 @@
 .body {
+    user-select: none;
     min-height: 100vh;
     margin: 0rem;
 }
@@ -122,6 +123,7 @@ nav.navbar {
     gap: 3rem;
 }
 
+/*
 #search_exit{
     background-image: url("../Assets/xIcon.png");
     background-size: 70%;
@@ -129,7 +131,7 @@ nav.navbar {
     background-position: center;
     width: 4rem;
     height: 4rem;
-}
+}*/
 
 #search_input {
     border-radius: 2rem;
@@ -156,6 +158,7 @@ nav.navbar {
     width: 4rem;
     height: 4rem;
 }
+
 #close{
     width: 1.7rem;
     height: 1.7rem;
