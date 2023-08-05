@@ -156,3 +156,8 @@ nav.navbar {
     width: 4rem;
     height: 4rem;
 }
+#close{
+    width: 1.7rem;
+    height: 1.7rem;
+    background-size: 75%;
+}
