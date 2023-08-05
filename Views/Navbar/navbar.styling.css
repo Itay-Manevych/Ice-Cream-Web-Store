@@ -14,7 +14,7 @@ nav.navbar {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 8rem;
+    height: 7rem;
 }
 
 .nav_item {
@@ -22,7 +22,7 @@ nav.navbar {
     align-items: center;
     justify-content: center;
     font-size: xx-large;
-    width: 9rem;
+    width: 8rem;
     height: fit-content;
     border: none;
     border-radius: 1.4rem;
@@ -36,14 +36,10 @@ nav.navbar {
 }
 
 #logo_btn {
-    height: 16rem;
-    width: 16rem;
-    /* object-fit: contain; */
-}
-
-#logo_btn img {
-    width: 100%;
-    height: 100%;
+    background-position: center;
+    height: 6rem;
+    width: 8rem;
+    border: none;
     /* object-fit: contain; */
 }
 
@@ -51,9 +47,11 @@ nav.navbar {
     width: 12rem;
 }
 
+/*
 #search_btn {
     height: 8rem;
 }
+
 
 #search_btn:hover{
     background-size: 52%;
@@ -75,33 +73,35 @@ nav.navbar {
 
 #cart_btn:hover{
     background-size: 52%;
-}
+}*/
 
 .us_box{
+    margin-top: -0.5rem;
     gap: 4rem;
     display: flex;
     margin-left: 5rem;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 100%;
+    height: 7rem;
 }
 
 .user_box{
+    margin-top: -0.5rem;
     display: flex;
     flex-direction: row;
-    margin-right: 5rem;
+    margin-right: 5.5rem;
     justify-content: space-around;
     align-items: center;
-    height: 8rem;
-    gap: 3rem;
+    height: 7rem;
+    gap: 4rem;
 }
 
 .search_box{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 8rem;
+    height: 7rem;
     display: none;
     gap: 2rem;
 }
@@ -117,9 +117,9 @@ nav.navbar {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 8rem;
+    height: 7rem;
     display: flex;
-    gap: 4rem;
+    gap: 3rem;
 }
 
 #search_exit{
@@ -127,19 +127,21 @@ nav.navbar {
     background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
-    width: 4.8rem;
-    height: 4.8rem;
+    width: 4rem;
+    height: 4rem;
 }
 
 #search_input {
     border-radius: 2rem;
     color: black;
+    background-color: white;
     text-align: start;
     width: 50rem;
-    height: 5rem;
+    height: 4rem;
     border: none;
+    padding: 0rem 1rem;
     border-radius: 1.4rem;
-    font-size: x-large;
+    font-size: xx-large;
 }
 
 #search_input:focus, #search_input:hover{
@@ -151,6 +153,6 @@ nav.navbar {
     background-size: 88%;
     background-repeat: no-repeat;
     background-position: center;
-    width: 5.4rem;
-    height: 5.4rem;
+    width: 4rem;
+    height: 4rem;
 }
