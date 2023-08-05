@@ -1,25 +1,32 @@
 .body {
+    min-height: 100vh;
     margin: 0rem;
 }
+i {
+    cursor: pointer;
+}
+button{
+    background-color: transparent;
+}
 
-.navbar {
-    display: flex;
+nav.navbar {
+    display: flex; 
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    background-color: rgb(139, 193, 247);
-    height: 4rem;
+    height: 8rem;
 }
 
 .nav_item {
-    font-size: large;
-    background-color: rgb(139, 193, 247);
-    /* background-color: rgb(79, 166, 253); */
-    width: 4.5rem;
-    height: 2.7rem;
-    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+    width: 9rem;
+    height: fit-content;
     border: none;
-    border-radius: 0.7rem;
+    border-radius: 1.4rem;
+    padding: 0;
 }
 
 .nav_item:hover {
@@ -28,36 +35,34 @@
     cursor: pointer;
 }
 
-#logo_btn{
-    background-image: url("../Assets/frozen-fatntasies-logo.png");
-    background-size: 125%;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 5rem;
-    height: 3rem;
+#logo_btn {
+    height: 16rem;
+    width: 16rem;
+    /* object-fit: contain; */
+}
+
+#logo_btn img {
+    width: 100%;
+    height: 100%;
+    /* object-fit: contain; */
 }
 
 #about_btn{
-    width: 6rem;
+    width: 12rem;
 }
 
 #search_btn {
-    background-image: url("../Assets/SearchIcon2.jpg");
-    background-size: 82%;
-    width: 3rem;
-    background-repeat: no-repeat;
-    background-position: center;
+    height: 8rem;
 }
 
 #search_btn:hover{
-    background-size: 84.1%;
+    background-size: 52%;
 }
 
 #user_btn{
-    background-image: url("../Assets/user.png");
-    background-size: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
+    display: flex;
+    height: 8rem;
+    justify-content: center;
 }
 
 #user_btn:hover{
@@ -65,49 +70,46 @@
 }
 
 #cart_btn{
-    background-image: url("../Assets/cart.png");
-    background-size: 50%;
-    background-repeat: no-repeat;
-    background-position: 1rem 0.25rem;
+    height: 8rem;
 }
 
 #cart_btn:hover{
     background-size: 52%;
-    background-position: 0.98rem 0.15rem;
 }
 
 .us_box{
     gap: 4rem;
     display: flex;
+    margin-left: 5rem;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    height: 100%;
 }
 
 .user_box{
-    gap: 2rem;
     display: flex;
     flex-direction: row;
+    margin-right: 5rem;
     justify-content: space-around;
     align-items: center;
+    height: 8rem;
+    gap: 3rem;
 }
 
 .search_box{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    background-color: whitesmoke;
-    height: 4rem;
+    height: 8rem;
     display: none;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .search_item{
-    font-size: large;
-    background-color: whitesmoke;
-    color: gray;
+    font-size: x-large;
     border: none;
-    border-radius: 0.7rem;
+    border-radius: 1.4rem;
     cursor: pointer;
 }
 
@@ -115,10 +117,9 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    background-color: whitesmoke;
-    height: 4rem;
+    height: 8rem;
     display: flex;
-    gap: 2rem;
+    gap: 4rem;
 }
 
 #search_exit{
@@ -126,20 +127,19 @@
     background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
-    width: 2.9rem;
-    height: 2.9rem;
+    width: 4.8rem;
+    height: 4.8rem;
 }
 
 #search_input {
-    border-radius: 1rem;
+    border-radius: 2rem;
     color: black;
     text-align: start;
-    width: 25rem;
-    height: 2.5rem;
+    width: 50rem;
+    height: 5rem;
     border: none;
-    background-color: white;
-    border-radius: 0.7rem;
-    font-size: large;
+    border-radius: 1.4rem;
+    font-size: x-large;
 }
 
 #search_input:focus, #search_input:hover{
@@ -151,6 +151,6 @@
     background-size: 88%;
     background-repeat: no-repeat;
     background-position: center;
-    width: 2.7rem;
-    height: 2.7rem;
+    width: 5.4rem;
+    height: 5.4rem;
 }
