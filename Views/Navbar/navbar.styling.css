@@ -3,9 +3,11 @@
     min-height: 100vh;
     margin: 0rem;
 }
+
 i {
     cursor: pointer;
 }
+
 button{
     background-color: transparent;
 }
@@ -41,64 +43,23 @@ nav.navbar {
     height: 6rem;
     width: 8rem;
     border: none;
-    /* object-fit: contain; */
 }
 
-#about_btn{
+#about_btn {
     width: 12rem;
 }
 
-/*
-#search_btn {
-    height: 8rem;
-}
-
-
-#search_btn:hover{
-    background-size: 52%;
-}
-
-#user_btn{
-    display: flex;
-    height: 8rem;
-    justify-content: center;
-}
-
-#user_btn:hover{
-    background-size: 52%;
-}
-
-#cart_btn{
-    height: 8rem;
-}
-
-#cart_btn:hover{
-    background-size: 52%;
-}*/
-
-.us_box{
-    margin-top: -0.5rem;
+.us_box {
     gap: 4rem;
-    display: flex;
     margin-left: 5rem;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    height: 7rem;
 }
 
-.user_box{
-    margin-top: -0.5rem;
-    display: flex;
-    flex-direction: row;
+.user_box {
     margin-right: 5.5rem;
-    justify-content: space-around;
-    align-items: center;
-    height: 7rem;
     gap: 4rem;
 }
 
-.search_box{
+.search_box {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
@@ -107,14 +68,14 @@ nav.navbar {
     gap: 2rem;
 }
 
-.search_item{
+.search_item {
     font-size: x-large;
     border: none;
     border-radius: 1.4rem;
     cursor: pointer;
 }
 
-.box{
+.box {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
@@ -122,16 +83,6 @@ nav.navbar {
     display: flex;
     gap: 3rem;
 }
-
-/*
-#search_exit{
-    background-image: url("../Assets/xIcon.png");
-    background-size: 70%;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 4rem;
-    height: 4rem;
-}*/
 
 #search_input {
     border-radius: 2rem;
@@ -146,11 +97,11 @@ nav.navbar {
     font-size: xx-large;
 }
 
-#search_input:focus, #search_input:hover{
+#search_input:focus, #search_input:hover {
     cursor: text;
 }
 
-#search_box_btn{
+#search_box_btn {
     background-image: url("../Assets/SearchIcon2.jpg");
     background-size: 88%;
     background-repeat: no-repeat;
@@ -159,7 +110,7 @@ nav.navbar {
     height: 4rem;
 }
 
-#close{
+#close {
     width: 1.7rem;
     height: 1.7rem;
     background-size: 75%;
