@@ -4,26 +4,15 @@
     margin: 0rem;
 }
 
-i {
-    cursor: pointer;
-}
-
 button{
     background-color: transparent;
 }
 
 nav.navbar {
-    display: flex; 
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     height: 7rem;
 }
 
 .nav_item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: xx-large;
     width: 8rem;
     height: fit-content;
@@ -33,9 +22,14 @@ nav.navbar {
 }
 
 .nav_item:hover {
-    text-decoration: underline;
-    color: gray;
+    font-size:2.2rem;
+    color:rgb(88, 88, 88);
     cursor: pointer;
+}
+
+.us_box {
+    gap: 4rem;
+    margin-left: 5rem;
 }
 
 #logo_btn {
@@ -49,20 +43,17 @@ nav.navbar {
     width: 12rem;
 }
 
-.us_box {
-    gap: 4rem;
-    margin-left: 5rem;
-}
-
 .user_box {
     margin-right: 5.5rem;
     gap: 4rem;
 }
 
+i {
+    cursor: pointer;
+}
+
 .search_box {
-    flex-direction: row;
     justify-content: space-around;
-    align-items: center;
     height: 7rem;
     display: none;
     gap: 2rem;
@@ -76,12 +67,14 @@ nav.navbar {
 }
 
 .box {
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
     height: 7rem;
-    display: flex;
-    gap: 3rem;
+    gap: 1.8rem;
+}
+
+#close {
+    width: 1.7rem;
+    height: 1.7rem;
+    background-size: 75%;
 }
 
 #search_input {
@@ -108,10 +101,4 @@ nav.navbar {
     background-position: center;
     width: 4rem;
     height: 4rem;
-}
-
-#close {
-    width: 1.7rem;
-    height: 1.7rem;
-    background-size: 75%;
 }
