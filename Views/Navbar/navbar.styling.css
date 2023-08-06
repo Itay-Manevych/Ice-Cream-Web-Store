@@ -15,7 +15,7 @@ button{
 }
 
 nav.navbar {
-    height: 8rem;
+    height: 7rem;
 }
 
 .nav-item {
@@ -40,10 +40,8 @@ nav.navbar {
 
 #logo-btn {
     background-position: center;
-    padding-bottom: 0.5rem;
-    height: 7rem;
+    height: 6rem;
     width: auto;
-    border: none;
 }
 
 #about-btn {
@@ -91,7 +89,7 @@ nav.navbar {
 .user-box {
     width: 20rem;
     height: 4rem;
-    margin-right: 5.5rem;
+    margin-right: 5rem;
     gap: 4rem;
 }
 
