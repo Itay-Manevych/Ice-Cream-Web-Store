@@ -72,12 +72,11 @@
             function openSearch() {
                 navbar.style.display = "none";
                 search_box.style.display = "flex";
-                search_box.style.height = "0";
                 search_box.style.justifyContent = "center";
                 search_box.style.alignItems = "center";
                 
                 setTimeout(() => {
-                    search_box.style.height = "7rem";
+                    search_box.style.height = "8rem";
                 }, 10)
                 close_search.onclick = closeSearch;
 

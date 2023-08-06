@@ -139,12 +139,3 @@ i {
     outline-style: solid;
     outline-color: rgb(88, 88, 88);
 }
-
-#search {
-    background-image: url("../Assets/SearchIcon2.jpg");
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 3.9rem;
-    height: 3.9rem;
-}
