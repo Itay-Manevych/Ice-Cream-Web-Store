@@ -45,6 +45,10 @@ app.get("/", (req, res) => {
   res.render('./Navbar/navbar');
 });
 
+app.get("/login", (req, res) => {
+  res.render('./Login-Register/login');
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`server runs on port ${process.env.PORT}`);
 });
