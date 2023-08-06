@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../Products/productsDisplay.styling.css">
+    <%- include("../Navbar/navbar.ejs") %>
+  </head>
+  <body>
+  <ul>
+    <% products.forEach(product => { %>
+      <li>
+        <h2><%= product.name %></h2>
+        <img id="product-image" src="<%= product.image %>" alt="Product Image">
+        <p><%=  product.description %></p>
+        <p>Price: $<%= product.price %></p>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>

@@ -52,7 +52,7 @@ const getAllProducts = async (req, res) => {
             throw new Error("There are no existing product models");
         }
         // res.status(201).json(products);
-        res.render('Products/display', { products });
+         res.render('Products/productsdisplay', { products });
     }
     catch(error) {
         res.status(500).json({

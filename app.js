@@ -8,6 +8,7 @@ import CategoryRouter from "./Routes/category.js";
 import OrderRouter from "./Routes/order.js";
 import UserRouter from "./Routes/user.js";
 import CartRouter from "./Routes/cart.js";
+import { ProductController } from "./Controllers/product.js";
 
 
 const env_path = "./Config/.env";
@@ -44,6 +45,8 @@ app.use("/carts", CartRouter);
 app.get("/", (req, res) => {
   res.render('./Navbar/navbar');
 });
+
+app.get("/shop",ProductController.getAllProducts);
 
 app.listen(process.env.PORT, () => {
   console.log(`server runs on port ${process.env.PORT}`);
