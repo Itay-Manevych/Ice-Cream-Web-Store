@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@600;700&family=Concert+One&family=Just+Another+Hand&family=PT+Sans:ital,wght@0,700;1,400&family=Rajdhani:wght@500;600&family=Six+Caps&display=swap');
+
+*{
+    font-family: 'Just Another Hand';
+}
+
+.body {
+    user-select: none;
+    min-height: 100vh;
+    margin: 0rem;    
+}
+
+button{
+    background-color: transparent;
+}
+
+nav.navbar {
+    height: 8rem;
+}
+
+.nav_item {
+    font-size: xx-large;
+    width: 8rem;
+    height: fit-content;
+    border: none;
+    border-radius: 1.4rem;
+    padding: 0;
+}
+
+.nav_item:hover {
+    font-size:2.2rem;
+    color:rgb(88, 88, 88);
+    cursor: pointer;
+}
+
+.us_box {
+    gap: 2rem;
+    margin-left: 5rem;
+}
+
+#logo_btn {
+    background-position: center;
+    padding-bottom: 0.5rem;
+    height: 7rem;
+    width: auto;
+    border: none;
+}
+
+#about_btn {
+    width: 7rem;
+    height: fit-content;
+    margin-left: 2rem;
+    color: rgb(242,132,189);
+}
+
+#shop_btn {
+    color: rgb(81,190,230);
+    width: 4rem;
+    height: fit-content;
+}
+
+#sale_btn { 
+    color: rgb(242,132,189);
+    width: 4rem;
+    height: fit-content;
+}
+
+#search_icon {
+    color:rgb(88, 88, 88);
+    width: 2.25rem;
+    padding: 0;
+}
+
+#search_icon:hover, #user_icon:hover, #cart_icon:hover, #close_search:hover, #search_icon_search_box:hover {
+    font-size: xx-large;
+    color: black;
+}
+
+#user_icon {
+    color:rgb(88, 88, 88);
+    width: 2.25rem;
+    padding: 0;
+}
+
+#cart_icon {
+    color:rgb(88, 88, 88);
+    width: 2.25rem;
+    padding: 0;
+}
+
+.user_box {
+    width: 20rem;
+    height: 4rem;
+    margin-right: 5.5rem;
+    gap: 4rem;
+}
+
+i {
+    cursor: pointer;
+    padding: 0.2rem;
+}
+
+#search_box {
+    display: none;
+    gap: 2rem;
+    transition: height 0.3s ease
+}
+
+#search_icon_search_box {
+    color:rgb(88, 88, 88);
+    width: 2.25rem;
+    padding: 0;
+    margin: 0;
+}
+
+#close_search {
+    color:rgb(88, 88, 88);
+    width: 2.25rem;
+    padding: 0;
+    margin: 0;
+}
+
+#search_input {
+    border-radius: 2rem;
+    color:black;
+    background-color: white;
+    text-align: start;
+    width: 35rem;
+    height: 3rem;
+    border: none;
+    padding: 0rem 1rem;
+    border-radius: 1.4rem;
+    font-size: xx-large;
+    border: 0.1rem solid rgb(88, 88, 88)
+}
+
+#search_input:focus, #search_input:hover {
+    outline: 0.05rem;
+    outline-style: solid;
+    outline-color: rgb(88, 88, 88);
+}
+
+#search {
+    background-image: url("../Assets/SearchIcon2.jpg");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 3.9rem;
+    height: 3.9rem;
+}

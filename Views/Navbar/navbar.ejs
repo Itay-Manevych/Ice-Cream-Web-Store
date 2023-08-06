@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../Navbar/navbar.styling.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    </head>
+
+    <body class="body">
+        <nav class="navbar bg-light align-items-center"> 
+            <div class="us_box d-flex align-items-center">
+                <img id="logo_btn" class="nav_item" src="../Assets/logo.png" alt="Logo">
+                <button id="about_btn" class="nav_item">ABOUT US</button>
+                <button id="shop_btn" class="nav_item">SHOP</button>
+                <button id="sale_btn" class="nav_item">SALE</button>
+            </div>
+            <div class="user_box d-flex align-items-center justify-content-center">
+                <i id="search_icon" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
+                <i id="user_icon" class="bi bi-person-square h3 d-flex align-items-center justify-content-center"></i>
+                <i id="cart_icon" class="bi bi-cart h3 d-flex align-items-center justify-content-center"></i>
+            </div>
+        </nav>
+
+        <div id="search_box" class="bg-light">
+            <i id="close_search" class="bi bi-x-lg h3 d-flex align-items-center justify-content-center"></i>
+           <input id="search_input" placeholder="Search"> 
+           <i id="search_icon_search_box" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+        
+        <script>
+            const navbar = $(".navbar")[0];
+
+            const logo_btn = $("#logo_btn")[0];
+            const about_btn = $("#about_btn")[0];
+            const shop_btn = $("#shop_btn")[0];
+            const sale_btn = $("#sale_btn")[0];
+
+            const open_search = $(".bi-search")[0];
+            const user_btn = $(".bi-person-square")[0];
+            const cart_btn = $(".bi-cart")[0];
+
+            const search_box = $("#search_box")[0];
+            const close_search = $("#close_search")[0];
+            const search_input = $("#search_input")[0];
+            const search = $("#search")[0];
+
+            function mainPage() {
+                //window.location.href = "https://localhost:3000/";
+            }
+
+            function aboutPage() {
+                //window.location.href = "https://localhost:3000/about_us/";
+            }
+
+            function shop() {
+
+            }
+
+            function sale() {
+
+            }
+
+            function closeSearch() {
+                navbar.style.display = "flex";
+                search_box.style.display = "none";
+                search_input.value = ""; 
+            }
+
+            function openSearch() {
+                navbar.style.display = "none";
+                search_box.style.display = "flex";
+                search_box.style.height = "0";
+                search_box.style.justifyContent = "center";
+                search_box.style.alignItems = "center";
+                
+                setTimeout(() => {
+                    search_box.style.height = "7rem";
+                }, 10)
+                close_search.onclick = closeSearch;
+
+                function search() {
+
+                }
+                search.onclick = search;
+            }
+
+            function user() {
+
+            }
+
+            function cart() {
+
+            }
+
+            logo_btn.onclick = mainPage;
+            about_btn.onclick = aboutPage;
+            open_search.onclick = openSearch;
+            user_btn.onclick = user;
+            cart_btn.onclick = cart;
+        </script>
+    </body>
+</html>
