@@ -1,0 +1,47 @@
+#container {
+    background-color: white; 
+}
+
+div.card {
+    box-shadow: 0 0 0 0.07rem rgba(0, 0, 0, 0.1); 
+}
+
+#input, button#login-button {
+    width: 24rem;
+    margin: 0;
+}
+
+#register-button {
+    width: 24rem;
+}
+
+input.form-check-input {
+    border-width: 0.1rem;
+}
+
+button.btn{
+    margin-top: 0.75rem;
+}
+
+#password-input {
+    width: 24rem;
+    margin-right: 1.25rem;
+}
+
+#eye-icon {
+    cursor: pointer;
+}
+
+#password-button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+} 
+
+#form-field {
+    height: 5rem;
+    margin-bottom: 1.5rem;
+}
+
+#invalid-feedback {
+    color: red;
+}
