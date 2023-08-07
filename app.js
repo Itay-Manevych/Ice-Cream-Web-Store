@@ -36,15 +36,18 @@ const connectToMongoDB = async () => {
 connectToMongoDB();
 
 app.use(bodyParser.json());
-app.use(express.static('Views'));
-app.use(express.static(path.join(__dirname, '/Controllers')));
-app.use('/Services', express.static(path.join(__dirname, '/Services')));
-app.use('/Models', express.static(path.join(__dirname, '/Models')));
-app.use('/Navbar', express.static(path.join(__dirname, '/Navbar')));
-
 
 app.set('view engine', 'ejs');
-app.set('views', './views');
+
+app.set('views', path.join(__dirname, 'Views'));
+
+app.use(express.static(path.join(__dirname, 'Views')));
+
+app.use('/Controllers', express.static(path.join(__dirname, 'Controllers')));
+
+app.use('/Services', express.static(path.join(__dirname, 'Services')));
+
+app.use('/Models', express.static(path.join(__dirname, 'Models')));
 
 app.use("/products", ProductRouter);
 app.use("/categories", CategoryRouter);

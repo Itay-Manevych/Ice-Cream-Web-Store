@@ -1,4 +1,4 @@
-import { ProductController } from "../../Controllers/product.js"
+import { ProductController } from "../../Controllers/product.js";
 
 const navbar = $(".navbar")[0];
 
