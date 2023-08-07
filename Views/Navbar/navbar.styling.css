@@ -39,6 +39,7 @@ nav.navbar {
 }
 
 #logo-btn {
+    cursor: pointer;
     background-position: center;
     height: 6rem;
     width: auto;
