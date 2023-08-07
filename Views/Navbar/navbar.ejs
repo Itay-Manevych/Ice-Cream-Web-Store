@@ -45,7 +45,7 @@
             const search_box = $("#search-box")[0];
             const close_search = $("#close-search")[0];
             const search_input = $("#search-input")[0];
-            const search = $("#search-icon-search-box")[0];
+            const search_btn = $("#search-icon-search-box")[0];
 
             function mainPage() {
                 //window.location.href = "https://localhost:3000/";
@@ -81,9 +81,29 @@
                 close_search.onclick = closeSearch;
 
                 function search() {
+                    let products_found = 0;
 
+                    products.forEach(product => { //don't forget to add the products to the file
+                        let length = 0, index = 0;
+
+                        while(index < search_input.value.length && search_input.value.length == product.name.length) {
+                            if(search_input.value[index] == product.name[index])
+                                length++;
+                            else
+                                break;
+                        }
+
+                        if(length == search_input.value.length){
+                            products_found++; 
+                            //add the actual product to html
+                        }
+                    })
+
+                    if(products_found == 0){
+                        //add some error to html
+                    }
                 }
-                search.onclick = search;
+                search_btn.onclick = search;
             }
 
             function user() {
