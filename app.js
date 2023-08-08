@@ -9,7 +9,6 @@ import OrderRouter from "./Routes/order.js";
 import UserRouter from "./Routes/user.js";
 import CartRouter from "./Routes/cart.js";
 
-
 const env_path = "./Config/.env";
 
 dotenv.config({path: env_path}); 
@@ -47,6 +46,10 @@ app.get("/", (req, res) => {
 
 app.get("/login", (req, res) => {
   res.render('./Login-Register/login');
+});
+
+app.get("/register", (req, res) => {
+  res.render('./Login-Register/register');
 });
 
 app.listen(process.env.PORT, () => {
