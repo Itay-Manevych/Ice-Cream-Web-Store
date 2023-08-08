@@ -4,8 +4,14 @@
   }
   
 #container {
-  max-height: 20.9rem;
-  max-width: 20rem;
+  width: 100%;
+}
+  
+
+#card-container {
+  margin: 1rem;
+  height: 15rem;
+  width: 12.5rem;
 }
 
 .card-price {
@@ -16,13 +22,4 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-#left-align {
-    margin-left: 2rem;
-    margin-right: auto;
-}
-
-#products-title {
-    padding-left: 1.5rem;
 }

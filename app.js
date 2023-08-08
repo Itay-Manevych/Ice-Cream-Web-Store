@@ -46,8 +46,6 @@ app.get("/", (req, res) => {
   res.render('./Navbar/navbar');
 });
 
-app.get("/shop",ProductController.getAllProducts);
-
 app.listen(process.env.PORT, () => {
   console.log(`server runs on port ${process.env.PORT}`);
 });
