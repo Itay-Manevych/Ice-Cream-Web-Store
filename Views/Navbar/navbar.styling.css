@@ -16,6 +16,7 @@ button{
 
 nav.navbar {
     height: 7rem;
+    flex-wrap: nowrap;
 }
 
 .nav-item {
@@ -29,7 +30,7 @@ nav.navbar {
 
 .nav-item:hover {
     font-size: 2.2rem;
-    color:rgb(88, 88, 88);
+    color: rgb(88, 88, 88);
     cursor: pointer;
 }
 
@@ -49,16 +50,20 @@ nav.navbar {
     width: 7rem;
     margin-left: 2rem;
     color: rgb(242,132,189);
+    margin-top: 0.5rem;
 }
 
 #shop-btn {
     color: rgb(81,190,230);
     width: 4rem;
+    margin-top: 0.5rem;
+
 }
 
 #sale-btn { 
     color: rgb(242,132,189);
     width: 4rem;
+    margin-top: 0.5rem;
 }
 
 #search-icon {
@@ -79,7 +84,7 @@ nav.navbar {
 }
 
 #cart-icon {
-    color:rgb(88, 88, 88);
+    color: rgb(88, 88, 88);
     width: 2.25rem;
     padding: 0;
 }
@@ -103,14 +108,14 @@ i {
 }
 
 #search-icon-search-box {
-    color:rgb(88, 88, 88);
+    color: rgb(88, 88, 88);
     width: 2.25rem;
     padding: 0;
     margin: 0;
 }
 
 #close-search {
-    color:rgb(88, 88, 88);
+    color: rgb(88, 88, 88);
     width: 2.25rem;
     padding: 0;
     margin: 0;
@@ -118,7 +123,7 @@ i {
 
 #search-input {
     border-radius: 2rem;
-    color:black;
+    color: black;
     background-color: white;
     text-align: start;
     width: 35rem;
