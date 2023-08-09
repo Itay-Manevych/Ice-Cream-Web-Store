@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../Navbar/navbar.styling.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -9,15 +11,15 @@
     <body class="body">
         <nav class="navbar bg-light align-items-center"> 
             <div class="us-box d-flex align-items-center">
-                <img id="logo-btn" class="nav_item" src="../Assets/logo.png" alt="Logo">
+                <img id="logo-btn" class="nav-item" src="../Assets/logo.png" alt="Logo">
                 <button id="about-btn" class="nav-item">ABOUT US</button>
                 <button id="shop-btn" class="nav-item">SHOP</button>
                 <button id="sale-btn" class="nav-item">SALE</button>
             </div>
             <div class="user-box d-flex align-items-center justify-content-center">
-                <i id="search-icon" class="bi bi-search h3 d-flex align-items-center justify-content-center" style="margin-bottom: 0rem;"></i>
-                <i id="user-icon" class="bi bi-person-square h3 d-flex align-items-center justify-content-center" style="margin-bottom: 0rem;"></i>
-                <i id="cart-icon" class="bi bi-cart h3 d-flex align-items-center justify-content-center" style="margin-bottom: 0rem;"></i>
+                <i id="search-icon" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
+                <i id="user-icon" class="bi bi-person-square h3 d-flex align-items-center justify-content-center"></i>
+                <i id="cart-icon" class="bi bi-cart h3 d-flex align-items-center justify-content-center"></i>
             </div>
         </nav>
 
@@ -38,15 +40,15 @@
             const shop_btn = $("#shop-btn")[0];
             const sale_btn = $("#sale-btn")[0];
 
-            const open_search = $("#search-icon")[0];
-            const user_btn = $("#user-icon")[0];
-            const cart_btn = $("#cart-icon")[0];
+            const open_search = $(".bi-search")[0];
+            const user_btn = $(".bi-person-square")[0];
+            const cart_btn = $(".bi-cart")[0];
 
             const search_box = $("#search-box")[0];
             const close_search = $("#close-search")[0];
             const search_input = $("#search-input")[0];
-            const search_btn = $("#search-icon-search-box")[0];
-            
+            const search = $("#search")[0];
+
             function mainPage() {
                 //window.location.href = "https://localhost:3000/";
             }
@@ -72,39 +74,19 @@
             function openSearch() {
                 navbar.style.display = "none";
                 search_box.style.display = "flex";
+                search_box.style.height = "0";
                 search_box.style.justifyContent = "center";
                 search_box.style.alignItems = "center";
                 
                 setTimeout(() => {
-                    search_box.style.height = "7rem";
+                    search_box.style.height = "8rem";
                 }, 10)
                 close_search.onclick = closeSearch;
 
                 function search() {
-                    let products = ProductController.getAllProducts();
-                    let products_found = 0;
 
-                    products.forEach(product => { //don't forget to add the products to the file
-                        let length = 0, index = 0;
-
-                        while(index < search_input.value.length && index < product.name.length) {
-                            if(search_input.value[index] == product.name[index])
-                                length++;
-                            else
-                                break;
-                        }
-
-                        if(length == search_input.value.length){
-                            products_found++; 
-                            //add the actual product to html
-                        }
-                    })
-
-                    if(products_found == 0){
-                        //add some error to html
-                    }
                 }
-                search_btn.onclick = search;
+                search.onclick = search;
             }
 
             function user() {

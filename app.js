@@ -8,6 +8,7 @@ import CategoryRouter from "./Routes/category.js";
 import OrderRouter from "./Routes/order.js";
 import UserRouter from "./Routes/user.js";
 import CartRouter from "./Routes/cart.js";
+import { ProductController } from "./Controllers/product.js";
 
 
 const env_path = "./Config/.env";
