@@ -50,14 +50,15 @@
             const search_btn = $("#search-icon-search-box")[0];
 
             function mainPage() {
-                window.location.href = "http://localhost:3000/";
+                window.location.href = "http://localhost:3000";
             }
 
             function aboutPage() {
-                //window.location.href = "https://localhost:3000/about_us/";
+                //window.location.href = "http://localhost:3000/about_us";
             }
 
             function shop() {
+                window.location.href = "http://localhost:3000/products";
             }
 
             function sale() {
@@ -111,15 +112,18 @@
             }
 
             function user() {
-                window.location.href = "http://localhost:3000/login/";
+                window.location.href = "http://localhost:3000/login";
             }
 
             function cart() {
+                //window.location.href = "http://localhost:3000/cart";
             }
 
             logo_btn.onclick = mainPage;
             about_btn.onclick = aboutPage;
             open_search.onclick = openSearch;
+            shop_btn.onclick = shop;
+            sale_btn.onclick = sale;
             user_btn.onclick = user;
             cart_btn.onclick = cart;
         </script>
