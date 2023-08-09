@@ -6,7 +6,7 @@ const ProductRouter = express.Router();
 ProductRouter.route('/')
 .get(async (req, res) => {
         const products = await ProductController.getAllProducts(req,res);
-        res.render('Products/productsdisplay', {products});
+        res.render('Products/productsDisplay.ejs', {products});
 })
     .post(ProductController.createProduct);
 
