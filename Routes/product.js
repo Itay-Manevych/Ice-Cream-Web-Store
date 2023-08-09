@@ -4,7 +4,10 @@ import { ProductController }  from "../Controllers/product.js";
 const ProductRouter = express.Router();
 
 ProductRouter.route('/')
-    .get(ProductController.getAllProducts)
+.get(async (req, res) => {
+        const products = await ProductController.getAllProducts(req,res);
+        res.render('Products/productsdisplay', {products});
+})
     .post(ProductController.createProduct);
 
 ProductRouter.route('/id/:id')
