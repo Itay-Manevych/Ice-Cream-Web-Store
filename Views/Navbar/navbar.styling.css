@@ -62,7 +62,8 @@ nav.navbar {
     width: 4rem;
     height: fit-content;
 }
-#about-btn, #shop-btn, #sale-btn {
+
+#about-btn, #shop-btn, #sale-btn, #search-input {
     font-family: 'Just Another Hand';
 }
 
