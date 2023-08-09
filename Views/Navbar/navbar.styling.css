@@ -1,12 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@600;700&family=Concert+One&family=Just+Another+Hand&family=PT+Sans:ital,wght@0,700;1,400&family=Rajdhani:wght@500;600&family=Six+Caps&display=swap');
 
-*{
-    font-family: 'Just Another Hand';
-}
-
 .body {
     user-select: none;
     min-height: 100vh;
+    min-width: 100vw;
     margin: 0rem;    
 }
 
@@ -15,10 +12,11 @@ button{
 }
 
 nav.navbar {
+    flex-wrap: nowrap;
     height: 8rem;
 }
 
-.nav_item {
+.nav-item {
     font-size: xx-large;
     width: 8rem;
     height: fit-content;
@@ -27,18 +25,18 @@ nav.navbar {
     padding: 0;
 }
 
-.nav_item:hover {
+.nav-item:hover {
     font-size:2.2rem;
     color:rgb(88, 88, 88);
     cursor: pointer;
 }
 
-.us_box {
+.us-box {
     gap: 2rem;
     margin-left: 5rem;
 }
 
-#logo_btn {
+#logo-btn {
     background-position: center;
     padding-bottom: 0.5rem;
     height: 7rem;
@@ -46,49 +44,52 @@ nav.navbar {
     border: none;
 }
 
-#about_btn {
+#about-btn {
     width: 7rem;
     height: fit-content;
     margin-left: 2rem;
     color: rgb(242,132,189);
 }
 
-#shop_btn {
+#shop-btn {
     color: rgb(81,190,230);
     width: 4rem;
     height: fit-content;
 }
 
-#sale_btn { 
+#sale-btn { 
     color: rgb(242,132,189);
     width: 4rem;
     height: fit-content;
 }
+#about-btn, #shop-btn, #sale-btn {
+    font-family: 'Just Another Hand';
+}
 
-#search_icon {
+#search-icon {
     color:rgb(88, 88, 88);
     width: 2.25rem;
     padding: 0;
 }
 
-#search_icon:hover, #user_icon:hover, #cart_icon:hover, #close_search:hover, #search_icon_search_box:hover {
+#search-icon:hover, #user-icon:hover, #cart-icon:hover, #close-search:hover, #search-icon-search-box:hover {
     font-size: xx-large;
     color: black;
 }
 
-#user_icon {
+#user-icon {
     color:rgb(88, 88, 88);
     width: 2.25rem;
     padding: 0;
 }
 
-#cart_icon {
+#cart-icon {
     color:rgb(88, 88, 88);
     width: 2.25rem;
     padding: 0;
 }
 
-.user_box {
+.user-box {
     width: 20rem;
     height: 4rem;
     margin-right: 5.5rem;
@@ -100,27 +101,27 @@ i {
     padding: 0.2rem;
 }
 
-#search_box {
+#search-box {
     display: none;
     gap: 2rem;
     transition: height 0.3s ease
 }
 
-#search_icon_search_box {
+#search-icon-search-box {
     color:rgb(88, 88, 88);
     width: 2.25rem;
     padding: 0;
     margin: 0;
 }
 
-#close_search {
+#close-search {
     color:rgb(88, 88, 88);
     width: 2.25rem;
     padding: 0;
     margin: 0;
 }
 
-#search_input {
+#search-input {
     border-radius: 2rem;
     color:black;
     background-color: white;
@@ -134,7 +135,7 @@ i {
     border: 0.1rem solid rgb(88, 88, 88)
 }
 
-#search_input:focus, #search_input:hover {
+#search-input:focus, #search-input:hover {
     outline: 0.05rem;
     outline-style: solid;
     outline-color: rgb(88, 88, 88);
