@@ -21,7 +21,7 @@
   <div id="container" class="d-flex flex-wrap">
     
     <% products.forEach(product => { %>
-      <div id="card-container" class="card" onclick="openModal('productModal<%= product.id %>')">
+      <div id="card-container" class="card" onclick="openModal('productModal<%= product._id %>')">
         <div id="image-container">
           <img id="product-image" class="card-img-top" src="<%= product.image %>" alt="Product Image">
         </div>
@@ -32,7 +32,7 @@
         </div>
       </div>
       
-      <div class="modal fade" id="productModal<%= product.id %>" tabindex="-1" aria-labelledby="productModalLabel<%= product.id %>" aria-hidden="true">
+      <div class="modal fade" id="productModal<%= product._id %>" tabindex="-1" aria-labelledby="productModalLabel<%= product._id %>" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -45,7 +45,7 @@
               <p>Price: $<%= product.price %></p>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-success" onclick="addToCartAndClose('<%= product.name %>', '<%= product.price %>', 'productModal<%= product.id %>')">
+              <button class="btn btn-success" onclick="addToCartAndClose('<%= product.name %>', '<%= product.price %>', 'productModal<%= product._id %>')">
                 Add to Cart
               </button>
             </div>
