@@ -47,7 +47,7 @@
             const search_box = $("#search-box")[0];
             const close_search = $("#close-search")[0];
             const search_input = $("#search-input")[0];
-            const search = $("#search")[0];
+            const search_btn = $("#search-icon-search-box")[0];
 
             function mainPage() {
                 window.location.href = "http://localhost:3000/";
@@ -82,42 +82,29 @@
             
                 close_search.onclick = closeSearch;
 
-                function openSearch() {
-                    navbar.style.display = "none";
-                    search_box.style.display = "flex";
-                    search_box.style.justifyContent = "center";
-                    search_box.style.alignItems = "center";
-                    
-                    setTimeout(() => {
-                        search_box.style.height = "8rem";
-                    }, 10)
-                    close_search.onclick = closeSearch;
+                function search() {
+                    let products_match = 0;
+
+                    products.forEach(product => { 
+                        let index = 0;
     
-                    function search() {
-                        let products_match = 0;
-    
-                        products.forEach(product => {
-                            let index = 0;
-    
-                            while(index < search_input.value.length && index < product.name.length) {
-                                if(search_input.value[index] == product.name[index])
-                                    index++;
-                                else
-                                    break;
-                            }
-    
-                            if(index == search_input.value.length) {
-                                products_match++; 
-                                //add the actual product to html
-                            }
-                            else {
-                                product.display = "none";
-                            }
-                        })
-    
-                        if(products_match == 0){
-                            //add some error to html
+                        while(index < search_input.value.length && index < product.name.length) {
+                            if(search_input.value[index] == product.name[index])
+                                index++;
+                            else
+                                break;
                         }
+    
+                        if(index == search_input.value.length) {
+                            products_match++; 
+                        }
+                        else {
+                            product.display = "none";
+                        }
+                    })
+    
+                    if(products_match == 0){
+                        //add some error to html
                     }
                 }
                 search_btn.onclick = search;
