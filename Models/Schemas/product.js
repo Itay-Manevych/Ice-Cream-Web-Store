@@ -9,7 +9,7 @@ const Product = new mongoose.Schema({
         unique: true,
     },
     description: String,
-    image: Buffer,
+    image: String,
     price: {
         type: Number,
         validate: {
