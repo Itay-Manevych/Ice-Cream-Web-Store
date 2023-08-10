@@ -85,7 +85,7 @@
 
                 function search() {
                     const search_value = search_input.value;
-                    window.location.href = `http://localhost:3000/products?search=${search_value}`;
+                    window.location.href = `http://localhost:3000/products?=${search_value}`;
                 }
                 search_btn.onclick = search;
             }
