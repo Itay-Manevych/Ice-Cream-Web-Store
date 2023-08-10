@@ -1,12 +1,15 @@
 import express from "express"
 import { ProductController }  from "../Controllers/product.js";
 
+
 const ProductRouter = express.Router();
 
 ProductRouter.route('/')
 .get(async (req, res) => {
         const products = await ProductController.getAllProducts(req,res);
-        res.render('Products/productsDisplay.ejs', {products});
+        const searchValue = req.query.search || ''; // Get the search query from the URL
+        // Fetch your products and render the template
+        res.render('Products/productsDisplay.ejs', { products, searchValue });
 })
     .post(ProductController.createProduct);
 
