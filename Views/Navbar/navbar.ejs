@@ -25,12 +25,29 @@
 
         <div id="search-box" class="bg-light">
             <i id="close-search" class="bi bi-x-lg h3 d-flex align-items-center justify-content-center"></i>
-           <input id="search-input" placeholder="Search"> 
-           <i id="search-icon-search-box" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
+            <input id="search-input" class="form-control" placeholder="Search">
+            <div class="dropdown" id="drops-box">
+                <ul class="dropdown-menu" id="items-box" aria-labelledby="search-input">
+
+                </ul>           
+            </div> 
+            <i id="search-icon-search-box" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Select Category
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+              
+                <li><a class="dropdown-item" >Hi</a></li>
+            </ul>
+          </div>
+
+          
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
 
         <script>
             const navbar = $(".navbar")[0];
@@ -86,19 +103,56 @@
                 function search() {
                     let products_match = 0;
 
-                    products.forEach(product => { 
-                        if((product.name.toLowerCase()).include(search_input.toLowerCase)) {
-                            products_match++; 
-                        }
-                        else {
-                            product.display = "none";
-                        }
-                    })
+                    if(search_input.value == '')
+                        window.location.href = "http://localhost:3000/products/id/1";
+
+                    'products.forEach(product => {'
+                        'if((product.name.toLowerCase()).includes(search_input.value.toLowerCase)) {'
+                            'products_match++;' 
+                        '}'
+                    '})'
     
                     if(products_match == 0){
                         //add some error to html
                     }
                 }
+
+                search_input.addEventListener('keypress', function () {
+                    const drops_box = document.getElementById('#drops-box');
+                    const items = document.getElementById('.items-box');
+                    const max_items = 4; 
+
+                    let count = 0;
+                    products.forEach(product => {
+                        if (count < max_items && product.name.toLowerCase().includes(search_input.value.toLowerCase())) {
+                            const new_item = document.createElement('li');
+                            new_item.classList.add('dropdown-item');
+                            new_item.textContent = product.name;
+                            //const image = document.createElement('image');
+                            //.appendChild(image);
+
+                            new_item.addEventListener('click', function() {
+                                window.location.href = `http://localhost:3000/products/id/${product.id}`;
+                                drops_box.classList.remove('show');
+                            });
+            
+                            items.appendChild(new_item);
+                            count++;
+                        }
+                    });
+            
+                    if (items.children.length > 0) {
+                        drops_box.classList.add('show');
+                    } else {
+                        drops_box.classList.remove('show');
+                    }
+                });
+
+                search_input.addEventListener("keypress", function (event) {
+                    if (event.key === "Enter") 
+                        search();
+                });
+
                 search_btn.onclick = search;
             }
 

@@ -42,8 +42,9 @@ app.use("/orders", OrderRouter);
 app.use("/users", UserRouter);
 app.use("/carts", CartRouter);
 
-app.get("/", (req, res) => {
-  res.render('./Navbar/navbar');
+app.get("/", async (req, res) => {
+  const products = await ProductController.getAllProducts(req,res);
+  res.render('./Navbar/navbar', { products });
 });
 
 app.get("/login", (req, res) => {
