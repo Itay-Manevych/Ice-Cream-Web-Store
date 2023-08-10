@@ -43,12 +43,50 @@
               <img id="product-image-modal" class="modal-img" src="<%= product.image %>" alt="Product Image">
               <p><%= product.description %></p>
               <p>Price: $<%= product.price %></p>
+              
+              <% if (product.allergies.lactose || product.allergies.nuts || product.allergies.soy || product.allergies.gluten || product.allergies.eggs) { %>
+                <p>Allergens:</p>
+                <% } %>
+                <ul>
+                  <% if (product.allergies.lactose) { %>
+                    <li>Lactose</li>
+                  <% } %>
+                  <% if (product.allergies.nuts) { %>
+                    <li>Nuts</li>
+                  <% } %>
+                  <% if (product.allergies.soy) { %>
+                    <li>Soy</li>
+                  <% } %>
+                  <% if (product.allergies.gluten) { %>
+                    <li>Gluten</li>
+                  <% } %>
+                  <% if (product.allergies.eggs) { %>
+                    <li>Eggs</li>
+                  <% } %>
+                </ul>
+
+                <p>Select Additions:</p>
+                <div>
+                  <label>
+                    <input type="checkbox" name="sprinkles"> Sprinkles
+                  </label>
+                </div>
+                <div>
+                  <label>
+                    <input type="checkbox" name="hot_chocolate"> Hot Chocolate
+                  </label>
+                </div>
+                <div>
+                  <label>
+                    <input type="checkbox" name="gummy_bears"> Gummy Bears
+                  </label>
+                </div>
             </div>
-            <div class="modal-footer">
+            <footer class="modal-footer">
               <button class="btn btn-success" onclick="addToCartAndClose('<%= product.name %>', '<%= product.price %>', 'productModal<%= product._id %>')">
                 Add to Cart
               </button>
-            </div>
+            </footer>
           </div>
         </div>
       </div>
@@ -73,10 +111,16 @@ function closeModal(modalId) {
 }
 
 function addToCartAndClose(productName, productPrice, modalId) {
-  
+  const selectedAdditions = {
+    sprinkles: document.querySelector(`#${modalId} [name="sprinkles"]`).checked,
+    hot_chocolate: document.querySelector(`#${modalId} [name="hot_chocolate"]`).checked,
+    gummy_bears: document.querySelector(`#${modalId} [name="gummy_bears"]`).checked,
+  };
+
   closeModal(modalId);
 
   console.log(`Added "${productName}" to cart for $${productPrice}`);
+  console.log("Selected Additions:", selectedAdditions);
 }
 </script>
 
