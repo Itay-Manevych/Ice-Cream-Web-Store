@@ -41,7 +41,6 @@ app.use("/categories", CategoryRouter);
 app.use("/orders", OrderRouter);
 app.use("/users", UserRouter);
 app.use("/carts", CartRouter);
-app.use("/", ProductRouter);
 
 app.get("/", (req, res) => {
   res.render('./Navbar/navbar');
