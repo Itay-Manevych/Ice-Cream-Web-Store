@@ -5,13 +5,19 @@
     min-height: 100vh;
     margin: 0rem;    
 }
-#search-results
-{
-    width: 15rem;
-    height: 15rem;
+#search-results {
+    background-color: whitesmoke;
+    position: absolute;
+    margin-left: 1rem;
+    width: 33rem;
+    height: 20rem;
+}
+#image {
+    width: 3rem;
+    height: 3rem;
 }
 
-button{
+button {
     background-color: transparent;
 }
 
@@ -127,6 +133,8 @@ i {
 }
 
 #search-input {
+    margin-bottom: 0.1rem;
+    margin-top: 0.1rem;
     border-radius: 2rem;
     color:black;
     background-color: white;
