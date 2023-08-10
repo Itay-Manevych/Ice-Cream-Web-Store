@@ -34,6 +34,8 @@
             <i id="search-icon-search-box" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
         </div>
 
+        <div id="search-results"></div>
+
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Select Category
@@ -117,36 +119,56 @@
                     }
                 }
 
-                search_input.addEventListener('keypress', function () {
-                    const drops_box = document.getElementById('#drops-box');
-                    const items = document.getElementById('.items-box');
-                    const max_items = 4; 
+                // search_input.addEventListener('keypress', function () {
+                //     const drops_box = document.getElementById('#drops-box');
+                //     const items = document.getElementById('.items-box');
+                //     const max_items = 4; 
 
-                    let count = 0;
-                    products.forEach(product => {
-                        if (count < max_items && product.name.toLowerCase().includes(search_input.value.toLowerCase())) {
-                            const new_item = document.createElement('li');
-                            new_item.classList.add('dropdown-item');
-                            new_item.textContent = product.name;
-                            //const image = document.createElement('image');
-                            //.appendChild(image);
+                //     let count = 0;
+                //     products.forEach(product => {
+                //         if (count < max_items && product.name.toLowerCase().includes(search_input.value.toLowerCase())) {
+                //             const new_item = document.createElement('li');
+                //             new_item.classList.add('dropdown-item');
+                //             new_item.textContent = product.name;
+                //             //const image = document.createElement('image');
+                //             //.appendChild(image);
 
-                            new_item.addEventListener('click', function() {
-                                window.location.href = `http://localhost:3000/products/id/${product.id}`;
-                                drops_box.classList.remove('show');
-                            });
+                //             new_item.addEventListener('click', function() {
+                //                 window.location.href = `http://localhost:3000/products/id/${product.id}`;
+                //                 drops_box.classList.remove('show');
+                //             });
             
-                            items.appendChild(new_item);
-                            count++;
-                        }
-                    });
+                //             items.appendChild(new_item);
+                //             count++;
+                //         }
+                //     });
             
-                    if (items.children.length > 0) {
-                        drops_box.classList.add('show');
-                    } else {
-                        drops_box.classList.remove('show');
+                //     if (items.children.length > 0) {
+                //         drops_box.classList.add('show');
+                //     } else {
+                //         drops_box.classList.remove('show');
+                //     }
+                // });
+                search_input.addEventListener('keypress',() => {
+                  $.ajax({
+                    url: `/search-products`,
+                    method: 'GET',
+                    success: function (products) {
+                     $('#search-results').empty(); // Clear existing products
+                      products.forEach(product => {
+                        // Render each product card here
+                        const productCard = `
+                        <img id="product-image" class="card-img-top" src="${product.image}" alt="Product Image">
+                        <h5 class="card-title text-ellipsis">${product.name}</h5>
+                        `;
+                        $('#search-results').append(productCard);
+                      });
+                    },
+                    error: function (error) {
+                      console.error('Error loading products:', error);
                     }
-                });
+                  });
+                })
 
                 search_input.addEventListener("keypress", function (event) {
                     if (event.key === "Enter") 

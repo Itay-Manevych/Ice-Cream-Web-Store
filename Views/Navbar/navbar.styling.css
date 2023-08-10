@@ -5,6 +5,11 @@
     min-height: 100vh;
     margin: 0rem;    
 }
+#search-results
+{
+    width: 15rem;
+    height: 15rem;
+}
 
 button{
     background-color: transparent;
