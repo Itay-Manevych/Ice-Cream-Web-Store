@@ -48,7 +48,7 @@
             const close_search = $("#close-search")[0];
             const search_input = $("#search-input")[0];
             const search_btn = $("#search-icon-search-box")[0];
-            
+
             function mainPage() {
                 window.location.href = "http://localhost:3000";
             }
@@ -84,8 +84,20 @@
                 close_search.onclick = closeSearch;
 
                 function search() {
-                    const search_value = search_input.value;
-                    window.location.href = `http://localhost:3000/products?=${search_value}`;
+                    let products_match = 0;
+
+                    products.forEach(product => { 
+                        if((product.name.toLowerCase()).include(search_input.toLowerCase)) {
+                            products_match++; 
+                        }
+                        else {
+                            product.display = "none";
+                        }
+                    })
+    
+                    if(products_match == 0){
+                        //add some error to html
+                    }
                 }
                 search_btn.onclick = search;
             }

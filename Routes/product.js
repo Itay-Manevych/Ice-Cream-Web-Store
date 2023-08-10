@@ -7,9 +7,7 @@ const ProductRouter = express.Router();
 ProductRouter.route('/')
 .get(async (req, res) => {
         const products = await ProductController.getAllProducts(req,res);
-        const search_value = req.query.search || ''; // Get the search query from the URL
-        // Fetch your products and render the template
-        res.render('Products/productsDisplay.ejs', { products, search_value });
+        res.render('Products/productsDisplay.ejs', { products });
 })
     .post(ProductController.createProduct);
 
@@ -22,4 +20,3 @@ ProductRouter.route('/category/:name')
     .get(ProductController.getAllProductsByCategory)
 
 export default ProductRouter;
-
