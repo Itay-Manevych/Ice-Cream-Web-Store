@@ -7,9 +7,9 @@ const ProductRouter = express.Router();
 ProductRouter.route('/')
 .get(async (req, res) => {
         const products = await ProductController.getAllProducts(req,res);
-        const searchValue = req.query.search || ''; // Get the search query from the URL
+        const search_value = req.query.search || ''; // Get the search query from the URL
         // Fetch your products and render the template
-        res.render('Products/productsDisplay.ejs', { products, searchValue });
+        res.render('Products/productsDisplay.ejs', { products, search_value });
 })
     .post(ProductController.createProduct);
 

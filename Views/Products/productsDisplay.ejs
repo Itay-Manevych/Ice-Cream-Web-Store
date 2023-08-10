@@ -13,8 +13,9 @@
   <div id="container" class="d-flex flex-wrap">
     <% let products_match = 0; %>
     <% products.forEach(product => { %>
-
-    <% if(product.name.includes(searchValue)) { %>
+    <% const lower_case_product_name = product.name.toLowerCase(); %>
+    <% const lower_case_search_value = search_value.toLowerCase(); %>
+    <% if(lower_case_product_name.includes(lower_case_search_value)) { %>
       <% products_match++; %>
       <% if(products_match == 1){ %>
         <div id="left-align" class="container mt-4">
