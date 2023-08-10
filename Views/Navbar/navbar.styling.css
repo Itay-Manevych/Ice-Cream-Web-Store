@@ -6,15 +6,19 @@
     margin: 0rem;    
 }
 #search-results {
-    background-color: whitesmoke;
     position: absolute;
     margin-left: 1rem;
     width: 33rem;
     height: 20rem;
 }
-#image {
-    width: 3rem;
-    height: 3rem;
+#item{
+    cursor: pointer;
+    background-color: whitesmoke;
+    width: 33rem;
+    height: 5rem;
+}
+#item:hover{
+    background-color: rgb(205, 203, 203);
 }
 
 button {
