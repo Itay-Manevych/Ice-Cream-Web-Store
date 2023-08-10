@@ -9,17 +9,30 @@
 </head>
 <body>
 <div id="locked-div">
-
+  
   <div id="left-align" class="container mt-4">
     <div class="row">
-      <div class="col-md-12">
-        <h1 class="ml-3">Our Products</h1>
+      <div class="col-md-12 d-flex align-items-center">
+        <h1 class="ml-3 small-margin">Our Products</h1>
+        
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Select Category
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <% categories.forEach(category => { %>
+              <li><a class="dropdown-item" data-category="<%= category.name %>"><%= category.name %></a></li>
+            <% }); %>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
   
+  
   <div id="container" class="d-flex flex-wrap">
-    
+
+        
     <% products.forEach(product => { %>
       <div id="card-container" class="card" onclick="openModal('productModal<%= product._id %>')">
         <div id="image-container">
@@ -93,8 +106,11 @@
       <% }); %>
     </div>
   </div>   
-    
-    <script>
+   
+  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
+  
+<script>
  const modals = {};
 
 function openModal(modalId) {
@@ -122,8 +138,44 @@ function addToCartAndClose(productName, productPrice, modalId) {
   console.log(`Added "${productName}" to cart for $${productPrice}`);
   console.log("Selected Additions:", selectedAdditions);
 }
+
+$(document).ready(function () {
+    $('.dropdown-item').on('click', function () {
+      const selectedCategory = $(this).data('category');
+      loadProductsByCategory(selectedCategory);
+    });
+
+    function loadProductsByCategory(category) {
+    $.ajax({
+      url: `/products/category/${category}`,
+      method: 'GET',
+      success: function (products) {
+        $('#container').empty(); // Clear existing products
+        products.forEach(product => {
+          // Render each product card here
+          const productCard = `
+            <div id="card-container" class="card" onclick="openModal('productModal${product._id}')">
+              <div id="image-container">
+                <img id="product-image" class="card-img-top" src="${product.image}" alt="Product Image">
+              </div>
+              <div class="card-body card-content">
+                <h5 class="card-title text-ellipsis">${product.name}</h5>
+                <p class="card-text text-ellipsis">${product.description}</p>
+                <p class="card-text card-price">Price: $${product.price}</p>
+              </div>
+            </div>
+            <!-- Add your modal code for this product here -->
+          `;
+          $('#container').append(productCard);
+        });
+      },
+      error: function (error) {
+        console.error('Error loading products:', error);
+      }
+    });
+  }
+});
 </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
 </body>
 </html>
