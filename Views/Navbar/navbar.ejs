@@ -39,7 +39,8 @@
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
         <script>
-            const navbar = $(".navbar")[0];
+            $(document).ready(() => {
+                navbar = $(".navbar")[0];
 
             const logo_btn = $("#logo-btn")[0];
             const about_btn = $("#about-btn")[0];
@@ -53,31 +54,32 @@
             const search_box = $("#search-box")[0];
             const close_search = $("#close-search")[0];
             const search_input = $("#search-input")[0];
+
             const search_btn = $("#search-icon-search-box")[0];
 
-            function mainPage() {
+            const mainPage = () => {
                 window.location.href = "http://localhost:3000";
             }
 
-            function aboutPage() {
+            const aboutPage = () => {
                 //window.location.href = "http://localhost:3000/about_us";
             }
 
-            function shop() {
+            const shop = () => {
                 window.location.href = "http://localhost:3000/products";
             }
 
-            function sale() {
+            const sale = () => {
             }
 
-            function closeSearch() {
+            const closeSearch = () => {
                 navbar.style.display = "flex";
                 search_box.style.display = "none";
                 search_input.value = ""; 
                 $('#search-results').hide(); 
             }
 
-            function openSearch() {
+            const openSearch = () => {
                 navbar.style.display = "none";
                 search_box.style.display = "flex";
                 search_box.style.height = "0";
@@ -90,7 +92,7 @@
             
                 close_search.onclick = closeSearch;
                 
-                function clicked(id) {
+                const clicked = (id) => {
                     if(id!=-1) {
                     window.location.href = `http://localhost:3000/products/id/${id}`;
                     closeSearch();}
@@ -98,73 +100,84 @@
 
                 let items_arr = [], ids = [], current = 0, items_num = 0
 
-                search_input.addEventListener('input',() => {
+                $(search_input).on('keydown', (event) => {
+                    if(event.key === "Backspace" || event.key === "Delete") {
+                        console.log($(search_input).val().trim().length);
+                        if($(search_input).val().length === 1) {
+                            $(search_input).val('');
+                            $('#search-results').hide();
+                            current = 0;
+                            items_num = 0; 
+                        }
+                    }
+                })
+
+                $(search_input).on('keypress', (event) => {
                     let max_products = 4;
-                    
-                    if(search_input.value == '')
-                        $('#search-results').hide();
-                        current = 0;
-                        items_num = 0;
-                        $.ajax({
-                            url: `/search-products`,
-                            method: 'GET',
-                            success: function (products) {
-                                if(search_input.value != '')
-                                    $('#search-results').show();
-        
-                                $('#search-results').empty();
-                                
-                                for(let i = 0; i < 4; i++){
-                                    if(items_arr[i])
-                                        items_arr[i] = null;
-                                }
-        
-                                products.forEach(product => {
-                                    if (items_num < max_products && product.name.toLowerCase().includes(search_input.value.toLowerCase())) {
-                                        let new_item = document.createElement('div');
-                                        new_item.innerHTML = `
-                                            <div id="item" class="d-flex align-items-center justify-content-center">
-                                                <div style="width:18.5rem;"><h5 class="card-title text-ellipsis" style="margin-left: 1rem; margin-right: rem;">${product.name}</h5></div>
-                                                <div style="width:10rem; margin-left: 1rem; margin-right: 1rem;" class="d-flex justify-content-center"><h5 class="card-title text-ellipsis">Price: $${product.price}</h5></div>
-                                                <img id="image" src="${product.image}" alt="Product Image" style="width: 4rem; height: 4rem; margin-right: 1rem;">
-                                            </div>`;
-                                        
-                                        new_item.addEventListener('click', () => clicked(product._id));
+                    current = 0;
+                    items_num = 0;
 
-                                        ids[items_num] = product._id;
-                                        items_arr[items_num] = new_item
-                                        $('#search-results').append(items_arr[items_num]); 
+                    $.ajax({
+                        url: `/search-products`,
+                        method: 'GET',
+                        success: (products) => {
 
-                                        if (items_num == 0)
-                                            items_arr[items_num].style.background = "rgb(205, 203, 203)";
-                                        else 
-                                            items_arr[items_num].style.background = "whitesmoke";
-                                        
-                                        items_num++;
-                                    }
-                                });
-                            },
-        
-                            error: function (error) {
-                              console.error('Error loading products:', error);
+                            $('#search-results').empty();
+
+                            if($(search_input).val().trim() !== '')
+                                $('#search-results').show();
+    
+                            for(let i = 0; i < 4; i++){
+                                if(items_arr[i])
+                                    items_arr[i] = null;
                             }
     
-                        });
+                            products.forEach(product => {
+                                if (items_num < max_products && product.name.toLowerCase().includes(search_input.value.toLowerCase())) {
+                                    let new_item = document.createElement('div');
+                                    new_item.innerHTML = `
+                                        <div id="item" class="d-flex align-items-center justify-content-center">
+                                            <div style="width:18.5rem;"><h5 class="card-title text-ellipsis" style="margin-left: 1rem; margin-right: rem;">${product.name}</h5></div>
+                                            <div style="width:10rem; margin-left: 1rem; margin-right: 1rem;" class="d-flex justify-content-center"><h5 class="card-title text-ellipsis">Price: $${product.price}</h5></div>
+                                            <img id="image" src="${product.image}" alt="Product Image" style="width: 4rem; height: 4rem; margin-right: 1rem;">
+                                        </div>`;
+                                    
+                                    new_item.addEventListener('click', () => clicked(product._id));
+                                    ids[items_num] = product._id;
+                                    items_arr[items_num] = new_item
+                                    $('#search-results').append(items_arr[items_num]); 
+                                    if (items_num == 0)
+                                        items_arr[items_num].style.background = "rgb(205, 203, 203)";
+                                    else 
+                                        items_arr[items_num].style.background = "whitesmoke";
+                                    
+                                    items_num++;
+                                }
+                            });
+                        },
+    
+                        error: (error) => {
+                          console.error('Error loading products:', error);
+                        },
+
+                    });
                 })
     
-                search_input.addEventListener("keypress", function (event) {
-                    if (event.key == "Enter" && items_num != 0){
+                search_input.addEventListener("keypress", (event) => {
+                    if (event.key === "Enter" && items_num !== 0){
                         clicked(ids[current]);
                     } 
                 });
-                search_input.addEventListener("keydown", function (event) {
-                    if (event.key == "ArrowDown" && current+1 < items_num){
+
+                search_input.addEventListener("keydown", (event) => {
+                    if (event.key === "ArrowDown" && current + 1 < items_num){
                         items_arr[current].style.background = "whitesmoke";
                         current++;
                         items_arr[current].style.background = "rgb(205, 203, 203)";
                     } 
                 });
-                search_input.addEventListener("keyup", function (event) {
+
+                search_input.addEventListener("keyup", (event) => {
                     if (event.key == "ArrowUp" && current > 0){
                         items_arr[current].style.background = "whitesmoke";
                         current--;
@@ -172,17 +185,17 @@
                     } 
                 });
                 
-                search_btn.addEventListener('click', function(){
+                search_btn.addEventListener('click', () => {
                     if(items_num != 0)
                        clicked(ids[current]);
                 })
             }
 
-            function user() {
+            const user = () => {
                 window.location.href = "http://localhost:3000/login";
             }
 
-            function cart() {
+            const cart = () => {
                 //window.location.href = "http://localhost:3000/cart";
             }
 
@@ -193,6 +206,7 @@
             sale_btn.onclick = sale;
             user_btn.onclick = user;
             cart_btn.onclick = cart;
+            }); 
         </script>
     </body>
 </html>
