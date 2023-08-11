@@ -106,9 +106,23 @@
                             if($(search_input).val().length === 1) {
                                 $(search_input).val('');
                                 $('#search-results').hide();
+                                $('#search-results').empty();
                                 current = 0;
                                 items_num = 0; 
                             }
+                        }
+                        else if (event.key == "Enter" && items_num != 0){
+                            clicked(ids[current]);
+                        } 
+                        else if (event.key == "ArrowUp" && current > 0){
+                            items_arr[current].style.background = "whitesmoke";
+                            current--;
+                            items_arr[current].style.background = "rgb(205, 203, 203)";
+                        } 
+                        else if (event.key === "ArrowDown" && current + 1 < items_num){
+                            items_arr[current].style.background = "whitesmoke";
+                            current++;
+                            items_arr[current].style.background = "rgb(205, 203, 203)";
                         }
                     })
 
@@ -127,10 +141,9 @@
                                 if($(search_input).val().trim() !== '')
                                     $('#search-results').show();
                             
-                                for(let i = 0; i < 4; i++){
+                                for(let i = 0; i < 4; i++)
                                     if(items_arr[i])
                                         items_arr[i] = null;
-                                }
                             
                                 products.forEach(product => {
                                     if (items_num < max_products && product.name.toLowerCase().includes(search_input.value.toLowerCase())) {
@@ -162,28 +175,6 @@
 
                         });
                     })
-                
-                    search_input.addEventListener("keypress", (event) => {
-                        if (event.key === "Enter" && items_num !== 0){
-                            clicked(ids[current]);
-                        } 
-                    });
-
-                    search_input.addEventListener("keydown", (event) => {
-                        if (event.key === "ArrowDown" && current + 1 < items_num){
-                            items_arr[current].style.background = "whitesmoke";
-                            current++;
-                            items_arr[current].style.background = "rgb(205, 203, 203)";
-                        } 
-                    });
-
-                    search_input.addEventListener("keyup", (event) => {
-                        if (event.key == "ArrowUp" && current > 0){
-                            items_arr[current].style.background = "whitesmoke";
-                            current--;
-                            items_arr[current].style.background = "rgb(205, 203, 203)";
-                        } 
-                    });
 
                     search_btn.addEventListener('click', () => {
                         if(items_num != 0)
