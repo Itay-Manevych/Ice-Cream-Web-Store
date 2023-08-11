@@ -159,6 +159,7 @@
                 // });
                 search_input.addEventListener('input',() => {
                     let count = 0, max_products = 4;
+                    $('#search-results').empty();
                   $.ajax({
                     url: `/search-products`,
                     method: 'GET',
@@ -171,8 +172,10 @@
                             <div style="width:18.5rem;"><h5 class="card-title text-ellipsis" style="margin-left: 1rem; margin-right: rem;">${product.name}</h5></div>
                             <div style="width:10rem; margin-left: 1rem; margin-right: 1rem;" class="d-flex justify-content-center"><h5 class="card-title text-ellipsis">Price: $${product.price}</h5></div>
                             <img id="image" src="${product.image}" alt="Product Image" style="width: 4rem; height: 4rem; margin-right: 1rem;">
-                            </div>
-                            `;
+                            </div>`;
+                            $('#item').click(function (){
+                                window.location.href = `http://localhost:3000/products/id/${product._id}`;
+                            })
                             $('#search-results').append(productCard);
                             count++;
                         }
