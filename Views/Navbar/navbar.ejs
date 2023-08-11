@@ -10,13 +10,13 @@
 
     <body class="body">
         <nav class="navbar bg-light align-items-center"> 
-            <div class="us-box d-flex align-items-center">
+            <div class="us-box d-flex bg-light align-items-center">
                 <img id="logo-btn" class="nav-item" src="../Assets/logo.png" alt="Logo">
                 <button id="about-btn" class="nav-item">ABOUT US</button>
                 <button id="shop-btn" class="nav-item">SHOP</button>
                 <button id="sale-btn" class="nav-item">SALE</button>
             </div>
-            <div class="user-box d-flex align-items-center justify-content-center">
+            <div class="user-box d-flex bg-light align-items-center justify-content-center">
                 <i id="search-icon" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
                 <i id="user-icon" class="bi bi-person-square h3 d-flex align-items-center justify-content-center"></i>
                 <i id="cart-icon" class="bi bi-cart h3 d-flex align-items-center justify-content-center"></i>
@@ -98,72 +98,59 @@
                     closeSearch();}
                 }
 
-                function itm(value=-1){
-                    this.value = value;                    
-                };
-                
                 let items_arr = []
 
-                for(let i = 0; i < 4; i++){
-                    items_arr[i]=new itm();
-
-                    //items_arr[i].value.addEventListener('click', ()=> clicked(items_arr[i].id));
-
-                }
-
-
-                
                 search_input.addEventListener('input',() => {
                     let count = 0, max_products = 4;
                     
                     if(search_input.value == '')
                         $('#search-results').hide();
 
-                  $.ajax({
-                    url: `/search-products`,
-                    method: 'GET',
-                    success: function (products) {
-                        if(search_input.value != '')
-                            $('#search-results').show();
-
-                        $('#search-results').empty();
-                        
-                        for(let i = 0; i < 4; i++){
-                            if(items_arr[i])
-                                items_arr[i] = null;
-                        }
-
-                        products.forEach(product => {
-    if (count < max_products && product.name.toLowerCase().includes(search_input.value.toLowerCase())) {
-        let new_item = document.createElement('div'); // Create a new div element
-        new_item.innerHTML = `
-            <div id="item" class="d-flex align-items-center justify-content-center">
-                <div style="width:18.5rem;"><h5 class="card-title text-ellipsis" style="margin-left: 1rem; margin-right: rem;">${product.name}</h5></div>
-                <div style="width:10rem; margin-left: 1rem; margin-right: 1rem;" class="d-flex justify-content-center"><h5 class="card-title text-ellipsis">Price: $${product.price}</h5></div>
-                <img id="image" src="${product.image}" alt="Product Image" style="width: 4rem; height: 4rem; margin-right: 1rem;">
-            </div>`;
+                        $.ajax({
+                            url: `/search-products`,
+                            method: 'GET',
+                            success: function (products) {
+                                if(search_input.value != '')
+                                    $('#search-results').show();
         
-        new_item.addEventListener('click', () => clicked(product._id));
-
-        items_arr[count] = new itm(new_item);
-        $('#search-results').append(new_item); // Append the new_item element, not items_arr[count].value
-
-        count++;
-    }
-});
-                    },
-
-                    error: function (error) {
-                      console.error('Error loading products:', error);
-                    }
-
-                  });
+                                $('#search-results').empty();
+                                
+                                for(let i = 0; i < 4; i++){
+                                    if(items_arr[i])
+                                        items_arr[i] = null;
+                                }
+        
+                                products.forEach(product => {
+                                    if (count < max_products && product.name.toLowerCase().includes(search_input.value.toLowerCase())) {
+                                        let new_item = document.createElement('div');
+                                        new_item.innerHTML = `
+                                            <div id="item" class="d-flex align-items-center justify-content-center">
+                                                <div style="width:18.5rem;"><h5 class="card-title text-ellipsis" style="margin-left: 1rem; margin-right: rem;">${product.name}</h5></div>
+                                                <div style="width:10rem; margin-left: 1rem; margin-right: 1rem;" class="d-flex justify-content-center"><h5 class="card-title text-ellipsis">Price: $${product.price}</h5></div>
+                                                <img id="image" src="${product.image}" alt="Product Image" style="width: 4rem; height: 4rem; margin-right: 1rem;">
+                                            </div>`;
+                                        
+                                        new_item.addEventListener('click', () => clicked(product._id));
+                                
+                                        items_arr[count] = new_item
+                                        $('#search-results').append(items_arr[count]); 
+                                
+                                        count++;
+                                    }
+                                });
+                            },
+        
+                            error: function (error) {
+                              console.error('Error loading products:', error);
+                            }
+    
+                        });
                 })
-
-                search_input.addEventListener("keypress", function (event) {
-                    if (event.key === "Enter") 
-                        search();
-                });
+    
+                    search_input.addEventListener("keypress", function (event) {
+                        if (event.key === "Enter") 
+                            search();
+                    });
 
 
                 search_btn.onclick = search;

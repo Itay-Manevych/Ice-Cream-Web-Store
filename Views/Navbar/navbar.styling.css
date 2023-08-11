@@ -5,18 +5,22 @@
     min-height: 100vh;
     margin: 0rem;    
 }
+
 #search-results {
     position: absolute;
+    z-index: 999;
     margin-left: 1rem;
     width: 33rem;
     height: 20rem;
 }
+
 #item{
     cursor: pointer;
     background-color: whitesmoke;
     width: 33rem;
     height: 5rem;
 }
+
 #item:hover{
     background-color: rgb(205, 203, 203);
 }
@@ -46,7 +50,9 @@ nav.navbar {
 }
 
 .us-box {
+    padding-right: 5rem;
     gap: 2rem;
+    height: 8rem;
     margin-left: 5rem;
 }
 
@@ -106,7 +112,7 @@ nav.navbar {
 
 .user-box {
     width: 20rem;
-    height: 4rem;
+    height: 8rem;
     margin-right: 5.5rem;
     gap: 4rem;
 }
