@@ -13,13 +13,15 @@
   <div id="left-align" class="container mt-4">
     <div class="row">
       <div class="col-md-12 d-flex align-items-center">
-        <h1 class="ml-3 small-margin">Our Products</h1>
+        <h1 class="ml-3 medium-margin-right">Our Products</h1>
         
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Select Category
+          <label class="small-margin-right" for="categoryDropdown">Sort by:</label>
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            Category
           </button>
           <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <li><a class="dropdown-item" data-category="All">All</a></li>
             <% categories.forEach(category => { %>
               <li><a class="dropdown-item" data-category="<%= category.name %>"><%= category.name %></a></li>
             <% }); %>
@@ -34,7 +36,7 @@
 
         
     <% products.forEach(product => { %>
-      <div id="card-container" class="card" onclick="openModal('productModal<%= product._id %>')">
+      <div id="card-container" class="card card-container" onclick="openModal('productModal<%=product._id%>')">
         <div id="image-container">
           <img id="product-image" class="card-img-top" src="<%= product.image %>" alt="Product Image">
         </div>
@@ -112,11 +114,79 @@
   
 <script>
  const modals = {};
+ function generateProductCard(product) {
+     return `
+       <div id="card-container" class="card" onclick="openModal('productModal${product._id}')">
+         <div id="image-container">
+           <img id="product-image" class="card-img-top" src="${product.image}" alt="Product Image">
+         </div>
+         <div class="card-body card-content">
+           <h5 class="card-title text-ellipsis">${product.name}</h5>
+           <p class="card-text text-ellipsis">${product.description}</p>
+           <p class="card-text card-price">Price: $${product.price}</p>
+         </div>
+       </div>
+       <!-- Add your modal code for this product here -->
+       <div class="modal fade" id="productModal${product._id}" tabindex="-1" aria-labelledby="productModalLabel${product._id}" aria-hidden="true">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="productModalLabel${product._id}">${product.name}</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+               <img id="product-image-modal" class="modal-img" src="${product.image}" alt="Product Image">
+               <p>${product.description}</p>
+               <p>Price: $${product.price}</p>
+ 
+               ${
+                 (product.allergies.lactose || product.allergies.nuts || product.allergies.soy || product.allergies.gluten || product.allergies.eggs)
+                 ? `<p>Allergens:</p>
+                    <ul>
+                      ${product.allergies.lactose ? '<li>Lactose</li>' : ''}
+                      ${product.allergies.nuts ? '<li>Nuts</li>' : ''}
+                      ${product.allergies.soy ? '<li>Soy</li>' : ''}
+                      ${product.allergies.gluten ? '<li>Gluten</li>' : ''}
+                      ${product.allergies.eggs ? '<li>Eggs</li>' : ''}
+                    </ul>`
+                 : ''
+               }
+             
+               <p>Select Additions:</p>
+               <div>
+                 <label>
+                   <input type="checkbox" name="sprinkles"> Sprinkles
+                 </label>
+               </div>
+               <div>
+                 <label>
+                   <input type="checkbox" name="hot_chocolate"> Hot Chocolate
+                 </label>
+               </div>
+               <div>
+                 <label>
+                   <input type="checkbox" name="gummy_bears"> Gummy Bears
+                 </label>
+               </div>
+             </div>
+             <footer class="modal-footer">
+               <button class="btn btn-success" onclick="addToCartAndClose('${product.name}', '${product.price}', 'productModal${product._id}')">
+                 Add to Cart
+               </button>
+             </footer>
+           </div>
+         </div>
+       </div>`;
+   }     
 
 function openModal(modalId) {
+  // console.log(modalId);
   if (!modals[modalId]) {
+    // console.log(1);
+    // console.log(document.getElementById(modalId));
     modals[modalId] = new bootstrap.Modal(document.getElementById(modalId));
   }
+  // console.log(2);
   modals[modalId].show();
 }
 
@@ -139,42 +209,62 @@ function addToCartAndClose(productName, productPrice, modalId) {
   console.log("Selected Additions:", selectedAdditions);
 }
 
+
 $(document).ready(function () {
     $('.dropdown-item').on('click', function () {
       const selectedCategory = $(this).data('category');
-      loadProductsByCategory(selectedCategory);
-    });
-
-    function loadProductsByCategory(category) {
-    $.ajax({
-      url: `/products/category/${category}`,
-      method: 'GET',
-      success: function (products) {
-        $('#container').empty(); // Clear existing products
-        products.forEach(product => {
-          // Render each product card here
-          const productCard = `
-            <div id="card-container" class="card" onclick="openModal('productModal${product._id}')">
-              <div id="image-container">
-                <img id="product-image" class="card-img-top" src="${product.image}" alt="Product Image">
-              </div>
-              <div class="card-body card-content">
-                <h5 class="card-title text-ellipsis">${product.name}</h5>
-                <p class="card-text text-ellipsis">${product.description}</p>
-                <p class="card-text card-price">Price: $${product.price}</p>
-              </div>
-            </div>
-            <!-- Add your modal code for this product here -->
-          `;
-          $('#container').append(productCard);
-        });
-      },
-      error: function (error) {
-        console.error('Error loading products:', error);
+      if (selectedCategory === 'All') {
+        loadAllProducts();
+        $('#categoryDropdown').text('All');
+      } 
+      else {
+        loadProductsByCategory(selectedCategory);
+        $('#categoryDropdown').text(selectedCategory);
       }
     });
-  }
-});
+
+    
+    function loadProductsByCategory(category) {
+      $.ajax({
+        url: `/products/category/${category}`,
+        method: 'GET',
+        success: function (products) {
+          $('#container').empty(); 
+            products.forEach(product => {
+              const productCard = generateProductCard(product);
+                    $('#container').css('margin-left', '0'); 
+                    $('#container').append(productCard);
+                  });
+              },
+              error: function (error) {
+                $('#container').empty();
+                $('#container').css('margin-left', '2rem');
+                $('#container').append('<p>No products available in this category.</p>');
+                console.error('Error loading products:', error);
+              }
+            });
+          }
+        });
+        function loadAllProducts() {
+            $.ajax({
+              url: `/search-products`,
+              method: 'GET',
+              success: function (products) {
+                $('#container').empty();
+                products.forEach(product => {
+                  const productCard = generateProductCard(product);
+                  $('#container').css('margin-left', '0'); 
+                  $('#container').append(productCard);
+                });
+              },
+              error: function (error) {
+                $('#container').empty();
+                $('#container').css('margin-left', '2rem');
+                $('#container').append('<p>No products available.</p>');
+                console.error('Error loading products:', error);
+              }
+            });
+          }
 </script>
 
 </body>

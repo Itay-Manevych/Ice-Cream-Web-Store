@@ -46,6 +46,16 @@ app.get("/", (req, res) => {
   res.render('./Navbar/navbar');
 });
 
+app.get("/search-products", async (req, res) => {
+  try {
+    const products = await ProductController.getAllProducts(req, res);
+    res.json(products);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`server runs on port ${process.env.PORT}`);
 });

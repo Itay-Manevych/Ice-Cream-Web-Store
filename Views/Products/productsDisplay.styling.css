@@ -8,9 +8,14 @@ body {
   position: relative;
 }
 
-.small-margin
+.medium-margin-right
 {
-  margin-right: 2rem;
+  margin-right: 4rem;
+}
+
+.small-margin-right
+{
+  margin-right: 0.5rem;
 }
 
 #product-image {
