@@ -133,13 +133,13 @@
 
                     $(search_input).on('input', (event) => {
                         let max_products = 4;
-                        current = 0;
-                        items_num = 0;
-
+                        
                         $.ajax({
                             url: `/search-products`,
                             method: 'GET',
                             success: (products) => {
+                                current = 0;
+                                items_num = 0;
 
                                 $('#search-results').empty();
 
@@ -153,7 +153,6 @@
                                 products.forEach(product => {
                                     if (items_num < max_products && product.name.toLowerCase().includes(search_input.value.toLowerCase())) {
                                         let new_item = document.createElement('div');
-                                        
                                         new_item.innerHTML = `
                                             <div id="item" class="d-flex align-items-center justify-content-center">
                                                 <div style="width:18.5rem;"><h5 class="card-title text-ellipsis" style="margin-left: 1rem; margin-right: rem;">${product.name}</h5></div>
