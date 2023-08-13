@@ -8,6 +8,7 @@ import CategoryRouter from "./Routes/category.js";
 import OrderRouter from "./Routes/order.js";
 import UserRouter from "./Routes/user.js";
 import CartRouter from "./Routes/cart.js";
+import { ProductController } from "./Controllers/product.js";
 
 
 const env_path = "./Config/.env";
@@ -31,7 +32,7 @@ const connectToMongoDB = async () => {
 connectToMongoDB();
 
 app.use(bodyParser.json());
-app.use(express.static('Views'))
+app.use(express.static('Views'));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
@@ -41,8 +42,19 @@ app.use("/orders", OrderRouter);
 app.use("/users", UserRouter);
 app.use("/carts", CartRouter);
 
-app.get("/", (req, res) => {
-  res.render('./Navbar/navbar');
+app.get("/", async (req, res) => {
+  const products = await ProductController.getAllProducts(req,res);
+  res.render('./Navbar/navbar', { products });
+});
+
+app.get("/search-products", async (req, res) => {
+  try {
+    const products = await ProductController.getAllProducts(req, res);
+    res.json(products);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.get("/login", (req, res) => {

@@ -1,10 +1,14 @@
 import express from "express"
 import { ProductController }  from "../Controllers/product.js";
 
+
 const ProductRouter = express.Router();
 
 ProductRouter.route('/')
-    .get(ProductController.getAllProducts)
+.get(async (req, res) => {
+        const products = await ProductController.getAllProducts(req,res);
+        res.render('Products/productsDisplay.ejs', { products });
+})
     .post(ProductController.createProduct);
 
 ProductRouter.route('/id/:id')
@@ -16,4 +20,3 @@ ProductRouter.route('/category/:name')
     .get(ProductController.getAllProductsByCategory)
 
 export default ProductRouter;
-
