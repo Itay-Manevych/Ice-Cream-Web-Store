@@ -44,6 +44,7 @@ app.use("/carts", CartRouter);
 
 app.get("/", async (req, res) => {
   const products = await ProductController.getAllProducts(req,res);
+  res.render('./Carousel/carousel');
   res.render('./Navbar/navbar', { products });
 });
 

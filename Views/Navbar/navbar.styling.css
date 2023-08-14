@@ -48,6 +48,9 @@ nav.navbar {
     color:rgb(88, 88, 88);
     cursor: pointer;
 }
+ .nav-item:focus{
+    outline: 0;
+}
 
 .us-box {
     padding-right: 5rem;
