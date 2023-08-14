@@ -3,11 +3,29 @@
 .body {
     user-select: none;
     min-height: 100vh;
-    min-width: 100vw;
     margin: 0rem;    
 }
 
-button{
+#search-results {
+    position: absolute;
+    z-index: 999;
+    margin-left: 1rem;
+    width: 33rem;
+    height: 20rem;
+}
+
+#item{
+    cursor: pointer;
+    
+    width: 33rem;
+    height: 5rem;
+}
+
+#item:hover{
+    background-color: rgb(205, 203, 203);
+}
+
+button {
     background-color: transparent;
 }
 
@@ -32,7 +50,9 @@ nav.navbar {
 }
 
 .us-box {
+    padding-right: 5rem;
     gap: 2rem;
+    height: 8rem;
     margin-left: 5rem;
 }
 
@@ -92,7 +112,7 @@ nav.navbar {
 
 .user-box {
     width: 20rem;
-    height: 4rem;
+    height: 8rem;
     margin-right: 5.5rem;
     gap: 4rem;
 }
@@ -123,6 +143,8 @@ i {
 }
 
 #search-input {
+    margin-bottom: 0.1rem;
+    margin-top: 0.1rem;
     border-radius: 2rem;
     color:black;
     background-color: white;

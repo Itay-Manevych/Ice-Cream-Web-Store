@@ -10,13 +10,13 @@
 
     <body class="body">
         <nav class="navbar bg-light align-items-center"> 
-            <div class="us-box d-flex align-items-center">
+            <div class="us-box d-flex bg-light align-items-center">
                 <img id="logo-btn" class="nav-item" src="../Assets/logo.png" alt="Logo">
                 <button id="about-btn" class="nav-item">ABOUT US</button>
                 <button id="shop-btn" class="nav-item">SHOP</button>
                 <button id="sale-btn" class="nav-item">SALE</button>
             </div>
-            <div class="user-box d-flex align-items-center justify-content-center">
+            <div class="user-box d-flex bg-light align-items-center justify-content-center">
                 <i id="search-icon" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
                 <i id="user-icon" class="bi bi-person-square h3 d-flex align-items-center justify-content-center"></i>
                 <i id="cart-icon" class="bi bi-cart h3 d-flex align-items-center justify-content-center"></i>
@@ -25,83 +25,187 @@
 
         <div id="search-box" class="bg-light">
             <i id="close-search" class="bi bi-x-lg h3 d-flex align-items-center justify-content-center"></i>
-           <input id="search-input" placeholder="Search"> 
-           <i id="search-icon-search-box" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
+            <div class="ui-widget">
+                <input id="search-input" placeholder="Search">
+                <div id="search-results"></div>
+            </div>    
+            <i id="search-icon-search-box" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
         </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+          
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-        
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
+
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
         <script>
-            const navbar = $(".navbar")[0];
+            $(document).ready(() => {
+                navbar = $(".navbar")[0];
 
-            const logo_btn = $("#logo-btn")[0];
-            const about_btn = $("#about-btn")[0];
-            const shop_btn = $("#shop-btn")[0];
-            const sale_btn = $("#sale-btn")[0];
+                const logo_btn = $("#logo-btn")[0];
+                const about_btn = $("#about-btn")[0];
+                const shop_btn = $("#shop-btn")[0];
+                const sale_btn = $("#sale-btn")[0];
 
-            const open_search = $(".bi-search")[0];
-            const user_btn = $(".bi-person-square")[0];
-            const cart_btn = $(".bi-cart")[0];
+                const open_search = $(".bi-search")[0];
+                const user_btn = $(".bi-person-square")[0];
+                const cart_btn = $(".bi-cart")[0];
 
-            const search_box = $("#search-box")[0];
-            const close_search = $("#close-search")[0];
-            const search_input = $("#search-input")[0];
-            const search = $("#search")[0];
+                const search_box = $("#search-box")[0];
+                const close_search = $("#close-search")[0];
+                const search_input = $("#search-input")[0];
 
-            function mainPage() {
-                //window.location.href = "https://localhost:3000/";
-            }
+                const search_btn = $("#search-icon-search-box")[0];
 
-            function aboutPage() {
-                //window.location.href = "https://localhost:3000/about_us/";
-            }
-
-            function shop() {
-
-            }
-
-            function sale() {
-
-            }
-
-            function closeSearch() {
-                navbar.style.display = "flex";
-                search_box.style.display = "none";
-                search_input.value = ""; 
-            }
-
-            function openSearch() {
-                navbar.style.display = "none";
-                search_box.style.display = "flex";
-                search_box.style.height = "0";
-                search_box.style.justifyContent = "center";
-                search_box.style.alignItems = "center";
-                
-                setTimeout(() => {
-                    search_box.style.height = "8rem";
-                }, 10)
-                close_search.onclick = closeSearch;
-
-                function search() {
-
+                const mainPage = () => {
+                    window.location.href = "http://localhost:3000";
                 }
-                search.onclick = search;
-            }
 
-            function user() {
+                const aboutPage = () => {
+                    //window.location.href = "http://localhost:3000/about_us";
+                }
 
-            }
+                const shop = () => {
+                    window.location.href = "http://localhost:3000/products";
+                }
 
-            function cart() {
+                const sale = () => {
+                }
 
-            }
+                const closeSearch = () => {
+                    navbar.style.display = "flex";
+                    search_box.style.display = "none";
+                    search_input.value = ""; 
+                    $('#search-results').hide(); 
+                }
 
-            logo_btn.onclick = mainPage;
-            about_btn.onclick = aboutPage;
-            open_search.onclick = openSearch;
-            user_btn.onclick = user;
-            cart_btn.onclick = cart;
+                const openSearch = () => {
+                    navbar.style.display = "none";
+                    search_box.style.display = "flex";
+                    search_box.style.height = "0";
+                    search_box.style.justifyContent = "center";
+                    search_box.style.alignItems = "center";
+
+                    setTimeout(() => {
+                        search_box.style.height = "8rem";
+                    }, 10)
+                
+                    close_search.onclick = closeSearch;
+
+                    const clicked = (id) => {
+                        if(id!=-1) {
+                        window.location.href = `http://localhost:3000/products/id/${id}`;
+                        closeSearch();}
+                    }
+
+                    let items_arr = [], ids = [], current = 0, items_num = 0
+
+                    $(search_input).on('keydown', (event) => {
+                        if(event.key === "Backspace" || event.key === "Delete") {
+                            if($(search_input).val().length === 1) {
+                                $(search_input).val('');
+                                $('#search-results').hide();
+                                $('#search-results').empty();
+                                current = 0;
+                                items_num = 0; 
+                            }
+                        }
+                        else if (event.key == "Enter" && items_num != 0){
+                            clicked(ids[current]);
+                        } 
+                        else if (event.key == "ArrowUp"){
+                            event.preventDefault();
+                            if(current > 0){
+                                items_arr[current].style.background = "whitesmoke";
+                                current--;
+                                items_arr[current].style.background = "rgb(205, 203, 203)";
+                            }
+                        } 
+                        else if (event.key === "ArrowDown"){
+                            event.preventDefault();
+                            if(current + 1 < items_num){
+                                items_arr[current].style.background = "whitesmoke";
+                                current++;
+                                items_arr[current].style.background = "rgb(205, 203, 203)";
+                            }
+                        }
+                    })
+
+                    $(search_input).on('input', (event) => {
+                        let max_products = 4;
+                        
+                        $.ajax({
+                            url: `/search-products`,
+                            method: 'GET',
+                            success: (products) => {
+                                current = 0;
+                                items_num = 0;
+
+                                $('#search-results').empty();
+
+                                if($(search_input).val().trim() !== '')
+                                    $('#search-results').show();
+                            
+                                for(let i = 0; i < 4; i++)
+                                    if(items_arr[i])
+                                        items_arr[i] = null;
+                            
+                                products.forEach(product => {
+                                    if (items_num < max_products && product.name.toLowerCase().includes(search_input.value.toLowerCase())) {
+                                        let new_item = document.createElement('div');
+                                        new_item.innerHTML = `
+                                            <div id="item" class="d-flex align-items-center justify-content-center">
+                                                <div style="width:18.5rem;"><h5 class="card-title text-ellipsis" style="margin-left: 1rem; margin-right: rem;">${product.name}</h5></div>
+                                                <div style="width:10rem; margin-left: 1rem; margin-right: 1rem;" class="d-flex justify-content-center"><h5 class="card-title text-ellipsis">Price: $${product.price}</h5></div>
+                                                <img id="image" src="${product.image}" alt="Product Image" style="width: 4rem; height: 4rem; margin-right: 1rem;">
+                                            </div>`;
+                                        
+                                        new_item.addEventListener('click', () => clicked(product._id));
+
+                                        ids[items_num] = product._id;
+                                        items_arr[items_num] = new_item;
+                                        
+                                        $('#search-results').append(items_arr[items_num]); 
+
+                                        if (items_num == 0)
+                                            items_arr[items_num].style.background = "rgb(205, 203, 203)";
+                                        else 
+                                            items_arr[items_num].style.background = "whitesmoke";
+                                        
+                                        items_num++;
+                                    }
+                                });
+                            },
+                        
+                            error: (error) => {
+                              console.error('Error loading products:', error);
+                            },
+
+                        });
+                    })
+
+                    search_btn.addEventListener('click', () => {
+                        if(items_num != 0)
+                           clicked(ids[current]);
+                    })
+                }
+
+                const user = () => {
+                    window.location.href = "http://localhost:3000/login";
+                }
+
+                const cart = () => {
+                    //window.location.href = "http://localhost:3000/cart";
+                }
+
+                logo_btn.onclick = mainPage;
+                about_btn.onclick = aboutPage;
+                open_search.onclick = openSearch;
+                shop_btn.onclick = shop;
+                sale_btn.onclick = sale;
+                user_btn.onclick = user;
+                cart_btn.onclick = cart;
+            }); 
         </script>
     </body>
 </html>
