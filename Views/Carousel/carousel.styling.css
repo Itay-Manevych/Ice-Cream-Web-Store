@@ -1,13 +1,4 @@
-.carousel-item{
-    background-color: whitesmoke;
-}
 
 .carousel-inner img {
-    display: block;
-    margin: 0 auto;
-}
-
-.carousel-inner img {
-    max-width: 60rem;
-    max-height: 38.7rem;
+    height: 60rem;
 }

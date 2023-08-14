@@ -30,6 +30,9 @@ button {
 }
 
 nav.navbar {
+    position: absolute;
+    top:0;
+    width:100%;
     flex-wrap: nowrap;
     height: 8rem;
 }
@@ -126,6 +129,9 @@ i {
 }
 
 #search-box {
+    position: absolute;
+    top:0;
+    width:100%;
     display: none;
     gap: 2rem;
     transition: height 0.3s ease

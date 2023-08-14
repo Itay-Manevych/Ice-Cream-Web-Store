@@ -8,6 +8,8 @@
     </head>
 
     <body class="body">
+        <div style="height: 8rem;" class="bg-light"></div>
+        
         <nav class="navbar bg-light align-items-center"> 
             <div class="us-box d-flex bg-light align-items-center">
                 <img id="logo-btn" class="nav-item" src="../Assets/logo.png" alt="Logo">
@@ -56,9 +58,6 @@
 
                 const search_btn = $("#search-icon-search-box")[0];
 
-                about_btn.onclick = () => {
-                    about_btn.style.outline = "0"
-                }
                 const mainPage = () => {
                     window.location.href = "http://localhost:3000";
                 }
