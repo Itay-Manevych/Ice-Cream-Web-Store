@@ -16,25 +16,35 @@
         <h1 class="ml-3 medium-margin-right">Our Products</h1>
         
         <div class="dropdown">
-          <label class="small-margin-right" for="categoryDropdown">Sort by:</label>
+          <label class="small-margin-right" for="categoryDropdown">Filter by:</label>
           <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
             Category
           </button>
           <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-            <li><a class="dropdown-item" data-category="All">All</a></li>
+            <li><a class="dropdown-item category-dropdown-item" data-category="All">All</a></li>
             <% categories.forEach(category => { %>
-              <li><a class="dropdown-item" data-category="<%= category.name %>"><%= category.name %></a></li>
+              <li><a class="dropdown-item category-dropdown-item" data-category="<%= category.name %>"><%= category.name %></a></li>
             <% }); %>
+          </ul>
+        </div>
+        <div class="dropdown ml-auto medium-margin-left">
+          <label class="small-margin-right" for="sortDropdown">Sort by:</label>
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Default
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+            <li><a class="dropdown-item sort-dropdown-item" data-sort="default">Default</a></li>
+            <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically A-Z">Alphabetically A-Z</a></li>
+            <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically Z-A">Alphabetically Z-A</a></li>
+            <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Lowest - Highest">Price Lowest - Highest</a></li>
+            <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Highest - Lowest">Price Highest - Lowest</a></li>
           </ul>
         </div>
       </div>
     </div>
   </div>
   
-  
   <div id="container" class="d-flex flex-wrap">
-
-        
     <% products.forEach(product => { %>
       <div id="card-container" class="card card-container" onclick="openModal('productModal<%=product._id%>')">
         <div id="image-container">
@@ -46,7 +56,7 @@
           <p class="card-text card-price">Price: $<%= product.price %></p>
         </div>
       </div>
-      
+            
       <div class="modal fade" id="productModal<%= product._id %>" tabindex="-1" aria-labelledby="productModalLabel<%= product._id %>" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -113,7 +123,21 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
   
 <script>
- const modals = {};
+    const modals = {};
+    
+    function openModal(modalId) {
+      if (!modals[modalId]) {
+        modals[modalId] = new bootstrap.Modal(document.getElementById(modalId));
+      }
+      modals[modalId].show();
+    }
+    
+    function closeModal(modalId) {
+      if (modals[modalId]) {
+        modals[modalId].hide();
+      }
+    }
+$(document).ready(function () {
  function generateProductCard(product) {
      return `
        <div id="card-container" class="card" onclick="openModal('productModal${product._id}')">
@@ -126,7 +150,7 @@
            <p class="card-text card-price">Price: $${product.price}</p>
          </div>
        </div>
-       <!-- Add your modal code for this product here -->
+
        <div class="modal fade" id="productModal${product._id}" tabindex="-1" aria-labelledby="productModalLabel${product._id}" aria-hidden="true">
          <div class="modal-dialog">
            <div class="modal-content">
@@ -179,23 +203,6 @@
        </div>`;
    }     
 
-function openModal(modalId) {
-  // console.log(modalId);
-  if (!modals[modalId]) {
-    // console.log(1);
-    // console.log(document.getElementById(modalId));
-    modals[modalId] = new bootstrap.Modal(document.getElementById(modalId));
-  }
-  // console.log(2);
-  modals[modalId].show();
-}
-
-function closeModal(modalId) {
-  if (modals[modalId]) {
-    modals[modalId].hide();
-  }
-}
-
 function addToCartAndClose(productName, productPrice, modalId) {
   const selectedAdditions = {
     sprinkles: document.querySelector(`#${modalId} [name="sprinkles"]`).checked,
@@ -210,33 +217,160 @@ function addToCartAndClose(productName, productPrice, modalId) {
 }
 
 
-$(document).ready(function () {
-    $('.dropdown-item').on('click', function () {
-      const selectedCategory = $(this).data('category');
-      if (selectedCategory === 'All') {
-        loadAllProducts();
-        $('#categoryDropdown').text('All');
-      } 
-      else {
-        loadProductsByCategory(selectedCategory);
-        $('#categoryDropdown').text(selectedCategory);
+$('.category-dropdown-item').on('click', function () {
+    $('.category-dropdown-item').removeClass('active');
+    $(this).addClass('active');
+    $('#sortDropdown').text("Deafult");
+
+    const selectedCategory = $(this).data('category');
+    if (selectedCategory === 'All') {
+      loadAllProducts();
+      $('#categoryDropdown').text('All');
+    } 
+    else {
+      loadProductsByCategory(selectedCategory);
+      $('#categoryDropdown').text(selectedCategory);
+    }
+});
+
+$('.sort-dropdown-item').on('click', function () {
+  const selectedSort = $(this).data('sort');
+  let currentCategory = $('#categoryDropdown').text().trim();
+  $('#sortDropdown').text(selectedSort);
+
+
+  if (currentCategory === 'Category') {
+    currentCategory = 'All';
+  }
+
+  if (selectedSort === 'Alphabetically A-Z') {
+      sortProductsAlphabetically('asc', currentCategory);
+  } 
+  
+  else if (selectedSort === 'Alphabetically Z-A') {
+      sortProductsAlphabetically('desc', currentCategory);
+  } 
+  
+  else if (selectedSort === 'Price Lowest - Highest') {
+      sortProductsByPrice('asc', currentCategory);
+  } 
+  
+  else if (selectedSort === 'Price Highest - Lowest') {
+    sortProductsByPrice('desc', currentCategory);
+  }
+
+});
+
+  function sortProductsAlphabetically(order, category) {
+    if(category==='All')
+    {
+      $.ajax({
+        url: `/search-products`,
+        method: 'GET',
+      success: function (products) {
+        products.sort((a, b) => {
+          if (order === 'asc') {
+            return a.name.localeCompare(b.name);
+          } else {
+            return b.name.localeCompare(a.name);
+          }
+        });
+        
+        updateProductDisplay(products);
+      },
+      error: function (error) {
+        console.error('Error loading products:', error);
       }
     });
-
-    
-    function loadProductsByCategory(category) {
-      $.ajax({
+  }
+  else {
+    $.ajax({
         url: `/products/category/${category}`,
         method: 'GET',
-        success: function (products) {
-          $('#container').empty(); 
+      success: function (products) {
+        products.sort((a, b) => {
+          if (order === 'asc') {
+            return a.name.localeCompare(b.name);
+          } else {
+            return b.name.localeCompare(a.name);
+          }
+        });
+        
+        updateProductDisplay(products);
+      },
+      error: function (error) {
+        console.error('Error loading products:', error);
+      }
+    });
+  }
+  }
+
+  function sortProductsByPrice(order, category) {
+    if(category === 'All') {
+      $.ajax({
+      url: `/search-products`,
+      method: 'GET',
+      success: function (products) {
+        products.sort((a, b) => {
+          if (order === 'asc') {
+            return a.price - b.price;
+          } else {
+            return b.price - a.price;
+          }
+        });
+
+        updateProductDisplay(products);
+      },
+      error: function (error) {
+        console.error('Error loading products:', error);
+      }
+    });
+    }
+  else {
+    $.ajax({
+      url: `/products/category/${category}`,
+      method: 'GET',
+      success: function (products) {
+        products.sort((a, b) => {
+          if (order === 'asc') {
+            return a.price - b.price;
+          } else {
+            return b.price - a.price;
+          }
+        });
+
+        updateProductDisplay(products);
+      },
+      error: function (error) {
+        console.error('Error loading products:', error);
+      }
+    });
+  }
+    
+  }
+
+  function updateProductDisplay(products) {
+    $('#container').empty();
+    products.forEach(product => {
+      const productCard = generateProductCard(product);
+      $('#container').css('margin-left', '0');
+      $('#container').append(productCard);
+    });
+  }
+       
+  function loadProductsByCategory(category) {
+        $.ajax({
+          url: `/products/category/${category}`,
+          method: 'GET',
+          success: function (products) {
+            $('#container').empty(); 
             products.forEach(product => {
               const productCard = generateProductCard(product);
-                    $('#container').css('margin-left', '0'); 
-                    $('#container').append(productCard);
-                  });
-              },
-              error: function (error) {
+              $('#container').css('margin-left', '0'); 
+              $('#container').append(productCard);
+            });
+          },
+          error: function (error) {
                 $('#container').empty();
                 $('#container').css('margin-left', '2rem');
                 $('#container').append('<p>No products available in this category.</p>');
@@ -244,28 +378,28 @@ $(document).ready(function () {
               }
             });
           }
-        });
-        function loadAllProducts() {
+          function loadAllProducts() {
             $.ajax({
               url: `/search-products`,
               method: 'GET',
-              success: function (products) {
-                $('#container').empty();
-                products.forEach(product => {
-                  const productCard = generateProductCard(product);
-                  $('#container').css('margin-left', '0'); 
-                  $('#container').append(productCard);
-                });
-              },
-              error: function (error) {
-                $('#container').empty();
-                $('#container').css('margin-left', '2rem');
-                $('#container').append('<p>No products available.</p>');
-                console.error('Error loading products:', error);
-              }
-            });
-          }
-</script>
-
+            success: function (products) {
+              $('#container').empty();
+              products.forEach(product => {
+                const productCard = generateProductCard(product);
+                $('#container').css('margin-left', '0'); 
+                $('#container').append(productCard);
+              });
+            },
+            error: function (error) {
+              $('#container').empty();
+              $('#container').css('margin-left', '2rem');
+              $('#container').append('<p>No products available.</p>');
+              console.error('Error loading products:', error);
+            }
+          });
+        }
+      });
+</script> 
 </body>
 </html>
+      

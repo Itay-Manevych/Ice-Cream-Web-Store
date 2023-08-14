@@ -1,16 +1,17 @@
 import express from "express"
 import { ProductController }  from "../Controllers/product.js";
 import { CategoryService } from "../Services/category.js";
+import { CategoryController } from "../Controllers/category.js";
 
 const ProductRouter = express.Router();
 
 ProductRouter.route('/')
 .get(async (req, res) => {
-        const categories = await CategoryService.getAllCategories();
+        const categories = await CategoryController.getAllCategories(req,res);
         const products = await ProductController.getAllProducts(req,res);
         res.render('Products/productsDisplay.ejs', {products: products, categories: categories});
 })
-    .post(ProductController.createProduct);
+.post(ProductController.createProduct);
 
 ProductRouter.route('/id/:id')
     .get(ProductController.getProductById)

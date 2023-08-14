@@ -13,6 +13,11 @@ body {
   margin-right: 4rem;
 }
 
+.medium-margin-left
+{
+  margin-left: 4rem;
+}
+
 .small-margin-right
 {
   margin-right: 0.5rem;
