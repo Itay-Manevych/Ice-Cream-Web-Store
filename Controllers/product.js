@@ -51,8 +51,8 @@ const getAllProducts = async (req, res) => {
         if(!products || products.length === 0) {
             throw new Error("There are no existing product models");
         }
-        // res.status(201).json(products);
-        res.render('Products/display', { products });
+        res.status(201);
+        return products;
     }
     catch(error) {
         res.status(500).json({
