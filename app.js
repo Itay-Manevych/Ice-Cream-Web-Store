@@ -65,15 +65,8 @@ app.get("/search-products", async (req, res) => {
   try {
     const products = await ProductController.getAllProducts(req, res);
     res.json(products);
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    res.status(500).json({ error: "Internal server error" });
   }
-app.get("/search-products", async (req, res) => {
-  try {
-    const products = await ProductController.getAllProducts(req, res);
-    res.json(products);
-  } catch (error) {
+  catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ error: "Internal server error" });
   }
