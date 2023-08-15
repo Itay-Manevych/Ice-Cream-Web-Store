@@ -36,7 +36,8 @@ const getAllUsers = async (req, res) => {
         if(!users) {
             throw new Error("There are no existing user models");
         }
-        res.status(201).json(users);
+        res.status(201);
+        return users;
     }
     catch(error) {
         res.status(500).json({

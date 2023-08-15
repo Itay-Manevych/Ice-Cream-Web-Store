@@ -8,6 +8,10 @@ div.card {
     height: 40.5rem;
 }
 
+.card-body {
+    height: 42rem;
+}
+
 #input, button#login-button {
     width: 24rem;
     margin: 0;
