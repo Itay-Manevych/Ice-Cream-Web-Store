@@ -124,6 +124,18 @@
   
 <script>
     const modals = {};
+
+    function addToCart(productName, productPrice, modalId) {
+      const selectedAdditions = {
+        sprinkles: document.querySelector(`#${modalId} [name="sprinkles"]`).checked,
+        hot_chocolate: document.querySelector(`#${modalId} [name="hot_chocolate"]`).checked,
+        gummy_bears: document.querySelector(`#${modalId} [name="gummy_bears"]`).checked,
+      };
+
+      closeModal(modalId);
+      console.log(`Added "${productName}" to cart for $${productPrice}`);
+      console.log("Selected Additions:", selectedAdditions);
+    }
     
     function openModal(modalId) {
       if (!modals[modalId]) {
