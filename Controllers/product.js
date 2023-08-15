@@ -19,7 +19,8 @@ const getProductById = async (req, res) => {
         if(!product) {
             throw new Error("There is not an existing product model with that id");
         }
-        res.status(201).json(product);
+        res.status(201)
+        return product;
     }
     catch(error) {
         res.status(500).json({
