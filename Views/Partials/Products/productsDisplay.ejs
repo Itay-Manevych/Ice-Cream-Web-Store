@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="../../Partials/Products/productsDisplay.styling.css">
+  <%- include("../Navbar/navbar.ejs") %>
 </head>
 <body>
-  <%- include("../Navbar/navbar.ejs") %>
 <div id="locked-div">
   
   <div id="left-align" class="container mt-4">
@@ -33,7 +33,7 @@
             Default
           </button>
           <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-            <li><a class="dropdown-item sort-dropdown-item" data-sort="Default">Default</a></li>
+            <li><a class="dropdown-item sort-dropdown-item" data-sort="default">Default</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically A-Z">Alphabetically A-Z</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically Z-A">Alphabetically Z-A</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Lowest - Highest">Price Lowest - Highest</a></li>
@@ -108,7 +108,7 @@
                 </div>
             </div>
             <footer class="modal-footer">
-              <button class="btn btn-success" onclick="addToCart('<%= product.name %>', '<%= product.price %>', 'productModal<%= product._id %>')">
+              <button class="btn btn-success" onclick="addToCartAndClose('<%= product.name %>', '<%= product.price %>', 'productModal<%= product._id %>')">
                 Add to Cart
               </button>
             </footer>
@@ -125,35 +125,20 @@
 <script>
     const modals = {};
     
-    const openModal = (modalId) => {
+    function openModal(modalId) {
       if (!modals[modalId]) {
         modals[modalId] = new bootstrap.Modal(document.getElementById(modalId));
       }
       modals[modalId].show();
-    };
-
-    const closeModal = (modalId) => {
+    }
+    
+    function closeModal(modalId) {
       if (modals[modalId]) {
         modals[modalId].hide();
       }
-    };
-
-    const addToCart = (productName, productPrice, modalId) => {
-      const selectedAdditions = {
-        sprinkles: document.querySelector(`#${modalId} [name="sprinkles"]`).checked,
-        hot_chocolate: document.querySelector(`#${modalId} [name="hot_chocolate"]`).checked,
-        gummy_bears: document.querySelector(`#${modalId} [name="gummy_bears"]`).checked,
-      };
-
-      closeModal(modalId);
-
-      console.log(`Added "${productName}" to cart for $${productPrice}`);
-      console.log("Selected Additions:", selectedAdditions);
-    };
-
-
+    }
 $(document).ready(function () {
- const generateProductCard = (product) => {
+ function generateProductCard(product) {
      return `
        <div id="card-container" class="card" onclick="openModal('productModal${product._id}')">
          <div id="image-container">
@@ -209,7 +194,7 @@ $(document).ready(function () {
                </div>
              </div>
              <footer class="modal-footer">
-               <button class="btn btn-success" onclick="addToCart('${product.name}', '${product.price}', 'productModal${product._id}')">
+               <button class="btn btn-success" onclick="addToCartAndClose('${product.name}', '${product.price}', 'productModal${product._id}')">
                  Add to Cart
                </button>
              </footer>
@@ -218,42 +203,63 @@ $(document).ready(function () {
        </div>`;
    }     
 
+function addToCartAndClose(productName, productPrice, modalId) {
+  const selectedAdditions = {
+    sprinkles: document.querySelector(`#${modalId} [name="sprinkles"]`).checked,
+    hot_chocolate: document.querySelector(`#${modalId} [name="hot_chocolate"]`).checked,
+    gummy_bears: document.querySelector(`#${modalId} [name="gummy_bears"]`).checked,
+  };
+
+  closeModal(modalId);
+
+  console.log(`Added "${productName}" to cart for $${productPrice}`);
+  console.log("Selected Additions:", selectedAdditions);
+}
 
 
-$('.category-dropdown-item').on('click', () => {
+$('.category-dropdown-item').on('click', function () {
     $('.category-dropdown-item').removeClass('active');
     $(this).addClass('active');
-    $('#sortDropdown').text('Default');
+    $('#sortDropdown').text("Deafult");
 
     const selectedCategory = $(this).data('category');
     if (selectedCategory === 'All') {
       loadAllProducts();
       $('#categoryDropdown').text('All');
-    } else {
+    } 
+    else {
       loadProductsByCategory(selectedCategory);
       $('#categoryDropdown').text(selectedCategory);
     }
-  });
+});
 
-  $('.sort-dropdown-item').on('click', () => {
-    const selectedSort = $(this).data('sort');
-    let currentCategory = $('#categoryDropdown').text().trim();
-    $('#sortDropdown').text(selectedSort);
+$('.sort-dropdown-item').on('click', function () {
+  const selectedSort = $(this).data('sort');
+  let currentCategory = $('#categoryDropdown').text().trim();
+  $('#sortDropdown').text(selectedSort);
 
-    if (currentCategory === 'Category') {
-      currentCategory = 'All';
-    }
 
-    if (selectedSort === 'Alphabetically A-Z') {
+  if (currentCategory === 'Category') {
+    currentCategory = 'All';
+  }
+
+  if (selectedSort === 'Alphabetically A-Z') {
       sortProductsAlphabetically('asc', currentCategory);
-    } else if (selectedSort === 'Alphabetically Z-A') {
+  } 
+  
+  else if (selectedSort === 'Alphabetically Z-A') {
       sortProductsAlphabetically('desc', currentCategory);
-    } else if (selectedSort === 'Price Lowest - Highest') {
+  } 
+  
+  else if (selectedSort === 'Price Lowest - Highest') {
       sortProductsByPrice('asc', currentCategory);
-    } else if (selectedSort === 'Price Highest - Lowest') {
-      sortProductsByPrice('desc', currentCategory);
-    }
-  });
+  } 
+  
+  else if (selectedSort === 'Price Highest - Lowest') {
+    sortProductsByPrice('desc', currentCategory);
+  }
+
+});
 
   function sortProductsAlphabetically(order, category) {
     if(category==='All')
@@ -299,7 +305,7 @@ $('.category-dropdown-item').on('click', () => {
   }
   }
 
-  const sortProductsByPrice = (order, category) => {
+  function sortProductsByPrice(order, category) {
     if(category === 'All') {
       $.ajax({
       url: `/search-products`,
@@ -343,7 +349,7 @@ $('.category-dropdown-item').on('click', () => {
     
   }
 
-  const updateProductDisplay = (products) => {
+  function updateProductDisplay(products) {
     $('#container').empty();
     products.forEach(product => {
       const productCard = generateProductCard(product);
@@ -352,7 +358,7 @@ $('.category-dropdown-item').on('click', () => {
     });
   }
        
-  const loadProductsByCategory = (category) => {
+  function loadProductsByCategory(category) {
         $.ajax({
           url: `/products/category/${category}`,
           method: 'GET',
@@ -372,7 +378,7 @@ $('.category-dropdown-item').on('click', () => {
               }
             });
           }
-          const loadAllProducts = () => {
+          function loadAllProducts() {
             $.ajax({
               url: `/search-products`,
               method: 'GET',
@@ -396,4 +402,3 @@ $('.category-dropdown-item').on('click', () => {
 </script> 
 </body>
 </html>
-      
