@@ -57,9 +57,6 @@ app.get("/", async (req, res) => {
   res.render('./Navbar/navbar', { products });
 });
 
-app.get("/", (req, res) => {
-  res.render('./Partials/Navbar/navbar');
-});
 
 app.get("/search-products", async (req, res) => {
   try {
