@@ -54,11 +54,6 @@ app.use("/register", RegisterRouter);
 app.get("/", async (req, res) => {
   const products = await ProductController.getAllProducts(req,res);
   res.render('./Carousel/carousel');
-  res.render('./Navbar/navbar', { products });
-});
-
-app.get("/", (req, res) => {
-  res.render('./Partials/Navbar/navbar');
 });
 
 app.get("/search-products", async (req, res) => {
