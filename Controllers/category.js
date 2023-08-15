@@ -35,7 +35,8 @@ const getAllCategories = async (req, res) => {
         if(!categories) {
             throw new Error("There are no existing category models");
         }
-        res.status(201).json(categories);
+        res.status(201);
+        return categories;
     }
     catch(error) {
         res.status(500).json({
