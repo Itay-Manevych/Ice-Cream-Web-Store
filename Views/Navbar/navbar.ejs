@@ -9,7 +9,7 @@
 
     <body class="body">
         <div style="height: 8rem;" class="bg-light"></div>
-        
+
         <nav class="navbar bg-light align-items-center"> 
             <div class="us-box d-flex bg-light align-items-center">
                 <img id="logo-btn" class="nav-item" src="../Assets/logo.png" alt="Logo">
@@ -104,7 +104,6 @@
                     
                     $(search_input).on('keydown', (event) => {
                         if(event.key === "Backspace" || event.key === "Delete") {
-                            current = 4;
                             if($(search_input).val().length === 1) {
                                 $(search_input).val('');
                                 $('#search-results').hide();
@@ -188,7 +187,7 @@
                     })
 
                     search_btn.addEventListener('click', () => {
-                        if(items_num != 0 && current != 4)
+                        if(items_num != 0 && search_input.value != '')
                            clicked(ids[current]);
                     })
                 }
