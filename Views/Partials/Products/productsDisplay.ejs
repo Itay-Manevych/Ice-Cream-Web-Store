@@ -108,7 +108,7 @@
                 </div>
             </div>
             <footer class="modal-footer">
-              <button class="btn btn-success" onclick="addToCartAndClose('<%= product.name %>', '<%= product.price %>', 'productModal<%= product._id %>')">
+              <button class="btn btn-success" onclick="addToCart('<%= product.name %>', '<%= product.price %>', 'productModal<%= product._id %>')">
                 Add to Cart
               </button>
             </footer>
@@ -124,6 +124,19 @@
   
 <script>
     const modals = {};
+
+    function addToCart(productName, productPrice, modalId) {
+      const selectedAdditions = {
+        sprinkles: document.querySelector(`#${modalId} [name="sprinkles"]`).checked,
+        hot_chocolate: document.querySelector(`#${modalId} [name="hot_chocolate"]`).checked,
+        gummy_bears: document.querySelector(`#${modalId} [name="gummy_bears"]`).checked,
+      };
+    
+      closeModal(modalId);
+    
+      console.log(`Added "${productName}" to cart for $${productPrice}`);
+      console.log("Selected Additions:", selectedAdditions);
+    }
     
     function openModal(modalId) {
       if (!modals[modalId]) {
@@ -194,7 +207,7 @@ $(document).ready(function () {
                </div>
              </div>
              <footer class="modal-footer">
-               <button class="btn btn-success" onclick="addToCartAndClose('${product.name}', '${product.price}', 'productModal${product._id}')">
+               <button class="btn btn-success" onclick="addToCart('${product.name}', '${product.price}', 'productModal${product._id}')">
                  Add to Cart
                </button>
              </footer>
@@ -202,20 +215,6 @@ $(document).ready(function () {
          </div>
        </div>`;
    }     
-
-function addToCartAndClose(productName, productPrice, modalId) {
-  const selectedAdditions = {
-    sprinkles: document.querySelector(`#${modalId} [name="sprinkles"]`).checked,
-    hot_chocolate: document.querySelector(`#${modalId} [name="hot_chocolate"]`).checked,
-    gummy_bears: document.querySelector(`#${modalId} [name="gummy_bears"]`).checked,
-  };
-
-  closeModal(modalId);
-
-  console.log(`Added "${productName}" to cart for $${productPrice}`);
-  console.log("Selected Additions:", selectedAdditions);
-}
-
 
 $('.category-dropdown-item').on('click', function () {
     $('.category-dropdown-item').removeClass('active');
