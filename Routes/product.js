@@ -24,4 +24,3 @@ ProductRouter.route('/category/:name')
     .get(ProductController.getAllProductsByCategory)
 
 export default ProductRouter;
-

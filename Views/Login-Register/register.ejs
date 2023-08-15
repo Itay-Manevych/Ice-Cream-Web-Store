@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" type="text/css" href="../Login-Register/register.styling.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+    <div id="container" class="row d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                <h5 id="register-title" class="card-title text-center mt-1 mb-4">
+                    Create Your Account
+                </h5>
+                <form>
+                    <div id="form-field">
+                        <label for="username" class="form-label">
+                            Username:
+                        </label>
+                        <input type="username" name="username" id="input" class="form-control">
+                        <div id="invalid-feedback" class="text-danger">
+
+                        </div>
+                    </div>
+                    
+                    <div id="form-field">
+                        <label for="email" class="form-label">
+                            Email:
+                        </label>
+                        <input type="email" name="email" id="input" class="form-control">
+                        <div id="invalid-feedback" class="text-danger">
+
+                        </div>
+                    </div>
+
+                    <div id="form-field">
+                        <label for="password" class="form-label">
+                            Password:
+                        </label>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <input type="password" name="password-input" id="password-input" class="form-control mr-2">
+                            <i id="eye-icon" class="bi bi-eye-fill"></i>
+                        </div>
+                        <div id="invalid-feedback" class="text-danger">
+
+                        </div>
+                    </div>
+
+                    <div id="form-field-last" class="d-flex flex-column align-items-start">
+                        <label id="password-label" for="password" class="form-label">
+                            Repeat Password:
+                        </label>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <input type="password" name="password-input" id="password-input" class="form-control mr-2">
+                            <i id="eye-icon" class="bi bi-eye-fill"></i>
+                        </div>
+                        <div id="invalid-feedback" class="text-danger">
+
+                        </div>
+                    </div>
+
+                    <div id="generate-password" class="d-flex flex-row  justify-content-center align-items-center">
+                        <button id="password-button" class="btn btn-info">
+                            Generate Secure Password
+                        </button>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="register-button">
+                        Register
+                    </button>
+                </form>
+                <p class="mt-3 mb-3 text-center">
+                    Already have an account? 
+                    <a href="/login">
+                        Login here
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script>
+            const username = $("#input[name='username']");
+            const email = $("#input[name='email']");
+            const password_input = $("#password-input");
+            const repeat_password_input = $("[id=password-input]:eq(1)");
+            const password_button = $("#password-button");
+            const eye_icon = $("#eye-icon");
+            const repeat_eye_icon = $("[id=eye-icon]:eq(1)");
+            const register_button = $("#register-button");
+            const form = $("form");
+
+            const changeIcon = (input,icon) => {
+                input.attr("type") === "password" 
+                ? (input.attr("type","input"), icon.removeClass().addClass("bi bi-eye-slash-fill")) 
+                : (input.attr("type","password"), icon.removeClass().addClass("bi bi-eye-fill"));
+            }
+            
+            eye_icon.on("click", () => changeIcon(password_input,eye_icon));
+            repeat_eye_icon.on("click", () => changeIcon(repeat_password_input,repeat_eye_icon));
+
+            password_button.on("click", (event) => {
+                event.preventDefault();
+                let password = "";
+                const password_length = 12;
+                const allowed_password_values = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                for (let i = 0; i < password_length; i++) {
+                    let rand = Math.floor(
+                        Math.random() * allowed_password_values.length
+                    );
+                    password += allowed_password_values.substring(rand,rand + 1);
+                }
+                password_input.val(password);
+            })
+            
+            const checkExistingUser = () => {
+                let users;
+                $.ajax({
+                    url: '/users',
+                    type: 'GET',
+                    success: (users1) => {
+                        users = users1;
+                    }
+                });
+                return users;
+            }
+
+            const validateEmail = (email) => {
+                const email_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                return email_regex.test(email);
+            };
+            
+            const validateUsername = (username) => {
+                return username !== "";
+            }
+
+            const validatePassowrd = (password) => {
+                return password !== "";
+            }
+
+            const comparePasswords = (password1, password2) => {
+                return password1 === password2;
+            }
+            
+            const showError = (input_element, error_message) => {
+                input_element.addClass("is-invalid");
+                const error_div = input_element.closest("div").siblings("#invalid-feedback").length === 0
+                ? input_element.siblings("#invalid-feedback")
+                : input_element.closest("div").siblings("#invalid-feedback");
+                error_div.text(error_message);
+            };
+        
+            const hideError = (input_element) => {
+                input_element.removeClass("is-invalid");
+                const error_div = input_element.closest("div").siblings("#invalid-feedback").length === 0
+                ? input_element.siblings("#invalid-feedback")
+                : input_element.closest("div").siblings("#invalid-feedback");
+                error_div.text("");
+            };
+        
+            const validateForm = () => {
+                let isValid = true;
+            
+                if (!validateUsername(username.val().trim())) {
+                    isValid = false;
+                    showError(username, "Username cannot be empty.");
+                } 
+                else {
+                    hideError(username);
+                }
+                console.log("user check", checkExistingUser(email.val()));
+                if (!validateEmail(email.val())) {
+                    isValid = false;
+                    showError(email, "Invalid email format.");
+                } 
+
+                else if (checkExistingUser(email.val())) {
+                    isValid = false;
+                    hideError(email);
+                    showError(email, "Email already in use");
+                }
+                
+                else {
+                    hideError(email);
+                }
+
+                if (!validatePassowrd(password_input.val().trim())) {
+                    isValid = false;
+                    showError(password_input, "Password cannot be empty.");
+                } 
+                else {
+                    hideError(password_input);
+                }
+            
+                if (!validatePassowrd(repeat_password_input.val().trim()) || !comparePasswords(password_input.val().trim(), repeat_password_input.val().trim())) {
+                    isValid = false;
+                    showError(repeat_password_input, "Passwords do not match.");
+                } 
+                else {
+                    hideError(repeat_password_input);
+                }
+            
+                return isValid;
+            };
+            
+            $("#input[name='username'], #input[name='email'], #password-input, #repeat-password-input").on("input", (event) => {
+                hideError($(event.target));
+            });
+
+            register_button.on("click", (event) => {
+                event.preventDefault();
+                
+                if (validateForm()) {
+                    const form_data = {
+                        user_name: username.val(),
+                        email: email.val(), 
+                        password: password_input.val(),
+                    }
+
+                    $.ajax({
+                        url: '/users',
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(form_data),
+                        success: () => {
+                            console.log("User registered successfully");
+                        },
+                        error: (error) => {
+                            console.log("Error registering a user",error);
+                        }
+                    });
+                }
+            });
+        </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+#container {
+    background-color: white; 
+}
+
+div.card {
+    box-shadow: 0 0 0 0.07rem rgba(0, 0, 0, 0.1); 
+}
+
+#input, button#login-button {
+    width: 22rem;
+}
+
+input.input-password {
+    margin: 0rem;
+}
+
+#password-info {
+    width: 22rem;
+}
+
+input.form-check-input {
+    border-width: 0.1rem;
+}
+
+button.btn{
+    margin-top: 0.75rem;
+}
