@@ -15,7 +15,7 @@
                 <h5 id="register-title" class="card-title text-center mt-1 mb-4">
                     Create Your Account
                 </h5>
-                <form method="post" action="/register">
+                <form>
                     <div id="form-field">
                         <label for="username" class="form-label">
                             Username:
@@ -83,6 +83,8 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script>
+            const username = $("#input[name='username']");
+            const email = $("#input[name='email']");
             const password_input = $("#password-input");
             const repeat_password_input = $("[id=password-input]:eq(1)");
             const password_button = $("#password-button");
@@ -148,8 +150,6 @@
             };
         
             const validateForm = () => {
-                const username = $("#input[name='username']");
-                const email = $("#input[name='email']");
                 let isValid = true;
             
                 if (!validateUsername(username.val().trim())) {
@@ -193,9 +193,28 @@
 
             register_button.on("click", (event) => {
                 event.preventDefault();
-            
+                
                 if (validateForm()) {
-                    form.submit();
+                    const form_data = {
+                        _id: 1342,
+                        user_name: username.val(),
+                        email: email.val(), 
+                        password: password_input.val(),
+                    }
+
+                    $.ajax({
+                        url: '/users',
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(form_data),
+                        success: () => {
+                            console.log("User registered successfully");
+                        },
+                        error: (error) => {
+                            console.log("Error registering a user",error);
+                        }
+                    });
                 }
             });
         </script>
