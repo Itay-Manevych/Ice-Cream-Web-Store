@@ -10,8 +10,10 @@ import CategoryRouter from "./Routes/category.js";
 import OrderRouter from "./Routes/order.js";
 import UserRouter from "./Routes/user.js";
 import CartRouter from "./Routes/cart.js";
-import { ProductController } from "./Controllers/product.js";
+import LoginRouter from "./Routes/login.js";
+import RegisterRouter from "./Routes/register.js";
 
+import { ProductController } from "./Controllers/product.js";
 
 const env_path = "./Config/.env";
 
@@ -34,7 +36,7 @@ const connectToMongoDB = async () => {
 connectToMongoDB();
 
 app.use(bodyParser.json());
-app.use(express.static('Views'))
+app.use(express.static('Views'));
 app.set('view engine', 'ejs');
 const __filename = fileURLToPath(import.meta.url);
 
@@ -46,6 +48,14 @@ app.use("/categories", CategoryRouter);
 app.use("/orders", OrderRouter);
 app.use("/users", UserRouter);
 app.use("/carts", CartRouter);
+app.use("/login", LoginRouter);
+app.use("/register", RegisterRouter);
+
+app.get("/", async (req, res) => {
+  const products = await ProductController.getAllProducts(req,res);
+  res.render('./Carousel/carousel');
+  res.render('./Navbar/navbar', { products });
+});
 
 app.get("/", (req, res) => {
   res.render('./Partials/Navbar/navbar');
@@ -55,7 +65,8 @@ app.get("/search-products", async (req, res) => {
   try {
     const products = await ProductController.getAllProducts(req, res);
     res.json(products);
-  } catch (error) {
+  }
+  catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ error: "Internal server error" });
   }
