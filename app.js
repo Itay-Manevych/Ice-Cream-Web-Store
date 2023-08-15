@@ -8,8 +8,10 @@ import CategoryRouter from "./Routes/category.js";
 import OrderRouter from "./Routes/order.js";
 import UserRouter from "./Routes/user.js";
 import CartRouter from "./Routes/cart.js";
-import { ProductController } from "./Controllers/product.js";
+import LoginRouter from "./Routes/login.js";
+import RegisterRouter from "./Routes/register.js";
 
+import { ProductController } from "./Controllers/product.js";
 
 const env_path = "./Config/.env";
 
@@ -41,6 +43,8 @@ app.use("/categories", CategoryRouter);
 app.use("/orders", OrderRouter);
 app.use("/users", UserRouter);
 app.use("/carts", CartRouter);
+app.use("/login", LoginRouter);
+app.use("/register", RegisterRouter);
 
 app.get("/", async (req, res) => {
   const products = await ProductController.getAllProducts(req,res);
@@ -55,10 +59,6 @@ app.get("/search-products", async (req, res) => {
     console.error("Error fetching products:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-});
-
-app.get("/login", (req, res) => {
-  res.render('./Login-Register/login');
 });
 
 app.listen(process.env.PORT, () => {

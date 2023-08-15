@@ -2,6 +2,7 @@ import { UserService } from "../Services/user.js";
 
 const createUser = async (req, res) => {
     try {
+        console.log(req);
         const new_user = await UserService.createUser(req.body);
         res.status(201).json(new_user);
     }
@@ -35,7 +36,8 @@ const getAllUsers = async (req, res) => {
         if(!users) {
             throw new Error("There are no existing user models");
         }
-        res.status(201).json(users);
+        res.status(201);
+        return users;
     }
     catch(error) {
         res.status(500).json({
