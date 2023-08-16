@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div id="login-container">
                         <button class="btn btn-primary" id="login-button" type="button">
                             Login
                         </button>
@@ -76,30 +76,6 @@
             
             eye_icon.on("click", () => changeIcon(password_input,eye_icon));
 
-            let users; 
-            const getExistingUsers = async () => {
-                await $.ajax({
-                    url: '/users', 
-                    type: 'GET',
-                    success: (data) => {
-                        users = data; 
-                    },
-                    error: (error) => {
-                        console.log("Error fetching existing users", error);
-                    }
-                });
-            }
-
-            const checkExistingUser = async (user_email, user_password) => {
-                await getExistingUsers();
-                for(let i = 0; i < users.length; i++) {
-                    if(users[i].email === user_email) {
-                        /*check passwrod*/
-                    }
-                }
-                return false;
-            }
-
             const showError = (element, error_message) => {
                 element.addClass("is-invalid");
                 const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
@@ -116,24 +92,44 @@
                 error_div.text("");
             };
 
-            const validateForm = async () => {
-                let is_valid = true;
-                if(!(await checkExistingUser(email_input.val(), password_input.val()))) {
-                    showError(login_button,"user doesnt exist, or email or password are wrong");
-                    is_valid = false;
+            const validateUser = async () => {
+                const form_data = {
+                    email: email_input.val(),
+                    password: password_input.val()
+                };
+
+                try {
+                    const response = await $.ajax({
+                        url: '/login',
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(form_data)
+                    });
+
+                    if (response.success) {
+                        return true; 
+                    } else {
+                        return false;
+                    }
                 } 
-                if(is_valid) {
-                    hideError(login_button);
+                catch (error) {
+                    console.log("AJAX request error:", error);
+                    return false; 
                 }
-                return is_valid;
             }
 
             login_button.on("click", async () => {
-                if(await validateForm()) {
-                    console.log("User logged in successfully");
+                if (await validateUser()) {
+                    if($("#invalid-feedback").text().length > 0) {
+                        hideError(login_button);
+                    }
+                   
                     window.location.href = "/";
+                } else {
+                    showError(login_button, "Incorrect email or password");
                 }
-            })
+            });
         });
     </script>
 </body>

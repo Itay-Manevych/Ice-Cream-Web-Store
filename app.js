@@ -1,5 +1,6 @@
 import dotenv from "dotenv"; 
 import express from "express";
+import session from "express-session";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import path from "path";
@@ -35,6 +36,13 @@ const connectToMongoDB = async () => {
 
 connectToMongoDB();
 
+app.use(
+  session({
+    secret: "your-secret-key",
+    resave: false,
+    saveUninitialized: true,
+  })
+)
 app.use(bodyParser.json());
 app.use(express.static('Views'));
 app.set('view engine', 'ejs');
