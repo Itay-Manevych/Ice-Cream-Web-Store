@@ -12,7 +12,7 @@
     <div id="container" class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="card">
             <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                <h5 id="register-title" class="card-title text-center mt-1 mb-4">
+                <h5 id="register-title" class="card-title text-center mt-1 mb-3">
                     Create Your Account
                 </h5>
                 <form>
@@ -41,7 +41,7 @@
                             Password:
                         </label>
                         <div class="d-flex justify-content-center align-items-center">
-                            <input type="password" name="password-input" id="password-input" class="form-control mr-2">
+                            <input type="password" name="password-input" id="password-input" class="form-control">
                             <i id="eye-icon" class="bi bi-eye-fill"></i>
                         </div>
                         <div id="invalid-feedback" class="text-danger">
@@ -49,12 +49,12 @@
                         </div>
                     </div>
 
-                    <div id="form-field-last" class="d-flex flex-column align-items-start">
+                    <div id="form-field" class="d-flex flex-column align-items-start">
                         <label id="password-label" for="password" class="form-label">
                             Repeat Password:
                         </label>
                         <div class="d-flex justify-content-center align-items-center">
-                            <input type="password" name="password-input" id="password-input" class="form-control mr-2">
+                            <input type="password" name="password-input" id="password-input" class="form-control">
                             <i id="eye-icon" class="bi bi-eye-fill"></i>
                         </div>
                         <div id="invalid-feedback" class="text-danger">
@@ -63,11 +63,11 @@
                     </div>
 
                     <div id="generate-password" class="d-flex flex-row  justify-content-center align-items-center">
-                        <button id="password-button" class="btn btn-info">
+                        <button id="generate-password-button" class="btn btn-info" type="button">
                             Generate Secure Password
                         </button>
                     </div>
-                    <button type="submit" class="btn btn-primary" id="register-button">
+                    <button class="btn btn-primary" id="register-button">
                         Register
                     </button>
                 </form>
@@ -87,7 +87,7 @@
             const email = $("#input[name='email']");
             const password_input = $("#password-input");
             const repeat_password_input = $("[id=password-input]:eq(1)");
-            const password_button = $("#password-button");
+            const generate_password_button = $("#generate-password-button");
             const eye_icon = $("#eye-icon");
             const repeat_eye_icon = $("[id=eye-icon]:eq(1)");
             const register_button = $("#register-button");
@@ -102,7 +102,7 @@
             eye_icon.on("click", () => changeIcon(password_input,eye_icon));
             repeat_eye_icon.on("click", () => changeIcon(repeat_password_input,repeat_eye_icon));
 
-            password_button.on("click", (event) => {
+            generate_password_button.on("click", (event) => {
                 event.preventDefault();
                 let password = "";
                 const password_length = 12;
@@ -116,16 +116,28 @@
                 password_input.val(password);
             })
             
-            const checkExistingUser = () => {
-                let users;
-                $.ajax({
-                    url: '/users',
+            let users; 
+            const getExistingUsers = async () => {
+                await $.ajax({
+                    url: '/users', 
                     type: 'GET',
-                    success: (users1) => {
-                        users = users1;
+                    success: (data) => {
+                        users = data; 
+                    },
+                    error: (error) => {
+                        console.log("Error fetching existing users", error);
                     }
                 });
-                return users;
+            }
+
+            const checkExistingUser = async (user_email) => {
+                await getExistingUsers();
+                for(let i = 0; i < users.length; i++) {
+                    if(users[i].email === user_email) {
+                        return true;
+                    }
+                }
+                return false;
             }
 
             const validateEmail = (email) => {
@@ -161,7 +173,7 @@
                 error_div.text("");
             };
         
-            const validateForm = () => {
+            const validateForm = async () => {
                 let isValid = true;
             
                 if (!validateUsername(username.val().trim())) {
@@ -171,13 +183,12 @@
                 else {
                     hideError(username);
                 }
-                console.log("user check", checkExistingUser(email.val()));
                 if (!validateEmail(email.val())) {
                     isValid = false;
                     showError(email, "Invalid email format.");
                 } 
-
-                else if (checkExistingUser(email.val())) {
+                
+                else if (await checkExistingUser(email.val())) {
                     isValid = false;
                     hideError(email);
                     showError(email, "Email already in use");
@@ -228,6 +239,7 @@
                         data: JSON.stringify(form_data),
                         success: () => {
                             console.log("User registered successfully");
+                            window.location.href = "/login";
                         },
                         error: (error) => {
                             console.log("Error registering a user",error);
