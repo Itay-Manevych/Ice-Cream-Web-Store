@@ -17,69 +17,59 @@
         </div>
         
         <div class="product-details">
-          <div>
             <h1><%= product.name %></h1>
-            <p><%= product.description %></p>
+            <p class="product-description"><%= product.description %></p>
 
             <% if (product.allergies.lactose || product.allergies.nuts || product.allergies.soy || product.allergies.gluten || product.allergies.eggs) { %>
-            <p>Allergens:</p>
-            <ul>
-              <% if (product.allergies.lactose) { %>
-                <li>Lactose</li>
-              <% } %>
-              <% if (product.allergies.nuts) { %>
-                <li>Nuts</li>
-              <% } %>
-              <% if (product.allergies.soy) { %>
-                <li>Soy</li>
-              <% } %>
-              <% if (product.allergies.gluten) { %>
-                <li>Gluten</li>
-              <% } %>
-              <% if (product.allergies.eggs) { %>
-                <li>Eggs</li>
-              <% } %>
-            </ul>
+              <p><strong>Allergens:</strong> <%= generateAllergensString(product.allergies) %></p>
             <% } %>
+
+            <% function generateAllergensString(allergies) {
+              const allergens = [];
+          
+              if (allergies.lactose) allergens.push("Lactose");
+              if (allergies.nuts) allergens.push("Nuts");
+              if (allergies.soy) allergens.push("Soy");
+              if (allergies.gluten) allergens.push("Gluten");
+              if (allergies.eggs) allergens.push("Eggs");
+          
+              return allergens.join(', ');
+            } %>
+            <div>
               <p>Select Additions:</p>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="sprinkles" id="sprinklesCheckbox">
-                <label class="form-check-label" for="sprinklesCheckbox">Sprinkles</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="hot_chocolate" id="hotChocolateCheckbox">
-                <label class="form-check-label" for="hotChocolateCheckbox">Hot Chocolate</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="gummy_bears" id="gummyBearsCheckbox">
-                <label class="form-check-label" for="gummyBearsCheckbox">Gummy Bears</label>
-              </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="sprinkles" id="sprinklesCheckbox">
+              <label class="form-check-label" for="sprinklesCheckbox">Sprinkles</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="hot_chocolate" id="hotChocolateCheckbox">
+              <label class="form-check-label" for="hotChocolateCheckbox">Hot Chocolate</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gummy_bears" id="gummyBearsCheckbox">
+              <label class="form-check-label" for="gummyBearsCheckbox">Gummy Bears</label>
+            </div>
           </div>
           <button id="add-button" class="btn btn-success mt-3 margin-top" onclick="addToCart('<%= product.name %>', '<%= product.price %>')">
             Add to Cart
           </button>
-
-        </div>
       </div>
     </div>
   </div>
 
-
-  
-  <script>
+  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
+  <script>  
     const addToCart = (productName, productPrice) => {
       const selectedAdditions = {
         sprinkles: document.querySelector('[name="sprinkles"]').checked,
         hot_chocolate: document.querySelector('[name="hot_chocolate"]').checked,
         gummy_bears: document.querySelector('[name="gummy_bears"]').checked,
       };
-    
+      
       console.log(`Added "${productName}" to cart for $${productPrice}`);
       console.log("Selected Additions:", selectedAdditions);
     }
   </script>
-  
-  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
 </body>
 </html>
