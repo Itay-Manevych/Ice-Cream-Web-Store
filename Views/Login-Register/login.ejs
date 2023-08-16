@@ -6,50 +6,135 @@
     <title>Login Page</title>
     <link rel="stylesheet" type="text/css" href="../Login-Register/login.styling.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
-    <div id="container" class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="col-4 card">
+    <div id="container" class="row d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card">
             <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                <h5 class="card-title text-center mt-1 mb-2">Login</h5>
-                <form method="post" action="/login">
-                    <div class="mb-3">
+                <h5 id="login-title" class="card-title text-center">
+                    Log In To Your Account
+                </h5>
+                <form>
+                    <div id="form-field">
                         <label for="email" class="form-label">
                             Email:
                         </label>
                         <input type="email" name="email" id="input" class="form-control">
-                    </div>
-                    <div class="d-flex flex-column align-items-end">
-                        <div class="mb-0">
-                            <label for="password" class="form-label">
-                                Password:
-                            </label>
-                            <input type="password" name="password" id="input" class="form-control input-password">
-                        </div>
-                        <div class="d-flex flex-row  justify-content-between align-items-center" id="password-info">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Remember Me
-                                </label>
-                            </div>
-                            <a class="mt-2 mb-2" href="../Login-Register/register.ejs">
-                                Forgot password?
-                            </a>
+                        <div id="invalid-feedback" class="text-danger">
+
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" id="login-button">
-                        Login
-                    </button>
+
+                    <div id="form-field">
+                        <label for="password" class="form-label">
+                            Password:
+                        </label>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <input type="password" name="password-input" id="password-input" class="form-control">
+                            <i id="eye-icon" class="bi bi-eye-fill"></i>
+                        </div>
+                        <div id="invalid-feedback" class="text-danger">
+
+                        </div>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-primary" id="login-button" type="button">
+                            Login
+                        </button>
+                        <div id="invalid-feedback" class="text-danger">
+
+                        </div>
+                    </div>
+
+                    <p id="register-here" class="text-center">
+                        Dont have an account? 
+                        <a href="/register">
+                            Register here
+                        </a>
+                    </p>
                 </form>
-                <p class="mt-3 mb-3 text-center">Don't have an account? 
-                    <a href="/register">
-                        Register here
-                    </a>
-                </p>
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            const eye_icon = $("#eye-icon");
+            const email_input = $("#input[name='email']");
+            const password_input = $("#password-input");
+            const login_button = $("#login-button");
+
+            const changeIcon = (input,icon) => {
+                input.attr("type") === "password" 
+                ? (input.attr("type","input"), icon.removeClass().addClass("bi bi-eye-slash-fill")) 
+                : (input.attr("type","password"), icon.removeClass().addClass("bi bi-eye-fill"));
+            }
+            
+            eye_icon.on("click", () => changeIcon(password_input,eye_icon));
+
+            let users; 
+            const getExistingUsers = async () => {
+                await $.ajax({
+                    url: '/users', 
+                    type: 'GET',
+                    success: (data) => {
+                        users = data; 
+                    },
+                    error: (error) => {
+                        console.log("Error fetching existing users", error);
+                    }
+                });
+            }
+
+            const checkExistingUser = async (user_email, user_password) => {
+                await getExistingUsers();
+                for(let i = 0; i < users.length; i++) {
+                    if(users[i].email === user_email) {
+                        /*check passwrod*/
+                    }
+                }
+                return false;
+            }
+
+            const showError = (element, error_message) => {
+                element.addClass("is-invalid");
+                const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
+                ? element.siblings("#invalid-feedback")
+                : element.closest("div").siblings("#invalid-feedback");
+                error_div.text(error_message);
+            };
+        
+            const hideError = (element) => {
+                element.removeClass("is-invalid");
+                const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
+                ? element.siblings("#invalid-feedback")
+                : element.closest("div").siblings("#invalid-feedback");
+                error_div.text("");
+            };
+
+            const validateForm = async () => {
+                let is_valid = true;
+                if(!(await checkExistingUser(email_input.val(), password_input.val()))) {
+                    showError(login_button,"user doesnt exist, or email or password are wrong");
+                    is_valid = false;
+                } 
+                if(is_valid) {
+                    hideError(login_button);
+                }
+                return is_valid;
+            }
+
+            login_button.on("click", async () => {
+                if(await validateForm()) {
+                    console.log("User logged in successfully");
+                    window.location.href = "/";
+                }
+            })
+        });
+    </script>
 </body>
 </html>

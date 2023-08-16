@@ -12,13 +12,27 @@ div.card {
     height: 42rem;
 }
 
-#input, button#login-button {
+#register-title {
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+#form-field {
+    height: 5rem;
+    margin-bottom: 1.4rem;
+}
+
+#input, button#login-button, #generate-password, #login-here {
     width: 24rem;
     margin: 0;
 }
 
-#generate-password {
-    width: 24rem;
+input.form-check-input {
+    border-width: 0.1rem;
+}
+
+#eye-icon {
+    cursor: pointer;
 }
 
 #generate-password-button {
@@ -30,24 +44,17 @@ div.card {
     width: 24rem;
 }
 
-input.form-check-input {
-    border-width: 0.1rem;
-}
 
 #password-input {
     width: 24rem;
     margin-right: 1.25rem;
 }
 
-#eye-icon {
-    cursor: pointer;
-}
-
-#form-field {
-    height: 5rem;
-    margin-bottom: 1.4rem;
-}
-
-#invalid-feedback {
-    color: red;
+#login-here {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.295rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

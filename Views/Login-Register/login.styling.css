@@ -1,27 +1,60 @@
 #container {
-    background-color: white; 
+    background-color: rgb(92, 124, 194);
 }
 
 div.card {
     box-shadow: 0 0 0 0.07rem rgba(0, 0, 0, 0.1); 
+    width: 32.5rem;
+    height: 24.5rem;
 }
 
-#input, button#login-button {
-    width: 22rem;
+.card-body {
+    height: 26rem;
 }
 
-input.input-password {
-    margin: 0rem;
+#login-title {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
-#password-info {
-    width: 22rem;
+#form-field {
+    height: 5rem;
+    margin-bottom: 1.4rem;
+}
+
+#input, button#login-button, #generate-password, #register-here {
+    width: 24rem;
+    margin: 0;
 }
 
 input.form-check-input {
     border-width: 0.1rem;
 }
 
-button.btn{
-    margin-top: 0.75rem;
+#generate-password-button {
+    margin-top: 0.5rem;
+    margin-bottom: 1.9rem;
+}
+
+#login-button {
+    width: 24rem;
+}
+
+
+#password-input {
+    width: 24rem;
+    margin-right: 1.25rem;
+}
+
+#eye-icon {
+    cursor: pointer;
+}
+
+#register-here {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.295rem;
+    margin-top: 1.2rem;
+    margin-bottom: 1rem;
 }
