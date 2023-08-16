@@ -221,7 +221,7 @@
                 hideError($(event.target));
             });
 
-            register_button.on("click", (event) => {
+            register_button.on("click", async (event) => {
                 event.preventDefault();
                 
                 if (validateForm()) {
@@ -231,7 +231,7 @@
                         password: password_input.val(),
                     }
 
-                    $.ajax({
+                    await $.ajax({
                         url: '/users',
                         type: 'POST',
                         dataType: 'json',
