@@ -99,24 +99,35 @@
             };
 
             const validateUser = async () => {
-                const form_data = {
-                    email: email_input.val(),
-                    password: password_input.val()
-                };
-
+                const email = email_input.val();
                 try {
-                    const response = await $.ajax({
-                        url: '/login',
-                        type: 'POST',
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        data: JSON.stringify(form_data)
+                    const user = await $.ajax({
+                        url: `/users/${email}`,
+                        type: 'GET',
                     });
+                    if (user) {
+                        const form_data = {
+                            username: user.username,
+                            email: email_input.val(),
+                            password: password_input.val()
+                        };
 
-                    if (response) {
-                        return true; 
+                        const response = await $.ajax({
+                            url: '/login',
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify(form_data)
+                        });
+
+                        if (response) {
+                            return true; 
+                        } else {
+                            return false;
+                        }
                     } else {
-                        return false;
+                        console.log("User retrieval failed");
+                        return false
                     }
                 } 
                 catch (error) {
@@ -126,7 +137,6 @@
             }
 
             login_button.on("click", async () => {
-                console.log(await validateUser());
                 if (await validateUser()) {
                     if($("#invalid-feedback").text().length > 0) {
                         hideError(login_button);

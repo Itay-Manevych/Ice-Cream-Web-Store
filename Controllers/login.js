@@ -8,20 +8,20 @@ const loginUser = async (req, res) => {
         const user = await UserService.getUserByEmail(email);
 
         if(!user) {
-            throw new Error("There is not an existing user model with that email");
+            throw new Error("Inccorrect email or password");
         }
 
         const password_match = await bcrypt.compare(password, user.password);
 
         if(!password_match) {
-            throw new Error("Incorrect password");
+            throw new Error("Inccorrect email or password");
         }
 
         const token = jwt.sign(
-            {userID: user._id, isAdmin: user.is_admin},
-            process.env.JWT_SECRET_KEY,
+            {userEmail: user.email, isAdmin: user.is_admin},
+            process.env.JWT_SECRET,
         )
-        res.cookie('jwt', token, { httpOnly: true });
+        res.cookie('jwt', token);
         res.status(200).json({ message: "Login successful" });
     }
     catch(error) {

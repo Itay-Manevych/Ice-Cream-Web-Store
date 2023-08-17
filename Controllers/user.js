@@ -1,4 +1,5 @@
 import { UserService } from "../Services/user.js";
+import jwt from "jsonwebtoken";
 
 const createUser = async (req, res) => {
     try {
@@ -17,9 +18,33 @@ const getUserByEmail = async (req, res) => {
     try {
         const user = await UserService.getUserByEmail(req.params.email);
         if(!user) {
-            throw new Error("There is not an existing user model with that email");
+            throw new Error("Failed getting user model by email");
         }
         res.status(201).json(user);
+    }
+    catch(error) {
+        res.status(500).json({
+            error: "Error finding a user model by email",
+            message: error.message,
+        });
+    }
+}
+
+const getUserByToken = async (req, res) => {
+    try {
+        const token = req.cookies.jwt;
+        const user_info = jwt.verify(token, process.env.JWT_SECRET)
+        if(!user_info) {
+            throw new Error("Token is incorrect");
+        }
+
+        const user = await UserService.getUserByEmail(user_info.userEmail);
+
+        if(!user) {
+            throw new Error("There is not an existing user model with that email");
+        }
+        res.status(201);
+        return user;
     }
     catch(error) {
         res.status(500).json({
@@ -75,4 +100,4 @@ const deleteUserByEmail = async (req, res) => {
     }
 }
 
-export const UserController = {createUser, getUserByEmail, getAllUsers, updateUserByEmail, deleteUserByEmail};
+export const UserController = {createUser, getUserByEmail, getUserByToken, getAllUsers, updateUserByEmail, deleteUserByEmail};
