@@ -6,13 +6,15 @@ body {
 .footer {
     margin-top: auto;
     height: 6rem;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 18rem;
 }
 
 .links-box {
     gap: 3rem;
     margin: 0;
     padding:0;
+    margin-right: 8rem;
 }
 
 .footer-btn {

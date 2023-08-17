@@ -14,8 +14,7 @@
                 <a href="http://localhost:3000" style="color: rgba(0, 0, 0, 0.463);">FrozenFantasies.com</a>
             </div>
 
-            <div class="">
-              <section class="links-box d-flex align-items-center justify-content-center">
+            <section class="links-box d-flex align-items-center justify-content-center">
                 <i class="footer-btn bi bi-facebook h1 d-flex" style="color: #3b5998;"></i>
                 
                 <i class="footer-btn bi bi-twitter h5 d-flex align-items-center justify-content-center" style="padding:0.625rem; background-color: #55acee;"></i>
@@ -27,8 +26,40 @@
                 <i class="footer-btn bi bi-linkedin h1 d-flex" style="color: #0082ca;"></i>
                 
                 <i class="footer-btn bi bi-github h1 d-flex" style="color: #333333;"></i>
-              </section>
-            </div>
-          </footer>
+            </section>
+        </footer>
+
+        <script>
+            const facebook_btn = $(".bi-facebook")[0];
+            const twitter_btn = $(".bi-twitter")[0];
+            const google_btn = $(".bi-google")[0];
+            const instagram_btn = $(".bi-instagram")[0];
+            const linkedin_btn = $(".bi-linkedin")[0];
+            const github_btn = $(".bi-github")[0];
+                
+            facebook_btn.onclick = () => {
+                window.location.href = "/"
+            }
+
+            twitter_btn.onclick = () => {
+                window.location.href = "/"
+            }
+
+            google_btn.onclick = () => {
+                window.location.href = "/"
+            }
+
+            instagram_btn.onclick = () => {
+                window.location.href = "/"
+            }
+
+            linkedin_btn.onclick = () => {
+                window.location.href = "/"
+            }
+
+            github_btn.onclick = () => {
+                window.location.href = "/"
+            }
+        </script>
     </body>
 </html>
