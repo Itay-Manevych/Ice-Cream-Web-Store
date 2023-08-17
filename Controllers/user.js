@@ -1,5 +1,4 @@
 import { UserService } from "../Services/user.js";
-import jwt from "jsonwebtoken";
 
 const createUser = async (req, res) => {
     try {
