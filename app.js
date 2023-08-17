@@ -59,6 +59,10 @@ app.get("/", async (req, res) => {
   res.render('./Carousel/carousel');
 });
 
+app.get("/about_us", async (req, res) => {
+  res.render('./Partials/About-Us/aboutUs');
+});
+
 app.get("/search-products", async (req, res) => {
   try {
     const products = await ProductController.getAllProducts(req, res);
