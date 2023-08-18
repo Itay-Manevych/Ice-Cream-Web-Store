@@ -1,8 +1,8 @@
 import { UserService } from "../Services/user.js";
+import jwt from "jsonwebtoken";
 
 const createUser = async (req, res) => {
     try {
-        console.log(req);
         const new_user = await UserService.createUser(req.body);
         res.status(201).json(new_user);
     }
@@ -14,17 +14,41 @@ const createUser = async (req, res) => {
     }
 }
 
-const getUserById = async (req, res) => {
+const getUserByEmail = async (req, res) => {
     try {
-        const user = await UserService.getUserById(req.params.id);
+        const user = await UserService.getUserByEmail(req.params.email);
         if(!user) {
-            throw new Error("There is not an existing user model with that id");
+            throw new Error("Failed getting user model by email");
         }
         res.status(201).json(user);
     }
     catch(error) {
         res.status(500).json({
-            error: "Error finding an user model by id",
+            error: "Error finding a user model by email",
+            message: error.message,
+        });
+    }
+}
+
+const getUserByToken = async (req, res) => {
+    try {
+        const token = req.cookies.jwt;
+        const user_info = jwt.verify(token, process.env.JWT_SECRET)
+        if(!user_info) {
+            throw new Error("Token is incorrect");
+        }
+
+        const user = await UserService.getUserByEmail(user_info.userEmail);
+
+        if(!user) {
+            throw new Error("There is not an existing user model with that email");
+        }
+        res.status(201);
+        return user;
+    }
+    catch(error) {
+        res.status(500).json({
+            error: "Error finding an user model by email",
             message: error.message,
         });
     }
@@ -47,22 +71,22 @@ const getAllUsers = async (req, res) => {
     }
 }
 
-const updateUser = async (req, res) => {
+const updateUserByEmail = async (req, res) => {
     try {
-        const updated_user = await UserService.updateUser(req.params.id, req.body);
+        const updated_user = await UserService.updateUserByEmail(req.params.email, req.body);
         res.status(201).json(updated_user);
     }
     catch(error) {
         res.status(500).json({
-            error: "Error updating a user model",
+            error: "Error updating a user model by email",
             message: error.message,
         })
     }
 }
 
-const deleteUser = async (req, res) => {
+const deleteUserByEmail = async (req, res) => {
     try {
-        const deleted_user = await UserService.deleteUser(req.params.id);
+        const deleted_user = await UserService.deleteUserByEmail(req.params.email);
         if(!deleted_user) {
             throw new Error("The user model you are trying to delete does not exist");
         }
@@ -70,10 +94,10 @@ const deleteUser = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-            error: "Error deleting a user model",
+            error: "Error deleting a user model by email",
             message: error.message,
         })
     }
 }
 
-export const UserController = {createUser, getUserById, getAllUsers, updateUser, deleteUser};
+export const UserController = {createUser, getUserByEmail, getUserByToken, getAllUsers, updateUserByEmail, deleteUserByEmail};

@@ -1,6 +1,7 @@
 import dotenv from "dotenv"; 
 import express from "express";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import path from "path";
 import { fileURLToPath } from 'url';
@@ -12,6 +13,7 @@ import UserRouter from "./Routes/user.js";
 import CartRouter from "./Routes/cart.js";
 import LoginRouter from "./Routes/login.js";
 import RegisterRouter from "./Routes/register.js";
+import DashboardRouter from "./Routes/dashboard.js";
 
 import { ProductController } from "./Controllers/product.js";
 
@@ -35,6 +37,7 @@ const connectToMongoDB = async () => {
 
 connectToMongoDB();
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.static('Views'));
 app.set('view engine', 'ejs');
@@ -50,10 +53,14 @@ app.use("/users", UserRouter);
 app.use("/carts", CartRouter);
 app.use("/login", LoginRouter);
 app.use("/register", RegisterRouter);
+app.use("/dashboard", DashboardRouter);
 
 app.get("/", async (req, res) => {
-  const products = await ProductController.getAllProducts(req,res);
   res.render('./Carousel/carousel');
+});
+
+app.get("/about_us", async (req, res) => {
+  res.render('./Partials/About-Us/aboutUs');
 });
 
 app.get("/search-products", async (req, res) => {

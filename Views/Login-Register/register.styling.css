@@ -6,31 +6,47 @@ div.card {
     box-shadow: 0 0 0 0.07rem rgba(0, 0, 0, 0.1); 
     width: 32.5rem;
     height: 40.5rem;
+    position: relative;
 }
 
-.card-body {
-    height: 42rem;
+#house-icon {
+    position: absolute;
+    top: 0rem;
+    left: 0.2rem;
+    font-size: x-large;
+    cursor: pointer;
 }
 
-#input, button#login-button {
+#register-title {
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+#form-field {
+    height: 5rem;
+    margin-bottom: 1.4rem;
+}
+
+#input, button#login-button, #generate-password, #login-here {
     width: 24rem;
     margin: 0;
-}
-
-#generate-password {
-    width: 24rem;
-}
-
-#register-button {
-    width: 24rem;
 }
 
 input.form-check-input {
     border-width: 0.1rem;
 }
 
-button.btn{
-    margin-top: 0.75rem;
+#eye-icon {
+    cursor: pointer;
+}
+
+#generate-password-button {
+    margin-top: 0.5rem;
+    margin-bottom: 1.9rem;
+}
+
+#register-button {
+    width: 24rem;
 }
 
 #password-input {
@@ -38,24 +54,11 @@ button.btn{
     margin-right: 1.25rem;
 }
 
-#eye-icon {
-    cursor: pointer;
-}
-
-#password-button {
-    margin-top: 2rem;
+#login-here {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.295rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
-} 
-
-#form-field {
-    height: 5rem;
-    margin-bottom: 1.5rem;
-}
-
-#form-field-last {
-    margin-bottom: 0rem;
-}
-
-#invalid-feedback {
-    color: red;
 }
