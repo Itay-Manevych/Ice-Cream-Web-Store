@@ -11,7 +11,7 @@
 <body>
     <div id="container" class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="card">
-            <i id="house-icon" class="bi bi-house-door-fill"></i>
+            <i id="house-icon" class="bi bi-house-door"></i>
             <div class="card-body d-flex flex-column justify-content-center align-items-center">
                 <h5 id="register-title" class="card-title text-center">
                     Create Your Account
@@ -232,7 +232,7 @@
                         username: username_input.val(),
                         email: email_input.val(), 
                         password: password_input.val(),
-                        is_admin: false,
+                        is_admin: false
                     }
 
                     await $.ajax({

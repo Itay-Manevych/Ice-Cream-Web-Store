@@ -1,5 +1,6 @@
 import { UserService } from "../Services/user.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 const createUser = async (req, res) => {
     try {
@@ -84,6 +85,23 @@ const updateUserByEmail = async (req, res) => {
     }
 }
 
+const updateUserByToken = async (req, res) => {
+    try {
+        const user = await getUserByToken(req, res);
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(req.body.password,salt);
+        req.body.password = hash;
+        const updated_user = await UserService.updateUserByEmail(user.email,req.body);
+        res.status(201).json(updated_user);
+    }
+    catch(error) {
+        res.status(500).json({
+            error: "Error updating a user model by email",
+            message: error.message,
+        })
+    }
+}
+
 const deleteUserByEmail = async (req, res) => {
     try {
         const deleted_user = await UserService.deleteUserByEmail(req.params.email);
@@ -100,4 +118,16 @@ const deleteUserByEmail = async (req, res) => {
     }
 }
 
-export const UserController = {createUser, getUserByEmail, getUserByToken, getAllUsers, updateUserByEmail, deleteUserByEmail};
+const destroyCookie = async (req,res) => {
+    try {
+        res.clearCookie(req.body.cookie_name);
+        res.status(200).json({ message: "Cookie destroyed successfully" });
+    } catch (error) {
+        res.status(500).json({
+            error: "Error destroying the cookie",
+            message: error.message,
+        });
+    }
+}
+
+export const UserController = {createUser, getUserByEmail, getUserByToken, getAllUsers, updateUserByEmail, updateUserByToken, deleteUserByEmail, destroyCookie};
