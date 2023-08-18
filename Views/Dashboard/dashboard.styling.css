@@ -1,0 +1,62 @@
+#welcome {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#house-icon {
+    position: absolute;
+    left: -2.7rem;
+    cursor: pointer;
+    font-size: 1.55rem;
+}
+
+#house-icon:hover {
+    font-size: 1.65rem;
+}
+
+#logout-icon {
+    padding: 0;
+    font-size: 1.55rem;
+}
+
+#logout-icon:hover {
+    font-size: 1.65rem;
+    cursor: pointer;
+}
+
+div.card {
+    width: 40rem;
+}
+
+#form-field {
+    width: 38rem;
+    height: 5rem;
+    margin-bottom: 2rem;
+}
+
+label {
+    margin-bottom: 0.5rem;
+}
+
+input#username, input#email, input#password {
+    width: 35rem;
+}
+
+input#password {
+    margin-right: 1.25rem;
+}
+
+#button-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#user-details-button {
+    width: 38rem;
+}
+
+#eye-icon {
+    cursor: pointer;
+}
