@@ -103,7 +103,7 @@
             </div>
             <footer class="modal-footer">
               <p id="total-price-<%= product._id %>" class="total-price">Total Price: $<%= product.price %></p>
-              <button class="btn btn-success" onclick="addToCart('<%= product.name %>','productModal<%= product._id %>', '<%= product._id %>')">
+              <button class="btn btn-success" onclick="addToCart('<%= product.name %>','productModal<%= product._id %>', '<%= product._id %>', '<%= product.image %>')">
                 Add to Cart
               </button>
               <input type="number" class="quantity" id="quantity-<%= product._id %>" name="quantity" min="1" max="15" value="1" data-product-id="<%= product._id %>" data-product-price="<%= product.price %>">
@@ -152,7 +152,7 @@
     updateTotalPrice(enteredValue, productPrice, productId);
   }
   
-  function addToCart(productName, modalId, productId) {
+  function addToCart(productName, modalId, productId, productImage) {
       const selectedAdditions = {
         sprinkles: document.querySelector(`#${modalId} [name="sprinkles"]`).checked,
         hot_chocolate: document.querySelector(`#${modalId} [name="hot_chocolate"]`).checked,
@@ -167,6 +167,7 @@
         total_price: totalPrice ,
         additions: selectedAdditions,
         quantity: selectedQuantity,
+        image: productImage
   };
  
   const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -271,7 +272,7 @@
               </div>
               <footer class="modal-footer">
                <p id="total-price-${product._id}" class="total-price">Total Price: $${product.price}</p>
-                <button class="btn btn-success" onclick="addToCart('${product.name}', 'productModal${product._id}' , '${product._id}')">
+                <button class="btn btn-success" onclick="addToCart('${product.name}', 'productModal${product._id}' , '${product._id}', '${product.image}')">
                   Add to Cart
                 </button>
                 <input type="number" class="quantity" id="quantity-${product._id}" name="quantity" min="1" max="15" value="1" data-product-id="${product._id}" data-product-price="${product.price}">
