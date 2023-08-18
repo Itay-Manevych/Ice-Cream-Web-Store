@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="title d-flex align-items-center h1">About Us</div>
-        <div class="d-flex align-items-center" style="margin-top: -1rem;">
+        <div class="d-flex align-items-center" style="margin-top: -5.5rem;">
             <div class="about d-flex h5">
                 Welcome to Frozen Fantasies – Where Imagination Meets Ice Cream!<br>
 
@@ -22,11 +22,9 @@
                 ingredients and lots of love and passion.
             </div>
 
-            <img class="m-ice-cream" src="../../Assets/making-icecream.png">
+            <img class="ice-cream" src="../../Assets/making-icecream.png">
         </div>
-        <div class="d-flex align-items-center" style="margin-top: 1rem;">
-            <img class="e-ice-cream" src="../../Assets/eating-icecream.png">
-            
+        <div class="d-flex align-items-center" style="margin-top: 1rem;">            
             <div class="about d-flex h5">
                 Frozen Fantasies isn't just a store; it's a community hub where friends, families, and ice cream lovers gather to 
                 celebrate life's sweetest moments.
@@ -36,6 +34,8 @@
                 that warms your heart and brings a smile to your face. Our commitment to excellence is evident in every detail – from the 
                 ingredients we source to the smiles we share with you.
             </div>
+
+            <img class="ice-cream" src="../../Assets/eating-icecream.png">
         </div>
 
         <div class="d-flex align-items-center" style="margin-top: 1rem;">            
@@ -49,16 +49,17 @@
                 Eyal, Itay, and Etay
             </div>
 
-            <img class="m-ice-cream" src="../../Assets/ending.png">
+            <img class="ice-cream" src="../../Assets/ending.png">
         </div>
         <iframe
-            width="600"
-            height="450"
+            width="100%"
+            height="300"
             style="border:0"
             loading="lazy"
             allowfullscreen
             referrerpolicy="no-referrer-when-downgrade"
             src="https://www.google.com/maps/embed/v1/place?key=<%- GOOGLE_MAPS_API_KEY %>&q=place_id:ChIJweFE6_WzAhURGZPlvMa46fs">
         </iframe>
+        <%- include("../Footer/footer.ejs") %>
     </body>
 </html>

@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@600;700&family=Concert+One&family=Just+Another+Hand&family=PT+Sans:ital,wght@0,700;1,400&family=Rajdhani:wght@500;600&family=Six+Caps&display=swap');
 
 .title {
     height: 6rem;
@@ -7,16 +7,11 @@
 
 .about {
     flex-direction: column;
-    margin-left: 7rem;
-    margin-right: 7rem;
+    margin-left: 6rem;
+    margin-right: 6rem;
 }
 
-.m-ice-cream {
+.ice-cream {
     width: 30rem;
-    margin-right: 7rem;
-}
-
-.e-ice-cream {
-    width: 30rem;
-    margin-left: 7rem;
+    margin-right: 6rem;
 }
