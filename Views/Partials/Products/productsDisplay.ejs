@@ -15,10 +15,10 @@
       <div class="col-md-12 d-flex align-items-center">
         <h1 class="ml-3 medium-margin-right">Our Products</h1>
         
-        <div class="dropdown">
-          <label class="small-margin-right" for="categoryDropdown">Filter by:</label>
+        <div id="filter-dropdown" class="dropdown">
+          <label class="small-margin-right" for="categoryDropdown">Category:</label>
           <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-            Category
+            All
           </button>
           <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
             <li><a class="dropdown-item category-dropdown-item" data-category="All">All</a></li>
@@ -30,10 +30,10 @@
         <div class="dropdown ml-auto medium-margin-left">
           <label class="small-margin-right" for="sortDropdown">Sort by:</label>
           <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Default
+          Default
           </button>
           <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-            <li><a class="dropdown-item sort-dropdown-item" data-sort="default">Default</a></li>
+            <li><a class="dropdown-item sort-dropdown-item" data-sort="Default">Default</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically A-Z">Alphabetically A-Z</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically Z-A">Alphabetically Z-A</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Lowest - Highest">Price Lowest - Highest</a></li>
@@ -46,7 +46,7 @@
   
   <div id="container" class="d-flex flex-wrap">
     <% products.forEach(product => { %>
-      <div id="card-container" class="card card-container" onclick="openModal('productModal<%=product._id%>')">
+      <div id="card-container" class="card card-container" onclick="openModal('productModal<%=product._id%>', '<%=product._id%>', '<%= product.price%>')">
         <div id="image-container">
           <img id="product-image" class="card-img-top" src="<%= product.image %>" alt="Product Image">
         </div>
@@ -67,29 +67,23 @@
             <div class="modal-body">
               <img id="product-image-modal" class="modal-img" src="<%= product.image %>" alt="Product Image">
               <p><%= product.description %></p>
-              <p>Price: $<%= product.price %></p>
               
               <% if (product.allergies.lactose || product.allergies.nuts || product.allergies.soy || product.allergies.gluten || product.allergies.eggs) { %>
-                <p>Allergens:</p>
-                <% } %>
-                <ul>
-                  <% if (product.allergies.lactose) { %>
-                    <li>Lactose</li>
-                  <% } %>
-                  <% if (product.allergies.nuts) { %>
-                    <li>Nuts</li>
-                  <% } %>
-                  <% if (product.allergies.soy) { %>
-                    <li>Soy</li>
-                  <% } %>
-                  <% if (product.allergies.gluten) { %>
-                    <li>Gluten</li>
-                  <% } %>
-                  <% if (product.allergies.eggs) { %>
-                    <li>Eggs</li>
-                  <% } %>
-                </ul>
-
+                <p><strong>Allergens:</strong> <%= generateAllergensString(product.allergies) %></p>
+              <% } %>
+  
+              <% function generateAllergensString(allergies) {
+                const allergens = [];
+            
+                if (allergies.lactose) allergens.push("Lactose");
+                if (allergies.nuts) allergens.push("Nuts");
+                if (allergies.soy) allergens.push("Soy");
+                if (allergies.gluten) allergens.push("Gluten");
+                if (allergies.eggs) allergens.push("Eggs");
+            
+                return allergens.join(', ');
+              } %>
+ 
                 <p>Select Additions:</p>
                 <div>
                   <label>
@@ -108,9 +102,11 @@
                 </div>
             </div>
             <footer class="modal-footer">
-              <button class="btn btn-success" onclick="addToCart('<%= product.name %>', '<%= product.price %>', 'productModal<%= product._id %>')">
+              <p id="total-price-<%= product._id %>" class="total-price">Total Price: $<%= product.price %></p>
+              <button class="btn btn-success" onclick="addToCart('<%= product.name %>','productModal<%= product._id %>', '<%= product._id %>', '<%= product.image %>')">
                 Add to Cart
               </button>
+              <input type="number" class="quantity" id="quantity-<%= product._id %>" name="quantity" min="1" max="15" value="1" data-product-id="<%= product._id %>" data-product-price="<%= product.price %>">
             </footer>
           </div>
         </div>
@@ -124,23 +120,91 @@
   
 <script>
     const modals = {};
-
-    function addToCart(productName, productPrice, modalId) {
+ 
+    function updateTotalPrice(quantity, price, productId) {
+      const totalPrice = quantity * price;
+      document.getElementById(`total-price-${productId}`).textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+    }
+    document.getElementById('container').addEventListener('change', function (event) {
+    const target = event.target;
+      if (target.classList.contains('quantity')) {
+        const productId = target.dataset.productId;
+        const productPrice = parseFloat(target.dataset.productPrice);
+        const enteredValue = parseInt(target.value);
+        handleQuantityChange(productId, productPrice, enteredValue);
+      }
+    });
+ 
+  function handleQuantityChange(productId,productPrice) {
+    const quantityInput = document.getElementById(`quantity-${productId}`);
+    let enteredValue = parseInt(quantityInput.value);
+    console.log(quantityInput, enteredValue);
+ 
+    if (enteredValue > 15) {
+      quantityInput.value = 15;
+    }
+ 
+    if(isNaN(enteredValue) || enteredValue<1) {
+      quantityInput.value = 1;
+    }
+ 
+    enteredValue = parseInt(quantityInput.value);
+    updateTotalPrice(enteredValue, productPrice, productId);
+  }
+  
+  function addToCart(productName, modalId, productId, productImage) {
       const selectedAdditions = {
         sprinkles: document.querySelector(`#${modalId} [name="sprinkles"]`).checked,
         hot_chocolate: document.querySelector(`#${modalId} [name="hot_chocolate"]`).checked,
         gummy_bears: document.querySelector(`#${modalId} [name="gummy_bears"]`).checked,
       };
-
+ 
+      const selectedQuantity = parseInt(document.querySelector(`#${modalId} [name="quantity"]`).value, 10);
+      const totalPriceText = document.getElementById(`total-price-${productId}`).textContent;
+      const totalPrice = parseFloat(totalPriceText.split('$')[1]);
+      const cartItem = {
+        name: productName,
+        total_price: totalPrice ,
+        additions: selectedAdditions,
+        quantity: selectedQuantity,
+        image: productImage
+  };
+ 
+  const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+ 
+      existingCartItems.push(cartItem);
+ 
+      localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
+ 
+ 
       closeModal(modalId);
-      console.log(`Added "${productName}" to cart for $${productPrice}`);
+      console.log(`Added "${productName}" to cart for a total of $${totalPrice} (Quantity: ${selectedQuantity})`);
       console.log("Selected Additions:", selectedAdditions);
     }
     
-    function openModal(modalId) {
+    function resetModalContent(modalId, productId, productPrice) {
+      console.log(productId)
+      const quantityInput = document.getElementById(`quantity-${productId}`);
+      const totalPriceElement = document.getElementById(`total-price-${productId}`);
+      const checkboxes = document.querySelectorAll(`#${modalId} [type="checkbox"]`);
+      
+      quantityInput.value = 1;
+      totalPriceElement.textContent = `Total Price: $${productPrice}`;
+      
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+      });
+    }
+ 
+    function openModal(modalId, productId, productPrice) {
       if (!modals[modalId]) {
         modals[modalId] = new bootstrap.Modal(document.getElementById(modalId));
+        
+        document.getElementById(modalId).addEventListener('hidden.bs.modal', function () {
+          resetModalContent(modalId, productId, productPrice);
+        });
       }
+      console.log(modalId);
       modals[modalId].show();
     }
     
@@ -148,223 +212,236 @@
       if (modals[modalId]) {
         modals[modalId].hide();
       }
-
     }
-$(document).ready(function () {
- function generateProductCard(product) {
-     return `
-       <div id="card-container" class="card" onclick="openModal('productModal${product._id}')">
-         <div id="image-container">
-           <img id="product-image" class="card-img-top" src="${product.image}" alt="Product Image">
-         </div>
-         <div class="card-body card-content">
-           <h5 class="card-title text-ellipsis">${product.name}</h5>
-           <p class="card-text text-ellipsis">${product.description}</p>
-           <p class="card-text card-price">Price: $${product.price}</p>
-         </div>
-       </div>
-
-       <div class="modal fade" id="productModal${product._id}" tabindex="-1" aria-labelledby="productModalLabel${product._id}" aria-hidden="true">
-         <div class="modal-dialog">
-           <div class="modal-content">
-             <div class="modal-header">
-               <h5 class="modal-title" id="productModalLabel${product._id}">${product.name}</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div class="modal-body">
-               <img id="product-image-modal" class="modal-img" src="${product.image}" alt="Product Image">
-               <p>${product.description}</p>
-               <p>Price: $${product.price}</p>
  
-               ${
-                 (product.allergies.lactose || product.allergies.nuts || product.allergies.soy || product.allergies.gluten || product.allergies.eggs)
-                 ? `<p>Allergens:</p>
-                    <ul>
-                      ${product.allergies.lactose ? '<li>Lactose</li>' : ''}
-                      ${product.allergies.nuts ? '<li>Nuts</li>' : ''}
-                      ${product.allergies.soy ? '<li>Soy</li>' : ''}
-                      ${product.allergies.gluten ? '<li>Gluten</li>' : ''}
-                      ${product.allergies.eggs ? '<li>Eggs</li>' : ''}
-                    </ul>`
-                 : ''
-               }
-             
-               <p>Select Additions:</p>
-               <div>
-                 <label>
-                   <input type="checkbox" name="sprinkles"> Sprinkles
-                 </label>
-               </div>
-               <div>
-                 <label>
-                   <input type="checkbox" name="hot_chocolate"> Hot Chocolate
-                 </label>
-               </div>
-               <div>
-                 <label>
-                   <input type="checkbox" name="gummy_bears"> Gummy Bears
-                 </label>
-               </div>
-             </div>
-             <footer class="modal-footer">
-               <button class="btn btn-success" onclick="addToCart('${product.name}', '${product.price}', 'productModal${product._id}')">
-                 Add to Cart
-               </button>
-             </footer>
-           </div>
-         </div>
-       </div>`;
-   }     
-
-
-
-$('.category-dropdown-item').on('click', function () {
-    $('.category-dropdown-item').removeClass('active');
-    $(this).addClass('active');
-    $('#sortDropdown').text("Deafult");
-
-    const selectedCategory = $(this).data('category');
-    if (selectedCategory === 'All') {
-      loadAllProducts();
-      $('#categoryDropdown').text('All');
-    } 
-    else {
-      loadProductsByCategory(selectedCategory);
-      $('#categoryDropdown').text(selectedCategory);
+  $(document).ready(function () {
+    function generateAllergensString(allergies) {
+      const allergens = [];
+ 
+      if (allergies.lactose) allergens.push("Lactose");
+      if (allergies.nuts) allergens.push("Nuts");
+      if (allergies.soy) allergens.push("Soy");
+      if (allergies.gluten) allergens.push("Gluten");
+      if (allergies.eggs) allergens.push("Eggs");
+ 
+      return allergens.join(', ');
     }
-});
-
-$('.sort-dropdown-item').on('click', function () {
-  const selectedSort = $(this).data('sort');
-  let currentCategory = $('#categoryDropdown').text().trim();
-  $('#sortDropdown').text(selectedSort);
-
-
-  if (currentCategory === 'Category') {
-    currentCategory = 'All';
-  }
-
-  if (selectedSort === 'Alphabetically A-Z') {
-      sortProductsAlphabetically('asc', currentCategory);
-  } 
-  
-  else if (selectedSort === 'Alphabetically Z-A') {
-      sortProductsAlphabetically('desc', currentCategory);
-  } 
-  
-  else if (selectedSort === 'Price Lowest - Highest') {
-      sortProductsByPrice('asc', currentCategory);
-  } 
-  
-  else if (selectedSort === 'Price Highest - Lowest') {
-    sortProductsByPrice('desc', currentCategory);
-  }
-
-});
-
-  function sortProductsAlphabetically(order, category) {
-    if(category==='All')
-    {
-      $.ajax({
+ 
+    function generateProductCard(product) {
+      return (
+        `<div id="card-container" class="card" onclick="openModal('productModal${product._id}', '${product._id}', '${product.price}')">
+          <div id="image-container">
+            <img id="product-image" class="card-img-top" src="${product.image}" alt="Product Image">
+          </div>
+          <div class="card-body card-content">
+            <h5 class="card-title text-ellipsis">${product.name}</h5>
+            <p class="card-text text-ellipsis">${product.description}</p>
+            <p class="card-text card-price">Price: $${product.price}</p>
+          </div>
+        </div>
+        <div class="modal fade" id="productModal${product._id}" tabindex="-1" aria-labelledby="productModalLabel${product._id}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel${product._id}">${product.name}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img id="product-image-modal" class="modal-img" src="${product.image}" alt="Product Image">
+                <p>${product.description}</p>
+                ${generateAllergensString(product.allergies) ? 
+                 `<p>Allergens: ${generateAllergensString(product.allergies)}</p>` 
+                 : ''}
+               
+                <p>Select Additions:</p>
+                <div>
+                  <label>
+                    <input type="checkbox" name="sprinkles"> Sprinkles
+                  </label>
+                </div>
+                <div>
+                  <label>
+                    <input type="checkbox" name="hot_chocolate"> Hot Chocolate
+                  </label>
+                </div>
+                <div>
+                  <label>
+                    <input type="checkbox" name="gummy_bears"> Gummy Bears
+                  </label>
+                </div>
+              </div>
+              <footer class="modal-footer">
+               <p id="total-price-${product._id}" class="total-price">Total Price: $${product.price}</p>
+                <button class="btn btn-success" onclick="addToCart('${product.name}', 'productModal${product._id}' , '${product._id}', '${product.image}')">
+                  Add to Cart
+                </button>
+                <input type="number" class="quantity" id="quantity-${product._id}" name="quantity" min="1" max="15" value="1" data-product-id="${product._id}" data-product-price="${product.price}">
+              </footer>
+            </div>
+          </div>
+        </div>`
+      );
+    }     
+ 
+    $('.category-dropdown-item').on('click', function () {
+        $('.category-dropdown-item').removeClass('active');
+        $(this).addClass('active');
+        $('#sortDropdown').text("Default");
+ 
+        const selectedCategory = $(this).data('category');
+        if (selectedCategory === 'All') {
+          loadAllProducts();
+          $('#categoryDropdown').text('All');
+        } 
+        else {
+          loadProductsByCategory(selectedCategory);
+          $('#categoryDropdown').text(selectedCategory);
+        }
+    });
+ 
+    $('.sort-dropdown-item').on('click', function () {
+      const selectedSort = $(this).data('sort');
+      let currentCategory = $('#categoryDropdown').text().trim();
+      $('#sortDropdown').text(selectedSort);
+ 
+      if (selectedSort === 'Alphabetically A-Z') {
+          sortProductsAlphabetically('asc', currentCategory);
+      } 
+ 
+      else if (selectedSort === 'Alphabetically Z-A') {
+          sortProductsAlphabetically('desc', currentCategory);
+      } 
+ 
+      else if (selectedSort === 'Price Lowest - Highest') {
+          sortProductsByPrice('asc', currentCategory);
+      } 
+ 
+      else if (selectedSort === 'Price Highest - Lowest') {
+        sortProductsByPrice('desc', currentCategory);
+      }
+    });
+ 
+    function sortProductsAlphabetically(order, category) {
+      if(category==='All')
+      {
+        $.ajax({
+          url: `/search-products`,
+          method: 'GET',
+        success: function (products) {
+          products.sort((a, b) => {
+            if (order === 'asc') {
+              return a.name.localeCompare(b.name);
+            } else {
+              return b.name.localeCompare(a.name);
+            }
+          });
+ 
+          updateProductDisplay(products);
+        },
+        error: function (error) {
+          console.error('Error loading products:', error);
+        }
+        });
+      }
+      else {
+        $.ajax({
+            url: `/products/category/${category}`,
+            method: 'GET',
+          success: function (products) {
+            products.sort((a, b) => {
+              if (order === 'asc') {
+                return a.name.localeCompare(b.name);
+              } else {
+                return b.name.localeCompare(a.name);
+              }
+            });
+ 
+            updateProductDisplay(products);
+          },
+          error: function (error) {
+            console.error('Error loading products:', error);
+          }
+        });
+      }
+    }
+ 
+    function sortProductsByPrice(order, category) {
+      if(category === 'All') {
+        $.ajax({
         url: `/search-products`,
         method: 'GET',
-      success: function (products) {
-        products.sort((a, b) => {
-          if (order === 'asc') {
-            return a.name.localeCompare(b.name);
-          } else {
-            return b.name.localeCompare(a.name);
-          }
-        });
-        
-        updateProductDisplay(products);
-      },
-      error: function (error) {
-        console.error('Error loading products:', error);
-      }
-    });
-  }
-  else {
-    $.ajax({
-        url: `/products/category/${category}`,
-        method: 'GET',
-      success: function (products) {
-        products.sort((a, b) => {
-          if (order === 'asc') {
-            return a.name.localeCompare(b.name);
-          } else {
-            return b.name.localeCompare(a.name);
-          }
-        });
-        
-        updateProductDisplay(products);
-      },
-      error: function (error) {
-        console.error('Error loading products:', error);
-      }
-    });
-  }
-  }
-
-  function sortProductsByPrice(order, category) {
-    if(category === 'All') {
-      $.ajax({
-      url: `/search-products`,
-      method: 'GET',
-      success: function (products) {
-        products.sort((a, b) => {
-          if (order === 'asc') {
-            return a.price - b.price;
-          } else {
-            return b.price - a.price;
-          }
-        });
-
-        updateProductDisplay(products);
-      },
-      error: function (error) {
-        console.error('Error loading products:', error);
-      }
-    });
-    }
-  else {
-    $.ajax({
-      url: `/products/category/${category}`,
-      method: 'GET',
-      success: function (products) {
-        products.sort((a, b) => {
-          if (order === 'asc') {
-            return a.price - b.price;
-          } else {
-            return b.price - a.price;
-          }
-        });
-
-        updateProductDisplay(products);
-      },
-      error: function (error) {
-        console.error('Error loading products:', error);
-      }
-    });
-  }
-    
-  }
-
-  function updateProductDisplay(products) {
-    $('#container').empty();
-    products.forEach(product => {
-      const productCard = generateProductCard(product);
-      $('#container').css('margin-left', '0');
-      $('#container').append(productCard);
-    });
-  }
-       
-  function loadProductsByCategory(category) {
+        success: function (products) {
+          products.sort((a, b) => {
+            if (order === 'asc') {
+              return a.price - b.price;
+            } else {
+              return b.price - a.price;
+            }
+          });
+ 
+          updateProductDisplay(products);
+        },
+        error: function (error) {
+          console.error('Error loading products:', error);
+        }
+      });}
+      else {
         $.ajax({
           url: `/products/category/${category}`,
           method: 'GET',
           success: function (products) {
-            $('#container').empty(); 
+            products.sort((a, b) => {
+              if (order === 'asc') {
+                return a.price - b.price;
+              } else {
+                return b.price - a.price;
+              }
+            });
+ 
+            updateProductDisplay(products);
+          },
+          error: function (error) {
+            console.error('Error loading products:', error);
+          }
+        });
+      }
+    }
+ 
+    function updateProductDisplay(products) {
+      $('#container').children().remove();
+      products.forEach(product => {
+        const productCard = generateProductCard(product);
+        $('#container').css('margin-left', '0');
+        $('#container').append(productCard);
+      });
+    }
+ 
+    function loadProductsByCategory(category) {
+      $.ajax({
+        url: `/products/category/${category}`,
+        method: 'GET',
+        success: function (products) {
+          $('#container').children().remove(); 
+          products.forEach(product => {
+            const productCard = generateProductCard(product);
+            $('#container').css('margin-left', '0'); 
+            $('#container').append(productCard);
+          });
+        },
+        error: function (error) {
+            $('#container').children().remove();
+            $('#container').css('margin-left', '2rem');
+            $('#container').append('<p>No products available in this category.</p>');
+            console.error('Error loading products:', error);
+          }
+      });
+    }
+    function loadAllProducts() {
+        $.ajax({
+          url: `/search-products`,
+          method: 'GET',
+          success: function (products) {
+            $('#container').children().remove();
             products.forEach(product => {
               const productCard = generateProductCard(product);
               $('#container').css('margin-left', '0'); 
@@ -372,34 +449,14 @@ $('.sort-dropdown-item').on('click', function () {
             });
           },
           error: function (error) {
-                $('#container').empty();
-                $('#container').css('margin-left', '2rem');
-                $('#container').append('<p>No products available in this category.</p>');
-                console.error('Error loading products:', error);
-              }
-            });
+            $('#container').children().remove();
+            $('#container').css('margin-left', '2rem');
+            $('#container').append('<p>No products available.</p>');
+            console.error('Error loading products:', error);
           }
-          function loadAllProducts() {
-            $.ajax({
-              url: `/search-products`,
-              method: 'GET',
-            success: function (products) {
-              $('#container').empty();
-              products.forEach(product => {
-                const productCard = generateProductCard(product);
-                $('#container').css('margin-left', '0'); 
-                $('#container').append(productCard);
-              });
-            },
-            error: function (error) {
-              $('#container').empty();
-              $('#container').css('margin-left', '2rem');
-              $('#container').append('<p>No products available.</p>');
-              console.error('Error loading products:', error);
-            }
-          });
-        }
-      });
+        });
+    }
+  });
 </script> 
 </body>
 </html>
