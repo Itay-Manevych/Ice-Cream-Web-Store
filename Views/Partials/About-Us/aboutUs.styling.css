@@ -1,0 +1,22 @@
+
+
+.title {
+    height: 6rem;
+    margin-left: 10rem;
+}
+
+.about {
+    flex-direction: column;
+    margin-left: 7rem;
+    margin-right: 7rem;
+}
+
+.m-ice-cream {
+    width: 30rem;
+    margin-right: 7rem;
+}
+
+.e-ice-cream {
+    width: 30rem;
+    margin-left: 7rem;
+}
