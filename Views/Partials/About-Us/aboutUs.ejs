@@ -9,57 +9,64 @@
         <title>about us-FrozenFantazies</title>
     </head>
     <body>
-        <div class="title d-flex align-items-center h1">About Us</div>
-        <div class="d-flex align-items-center" style="margin-top: -5.5rem;">
-            <div class="about d-flex h5">
-                Welcome to Frozen Fantasies – Where Imagination Meets Ice Cream!<br>
-
-                We are Eyal, Itay, and Etay, three friends who love making the most delightful ice cream you ever tasted. Our journey began 
-                with a simple dream: to create an ice cream haven that captures the essence of childhood wonder and the joy of indulgence.<br>
-
-                At Frozen Fantasies, we believe that ice cream is more than just a dessert; it's a canvas for creativity, a medium for telling
-                stories, and a vessel for creating memories. Every scoop we serve is a piece of art, carefully handcrafted with the finest 
-                ingredients and lots of love and passion.
+        <div style="font-family: 'Just Another Hand';">
+            <div class="title d-flex align-items-center">About Us</div>
+            <div class="d-flex align-items-center" style="margin-top: -2rem;">
+                <div class="about d-flex h2">
+                    Welcome to Frozen Fantasies - Where Imagination Meets Ice Cream!<br>
+    
+                    We are Eyal, Itay, and Etay, three friends who love making the most delightful ice cream you ever tasted. Our journey began 
+                    with a simple dream: to create an ice cream haven that captures the essence of childhood wonder and the joy of indulgence.<br>
+    
+                    At Frozen Fantasies, we believe that ice cream is more than just a dessert; it's a canvas for creativity, a medium for telling
+                    stories, and a vessel for creating memories. Every scoop we serve is a piece of art, carefully handcrafted with the finest 
+                    ingredients and lots of love and passion.
+                </div>
+    
+                <img class="info" src="../../Assets/making-icecream.png">
             </div>
-
-            <img class="ice-cream" src="../../Assets/making-icecream.png">
-        </div>
-        <div class="d-flex align-items-center" style="margin-top: 1rem;">            
-            <div class="about d-flex h5">
-                Frozen Fantasies isn't just a store; it's a community hub where friends, families, and ice cream lovers gather to 
-                celebrate life's sweetest moments.
-                We take pride in being part of your celebrations, big and small – from birthday parties to spontaneous midday treats.<br>
-
-                Each scoop is more than a treat; it's a labor of love. We're dedicated to serving you not just ice cream, but an experience 
-                that warms your heart and brings a smile to your face. Our commitment to excellence is evident in every detail – from the 
-                ingredients we source to the smiles we share with you.
+            <div class="d-flex align-items-center">            
+                <div class="about d-flex h2">
+                    Frozen Fantasies isn't just a store; it's a community hub where friends, families, and ice cream lovers gather to 
+                    celebrate life's sweetest moments.
+                    We take pride in being part of your celebrations, big and small - from birthday parties to spontaneous midday treats.<br>
+    
+                    Each scoop is more than a treat; it's a labor of love. We're dedicated to serving you not just ice cream, but an experience 
+                    that warms your heart and brings a smile to your face. Our commitment to excellence is evident in every detail - from the 
+                    ingredients we source to the smiles we share with you.
+                </div>
+    
+                <img class="info" src="../../Assets/eating-icecream.png">
             </div>
-
-            <img class="ice-cream" src="../../Assets/eating-icecream.png">
-        </div>
-
-        <div class="d-flex align-items-center" style="margin-top: 1rem;">            
-            <div class="about d-flex h5">
-                Whether you're seeking a comforting scoop of your childhood favorite or a daring adventure into unexplored flavor 
-                territories, Frozen Fantasies is your destination. Join us in savoring the joy, creativity, and community that ice cream
-                can bring. Come, indulge in the extraordinary, and let your taste buds take flight!<br>
-                
-                Thank you for being a part of our Frozen Fantasies family.<br>
-                
-                Eyal, Itay, and Etay
+    
+            <div class="d-flex align-items-center"">            
+                <div class="about d-flex h2">
+                    Whether you're seeking a comforting scoop of your childhood favorite or a daring adventure into unexplored flavor 
+                    territories, Frozen Fantasies is your destination. Join us in savoring the joy, creativity, and community that ice cream
+                    can bring. Come, indulge in the extraordinary, and let your taste buds take flight!<br>
+                    
+                    Thank you for being a part of our Frozen Fantasies family.<br>
+                    
+                    Eyal, Itay, and Etay
+                </div>
+    
+                <img class="info" src="../../Assets/ending.png">
             </div>
-
-            <img class="ice-cream" src="../../Assets/ending.png">
+            <div class="map d-flex align-items-center justify-content-center">
+                <div class="h1 d-flex justify-content-center" style="width: 7rem; margin-bottom: 0;">
+                    Visit us:
+                </div>
+                <iframe
+                    width="800"
+                    height="300"
+                    style="border:0"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps/embed/v1/place?key=<%- GOOGLE_MAPS_API_KEY %>&q=place_id:ChIJweFE6_WzAhURGZPlvMa46fs">
+                </iframe>
+            </div>
         </div>
-        <iframe
-            width="100%"
-            height="300"
-            style="border:0"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed/v1/place?key=<%- GOOGLE_MAPS_API_KEY %>&q=place_id:ChIJweFE6_WzAhURGZPlvMa46fs">
-        </iframe>
         <%- include("../Footer/footer.ejs") %>
     </body>
 </html>
