@@ -15,5 +15,6 @@ UserRouter.route('/:email')
     .put(UserController.updateUserByEmail)
     .delete(UserController.deleteUserByEmail)
 
+
 export default UserRouter;
 
