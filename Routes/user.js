@@ -10,10 +10,10 @@ UserRouter.route('/')
     })
     .post(UserController.createUser)
 
-UserRouter.route('/:id')
-    .get(UserController.getUserById)
-    .put(UserController.updateUser)
-    .delete(UserController.deleteUser)
+UserRouter.route('/:email')
+    .get(UserController.getUserByEmail)
+    .put(UserController.updateUserByEmail)
+    .delete(UserController.deleteUserByEmail)
 
 export default UserRouter;
 
