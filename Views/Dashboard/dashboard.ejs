@@ -62,12 +62,40 @@
         </div>
         <% if (user.is_admin) { %>
             <div class="mt-5">
-                <h3>Admin Functions</h3>
                 <div class="row mt-3">
                     <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">Add Products</div>
+                        <div id="admin-card" class="card">
+                            <div class="card-header">Create Product</div>
                             <div class="card-body">
+                                <form id="create-product-form">
+                                    <div class="admin-form-field">
+                                        <label for="product-name" class="form-label">Product Name</label>
+                                        <input type="text" class="form-control" id="product-name" name="product-name">
+                                    </div>
+                                    <div class="admin-form-field">
+                                        <label for="product-price" class="form-label">Price</label>
+                                        <input type="number" step="0.01" class="form-control" id="product-price" name="product-price">
+                                    </div>
+                                    <div class="admin-form-field">
+                                        <label for="product-description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="product-description" name="product-description" rows="3"></textarea>
+                                    </div>
+                                    <div class="admin-form-field">
+                                        <label for="product-categories" class="form-label">Categories</label>
+                                        <select class="form-control" id="product-categories" name="product-categories">
+                                            <option value="new-category" selected>Create New Category</option>
+                                            <% categories.forEach(category => { %>
+                                                <option value="<%= category._id %>"><%= category.name %></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3" id="new-category-field" class="admin-form-field" style="display: block;">
+                                        <label for="new-category-name" class="form-label">New Category Name</label>
+                                        <input type="text" class="form-control" id="new-category-name" name="new-category-name">
+                                    </div>
+                                    <button type="button" class="btn btn-primary" id="create-product-button">Create Product</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -256,6 +284,17 @@
                     catch (error) {
                         console.error("Error:", error);
                     }
+                }
+            });
+
+            $("#product-categories").on("change", () => {
+                const selectedOption = $("#product-categories").val();
+                console.log(1);
+                if (selectedOption === "new-category") {
+                    $("#new-category-field").show();
+                } 
+                else {
+                    $("#new-category-field").hide();
                 }
             });
         });

@@ -32,7 +32,7 @@ div.card {
 #form-field {
     width: 38rem;
     height: 5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 label {
@@ -59,4 +59,27 @@ input#password {
 
 #eye-icon {
     cursor: pointer;
+}
+
+#admin-card {
+    margin-bottom: 5rem;
+}
+
+.admin-form-field {
+    margin-bottom: 1.5rem;
+}
+
+#product-description {
+    resize: none;
+}
+
+#create-product-button {
+    width: 38rem;
+    margin-top: 0.75rem;
+}
+
+#product-categories {
+    column-width: 10em;
+    -webkit-column-width: 10em;
+    -moz-column-width: 10em;
 }
