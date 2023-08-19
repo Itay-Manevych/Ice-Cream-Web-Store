@@ -77,9 +77,3 @@ input#password {
     width: 38rem;
     margin-top: 0.75rem;
 }
-
-#product-categories {
-    column-width: 10em;
-    -webkit-column-width: 10em;
-    -moz-column-width: 10em;
-}
