@@ -226,7 +226,9 @@ i {
     outline-style: solid;
     outline-color: rgb(88, 88, 88);
 }
-
+.hidden{
+    display: none;
+}
 #search {
     background-image: url("../Assets/SearchIcon2.jpg");
     background-size: 80%;

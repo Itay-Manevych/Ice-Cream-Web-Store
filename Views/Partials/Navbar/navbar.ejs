@@ -239,6 +239,21 @@
                         populateCart();
                     }
                 };
+                const updateCartItemQuantity = (cartId, newQuantity) => {
+                    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+                    const updatedCartItems = cartItems.map(item => {
+                        if (item.id === cartId) {
+                            item.quantity = newQuantity;
+                            item.total_price = item.price * newQuantity;
+                        }
+                        return item;
+                    });
+                
+                    const filteredCartItems = updatedCartItems.filter(item => item.quantity > 0);
+                
+                    localStorage.setItem('cartItems', JSON.stringify(filteredCartItems));
+                };
 
                 const populateCart = () => {
                     const cartContainer = document.getElementById('cart-container');
@@ -249,7 +264,7 @@
 
                     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-                    const totalPrice = cartItems.reduce((total, item) => total + item.total_price, 0);
+                    let totalPrice = cartItems.reduce((total, item) => total + item.total_price, 0);
 
                     const totalElement = document.createElement('p');
                     totalElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
@@ -261,23 +276,49 @@
                     // checkoutButton.addEventListener('click', handleCheckout);
                     totalElement.appendChild(checkoutButton);
 
-
-                    cartItems.forEach((item,index) => {
+                    cartItems.forEach((item, index) => {
                         const cartItem = document.createElement('div');
                         cartItem.classList.add('cart-item');
-                    
+
                         const itemImage = document.createElement('img');
-                        itemImage.src = item.image; 
+                        itemImage.src = item.image;
                         itemImage.alt = 'Product Image';
                         itemImage.id = 'product-cart-image';
                         cartItem.appendChild(itemImage);
-                    
+
                         const itemDetails = document.createElement('div');
                         itemDetails.classList.add('item-details');
-                    
-                        const itemNameAndQuantity = document.createElement('p');
-                        itemNameAndQuantity.textContent = `${item.name} x${item.quantity}`;
-                        itemDetails.appendChild(itemNameAndQuantity);
+
+                        const itemName = document.createElement('p');
+                        itemName.textContent = item.name;
+                        itemDetails.appendChild(itemName);
+
+                        const itemPrice = document.createElement('p');
+                        itemPrice.textContent = `$${item.total_price.toFixed(2)}`;
+
+                        const quantityInput = document.createElement('input');
+                        quantityInput.type = 'number';
+                        quantityInput.min = '0';
+                        quantityInput.value = item.quantity;
+                        quantityInput.addEventListener('change', event => {
+                            let newQuantity = parseInt(event.target.value);
+                            if (isNaN(newQuantity) || newQuantity < 0) {
+                                newQuantity = 0;
+                            } 
+                            else if (newQuantity > 15) {
+                                newQuantity = 15;
+                            }
+                            quantityInput.value = newQuantity
+                            itemPrice.textContent = `$${(item.price * newQuantity).toFixed(2)}`;
+                            if (event.target.value === "0") {
+                                console.log("hi");
+                                cartItem.classList.add('hidden');
+                            }
+                            updateCartItemQuantity(item.id, newQuantity);
+                        });
+
+                        itemDetails.appendChild(itemPrice);
+                        itemDetails.appendChild(quantityInput);
 
                         const selectedAdditions = item.additions;
                         const additionNames = [];
@@ -300,9 +341,9 @@
                             itemDetails.appendChild(additionsElement);
                         }
                         
-                        const itemPrice = document.createElement('p');
-                        itemPrice.textContent = `$${item.total_price.toFixed(2)}`;
-                        itemDetails.appendChild(itemPrice);
+                        
+                        // itemPrice.textContent = `$${item.total_price.toFixed(2)}`;
+                        // itemDetails.appendChild(itemPrice);
                                         
                         cartItem.appendChild(itemDetails);
                     
