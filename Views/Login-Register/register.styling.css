@@ -11,7 +11,6 @@ body {
     margin: 0 auto;
     background-repeat: repeat;
     background-position: center;
-    background-color:rgb(251, 235, 170);
     background-size: 10.9rem;
     padding: 0.6rem;
 }
@@ -23,7 +22,6 @@ div.card {
     position: relative;
     border: 0.2rem solid rgb(242,132,189);
     border-radius: 1rem;
-    background-color: cornsilk;
 }
 
 #house-icon {
@@ -92,6 +90,12 @@ input.form-check-input {
 
 #register-button {
     width: 24rem;
+    background-color: rgb(81,190,230);
+    color: white;
+}
+
+#register-button:hover {
+    background-color: rgb(242,132,189);
 }
 
 #password-input {
