@@ -1,14 +1,17 @@
 body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow: auto;
 }
+
 #container {
     background-image: url("../Assets/back.png");
-    width: calc(100vw/ aspect-ratio);
-    height: 100vh;
+    width: calc(100vh * aspect-ratio);
+    min-height: 100vh;
+    margin: 0 auto;
     background-size: cover;
     background-position: center;
+    padding: 0.6rem 0;
 }
 
 div.card {
@@ -21,9 +24,15 @@ div.card {
 #house-icon {
     position: absolute;
     top: 0rem;
-    left: 0.2rem;
-    font-size: x-large;
+    left: 0.4rem;
+    font-size: 1.6rem;
     cursor: pointer;
+}
+
+#house-icon:hover {
+    top: -0.10057rem;
+    left: 0.3rem;
+    font-size: 1.8rem;
 }
 
 #login-title {
