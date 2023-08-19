@@ -5,13 +5,13 @@ body {
 }
 
 #container {
-    background-image: url("../Assets/back.png");
+    background-image: url("../Assets/background.png");
     width: calc(100vh * aspect-ratio);
     min-height: 100vh;
     margin: 0 auto;
     background-size: cover;
     background-position: center;
-    padding: 0.6rem 0;
+    padding: 0.6rem;
 }
 
 div.card {
@@ -23,16 +23,16 @@ div.card {
 
 #house-icon {
     position: absolute;
-    top: 0rem;
-    left: 0.4rem;
-    font-size: 1.6rem;
+    top: 0.2rem;
+    left: 0.6rem;
+    font-size: 1.8rem;
     cursor: pointer;
 }
 
 #house-icon:hover {
-    top: -0.10057rem;
-    left: 0.3rem;
-    font-size: 1.8rem;
+    top: 0.05rem;
+    left: 0.49rem;
+    font-size: 2rem;
 }
 
 #login-title {
