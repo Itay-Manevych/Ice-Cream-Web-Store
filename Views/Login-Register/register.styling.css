@@ -5,13 +5,15 @@ body {
 }
 
 #container {
-    background-image: url("../Assets/background.png");
+    background-image: url("../Assets/logo.png");
     width: calc(100vh * aspect-ratio);
     min-height: 100vh;
     margin: 0 auto;
-    background-size: cover;
+    background-repeat: repeat;
     background-position: center;
-    padding: 0.6rem 0;
+    background-color:rgb(251, 235, 170);
+    background-size: 10.9rem;
+    padding: 0.6rem;
 }
 
 div.card {
@@ -19,6 +21,9 @@ div.card {
     width: 32.5rem;
     height: 40.5rem;
     position: relative;
+    border: 0.2rem solid rgb(242,132,189);
+    border-radius: 1rem;
+    background-color: cornsilk;
 }
 
 #house-icon {
@@ -27,17 +32,21 @@ div.card {
     left: 0.6rem;
     font-size: 1.8rem;
     cursor: pointer;
+    color: rgb(242,132,189);
 }
 
 #house-icon:hover {
     top: 0.05rem;
     left: 0.49rem;
     font-size: 2rem;
+    color: rgb(81,190,230);
 }
 
 #register-title {
     margin-top: 0.25rem;
     margin-bottom: 1rem;
+    margin-right: 2rem;
+    color: rgb(81,190,230);
 }
 
 #form-field {
@@ -54,6 +63,15 @@ input.form-check-input {
     border-width: 0.1rem;
 }
 
+#input {
+    color: rgb(81,190,230);
+    border-color: rgb(242,132,189);
+}
+
+#input:focus {
+    border-color: rgb(81,190,230);
+}
+
 #eye-icon {
     cursor: pointer;
 }
@@ -62,11 +80,14 @@ input.form-check-input {
     margin-top: 0.5rem;
     margin-bottom: 1.9rem;
     font-size: large;
-    background-color: rgb(81,190,230);
+    color: white;
+    background-color: rgb(242,132,189);
+    border-color: rgb(242,132,189);
 }
 
 #generate-password-button:hover {
-    background-color: rgb(242,132,189);
+    background-color: rgb(81,190,230);
+    border-color: rgb(81,190,230);
 }
 
 #register-button {
@@ -76,6 +97,12 @@ input.form-check-input {
 #password-input {
     width: 24rem;
     margin-right: 1.25rem;
+    color: rgb(81,190,230);
+    border-color: rgb(242,132,189);
+}
+
+#password-input:focus {
+    border-color: rgb(81,190,230);
 }
 
 #login-here {
@@ -85,4 +112,5 @@ input.form-check-input {
     gap: 0.295rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    color: rgb(242,132,189);
 }
