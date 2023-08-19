@@ -112,3 +112,11 @@ input.form-check-input {
     margin-bottom: 1rem;
     color: rgb(242,132,189);
 }
+
+.link {
+    color: rgb(81,190,230);
+}
+
+.link:hover {
+    color: rgb(242,132,189);
+}
