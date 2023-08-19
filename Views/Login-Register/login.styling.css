@@ -1,5 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
 #container {
-    background-color: rgb(92, 124, 194);
+    background-image: url("../Assets/back.png");
+    width: calc(100vw/ aspect-ratio);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
 }
 
 div.card {
