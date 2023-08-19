@@ -59,6 +59,10 @@ app.get("/", async (req, res) => {
   res.render('./Carousel/carousel');
 });
 
+app.get("/about_us", async (req, res) => {
+  res.render('./Partials/About-Us/aboutUs', { GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY });
+});
+
 app.get("/search-products", async (req, res) => {
   try {
     const products = await ProductController.getAllProducts(req, res);

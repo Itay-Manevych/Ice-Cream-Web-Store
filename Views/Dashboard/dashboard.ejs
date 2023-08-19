@@ -1,11 +1,264 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../Dashboard/dashboard.styling.css">
 </head>
 <body>
-    <h1>Welcome to the Dashboard, <%= user.username %></h1>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 id="welcome">
+                <i id="house-icon" class="bi bi-house-door"></i>
+                Welcome, <%= user.username %>!
+            </h2>
+            <i id="logout-icon" class="bi bi-box-arrow-left"></i>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Update Your Details</div>
+                    <div class="card-body">
+                        <form id="user-details-form">
+                            <div id="form-field">
+                                <label for="username">Username:</label>
+                                <input type="text" class="form-control text-dark" id="username" name="username" placeholder="<%= user.username %>">
+                                <div id="invalid-feedback" class="text-danger">
+
+                                </div>
+                            </div>
+                            <div id="form-field">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control text-dark" id="email" name="email" placeholder="<%= user.email %>">
+                                <div id="invalid-feedback" class="text-danger">
+
+                                </div>
+                            </div>
+                            <div id="form-field">
+                                <label for="password">Password:</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="password" class="form-control text-dark" id="password">
+                                    <i id="eye-icon" class="bi bi-eye-fill"></i>
+                                </div>
+                                <div id="invalid-feedback" class="text-danger">
+
+                                </div>
+                            </div>
+                            <div id="button-div">
+                                <button id="user-details-button" class="btn btn-primary" type="button">Update Details</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Your Orders</div>
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>               
+        </div>
+        <% if (user.is_admin) { %>
+            <div class="mt-5">
+                <h3>Admin Functions</h3>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Add Products</div>
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(() => {
+            const house_icon = $("#house-icon");
+            const logout_icon = $("#logout-icon");
+            const username_input = $("#username");
+            const email_input = $("#email");
+            const password_input = $("#password");
+            const user_details_button = $("#user-details-button");
+            const eye_icon = $("#eye-icon");
+
+            house_icon.on("click", () => {
+                window.location.href = "/";
+            });
+
+            $(logout_icon).on("click", () => {
+                const data = {
+                    cookie_name: "jwt",
+                }
+
+                try{
+                    const response = $.ajax({
+                        url: '/dashboard', 
+                        method: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function() {
+                            window.location.href = '/';
+                        }
+                    });
+                }
+                catch(error) {
+                    console.log("AJAX error:", error);
+                }
+
+            })
+
+            const changeIcon = (input, icon) => {
+                input.attr("type") === "password" 
+                ? (input.attr("type","input"), icon.removeClass().addClass("bi bi-eye-slash-fill")) 
+                : (input.attr("type","password"), icon.removeClass().addClass("bi bi-eye-fill"));
+            }
+            
+            eye_icon.on("click", () => changeIcon(password_input, eye_icon));
+            
+            let user, users; 
+            const getUser = async () => {
+                await $.ajax({
+                    url: '/dashboard/user', 
+                    type: 'GET',
+                    success: (data) => {
+                        user = data;
+                    },
+                    error: (error) => {
+                        console.log("Error fetching existing users", error);
+                    }
+                });
+            }
+
+            const getExistingUsers = async () => {
+                await $.ajax({
+                    url: '/users', 
+                    type: 'GET',
+                    success: (data) => {
+                        users = data; 
+                    },
+                    error: (error) => {
+                        console.log("Error fetching existing users", error);
+                    }
+                });
+            }
+
+            const checkExistingUser = async (user_email) => {
+                await getExistingUsers();
+                await getUser();
+                console.log(users,user);
+                for(let i = 0; i < users.length; i++) {
+                    if(users[i].email === user_email && user.email != user_email) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            const validateEmail = (email) => {
+                const email_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                return email_regex.test(email);
+            };
+            
+            const validateUsername = (username) => {
+                return username !== "";
+            }
+
+            const validatePassowrd = (password) => {
+                return password !== "";
+            }
+            
+            const showError = (element, error_message) => {
+                element.addClass("is-invalid");
+                const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
+                ? element.siblings("#invalid-feedback")
+                : element.closest("div").siblings("#invalid-feedback");
+                error_div.text(error_message);
+            };
+        
+            const hideError = (element) => {
+                element.removeClass("is-invalid");
+                const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
+                ? element.siblings("#invalid-feedback")
+                : element.closest("div").siblings("#invalid-feedback");
+                error_div.text("");
+            };
+            
+            const validateForm = async () => {
+                let is_valid = true;
+            
+                if (!validateUsername(username_input.val().trim())) {
+                    is_valid = false;
+                    showError(username_input, "Username cannot be empty.");
+                } else {
+                    hideError(username_input);
+                }
+
+                if (!validateEmail(email_input.val())) {
+                    is_valid = false;
+                    showError(email_input, "Invalid email format.");
+                } else if (await checkExistingUser(email_input.val())) {
+                    is_valid = false;
+                    hideError(email_input);
+                    showError(email_input, "Email already in use");
+                } else {
+                    hideError(email_input);
+                }
+
+                if (!validatePassowrd(password_input.val().trim())) {
+                    is_valid = false;
+                    showError(password_input, "Password cannot be empty.");
+                } else {
+                    hideError(password_input);
+                }
+            
+                return is_valid;
+            };
+            
+            $("#username, #email, #password").on("input", (event) => {
+                hideError($(event.target));
+            });
+
+            user_details_button.on("click",async (event) => {
+                event.preventDefault();
+                
+                if(await validateForm()) {
+                    try {
+                        const email = $("#email").val();
+                        const user = $.ajax({
+                            url: `/users/${email}`,
+                            type: 'GET',
+                        });
+
+                        if (user) {
+                            const user_details_form_data = {
+                                username: $("#username").val(),
+                                email: $("#email").val(),
+                                password: $("#password").val()
+                            }
+                        
+                            const response = $.ajax({
+                                url: '/dashboard/update-details', 
+                                method: 'POST',
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                data: JSON.stringify(user_details_form_data)
+                            });
+                            console.log("Response:", response);
+                        }
+                    } 
+                    catch (error) {
+                        console.error("Error:", error);
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

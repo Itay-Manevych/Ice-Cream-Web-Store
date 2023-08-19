@@ -8,6 +8,11 @@
     </head>
 
     <body class="body">
+        <div class="cart-overlay" style="display: none;"></div>
+        <div id="cart-container" class="cart-container" style="display: none;">
+            <div id="close-cart" class="bi bi-x-lg h3 d-flex align-items-center justify-content-center" style="position: absolute; top: 1rem; right: 1rem; cursor: pointer;"></div>
+        </div>
+        
         <div style="height: 8rem;" class="bg-light"></div>
 
         <nav class="navbar bg-light align-items-center"> 
@@ -59,19 +64,18 @@
                 const search_btn = $("#search-icon-search-box")[0];
 
                 const mainPage = () => {
-                    window.location.href = "http://localhost:3000";
+                    window.location.href = "/";
                 }
 
                 const aboutPage = () => {
-                    //window.location.href = "http://localhost:3000/about_us";
+                    window.location.href = "/about_us";
                 }
 
                 const shop = () => {
-                    window.location.href = "http://localhost:3000/products";
+                    window.location.href = "/products";
                 }
 
-                const sale = () => {
-                }
+                const sale = () => {}
 
                 const closeSearch = () => {
                     navbar.style.display = "flex";
@@ -95,7 +99,7 @@
 
                     const clicked = (id) => {
                         if(id!=-1) {
-                        window.location.href = `http://localhost:3000/products/id/${id}`;
+                        window.location.href = `/products/id/${id}`;
                         closeSearch();}
                     }
 
@@ -202,9 +206,110 @@
                     }
                 }
 
-                const cart = () => {
-                    //window.location.href = "http://localhost:3000/cart";
+                const closeCart = () => {
+                    const cartContainer = document.getElementById('cart-container');
+                    const cartOverlay = document.querySelector('.cart-overlay');
+                    
+                    cartContainer.style.display = 'none';
+                    cartOverlay.style.display = 'none';
                 }
+                
+                const cartOverlay = document.querySelector('.cart-overlay');
+                cartOverlay.addEventListener('click', closeCart);
+
+                const cart = () => {
+                    const cartContainer = document.getElementById('cart-container');
+                    const cartOverlay = document.querySelector('.cart-overlay');
+                    cartContainer.innerHTML = '';
+
+                    if (cartContainer.style.display === 'none') {
+                        cartContainer.style.display = 'block';
+                        cartOverlay.style.display = 'block';
+
+                        const closeButton = document.createElement('div');
+                        closeButton.classList.add('bi', 'bi-x-lg', 'h3', 'd-flex', 'align-items-center', 'justify-content-center');
+                        closeButton.style.position = 'absolute';
+                        closeButton.style.top = '1rem';
+                        closeButton.style.right = '1rem';
+                        closeButton.style.cursor = 'pointer';
+                        closeButton.addEventListener('click', closeCart);
+                        cartContainer.appendChild(closeButton);
+                    
+                        populateCart();
+                    }
+                };
+
+                const populateCart = () => {
+                    const cartContainer = document.getElementById('cart-container');
+                    const cartContent = document.createElement('div');
+                    cartContent.classList.add('cart-content');
+
+                    cartContent.innerHTML = '';
+
+                    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+                    const totalPrice = cartItems.reduce((total, item) => total + item.total_price, 0);
+
+                    const totalElement = document.createElement('p');
+                    totalElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+                    cartContent.appendChild(totalElement);
+
+                    const checkoutButton = document.createElement('button');
+                    checkoutButton.textContent = 'Checkout';
+                    checkoutButton.classList.add('btn', 'btn-primary', 'checkout-button');
+                    // checkoutButton.addEventListener('click', handleCheckout);
+                    totalElement.appendChild(checkoutButton);
+
+
+                    cartItems.forEach((item,index) => {
+                        const cartItem = document.createElement('div');
+                        cartItem.classList.add('cart-item');
+                    
+                        const itemImage = document.createElement('img');
+                        itemImage.src = item.image; 
+                        itemImage.alt = 'Product Image';
+                        itemImage.id = 'product-cart-image';
+                        cartItem.appendChild(itemImage);
+                    
+                        const itemDetails = document.createElement('div');
+                        itemDetails.classList.add('item-details');
+                    
+                        const itemNameAndQuantity = document.createElement('p');
+                        itemNameAndQuantity.textContent = `${item.name} x${item.quantity}`;
+                        itemDetails.appendChild(itemNameAndQuantity);
+
+                        const selectedAdditions = item.additions;
+                        const additionNames = [];
+                                    
+                        if (selectedAdditions.sprinkles) {
+                            additionNames.push('Sprinkles');
+                        }
+                    
+                        if (selectedAdditions.hot_chocolate) {
+                            additionNames.push('Hot Chocolate');
+                        }
+                    
+                        if (selectedAdditions.gummy_bears) {
+                            additionNames.push('Gummy Bears');
+                        }
+                    
+                        if (additionNames.length > 0) {
+                            const additionsElement = document.createElement('p');
+                            additionsElement.textContent = `${additionNames.join(', ')}`;
+                            itemDetails.appendChild(additionsElement);
+                        }
+                        
+                        const itemPrice = document.createElement('p');
+                        itemPrice.textContent = `$${item.total_price.toFixed(2)}`;
+                        itemDetails.appendChild(itemPrice);
+                                        
+                        cartItem.appendChild(itemDetails);
+                    
+                        cartContent.appendChild(cartItem);
+                    });
+                
+                    cartContainer.appendChild(cartContent);
+                };
 
                 logo_btn.onclick = mainPage;
                 about_btn.onclick = aboutPage;

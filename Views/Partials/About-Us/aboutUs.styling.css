@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@600;700&family=Concert+One&family=Just+Another+Hand&family=PT+Sans:ital,wght@0,700;1,400&family=Rajdhani:wght@500;600&family=Six+Caps&display=swap');
+
+.title {
+    font-size: 4rem;
+    height: 6rem;
+    margin-left: 10rem;
+    margin-top: 1rem;
+}
+
+.about {
+    flex-direction: column;
+    margin-left: 6rem;
+    margin-right: 6rem;
+}
+
+.info {
+    width: 30rem;
+    margin-right: 6rem;
+    margin-bottom: 1rem;
+}
+
+.map {
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
