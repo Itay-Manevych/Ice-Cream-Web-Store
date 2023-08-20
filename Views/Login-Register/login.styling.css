@@ -13,6 +13,7 @@ body {
     background-position: center;
     background-size: 10.9rem;
     padding: 0.6rem;
+    background-color:rgb(251, 235, 170);
 }
 
 div.card {
@@ -22,6 +23,7 @@ div.card {
     position: relative;
     border: 0.2rem solid rgb(242,132,189);
     border-radius: 1rem;
+    background-color: cornsilk;
 }
 
 #house-icon {
