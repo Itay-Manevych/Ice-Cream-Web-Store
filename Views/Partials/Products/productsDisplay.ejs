@@ -103,7 +103,7 @@
             </div>
             <footer class="modal-footer">
               <p id="total-price-<%= product._id %>" class="total-price">Total Price: $<%= product.price %></p>
-              <button class="btn btn-success" onclick="addToCart('<%= product.name %>','productModal<%= product._id %>', '<%= product._id %>', '<%= product.image %>')">
+              <button class="btn btn-success" onclick="addToCart('<%= product.name %>','productModal<%= product._id %>', '<%= product._id %>', '<%= product.image %>', '<%= product.price%>')">
                 Add to Cart
               </button>
               <input type="number" class="quantity" id="quantity-<%= product._id %>" name="quantity" min="1" max="15" value="1" data-product-id="<%= product._id %>" data-product-price="<%= product.price %>">
@@ -119,7 +119,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
   
 <script>
-    const modals = {};
+  let counter = parseInt(localStorage.getItem('counter')) || 1;
+  const modals = {};
  
     function updateTotalPrice(quantity, price, productId) {
       const totalPrice = quantity * price;
@@ -152,7 +153,7 @@
     updateTotalPrice(enteredValue, productPrice, productId);
   }
   
-  function addToCart(productName, modalId, productId, productImage) {
+  function addToCart(productName, modalId, productId, productImage, productPrice) {
       const selectedAdditions = {
         sprinkles: document.querySelector(`#${modalId} [name="sprinkles"]`).checked,
         hot_chocolate: document.querySelector(`#${modalId} [name="hot_chocolate"]`).checked,
@@ -163,7 +164,9 @@
       const totalPriceText = document.getElementById(`total-price-${productId}`).textContent;
       const totalPrice = parseFloat(totalPriceText.split('$')[1]);
       const cartItem = {
+        id: counter++,
         name: productName,
+        price: parseFloat(productPrice),
         total_price: totalPrice ,
         additions: selectedAdditions,
         quantity: selectedQuantity,
@@ -180,6 +183,7 @@
       closeModal(modalId);
       console.log(`Added "${productName}" to cart for a total of $${totalPrice} (Quantity: ${selectedQuantity})`);
       console.log("Selected Additions:", selectedAdditions);
+      localStorage.setItem('counter', counter);
     }
     
     function resetModalContent(modalId, productId, productPrice) {
@@ -272,7 +276,7 @@
               </div>
               <footer class="modal-footer">
                <p id="total-price-${product._id}" class="total-price">Total Price: $${product.price}</p>
-                <button class="btn btn-success" onclick="addToCart('${product.name}', 'productModal${product._id}' , '${product._id}', '${product.image}')">
+                <button class="btn btn-success" onclick="addToCart('${product.name}', 'productModal${product._id}' , '${product._id}', '${product.image}', '${product.price}')">
                   Add to Cart
                 </button>
                 <input type="number" class="quantity" id="quantity-${product._id}" name="quantity" min="1" max="15" value="1" data-product-id="${product._id}" data-product-price="${product.price}">
