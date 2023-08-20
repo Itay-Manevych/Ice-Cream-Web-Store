@@ -284,13 +284,16 @@ const populateCart = () => {
         cart_item.append(item_image);
 
         const item_details = $('<div>').addClass('item-details');
+        const details_container = $('<div>').addClass('details_container');
 
-        const item_name = $('<p>').text(item.name);
-        item_details.append(item_name);
-
+        const item_name = $('<p>').text(item.name).addClass('item-name');
+        details_container.append(item_name);
+        
         const item_price = $('<p>').text(`$${item.total_price.toFixed(2)}`);
-
-        const quantity_input = $('<input>').attr('type', 'number').attr('min', '0').val(item.quantity);
+            
+            const quantity_input = $('<input>').attr('type', 'number').attr('min', '0').attr("id", "quantity-input").val(item.quantity);
+            details_container.append(quantity_input);
+            item_details.append(details_container);
         quantity_input.on('change', event => {
             let new_quantity = parseInt(event.target.value);
             if (isNaN(new_quantity) || new_quantity < 0) {
@@ -312,12 +315,11 @@ const populateCart = () => {
             total_element.replaceWith(updated_total_element);
         });
 
-        item_details.append(item_price);
-        item_details.append(quantity_input);
-
+        details_container.append(quantity_input);
+        
         const selected_additions = item.additions;
         const addition_names = [];
-
+        
         if (selected_additions.sprinkles) {
             addition_names.push('Sprinkles');
         }
@@ -325,16 +327,17 @@ const populateCart = () => {
         if (selected_additions.hot_chocolate) {
             addition_names.push('Hot Chocolate');
         }
-
+        
         if (selected_additions.gummy_bears) {
             addition_names.push('Gummy Bears');
         }
-
+        
         if (addition_names.length > 0) {
             const addition_element = $('<p>').text(addition_names.join(', '));
-            item_details.append(addition_element);
-        }
-
+                item_details.append(addition_element);
+            }
+            
+        item_details.append(item_price);
         cart_item.append(item_details);
 
         cart_content.append(cart_item);
