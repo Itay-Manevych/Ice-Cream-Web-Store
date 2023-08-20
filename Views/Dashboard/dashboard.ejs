@@ -5,16 +5,19 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" integrity="sha512-0nkKORjFgcyxv3HbE4rzFUlENUMNqic/EzDIeYCgsKa/nwqr2B91Vu/tNAu4Q0cBuG4Xe/D1f/freEci/7GDRA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../Dashboard/dashboard.styling.css">
-</head>
+        <link rel="stylesheet" href="../Dashboard/dashboard.styling.css">
+    </head>
 <body>
         <div id="welcome-container" class="d-flex justify-content-between align-items-center">
-            <h2 id="welcome">
+            <header id="welcome">
                 <i id="house-icon" class="bi bi-house-door"></i>
                 Welcome, <%= user.username %>!
-            </h2>
+            </header>
             <i id="logout-icon" class="bi bi-box-arrow-left"></i>
         </div>
+        <h2>
+            User Functions
+        </h2>
         <div id="user-info">
             <div id="update-details" class="card">
                 <div class="card-header">
@@ -56,50 +59,126 @@
             </div>
         </div>
         <% if (user.is_admin) { %>
+            <h2>
+                Admin Functions
+            </h2>
             <div id="admin-info">
-                <div id="create-product" class="card">
-                    <div class="card-header">Create Product</div>
-                    <div class="card-body">
-                        <form id="create-product-form">
-                            <div class="admin-form-field">
-                                <label for="product-name" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" id="product-name" name="product-name">
-                            </div>
-                            <div class="admin-form-field">
-                                <label for="product-price" class="form-label">Price</label>
-                                <input type="number" step="0.1" min="0.1" class="form-control" id="product-price" name="product-price">
-                            </div>
-                            <div class="admin-form-field">
-                                <label for="product-description" class="form-label">Description</label>
-                                <textarea class="form-control" id="product-description" name="product-description" rows="3"></textarea>
-                            </div>
+                <div id="product-container">
+                    <div id="create-product" class="card">
+                        <div class="card-header">Create Product</div>
+                        <div class="card-body">
+                            <form id="create-product-form">
+                                <div class="admin-form-field">
+                                    <label for="product-name" class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" id="product-name" name="product-name">
+                                </div>
+                                <div class="admin-form-field">
+                                    <label for="product-price" class="form-label">Price</label>
+                                    <input type="number" step="0.1" min="0.1" class="form-control" id="product-price" name="product-price">
+                                </div>
+                                <div class="admin-form-field">
+                                    <label for="product-description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="product-description" name="product-description" rows="3"></textarea>
+                                </div>
 
-                            <div id="admin-form-field-categories" class="admin-form-field">
-                                <label for="product-categories" class="form-label">Categories</label>
-                                <select class="form-control chosen-select" id="product-categories" name="product-categories" multiple>
+                                <div id="admin-form-field-categories" class="admin-form-field">
+                                    <label for="product-categories" class="form-label">Categories</label>
+                                    <select class="form-control chosen-select" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
+                                        <% categories.forEach(category => { %>
+                                            <option value="<%= category.name %>"><%= category.name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                            
+                                <button type="button" class="btn btn-primary" id="create-product-button">Create Product</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="create-product" class="card">
+                        <div class="card-header">Create Product</div>
+                        <div class="card-body">
+                            <form id="create-product-form">
+                                <div class="admin-form-field">
+                                    <label for="product-name" class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" id="product-name" name="product-name">
+                                </div>
+                                <div class="admin-form-field">
+                                    <label for="product-price" class="form-label">Price</label>
+                                    <input type="number" step="0.1" min="0.1" class="form-control" id="product-price" name="product-price">
+                                </div>
+                                <div class="admin-form-field">
+                                    <label for="product-description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="product-description" name="product-description" rows="3"></textarea>
+                                </div>
+
+                                <div id="admin-form-field-categories" class="admin-form-field">
+                                    <label for="product-categories" class="form-label">Categories</label>
+                                    <select class="form-control chosen-select" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
+                                        <% categories.forEach(category => { %>
+                                            <option value="<%= category.name %>"><%= category.name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                            
+                                <button type="button" class="btn btn-primary" id="create-product-button">Create Product</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+    
+                <div id="category-container">
+                    <div id="create-category" class="card">
+                        <div class="card-header">Create Category</div>
+                        <div class="card-body">
+                            <form id="create-category-form">
+                                <div class="admin-form-field">
+                                    <label for="category-name" class="form-label">Category Name</label>
+                                    <input type="text" class="form-control" id="create-category-input" name="category-name">
+                                    <div id="invalid-feedback" class="text-danger">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="create-category-button">Create Category</button>
+                            </form>
+                        </div>
+                    </div>
+    
+                    <div id="delete-category" class="card">
+                        <div class="card-header">Delete Category</div>
+                        <div class="card-body">
+                            <form id="create-category-form">
+                                <div class="admin-form-field">
+                                    <label for="category-name" class="form-label">Category Name</label>
+                                    <input type="text" class="form-control" id="delete-category-input" name="category-name">
+                                    <div id="invalid-feedback" class="text-danger">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="delete-category-button">Delete Category</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="update-category" class="card">
+                        <div class="card-header">Update Category</div>
+                        <div class="card-body">
+                            <form id="update-category-form">
+                                <select class="form-control chosen-select" id="update-product-categories" name="update-product-categories" data-placeholder = "Choose a Category">
                                     <% categories.forEach(category => { %>
-                                        <option value="<%= category._id %>"><%= category.name %></option>
+                                        <option value="<%= category.name %>"><%= category.name %></option>
                                     <% }); %>
-                                </select>
-                            </div>
-    
-                            <button type="button" class="btn btn-primary" id="create-product-button">Create Product</button>
-                        </form>
+                                </select>                                
+                                <div class="admin-form-field">
+                                    <label for="category-name" class="form-label">Updated Category Name</label>
+                                    <input type="text" class="form-control" id="update-category-input" name="category-name">
+                                    <div id="invalid-feedback" class="text-danger">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="update-category-button">Update Category</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-    
-                <div id="create-category" class="card">
-                    <div class="card-header">Create Category</div>
-                    <div class="card-body">
-                        <form id="create-category-form">
-                            <div class="admin-form-field">
-                                <label for="category-name" class="form-label">Category Name</label>
-                                <input type="text" class="form-control" id="category-name" name="category-name">
-                            </div>
-                            <button type="button" class="btn btn-primary" id="create-category-button">Create Category</button>
-                        </form>
-                    </div>
-                </div>
+                
             </div>
         <% } %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -180,7 +259,6 @@
             const checkExistingUser = async (user_email) => {
                 await getExistingUsers();
                 await getUser();
-                console.log(users,user);
                 for(let i = 0; i < users.length; i++) {
                     if(users[i].email === user_email && user.email != user_email) {
                         return true;
@@ -287,20 +365,157 @@
                 }
             });
 
-            $("#add-new-category-checkbox").on("change", () => {
-                const isChecked = $("#add-new-category-checkbox").prop("checked");
-                if (isChecked) {
-                    $("#new-category-field").show();
-                } 
-                else {
-                    $("#new-category-field").hide();
-                }
-            });
-
             $(".chosen-select").chosen({
                 no_results_text: "Oops, nothing found!"
             });
 
+            $("ul.chosen-choices").on("click",() => {
+                $("ul.chosen-choices").css("color", "var(--bs-body-color) !important");
+                $("ul.chosen-choices").css("background-color", "var(--bs-body-bg) !important");
+                $("ul.chosen-choices").css("border-color", "#86b7fe !important");
+                $("ul.chosen-choices").css("outline", "0 !important");
+                $("ul.chosen-choices").css("box-shadow", "0 0 0 .25rem rgba(13,110,253,.25) !important");
+            })
+            
+            let categories;
+            const getExistingCategories = async () => {
+                await $.ajax({
+                    url: '/categories/all', 
+                    type: 'GET',
+                    success: (data) => {
+                        categories = data; 
+                    },
+                    error: (error) => {
+                        console.log("Error fetching existing categories", error);
+                    }
+                });
+            } 
+
+            const checkExistingCategory = async (category_name) => {
+                await getExistingCategories();
+                for(let i = 0; i < categories.length; i++) {
+                    if(categories[i].name === category_name) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            const containsSpecialCharacters = (str) => {
+                const special_character_regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                return special_character_regex.test(str);
+            }
+            
+            $("#create-category-button").on("click", async () => {
+                const category_name = $("#create-category-input").val();
+                if(!containsSpecialCharacters(category_name) && !(await checkExistingCategory(category_name))) {
+                    try {
+                        const response = await $.ajax({
+                            url: '/categories',
+                            method: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ name: category_name }), 
+                        });
+                        if (response) {
+                            hideError($("#create-category-input"));
+                            
+                            $("#product-categories, #update-product-categories").append(
+                                `<option value="${response.name}">${response.name}</option>`
+                            );
+                        
+                            $("#product-categories, #update-product-categories").trigger("chosen:updated");
+                        
+                            $("#create-category-input").val("");
+                        } 
+                        else {
+                            console.error("Category creation failed.");
+                        }
+                    } 
+                    catch (error) {
+                        console.error("AJAX error:", error);
+                    }
+                }
+                else {
+                    showError($("#create-category-input"), "Category already exists or value contains special character")
+                }
+                
+            });
+
+            $("#delete-category-button").on("click", async () => {
+                const category_name = $("#delete-category-input").val();
+                if(!containsSpecialCharacters(category_name) && await checkExistingCategory(category_name)) {
+                    try {
+                        const response = await $.ajax({
+                            url: `/categories/name/${category_name}`,
+                            method: 'DELETE',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ name: category_name })
+                        });
+                        if (response) {
+                            hideError($("#delete-category-input"));
+                            console.log($(`option[value="${category_name}"]`))
+                            $(`option[value="${category_name}"]`).remove();
+
+                            $("#product-categories, #update-product-categories").trigger("chosen:updated");
+
+                            $("#delete-category-input").val("");
+                        } 
+                        else {
+                            console.error("Category deletion failed.");
+                        }
+                    } 
+                    catch (error) {
+                        console.error("AJAX error:", error);
+                    }
+                }
+                else {
+                    showError($("#delete-category-input"), "Category does not exist")
+                }
+            })
+
+            $("#update-category-button").on("click", async () => {
+                const category_name = $("#update-product-categories :selected").text();
+                const updated_category_name = $("#update-category-input").val();
+                if(!containsSpecialCharacters(updated_category_name) && !(await checkExistingCategory(updated_category_name))) {
+                    try {
+                        const response = await $.ajax({
+                            url: `/categories/name/${category_name}`,
+                            method: 'PUT',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ name: updated_category_name })
+                        });
+                        if (response) {
+                            hideError($("#update-category-input"));
+
+                            $(`option[value="${category_name}"]`).remove();
+
+                            $("#product-categories, #update-product-categories").append(
+                                `<option value="${updated_category_name}">${updated_category_name}</option>`
+                            );
+
+                            $("#product-categories, #update-product-categories").trigger("chosen:updated");
+
+                            $("#update-category-input").val("");
+                        } 
+                        else {
+                            console.error("Category update failed.");
+                        }
+                    } 
+                    catch (error) {
+                        console.error("AJAX error:", error);
+                    }
+                }
+                else {
+                    showError($("#update-category-input"), "Category already exists or value contains special character")
+                }
+            })
+
+            $("#create-category-input, #delete-category-input, #update-category-input").on("input", (event) => {
+                hideError($(event.target));
+            });
         });
     </script>
 </body>
