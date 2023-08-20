@@ -8,7 +8,6 @@ aside {
     color: #29627e;
     flex-direction: column;
     margin-left: 6rem;
-    margin-right: 6rem;
 }
   
 aside > p {
@@ -26,6 +25,7 @@ aside > p {
     display: grid;
     grid-template-columns: 1fr 36rem;
     margin-top: -2rem;
+    gap: 6rem;
 }
 
 .image {
@@ -35,5 +35,5 @@ aside > p {
 
 .map {
     gap: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
