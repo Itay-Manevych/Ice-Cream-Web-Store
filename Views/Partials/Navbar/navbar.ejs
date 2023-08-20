@@ -306,7 +306,6 @@ const populateCart = () => {
             if (event.target.value === "0") {
                 cart_item.addClass('hidden');
             }
-            console.log(new_quantity);
             updateCartItemQuantity(item.id, new_quantity);
             const updated_cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
             total_price = updated_cart_items.reduce((total, item) => total + item.total_price, 0);
