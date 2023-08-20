@@ -119,7 +119,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
   
 <script>
-  let counter = 1;
+  let counter = parseInt(localStorage.getItem('counter')) || 1;
   const modals = {};
  
     function updateTotalPrice(quantity, price, productId) {
@@ -183,6 +183,7 @@
       closeModal(modalId);
       console.log(`Added "${productName}" to cart for a total of $${totalPrice} (Quantity: ${selectedQuantity})`);
       console.log("Selected Additions:", selectedAdditions);
+      localStorage.setItem('counter', counter);
     }
     
     function resetModalContent(modalId, productId, productPrice) {
