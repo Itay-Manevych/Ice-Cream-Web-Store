@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@600;700&family=Concert+One&family=Just+Another+Hand&family=PT+Sans:ital,wght@0,700;1,400&family=Rajdhani:wght@500;600&family=Six+Caps&display=swap');
-
+aside {
+    padding-left: 0.5rem;
+    margin-left: 0.5rem;
+    float: right;
+    box-shadow: inset 5px 0 5px -5px #29627e;
+    font-style: italic;
+    color: #29627e;
+  }
+  
+  aside > p {
+    margin: 0.5rem;
+  }
+  
 .title {
     font-size: 4rem;
     height: 6rem;
