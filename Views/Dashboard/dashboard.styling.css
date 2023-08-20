@@ -63,7 +63,7 @@ h2 {
     margin-bottom: 5rem;
 }
 
-#update-details, #create-product{
+#update-details, #create-product, #update-product{
     min-width: 40rem;
     margin-left: 2rem;
 }
@@ -73,7 +73,7 @@ h2 {
     margin-right: 2rem;
 }
 
-#user-details-button, #create-product-button, #create-category-button, #delete-category-button, #update-category-button  {
+#user-details-button, #create-product-button, #update-product-button, #create-category-button, #delete-category-button, #update-category-button  {
     width: 100%;
 }
 
@@ -153,7 +153,7 @@ ul.chosen-results {
     flex-direction: column;
     justify-content: space-between;
     gap: 2rem;
-    margin-right: 2rem;
+    min-height: 100%;
 }
 
 a.chosen-single {

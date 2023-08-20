@@ -95,10 +95,10 @@
                         </div>
                     </div>
 
-                    <div id="create-product" class="card">
-                        <div class="card-header">Create Product</div>
+                    <div id="update-product" class="card">
+                        <div class="card-header">Update Product</div>
                         <div class="card-body">
-                            <form id="create-product-form">
+                            <form id="update-product-form">
                                 <div class="admin-form-field">
                                     <label for="product-name" class="form-label">Product Name</label>
                                     <input type="text" class="form-control" id="product-name" name="product-name">
@@ -121,7 +121,7 @@
                                     </select>
                                 </div>
                             
-                                <button type="button" class="btn btn-primary" id="create-product-button">Create Product</button>
+                                <button type="button" class="btn btn-primary" id="update-product-button">Update Product</button>
                             </form>
                         </div>
                     </div>
@@ -188,9 +188,9 @@
         $(document).ready(() => {
             const house_icon = $("#house-icon");
             const logout_icon = $("#logout-icon");
-            const username_input = $("#username");
-            const email_input = $("#email");
-            const password_input = $("#password");
+            const username_input_update_user = $("#username");
+            const email_input_update_user = $("#email");
+            const password_input_update_user = $("#password");
             const user_details_button = $("#user-details-button");
             const eye_icon = $("#eye-icon");
 
@@ -227,7 +227,7 @@
                 : (input.attr("type","password"), icon.removeClass().addClass("bi bi-eye-fill"));
             }
             
-            eye_icon.on("click", () => changeIcon(password_input, eye_icon));
+            eye_icon.on("click", () => changeIcon(password_input_update_user, eye_icon));
             
             let user, users; 
             const getUser = async () => {
@@ -276,7 +276,7 @@
                 return username !== "";
             }
 
-            const validatePassowrd = (password) => {
+            const validatePassword = (password) => {
                 return password !== "";
             }
             
@@ -296,7 +296,7 @@
                 error_div.text("");
             };
             
-            const validateForm = async () => {
+            const validateUserForm = async (username_input, email_input, password_input) => {
                 let is_valid = true;
             
                 if (!validateUsername(username_input.val().trim())) {
@@ -317,7 +317,47 @@
                     hideError(email_input);
                 }
 
-                if (!validatePassowrd(password_input.val().trim())) {
+                if (!validatePassword(password_input.val().trim())) {
+                    is_valid = false;
+                    showError(password_input, "Password cannot be empty.");
+                } else {
+                    hideError(password_input);
+                }
+            
+                return is_valid;
+            };
+
+            const validateProductName = (product_name) => {
+                return product_name !== "";
+            }
+
+            const validatePrice = (price) => {
+                const price_regex = /\d+(\.\d{1,2})?/;
+                return price_regex.match(price);
+            }
+
+            const validateProductForm = async (product_input, price_input, email_input, password_input) => {
+                let is_valid = true;
+            
+                if (!validateProductName(username_input.val().trim())) {
+                    is_valid = false;
+                    showError(username_input, "Username cannot be empty.");
+                } else {
+                    hideError(username_input);
+                }
+
+                if (!validateEmail(email_input.val())) {
+                    is_valid = false;
+                    showError(email_input, "Invalid email format.");
+                } else if (await checkExistingUser(email_input.val())) {
+                    is_valid = false;
+                    hideError(email_input);
+                    showError(email_input, "Email already in use");
+                } else {
+                    hideError(email_input);
+                }
+
+                if (!validatePassword(password_input.val().trim())) {
                     is_valid = false;
                     showError(password_input, "Password cannot be empty.");
                 } else {
@@ -334,7 +374,7 @@
             user_details_button.on("click",async (event) => {
                 event.preventDefault();
                 
-                if(await validateForm()) {
+                if(await validateUserForm($("#username"),  $("email"), $("#password"))) {
                     try {
                         const email = $("#email").val();
                         const user = $.ajax({
@@ -368,14 +408,6 @@
             $(".chosen-select").chosen({
                 no_results_text: "Oops, nothing found!"
             });
-
-            $("ul.chosen-choices").on("click",() => {
-                $("ul.chosen-choices").css("color", "var(--bs-body-color) !important");
-                $("ul.chosen-choices").css("background-color", "var(--bs-body-bg) !important");
-                $("ul.chosen-choices").css("border-color", "#86b7fe !important");
-                $("ul.chosen-choices").css("outline", "0 !important");
-                $("ul.chosen-choices").css("box-shadow", "0 0 0 .25rem rgba(13,110,253,.25) !important");
-            })
             
             let categories;
             const getExistingCategories = async () => {
@@ -402,7 +434,7 @@
             }
 
             const containsSpecialCharacters = (str) => {
-                const special_character_regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                const special_character_regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|^\s*$/;
                 return special_character_regex.test(str);
             }
             
