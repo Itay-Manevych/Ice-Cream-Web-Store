@@ -227,6 +227,22 @@ i {
     outline-color: rgb(88, 88, 88);
 }
 
+.hidden{
+    display: none;
+}
+
+#header-div {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#total-price-element {
+    padding: 0;
+    margin: 0;
+}
+
 #search {
     background-image: url("../Assets/SearchIcon2.jpg");
     background-size: 80%;
