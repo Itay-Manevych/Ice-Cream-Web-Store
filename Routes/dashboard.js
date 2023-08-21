@@ -6,7 +6,7 @@ const DashboardRouter = express.Router();
 DashboardRouter.route('/')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
-        const categories = await CategoryController.getAllCategories(req,res);
+        const categories = await CategoryController.getAllCategories(req, res);
         res.render('./Dashboard/dashboard',{user: user, categories: categories});
     })
     .post(async (req,res) => {

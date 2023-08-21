@@ -55,7 +55,7 @@ h2 {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 6.5rem;
+    gap: 6.3rem;
     flex: 1;
 }
 
@@ -86,13 +86,18 @@ form {
     padding-right: 2rem;
 }
 
-#form-field, .admin-form-field {
+#form-field {
     height: 5rem;
     margin-bottom: 1.5rem;
 }
 
-#admin-form-field-categories {
-    margin-top: 4.2rem;
+.admin-form-field {
+    height: 5rem;
+    margin-bottom: 1.85rem;
+}
+
+#admin-form-field-image {
+    margin-top: 4.95rem;
 }
 
 label {
@@ -145,7 +150,7 @@ ul.chosen-choices {
 } 
 
 ul.chosen-results {
-    height: 10rem;
+    height: 7.85rem;
 }
 
 #product-container, #category-container {
@@ -174,3 +179,4 @@ a.chosen-single {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
     margin-bottom: 2rem;
 } 
+
