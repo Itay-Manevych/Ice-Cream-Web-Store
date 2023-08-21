@@ -76,9 +76,6 @@
                                 <div class="admin-form-field">
                                     <label for="product-name" class="form-label">Product Name</label>
                                     <input type="text" class="form-control" id="product-name" name="product-name">
-                                    <div id="invalid-feedback" class="text-danger">
-
-                                    </div>
                                 </div>
 
                                 <div class="admin-form-field">
@@ -100,9 +97,6 @@
                                 <div class="admin-form-field" id="admin-form-field-image">
                                     <label for="product-image" class="form-label">Image</label>
                                     <input type="text" class="form-control" id="product-image" name="product-image">
-                                    <div id="invalid-feedback" class="text-danger">
-
-                                    </div>
                                 </div>
                                 
                                 <div class="admin-form-field">
@@ -115,7 +109,7 @@
 
                                 <div class="admin-form-field">
                                     <label for="product-categories" class="form-label">Categories</label>
-                                    <select class="form-control chosen-select" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
+                                    <select class="form-control chosen-select chosen-select-product-create" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
                                         <% categories.forEach(category => { %>
                                             <option value="<%= category.name %>"><%= category.name %></option>
                                         <% }); %>
@@ -134,9 +128,6 @@
                                         <option value="gluten">Gluten</option>
                                         <option value="eggs">Eggs</option>
                                     </select>
-                                    <div id="invalid-feedback" class="text-danger">
-
-                                    </div>
                                 </div>
                                 
                                 <div id="create-product-button-container">
@@ -154,39 +145,77 @@
                         <div class="card-body">
                             <form id="update-product-form">
                                 <div class="admin-form-field">
-                                    <label for="product-name" class="form-label">Product Name</label>
-                                    <input type="text" class="form-control" id="product-name" name="product-name">
+                                    <label for="products-names-update" class="form-label">Product Name</label>
+                                    <select class="form-control chosen-select" id="products-names-update" name="products-names-update" data-placeholder = "Choose Categories">
+                                        <% products.forEach(product => { %>
+                                            <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
+                                        <% }); %>
+                                    </select>
+                                    <div id="invalid-feedback" class="text-danger">
+
+                                    </div>
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-price" class="form-label">Price</label>
-                                    <input type="number" step="0.1" min="0.1" class="form-control" id="product-price" name="product-price">
+                                    <label for="product-name-update" class="form-label">Updated Product Name</label>
+                                    <input type="text" class="form-control" id="product-name-update" name="product-name-update">
+                                    <div id="invalid-feedback" class="text-danger">
+
+                                    </div>
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-description" class="form-label">Description</label>
-                                    <textarea class="form-control" id="product-description" name="product-description" rows="3"></textarea>
+                                    <label for="product-price-update" class="form-label">Price</label>
+                                    <input type="number" step="0.1" min="0.1" class="form-control" id="product-price-update" name="product-price-update">
+                                    <div id="invalid-feedback" class="text-danger">
+
+                                    </div>
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-image" class="form-label">Image</label>
-                                    <input type="text" class="form-control" id="product-image" name="product-image">
+                                    <label for="product-description-update" class="form-label">Description</label>
+                                    <textarea class="form-control" id="product-description-update" name="product-description-update" rows="3"></textarea>
+                                    <div id="invalid-feedback" class="text-danger">
+
+                                    </div>
+                                </div>
+
+                                <div class="admin-form-field" id="admin-form-field-image">
+                                    <label for="product-image-update" class="form-label">Image</label>
+                                    <input type="text" class="form-control" id="product-image-update" name="product-image-update">
                                 </div>
                                 
                                 <div class="admin-form-field">
-                                    <label for="product-quantity" class="form-label">Quantity</label>
-                                    <input type="number" step="1" min="1" class="form-control" id="product-quantity" name="product-quantity">
+                                    <label for="product-quantity-update" class="form-label">Quantity</label>
+                                    <input type="number" step="1" min="1" class="form-control" id="product-quantity-update" name="product-quantity-update">
+                                    <div id="invalid-feedback" class="text-danger">
+
+                                    </div>
                                 </div>
 
                                 <div id="admin-form-field-categories" class="admin-form-field">
-                                    <label for="product-categories" class="form-label">Categories</label>
-                                    <select class="form-control chosen-select" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
+                                    <label for="product-categories-update" class="form-label">Categories</label>
+                                    <select class="form-control chosen-select chosen-select-product-update" id="product-categories-update" name="product-categories-update" data-placeholder = "Choose Categories" multiple>
                                         <% categories.forEach(category => { %>
                                             <option value="<%= category.name %>"><%= category.name %></option>
                                         <% }); %>
                                     </select>
+                                    <div id="invalid-feedback" class="text-danger">
+
+                                    </div>
                                 </div>
                                 
+                                <div class="admin-form-field">
+                                    <label for="product-allergies-update" class="form-label">Allergies</label>
+                                    <select class="form-control chosen-select" id="product-allergies-update" name="product-allergies-update" data-placeholder = "Choose Allergies" multiple>
+                                        <option value="lactose">Lactose</option>
+                                        <option value="nuts">Nuts</option>
+                                        <option value="soy">Soy</option>
+                                        <option value="gluten">Gluten</option>
+                                        <option value="eggs">Eggs</option>
+                                    </select>
+                                </div>
+
                                 <div id="update-product-button-container">
                                     <button type="button" class="btn btn-primary" id="update-product-button">Update Product</button>
                                     <div id="valid-feedback" class="text-success">
@@ -222,12 +251,14 @@
                     <div id="delete-category" class="card">
                         <div class="card-header">Delete Category</div>
                         <div class="card-body">
-                            <form id="create-category-form">
+                            <form id="delete-category-form">
                                 <div class="admin-form-field">
-                                    <label for="category-name" class="form-label">Category Name</label>
-                                    <input type="text" class="form-control" id="delete-category-input" name="category-name">
-                                    <div id="invalid-feedback" class="text-danger">
-                                    </div>
+                                    <label id="category-label" for="delete-product-categories" class="form-label">Category Name</label>
+                                    <select class="form-control chosen-select chosen-select-category-delete" id="delete-product-categories" name="delete-product-categories" data-placeholder = "Choose a Category">
+                                        <% categories.forEach(category => { %>
+                                            <option value="<%= category.name %>"><%= category.name %></option>
+                                        <% }); %>
+                                    </select>  
                                 </div>
                                 <div id="delete-category-button-container">
                                     <button type="button" class="btn btn-primary" id="delete-category-button">Delete Category</button>
@@ -243,12 +274,13 @@
                         <div class="card-header">Update Category</div>
                         <div class="card-body">
                             <form id="update-category-form">
-                                <select class="form-control chosen-select" id="update-product-categories" name="update-product-categories" data-placeholder = "Choose a Category">
+                                <label id="category-label" for="update-product-categories" class="form-label">Category Name</label>
+                                <select class="form-control chosen-select chosen-select-category-update" id="update-product-categories" name="update-product-categories" data-placeholder = "Choose a Category">
                                     <% categories.forEach(category => { %>
                                         <option value="<%= category.name %>"><%= category.name %></option>
                                     <% }); %>
                                 </select>                                
-                                <div class="admin-form-field">
+                                <div id="admin-form-field-update-category" class="admin-form-field">
                                     <label for="category-name" class="form-label">Updated Category Name</label>
                                     <input type="text" class="form-control" id="update-category-input" name="category-name">
                                     <div id="invalid-feedback" class="text-danger">
@@ -279,18 +311,22 @@
             const password_input_update_user = $("#password");
             const user_details_button = $("#user-details-button");
             const eye_icon = $("#eye-icon");
-
+            
             house_icon.on("click", () => {
                 window.location.href = "/";
             });
 
-            $(logout_icon).on("click", () => {
+            $(".chosen-select").chosen({
+                no_results_text: "Oops, nothing found!"
+            });
+
+            $(logout_icon).on("click", async () => {
                 const data = {
                     cookie_name: "jwt",
                 }
 
                 try{
-                    const response = $.ajax({
+                    await $.ajax({
                         url: '/dashboard', 
                         method: 'POST',
                         dataType: 'json',
@@ -337,7 +373,7 @@
                         users = data; 
                     },
                     error: (error) => {
-                        console.log("Error fetching existing users", error);
+                        console.log("AJAX error when retrieving users", error);
                     }
                 });
             }
@@ -387,7 +423,6 @@
             };
 
             const showValidation = (element, validation_message) => {
-                console.log("hello",element ,validation_message);
                 element.addClass("is-valid");
                 const valid_div = element.closest("div").siblings("#valid-feedback").length === 0
                 ? element.siblings("#valid-feedback")
@@ -411,7 +446,7 @@
                 if (!validateEmail(email_input.val())) {
                     is_valid = false;
                     showError(email_input, "Invalid email format.");
-                } else if (await checkExistingUser(email_input.val())) {
+                } else if (await checkExistingUser(email_input.val().trim())) {
                     is_valid = false;
                     hideError(email_input);
                     showError(email_input, "Email already in use");
@@ -439,13 +474,13 @@
                 if(await validateUserForm($("#username"),  $("#email"), $("#password"))) {
                     try {
                         const email = $("#email").val();
-                        const user = $.ajax({
+                        const user = await $.ajax({
                             url: `/users/${email}`,
                             type: 'GET',
                         });
 
                         if (user) {
-                            const response = $.ajax({
+                            await $.ajax({
                                 url: '/dashboard/update-details', 
                                 method: 'POST',
                                 dataType: 'json',
@@ -456,6 +491,7 @@
                                     password: $("#password").val()
                                 })
                             });
+
                             showValidation($("#user-details-button"),"User updated successfully");
                             showValidation($("#username"),"");
                             showValidation($("#email"),"");
@@ -482,16 +518,56 @@
                 return array.length > 0;
             }
 
+            let products;
+            const getProduct = async () => {
+                await $.ajax({
+                    url: '/dashboard/user', 
+                    type: 'GET',
+                    success: (data) => {
+                        user = data;
+                    },
+                    error: (error) => {
+                        console.log("Error fetching existing users", error);
+                    }
+                });
+            }
+
+            const getExistingProducts = async () => {
+                await $.ajax({
+                    url: '/categories/all', 
+                    type: 'GET',
+                    success: (data) => {
+                        products = data; 
+                    },
+                    error: (error) => {
+                        console.log("AJAX error when retrieving categories", error);
+                    }
+                });
+            } 
+
+            const checkExistingProduct = async (product_name) => {
+                await getExistingProducts();
+                for(let i = 0; i < products.length; i++) {
+                    if(products[i].name === product_name) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
             const validateProductForm = async (product_input, price_input, description_input, quantity_input, categories_input) => {
                 let is_valid = true;
             
-                if (!validateString(product_input.val().trim())) {
+                if (!validateString(product_input.val())) {
                     is_valid = false;
                     showError(product_input, "Product name cannot be empty.");
+                } else if(await checkExistingProduct(product_input.val().trimStart().trimEnd())) {
+                    is_valid = false;
+                    showError(product_input, "Product already exists.");
                 } else {
                     hideError(product_input);
                 }  
-                console.log(parseFloat(price_input.val()).toFixed(2));
+                
                 if (parseFloat(price_input.val()).toFixed(2) <= 0 || parseFloat(price_input.val()).toFixed(2) > 10000 || !validatePrice(price_input.val())) {
                     is_valid = false;
                     showError(price_input, "Invalid price format, or price is less than 0 or greater than 10,000");
@@ -499,7 +575,7 @@
                     hideError(price_input);
                 }
 
-                if (!validateString(description_input.val().trim())) {
+                if (!validateString(description_input.val())) {
                     is_valid = false;
                     showError(description_input, "Description cannot be empty.");
                 } else {
@@ -527,16 +603,15 @@
                 hideError($(event.target));
             });
 
-            $(".chosen-select").on("change", (event) => {
+            $(".chosen-select-product-create").on("change", (event) => {
                 hideError($("#product-categories"));
             });
             
             $("#create-product-button").on("click", async () => {
                 event.preventDefault();
-                console.log($("#product-allergies"),$("#product-allergies").val());
                 if(await validateProductForm($("#product-name"),  $("#product-price"), $("#product-description"), $("#product-quantity"), $("#product-categories"))) {
                     try {
-                        const response = $.ajax({
+                        await $.ajax({
                             url: '/products', 
                             method: 'POST',
                             dataType: 'json',
@@ -555,9 +630,23 @@
                                     gluten: $("#product-allergies").val().includes("gluten"),
                                     eggs: $("#product-allergies").val().includes("eggs"),
                                 }
-                            })
+                            }),
                         });
-                        console.log("Response:", response);
+
+                        // $("#product-names-update").append(
+                        //     `<option value="${updated_category_name}">${updated_category_name}</option>`
+                        // );
+
+                        $("#product-names-update").trigger("chosen:updated");
+
+                        showValidation($("#create-product-button"),"Product Created Successfully");
+                        showValidation($("#product-name"),"Product Created Successfully");
+                        showValidation($("#product-price"),"Product Created Successfully");
+                        showValidation($("#product-description"),"Product Created Successfully");
+                        showValidation($("#product-image"),"Product Created Successfully");
+                        showValidation($("#product-quantity"),"Product Created Successfully");
+                        showValidation($("#product-categories"),"Product Created Successfully");
+                        showValidation($("#product-allergies"),"Product Created Successfully");
                     } 
                     catch (error) {
                         console.error("Error:", error);
@@ -565,8 +654,55 @@
                 }
             });
 
-            $(".chosen-select").chosen({
-                no_results_text: "Oops, nothing found!"
+            $("#update-product-button").on("click", async () => {
+                event.preventDefault();
+                const selected_product = $("#products-names-update :selected");
+                const product_id = $("#products-names-update :selected").attr("value");
+                if (await validateProductForm($("#product-name-update"),  $("#product-price-update"), $("#product-description-update"), $("#product-quantity-update"), $("#product-categories-update"))) 
+                {
+                    try {
+                        await $.ajax({
+                            url: `/products/id/${product_id}`, 
+                            method: 'PUT',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                name: $("#product-name-update").val(),
+                                price: $("#product-price-update").val(),
+                                description: $("#product-description-update").val(),
+                                image: $("#product-image-update").val(),
+                                quantity: $("#product-quantity-update").val(),
+                                categories: $("#product-categories-update").val().map(categoryName => ({ name: categoryName })),
+                                allergies: {
+                                    lactose: $("#product-allergies-update").val().includes("lactose"),
+                                    nuts: $("#product-allergies-update").val().includes("nuts"),
+                                    soy: $("#product-allergies-update").val().includes("soy"),
+                                    gluten: $("#product-allergies-update").val().includes("gluten"),
+                                    eggs: $("#product-allergies-update").val().includes("eggs"),
+                                }
+                            }),
+                        });
+                        showValidation($("#update-product-button"),"Product Updated Successfully");
+                        showValidation($("#product-name-update"),"Product Updated Successfully");
+                        showValidation($("#product-price-update"),"Product Updated Successfully");
+                        showValidation($("#product-description-update"),"Product Updated Successfully");
+                        showValidation($("#product-image-update"),"Product Updated Successfully");
+                        showValidation($("#product-quantity-update"),"Product Updated Successfully");
+                        showValidation($("#product-categories-update"),"Product Updated Successfully");
+                        showValidation($("#product-allergies-update"),"Product Updated Successfully");
+                    } 
+                    catch (error) {
+                        console.error("Error:", error);
+                    }
+                }
+            });
+
+            $("#product-name-update, #product-price-update, #product-description-update, #product-quantity-update").on("input", (event) => {
+                hideError($(event.target));
+            });
+
+            $(".chosen-select-product-update").on("change", (event) => {
+                hideError($("#product-categories-update"));
             });
             
             let categories;
@@ -578,7 +714,7 @@
                         categories = data; 
                     },
                     error: (error) => {
-                        console.log("Error fetching existing categories", error);
+                        console.log("AJAX error when retrieving categories", error);
                     }
                 });
             } 
@@ -609,23 +745,18 @@
                             contentType: 'application/json',
                             data: JSON.stringify({ name: category_name }), 
                         });
-                        if (response) {
-                            hideError($("#create-category-input"));
-                            
-                            $("#product-categories, #update-product-categories").append(
-                                `<option value="${response.name}">${response.name}</option>`
-                            );
+                        hideError($("#create-category-input"));
                         
-                            $("#product-categories, #update-product-categories").trigger("chosen:updated");
-                        
-                            $("#create-category-input").val("");
+                        $("#product-categories, #delete-product-categories, #update-product-categories").append(
+                            `<option value="${response.name}">${response.name}</option>`
+                        );
+                    
+                        $("#product-categories, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
+                    
+                        $("#create-category-input").val("");
 
-                            showValidation($("#create-category-button"), "Category created successfully");
-                            showValidation($("#create-category-input"), "Category created successfully");
-                        } 
-                        else {
-                            console.error("Category creation failed.");
-                        }
+                        showValidation($("#create-category-button"), "Category Created Successfully");
+                        showValidation($("#create-category-input"), "Category Created Successfully");
                     } 
                     catch (error) {
                         console.error("AJAX error:", error);
@@ -638,38 +769,31 @@
             });
 
             $("#delete-category-button").on("click", async () => {
-                const category_name = $("#delete-category-input").val();
+                const category_name = $("#delete-product-categories :selected").text();
                 if(!containsSpecialCharacters(category_name) && await checkExistingCategory(category_name)) {
                     try {
-                        const response = await $.ajax({
+                        await $.ajax({
                             url: `/categories/name/${category_name}`,
                             method: 'DELETE',
                             dataType: 'json',
                             contentType: 'application/json',
                             data: JSON.stringify({ name: category_name })
                         });
-                        if (response) {
-                            hideError($("#delete-category-input"));
-                            console.log($(`option[value="${category_name}"]`))
-                            $(`option[value="${category_name}"]`).remove();
+                        
+                        hideError($("#delete-product-categories"));
+                        
+                        $(`option[value="${category_name}"]`).remove();
 
-                            $("#product-categories, #update-product-categories").trigger("chosen:updated");
+                        $("#product-names-update, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
 
-                            $("#delete-category-input").val("");
-
-                            showValidation($("#delete-category-button"), "Category deleted successfully");
-                            showValidation($("#delete-category-input"), "Category deleted successfully");
-                        } 
-                        else {
-                            console.error("Category deletion failed.");
-                        }
+                        showValidation($("#delete-category-button"), "Category Deleted Successfully");
                     } 
                     catch (error) {
                         console.error("AJAX error:", error);
                     }
                 }
                 else {
-                    showError($("#delete-category-input"), "Category does not exist")
+                    showError($("#delete-category-input"), "Category does not exist or value contains special character")
                 }
             })
 
@@ -678,32 +802,28 @@
                 const updated_category_name = $("#update-category-input").val();
                 if(!containsSpecialCharacters(updated_category_name) && !(await checkExistingCategory(updated_category_name))) {
                     try {
-                        const response = await $.ajax({
+                        await $.ajax({
                             url: `/categories/name/${category_name}`,
                             method: 'PUT',
                             dataType: 'json',
                             contentType: 'application/json',
                             data: JSON.stringify({ name: updated_category_name })
                         });
-                        if (response) {
-                            hideError($("#update-category-input"));
+                        
+                        hideError($("#update-category-input"));
 
-                            $(`option[value="${category_name}"]`).remove();
+                        $(`option[value="${category_name}"]`).remove();
 
-                            $("#product-categories, #update-product-categories").append(
-                                `<option value="${updated_category_name}">${updated_category_name}</option>`
-                            );
+                        $("#product-categories, #delete-product-categories, #update-product-categories").append(
+                            `<option value="${updated_category_name}">${updated_category_name}</option>`
+                        );
 
-                            $("#product-categories, #update-product-categories").trigger("chosen:updated");
+                        $("#product-categories, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
 
-                            $("#update-category-input").val("");
+                        $("#update-category-input").val("");
 
-                            showValidation($("#update-category-button"), "Category updated successfully");
-                            showValidation($("#update-category-input"), "Category updated successfully");
-                        } 
-                        else {
-                            console.error("Category update failed.");
-                        }
+                        showValidation($("#update-category-button"), "Category updated successfully");
+                        showValidation($("#update-category-input"), "Category updated successfully");
                     } 
                     catch (error) {
                         console.error("AJAX error:", error);

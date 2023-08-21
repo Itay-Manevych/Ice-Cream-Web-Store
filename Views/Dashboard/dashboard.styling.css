@@ -73,6 +73,10 @@ h2 {
     margin-right: 2rem;
 }
 
+#delete_product_categories_chosen, #update_product_categories_chosen {
+    height: 2.4rem;
+}
+
 #user-details-button, #create-product-button, #update-product-button, #create-category-button, #delete-category-button, #update-category-button  {
     width: 100%;
 }
@@ -106,6 +110,10 @@ form {
 
 #admin-form-field-image {
     margin-top: 4.95rem;
+}
+
+#admin-form-field-update-category {
+    margin-top: 2rem;
 }
 
 label {
@@ -188,3 +196,6 @@ a.chosen-single {
     margin-bottom: 2rem;
 } 
 
+#category-label {
+    margin-left: 0.15rem;
+}
