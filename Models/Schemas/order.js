@@ -1,12 +1,40 @@
 import mongoose from "mongoose";
 import Address from "./address.js";
-import Cart from "./cart.js";
+import Product from "./product.js";
+
+// import Cart from "./cart.js";
+
+const Additions = new mongoose.Schema({
+    sprinkles: Boolean,
+    hot_chocolate: Boolean,
+    gummy_bears: Boolean,
+}, {
+    required: true,
+});
+
+
+const ProductInfo = new mongoose.Schema({
+    product: Product.schema,
+    additions: Additions,
+    amount: {
+        type: Number,
+        validate: {
+            validator: (value) => {
+                return value >= 0;
+            },
+            message: "Amount must have a valid value",
+        },
+    },
+}, {
+    required: true,
+});
 
 const Order = new mongoose.Schema({
-    _id: Number,
+    // _id: Number,
     name: String,
     email: String,
-    cart: Cart.schema,
+    // cart: Cart.schema,
+    products_info: [ProductInfo],
     phone_number: Number,
     address: Address.schema,
     amount: {
