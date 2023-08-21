@@ -30,10 +30,9 @@
         <div class="dropdown ml-auto medium-margin-left">
           <label class="small-margin-right" for="sortDropdown">Sort by:</label>
           <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Default
+            Default
           </button>
           <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-            <li><a class="dropdown-item sort-dropdown-item" data-sort="Default">Default</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically A-Z">Alphabetically A-Z</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically Z-A">Alphabetically Z-A</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Lowest - Highest">Price Lowest - Highest</a></li>
@@ -46,7 +45,7 @@
   
   <div id="container" class="d-flex flex-wrap">
     <% products.forEach(product => { %>
-      <div id="card-container" class="card card-container" onclick="openModal('productModal<%=product._id%>', '<%=product._id%>', '<%= product.price%>')">
+      <div id="card-container" style="display: block;" class="card card-container" data-categories="<%= product.categories%>"  onclick="openModal('productModal<%=product._id%>', '<%=product._id%>', '<%= product.price%>')">
         <div id="image-container">
           <img id="product-image" class="card-img-top" src="<%= product.image %>" alt="Product Image">
         </div>
@@ -139,7 +138,6 @@
   function handleQuantityChange(productId,productPrice) {
     const quantityInput = document.getElementById(`quantity-${productId}`);
     let enteredValue = parseInt(quantityInput.value);
-    console.log(quantityInput, enteredValue);
  
     if (enteredValue > 15) {
       quantityInput.value = 15;
@@ -181,13 +179,10 @@
  
  
       closeModal(modalId);
-      console.log(`Added "${productName}" to cart for a total of $${totalPrice} (Quantity: ${selectedQuantity})`);
-      console.log("Selected Additions:", selectedAdditions);
       localStorage.setItem('counter', counter);
     }
     
     function resetModalContent(modalId, productId, productPrice) {
-      console.log(productId)
       const quantityInput = document.getElementById(`quantity-${productId}`);
       const totalPriceElement = document.getElementById(`total-price-${productId}`);
       const checkboxes = document.querySelectorAll(`#${modalId} [type="checkbox"]`);
@@ -208,7 +203,6 @@
           resetModalContent(modalId, productId, productPrice);
         });
       }
-      console.log(modalId);
       modals[modalId].show();
     }
     
@@ -218,87 +212,25 @@
       }
     }
  
-  $(document).ready(function () {
-    function generateAllergensString(allergies) {
-      const allergens = [];
- 
-      if (allergies.lactose) allergens.push("Lactose");
-      if (allergies.nuts) allergens.push("Nuts");
-      if (allergies.soy) allergens.push("Soy");
-      if (allergies.gluten) allergens.push("Gluten");
-      if (allergies.eggs) allergens.push("Eggs");
- 
-      return allergens.join(', ');
-    }
- 
-    function generateProductCard(product) {
-      return (
-        `<div id="card-container" class="card" onclick="openModal('productModal${product._id}', '${product._id}', '${product.price}')">
-          <div id="image-container">
-            <img id="product-image" class="card-img-top" src="${product.image}" alt="Product Image">
-          </div>
-          <div class="card-body card-content">
-            <h5 class="card-title text-ellipsis">${product.name}</h5>
-            <p class="card-text text-ellipsis">${product.description}</p>
-            <p class="card-text card-price">Price: $${product.price}</p>
-          </div>
-        </div>
-        <div class="modal fade" id="productModal${product._id}" tabindex="-1" aria-labelledby="productModalLabel${product._id}" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="productModalLabel${product._id}">${product.name}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <img id="product-image-modal" class="modal-img" src="${product.image}" alt="Product Image">
-                <p>${product.description}</p>
-                ${generateAllergensString(product.allergies) ? 
-                 `<p>Allergens: ${generateAllergensString(product.allergies)}</p>` 
-                 : ''}
-               
-                <p>Select Additions:</p>
-                <div>
-                  <label>
-                    <input type="checkbox" name="sprinkles"> Sprinkles
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    <input type="checkbox" name="hot_chocolate"> Hot Chocolate
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    <input type="checkbox" name="gummy_bears"> Gummy Bears
-                  </label>
-                </div>
-              </div>
-              <footer class="modal-footer">
-               <p id="total-price-${product._id}" class="total-price">Total Price: $${product.price}</p>
-                <button class="btn btn-success" onclick="addToCart('${product.name}', 'productModal${product._id}' , '${product._id}', '${product.image}', '${product.price}')">
-                  Add to Cart
-                </button>
-                <input type="number" class="quantity" id="quantity-${product._id}" name="quantity" min="1" max="15" value="1" data-product-id="${product._id}" data-product-price="${product.price}">
-              </footer>
-            </div>
-          </div>
-        </div>`
-      );
-    }     
- 
-    $('.category-dropdown-item').on('click', function () {
+  $(document).ready(function() {
+
+    $('.category-dropdown-item').on('click', function(){
         $('.category-dropdown-item').removeClass('active');
         $(this).addClass('active');
-        $('#sortDropdown').text("Default");
  
         const selectedCategory = $(this).data('category');
         if (selectedCategory === 'All') {
-          loadAllProducts();
+          $('.card-container').css('display', 'block');
           $('#categoryDropdown').text('All');
         } 
         else {
-          loadProductsByCategory(selectedCategory);
+          $('.card-container').css('display', 'none');
+          $('.card-container').each(function() {
+              const productCategories = $(this).attr('data-categories');
+               if (productCategories.includes(selectedCategory)) {
+                 $(this).css('display', 'block');
+               }
+          });
           $('#categoryDropdown').text(selectedCategory);
         }
     });
@@ -309,157 +241,60 @@
       $('#sortDropdown').text(selectedSort);
  
       if (selectedSort === 'Alphabetically A-Z') {
-          sortProductsAlphabetically('asc', currentCategory);
+          sortProductsAlphabetically('asc');
       } 
  
       else if (selectedSort === 'Alphabetically Z-A') {
-          sortProductsAlphabetically('desc', currentCategory);
+          sortProductsAlphabetically('desc');
       } 
  
       else if (selectedSort === 'Price Lowest - Highest') {
-          sortProductsByPrice('asc', currentCategory);
+          sortProductsByPrice('asc');
       } 
  
       else if (selectedSort === 'Price Highest - Lowest') {
-        sortProductsByPrice('desc', currentCategory);
+        sortProductsByPrice('desc');
       }
     });
  
-    function sortProductsAlphabetically(order, category) {
-      if(category==='All')
-      {
-        $.ajax({
-          url: `/search-products`,
-          method: 'GET',
-        success: function (products) {
-          products.sort((a, b) => {
-            if (order === 'asc') {
-              return a.name.localeCompare(b.name);
-            } else {
-              return b.name.localeCompare(a.name);
-            }
-          });
- 
-          updateProductDisplay(products);
-        },
-        error: function (error) {
-          console.error('Error loading products:', error);
+    function sortProductsAlphabetically(order) {
+      const products = $('.card-container').toArray();
+        
+      products.sort((a, b) => {
+        const nameA = $(a).find('.card-title').text().trim();
+        const nameB = $(b).find('.card-title').text().trim();
+      
+        if (order === 'asc') {
+          return nameA.localeCompare(nameB);
+        } else {
+          return nameB.localeCompare(nameA);
         }
-        });
-      }
-      else {
-        $.ajax({
-            url: `/products/category/${category}`,
-            method: 'GET',
-          success: function (products) {
-            products.sort((a, b) => {
-              if (order === 'asc') {
-                return a.name.localeCompare(b.name);
-              } else {
-                return b.name.localeCompare(a.name);
-              }
-            });
- 
-            updateProductDisplay(products);
-          },
-          error: function (error) {
-            console.error('Error loading products:', error);
-          }
-        });
-      }
-    }
- 
-    function sortProductsByPrice(order, category) {
-      if(category === 'All') {
-        $.ajax({
-        url: `/search-products`,
-        method: 'GET',
-        success: function (products) {
-          products.sort((a, b) => {
-            if (order === 'asc') {
-              return a.price - b.price;
-            } else {
-              return b.price - a.price;
-            }
-          });
- 
-          updateProductDisplay(products);
-        },
-        error: function (error) {
-          console.error('Error loading products:', error);
-        }
-      });}
-      else {
-        $.ajax({
-          url: `/products/category/${category}`,
-          method: 'GET',
-          success: function (products) {
-            products.sort((a, b) => {
-              if (order === 'asc') {
-                return a.price - b.price;
-              } else {
-                return b.price - a.price;
-              }
-            });
- 
-            updateProductDisplay(products);
-          },
-          error: function (error) {
-            console.error('Error loading products:', error);
-          }
-        });
-      }
-    }
- 
-    function updateProductDisplay(products) {
-      $('#container').children().remove();
-      products.forEach(product => {
-        const productCard = generateProductCard(product);
-        $('#container').css('margin-left', '0');
-        $('#container').append(productCard);
       });
+      const container = $('#container');
+      const detachedProducts = products.map(product => $(product).detach());
+    
+      container.append(detachedProducts);
+}
+
+function sortProductsByPrice(order) {
+  const products = $('.card-container').toArray();
+
+  products.sort((a, b) => {
+    const priceA = parseFloat($(a).find('.card-price').text().replace(/[^0-9.-]+/g, ''));
+    const priceB = parseFloat($(b).find('.card-price').text().replace(/[^0-9.-]+/g, ''));
+
+    if (order === 'asc') {
+      return priceA - priceB;
+    } else {
+      return priceB - priceA;
     }
- 
-    function loadProductsByCategory(category) {
-      $.ajax({
-        url: `/products/category/${category}`,
-        method: 'GET',
-        success: function (products) {
-          $('#container').children().remove(); 
-          products.forEach(product => {
-            const productCard = generateProductCard(product);
-            $('#container').css('margin-left', '0'); 
-            $('#container').append(productCard);
-          });
-        },
-        error: function (error) {
-            $('#container').children().remove();
-            $('#container').css('margin-left', '2rem');
-            $('#container').append('<p>No products available in this category.</p>');
-            console.error('Error loading products:', error);
-          }
-      });
-    }
-    function loadAllProducts() {
-        $.ajax({
-          url: `/search-products`,
-          method: 'GET',
-          success: function (products) {
-            $('#container').children().remove();
-            products.forEach(product => {
-              const productCard = generateProductCard(product);
-              $('#container').css('margin-left', '0'); 
-              $('#container').append(productCard);
-            });
-          },
-          error: function (error) {
-            $('#container').children().remove();
-            $('#container').css('margin-left', '2rem');
-            $('#container').append('<p>No products available.</p>');
-            console.error('Error loading products:', error);
-          }
-        });
-    }
+  });
+
+  const container = $('#container');
+  const detachedProducts = products.map(product => $(product).detach());
+
+  container.append(detachedProducts);
+}
   });
 </script> 
 </body>
