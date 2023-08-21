@@ -208,108 +208,147 @@
                 }
 
                 const closeCart = () => {
-                    const cartContainer = document.getElementById('cart-container');
-                    const cartOverlay = document.querySelector('.cart-overlay');
-                    
-                    cartContainer.style.display = 'none';
-                    cartOverlay.style.display = 'none';
-                }
+                    const cart_container = $('#cart-container');
+                    const cart_overlay = $('.cart-overlay');
+
+                    cart_container.hide();
+                    cart_overlay.hide();
+                };
+
+                const cart_overlay = $('.cart-overlay');
+                cart_overlay.on('click', closeCart);
                 
-                const cartOverlay = document.querySelector('.cart-overlay');
-                cartOverlay.addEventListener('click', closeCart);
-
                 const cart = () => {
-                    const cartContainer = document.getElementById('cart-container');
-                    const cartOverlay = document.querySelector('.cart-overlay');
-                    cartContainer.innerHTML = '';
+                    const cart_container = $('#cart-container');
+                    const cart_overlay = $('.cart-overlay');
+                    cart_container.empty();
 
-                    if (cartContainer.style.display === 'none') {
-                        cartContainer.style.display = 'block';
-                        cartOverlay.style.display = 'block';
-
-                        const closeButton = document.createElement('div');
-                        closeButton.classList.add('bi', 'bi-x-lg', 'h3', 'd-flex', 'align-items-center', 'justify-content-center');
-                        closeButton.style.position = 'absolute';
-                        closeButton.style.top = '1rem';
-                        closeButton.style.right = '1rem';
-                        closeButton.style.cursor = 'pointer';
-                        closeButton.addEventListener('click', closeCart);
-                        cartContainer.appendChild(closeButton);
+                    if (cart_container.css('display') === 'none') {
+                        cart_container.css('display', 'block');
+                        cart_overlay.css('display', 'block');
+                    
+                        const cart_button = $('<div>').addClass('bi bi-x-lg h3 d-flex align-items-center justify-content-center');
+                        cart_button.css({
+                            position: 'absolute',
+                            top: '1rem',
+                            right: '1rem',
+                            cursor: 'pointer'
+                        });
+                        cart_button.on('click', closeCart);
+                        cart_container.append(cart_button);
                     
                         populateCart();
                     }
                 };
 
-                const populateCart = () => {
-                    const cartContainer = document.getElementById('cart-container');
-                    const cartContent = document.createElement('div');
-                    cartContent.classList.add('cart-content');
-
-                    cartContent.innerHTML = '';
-
-                    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-                    const totalPrice = cartItems.reduce((total, item) => total + item.total_price, 0);
-
-                    const totalElement = document.createElement('p');
-                    totalElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
-                    cartContent.appendChild(totalElement);
-
-                    const checkoutButton = document.createElement('button');
-                    checkoutButton.textContent = 'Checkout';
-                    checkoutButton.classList.add('btn', 'btn-primary', 'checkout-button');
-                    // checkoutButton.addEventListener('click', handleCheckout);
-                    totalElement.appendChild(checkoutButton);
-
-
-                    cartItems.forEach((item,index) => {
-                        const cartItem = document.createElement('div');
-                        cartItem.classList.add('cart-item');
-                    
-                        const itemImage = document.createElement('img');
-                        itemImage.src = item.image; 
-                        itemImage.alt = 'Product Image';
-                        itemImage.id = 'product-cart-image';
-                        cartItem.appendChild(itemImage);
-                    
-                        const itemDetails = document.createElement('div');
-                        itemDetails.classList.add('item-details');
-                    
-                        const itemNameAndQuantity = document.createElement('p');
-                        itemNameAndQuantity.textContent = `${item.name} x${item.quantity}`;
-                        itemDetails.appendChild(itemNameAndQuantity);
-
-                        const selectedAdditions = item.additions;
-                        const additionNames = [];
-                                    
-                        if (selectedAdditions.sprinkles) {
-                            additionNames.push('Sprinkles');
+                const updateCartItemQuantity = (cart_id, new_quantity) => {
+                    const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+                
+                    const updated_cart_items = cart_items.map(item => {
+                        if (item.id === cart_id) {
+                            item.quantity = new_quantity;
+                            item.total_price = item.price * new_quantity;
                         }
-                    
-                        if (selectedAdditions.hot_chocolate) {
-                            additionNames.push('Hot Chocolate');
-                        }
-                    
-                        if (selectedAdditions.gummy_bears) {
-                            additionNames.push('Gummy Bears');
-                        }
-                    
-                        if (additionNames.length > 0) {
-                            const additionsElement = document.createElement('p');
-                            additionsElement.textContent = `${additionNames.join(', ')}`;
-                            itemDetails.appendChild(additionsElement);
-                        }
-                        
-                        const itemPrice = document.createElement('p');
-                        itemPrice.textContent = `$${item.total_price.toFixed(2)}`;
-                        itemDetails.appendChild(itemPrice);
-                                        
-                        cartItem.appendChild(itemDetails);
-                    
-                        cartContent.appendChild(cartItem);
+                        return item;
                     });
                 
-                    cartContainer.appendChild(cartContent);
+                    const filteredcart_items = updated_cart_items.filter(item => item.quantity > 0);
+                
+                    localStorage.setItem('cartItems', JSON.stringify(filteredcart_items));
+                };
+
+                const populateCart = () => {
+                    const cart_container = $('#cart-container');
+                    const cart_content = $('<div>').addClass('cart-content');
+                    
+                    cart_content.empty();
+                    
+                    const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+                    
+                    const header_div = $('<div>').attr('id', 'header-div');
+                    
+                    let total_price = cart_items.reduce((total, item) => total + item.total_price, 0);
+                    const total_element = $('<p>').attr('id', "total-price-element").text(`Total Price: $${total_price.toFixed(2)}`);
+                    header_div.append(total_element);
+                    
+                    const checkout_button = $('<button>').text('Checkout').addClass('btn btn-primary checkout-button');
+                    // checkout_button.on('click', handleCheckout);
+                    header_div.append(checkout_button);
+                    
+                    cart_content.append(header_div);
+                    
+                    cart_items.forEach((item, index) => {
+                        const cart_item = $('<div>').addClass('cart-item');
+                        
+                        const item_image = $('<img>').attr('src', item.image).attr('alt', 'Product Image').attr('id', 'product-cart-image');
+                        cart_item.append(item_image);
+                        
+                        const item_details = $('<div>').addClass('item-details');
+                        const details_container = $('<div>').addClass('details_container');
+                        
+                        const item_name = $('<p>').text(item.name).addClass('item-name');
+                        details_container.append(item_name);
+                        
+                        const item_price = $('<p>').text(`$${item.total_price.toFixed(2)}`);
+
+                            const quantity_input = $('<input>').attr('type', 'number').attr('min', '0').attr("id", "quantity-input").val(item.quantity);
+                            details_container.append(quantity_input);
+                            item_details.append(details_container);
+                        quantity_input.on('change', event => {
+
+                            let new_quantity = parseInt(event.target.value);
+                            if (isNaN(new_quantity) || new_quantity < 0) {
+                                new_quantity = 0;
+                            } 
+                            else if (new_quantity > 15) {
+                                new_quantity = 15;
+                            }
+
+                            quantity_input.val(new_quantity);
+                            
+                            item_price.text(`$${(item.price * new_quantity).toFixed(2)}`);
+
+                            if (event.target.value === "0") {
+                                cart_item.addClass('hidden');
+                            }
+                            
+                            updateCartItemQuantity(item.id, new_quantity);
+                            const updated_cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+                            total_price = updated_cart_items.reduce((total, item) => total + item.total_price, 0);
+                            const updated_total_element = $('#total-price-element');
+                            updated_total_element.text(`Total Price: $${total_price.toFixed(2)}`);
+                            total_element.replaceWith(updated_total_element);
+                        });
+                    
+                        details_container.append(quantity_input);
+
+                        const selected_additions = item.additions;
+                        const addition_names = [];
+
+                        if (selected_additions.sprinkles) {
+                            addition_names.push('Sprinkles');
+                        }
+                    
+                        if (selected_additions.hot_chocolate) {
+                            addition_names.push('Hot Chocolate');
+                        }
+
+                        if (selected_additions.gummy_bears) {
+                            addition_names.push('Gummy Bears');
+                        }
+
+                        if (addition_names.length > 0) {
+                            const addition_element = $('<p>').text(addition_names.join(', '));
+                                item_details.append(addition_element);
+                            }
+
+                        item_details.append(item_price);
+                        cart_item.append(item_details);
+                        
+                        cart_content.append(cart_item);
+                    });
+                
+                    cart_container.append(cart_content);
                 };
 
                 logo_btn.onclick = mainPage;
