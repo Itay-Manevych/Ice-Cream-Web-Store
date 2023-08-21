@@ -46,7 +46,12 @@
                             <div id="invalid-feedback" class="text-danger">
                             </div>
                         </div>
-                        <button id="user-details-button" class="btn btn-primary" type="button">Update Details</button>
+                        <div id="user-details-button-container">
+                            <button id="user-details-button" class="btn btn-primary" type="button">Update Details</button>
+                            <div id="valid-feedback" class="text-success">
+    
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -134,7 +139,12 @@
                                     </div>
                                 </div>
                                 
-                                <button type="button" class="btn btn-primary" id="create-product-button">Create Product</button>
+                                <div id="create-product-button-container">
+                                    <button type="button" class="btn btn-primary" id="create-product-button">Create Product</button>
+                                    <div id="valid-feedback" class="text-success">
+    
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -177,7 +187,12 @@
                                     </select>
                                 </div>
                                 
-                                <button type="button" class="btn btn-primary" id="update-product-button">Update Product</button>
+                                <div id="update-product-button-container">
+                                    <button type="button" class="btn btn-primary" id="update-product-button">Update Product</button>
+                                    <div id="valid-feedback" class="text-success">
+        
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -194,7 +209,12 @@
                                     <div id="invalid-feedback" class="text-danger">
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="create-category-button">Create Category</button>
+                                <div id="create-category-button-container">
+                                    <button type="button" class="btn btn-primary" id="create-category-button">Create Category</button>
+                                    <div id="valid-feedback" class="text-success">
+        
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -209,7 +229,12 @@
                                     <div id="invalid-feedback" class="text-danger">
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="delete-category-button">Delete Category</button>
+                                <div id="delete-category-button-container">
+                                    <button type="button" class="btn btn-primary" id="delete-category-button">Delete Category</button>
+                                    <div id="valid-feedback" class="text-success">
+            
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -229,7 +254,12 @@
                                     <div id="invalid-feedback" class="text-danger">
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="update-category-button">Update Category</button>
+                                <div id="update-category-button-container">
+                                    <button type="button" class="btn btn-primary" id="update-category-button">Update Category</button>
+                                    <div id="valid-feedback" class="text-success">
+                
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -332,14 +362,6 @@
                 return string !== "";
             }
             
-            const showError = (element, error_message) => {
-                element.addClass("is-invalid");
-                const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
-                ? element.siblings("#invalid-feedback")
-                : element.closest("div").siblings("#invalid-feedback");
-                error_div.text(error_message);
-            };
-        
             const hideError = (element) => {
                 element.removeClass("is-invalid");
                 const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
@@ -347,7 +369,35 @@
                 : element.closest("div").siblings("#invalid-feedback");
                 error_div.text("");
             };
-            
+
+            const showError = (element, error_message) => {
+                element.addClass("is-invalid");
+                const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
+                ? element.siblings("#invalid-feedback")
+                : element.closest("div").siblings("#valid-feedback");
+                error_div.text(error_message);
+            };
+
+            const hideValidation = (element) => {
+                element.removeClass("is-valid");
+                const valid_div = element.closest("div").siblings("#valid-feedback").length === 0
+                ? element.siblings("#valid-feedback")
+                : element.closest("div").siblings("#valid-feedback");
+                valid_div.text("");
+            };
+
+            const showValidation = (element, validation_message) => {
+                console.log("hello",element ,validation_message);
+                element.addClass("is-valid");
+                const valid_div = element.closest("div").siblings("#valid-feedback").length === 0
+                ? element.siblings("#valid-feedback")
+                : element.closest("div").siblings("#valid-feedback");
+                valid_div.text(validation_message);
+                setTimeout(() => {
+                    hideValidation(element);
+                }, 3000);
+            };
+
             const validateUserForm = async (username_input, email_input, password_input) => {
                 let is_valid = true;
             
@@ -383,10 +433,10 @@
                 hideError($(event.target));
             });
 
-            user_details_button.on("click",async (event) => {
+            $("#user-details-button").on("click",async (event) => {
                 event.preventDefault();
                 
-                if(await validateUserForm($("#username"),  $("email"), $("#password"))) {
+                if(await validateUserForm($("#username"),  $("#email"), $("#password"))) {
                     try {
                         const email = $("#email").val();
                         const user = $.ajax({
@@ -395,20 +445,21 @@
                         });
 
                         if (user) {
-                            const user_details_form_data = {
-                                username: $("#username").val(),
-                                email: $("#email").val(),
-                                password: $("#password").val()
-                            }
-                        
                             const response = $.ajax({
                                 url: '/dashboard/update-details', 
                                 method: 'POST',
                                 dataType: 'json',
                                 contentType: 'application/json',
-                                data: JSON.stringify(user_details_form_data)
+                                data: JSON.stringify({
+                                    username: $("#username").val(),
+                                    email: $("#email").val(),
+                                    password: $("#password").val()
+                                })
                             });
-                            console.log("Response:", response);
+                            showValidation($("#user-details-button"),"User updated successfully");
+                            showValidation($("#username"),"");
+                            showValidation($("#email"),"");
+                            showValidation($("#password"),"");
                         }
                     } 
                     catch (error) {
@@ -568,6 +619,9 @@
                             $("#product-categories, #update-product-categories").trigger("chosen:updated");
                         
                             $("#create-category-input").val("");
+
+                            showValidation($("#create-category-button"), "Category created successfully");
+                            showValidation($("#create-category-input"), "Category created successfully");
                         } 
                         else {
                             console.error("Category creation failed.");
@@ -602,6 +656,9 @@
                             $("#product-categories, #update-product-categories").trigger("chosen:updated");
 
                             $("#delete-category-input").val("");
+
+                            showValidation($("#delete-category-button"), "Category deleted successfully");
+                            showValidation($("#delete-category-input"), "Category deleted successfully");
                         } 
                         else {
                             console.error("Category deletion failed.");
@@ -640,6 +697,9 @@
                             $("#product-categories, #update-product-categories").trigger("chosen:updated");
 
                             $("#update-category-input").val("");
+
+                            showValidation($("#update-category-button"), "Category updated successfully");
+                            showValidation($("#update-category-input"), "Category updated successfully");
                         } 
                         else {
                             console.error("Category update failed.");
