@@ -30,10 +30,9 @@
         <div class="dropdown ml-auto medium-margin-left">
           <label class="small-margin-right" for="sortDropdown">Sort by:</label>
           <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Default
+            Default
           </button>
           <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-            <li><a class="dropdown-item sort-dropdown-item" data-sort="Default">Default</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically A-Z">Alphabetically A-Z</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically Z-A">Alphabetically Z-A</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Lowest - Highest">Price Lowest - Highest</a></li>
@@ -218,7 +217,6 @@
     $('.category-dropdown-item').on('click', function(){
         $('.category-dropdown-item').removeClass('active');
         $(this).addClass('active');
-        $('#sortDropdown').text("Default");
  
         const selectedCategory = $(this).data('category');
         if (selectedCategory === 'All') {
@@ -240,7 +238,6 @@
     $('.sort-dropdown-item').on('click', function () {
       const selectedSort = $(this).data('sort');
       let currentCategory = $('#categoryDropdown').text().trim();
-      console.log(currentCategory);
       $('#sortDropdown').text(selectedSort);
  
       if (selectedSort === 'Alphabetically A-Z') {
@@ -279,15 +276,24 @@
       container.append(detachedProducts);
 }
 
-
 function sortProductsByPrice(order) {
+  const products = $('.card-container').toArray();
 
-      if (order === 'asc') {
-        
-      } 
-      else {
-    
-      }
+  products.sort((a, b) => {
+    const priceA = parseFloat($(a).find('.card-price').text().replace(/[^0-9.-]+/g, ''));
+    const priceB = parseFloat($(b).find('.card-price').text().replace(/[^0-9.-]+/g, ''));
+
+    if (order === 'asc') {
+      return priceA - priceB;
+    } else {
+      return priceB - priceA;
+    }
+  });
+
+  const container = $('#container');
+  const detachedProducts = products.map(product => $(product).detach());
+
+  container.append(detachedProducts);
 }
   });
 </script> 
