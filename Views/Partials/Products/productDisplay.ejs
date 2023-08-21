@@ -67,7 +67,7 @@
   <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
   <script> 
-
+let counter = parseInt(localStorage.getItem('counter')) || 1;
 const updateTotalPrice = (productPrice) => {
   let selectedQuantity = parseInt(document.getElementById('quantityInput').value, 10);
     
@@ -93,13 +93,14 @@ const addToCart = (productName, productPrice, productImage) => {
   const totalPrice = parseFloat(productPrice) * selectedQuantity;
 
   const cartItem = {
+    id: counter++,
     name: productName,
+    price: parseFloat(productPrice),
     total_price: totalPrice,
     additions: selectedAdditions,
     quantity: selectedQuantity,
     image: productImage,
   };
-
   const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
   existingCartItems.push(cartItem);
@@ -108,6 +109,7 @@ const addToCart = (productName, productPrice, productImage) => {
 
   console.log(`Added "${productName}" to cart for a total of $${totalPrice.toFixed(2)} (Quantity: ${selectedQuantity})`);
   console.log("Selected Additions:", selectedAdditions);
+  localStorage.setItem('counter', counter);
 };
   </script>
 </body>
