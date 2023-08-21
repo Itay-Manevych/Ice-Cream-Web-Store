@@ -3,7 +3,7 @@ import Allergies from "./allergies.js";
 import Category from "./category.js";
 
 const Product = new mongoose.Schema({
-    _id: Number,
+    // _id: Number,
     name: {
         type: String,
         unique: true,
