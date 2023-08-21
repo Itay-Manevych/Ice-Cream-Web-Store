@@ -23,9 +23,14 @@ aside > p {
 
 #text {
     display: grid;
-    grid-template-columns: 1fr 36rem;
-    margin-top: -2rem;
-    gap: 6rem;
+    grid-template-columns: 1fr 35rem;
+    margin-top: -1rem;
+    gap: 5rem;
+}
+
+#txt {
+    display: grid;
+    row-gap: 1.5rem;
 }
 
 .image {
