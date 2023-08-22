@@ -66,9 +66,6 @@ const getAllProductsByCategory = async (req, res) => {
 const getAllProducts = async (req, res) => {
     try {
         const products = await ProductService.getAllProducts();
-        if(!products || products.length === 0) {
-            throw new Error("There are no existing product models");
-        }
         res.status(201);
         return products;
     }

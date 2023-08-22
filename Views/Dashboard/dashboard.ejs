@@ -76,6 +76,9 @@
                                 <div class="admin-form-field">
                                     <label for="product-name" class="form-label">Product Name</label>
                                     <input type="text" class="form-control" id="product-name" name="product-name">
+                                    <div id="invalid-feedback" class="text-danger">
+
+                                    </div>
                                 </div>
 
                                 <div class="admin-form-field">
@@ -110,9 +113,11 @@
                                 <div class="admin-form-field">
                                     <label for="product-categories" class="form-label">Categories</label>
                                     <select class="form-control chosen-select chosen-select-product-create" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
-                                        <% categories.forEach(category => { %>
+                                        <% if(categories) {
+                                            categories.forEach(category => { %>
                                             <option value="<%= category.name %>"><%= category.name %></option>
-                                        <% }); %>
+                                            <% });
+                                        } %>
                                     </select>
                                     <div id="invalid-feedback" class="text-danger">
 
@@ -147,9 +152,11 @@
                                 <div class="admin-form-field">
                                     <label for="product-names-update" class="form-label">Product Name</label>
                                     <select class="form-control chosen-select" id="product-names-update" name="product-names-update" data-placeholder = "Choose Categories">
-                                        <% products.forEach(product => { %>
-                                            <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
-                                        <% }); %>
+                                        <% if(products) {
+                                            products.forEach(product => { %>
+                                                <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
+                                            <% }); 
+                                        } %>
                                     </select>
                                     <div id="invalid-feedback" class="text-danger">
 
@@ -196,9 +203,11 @@
                                 <div id="admin-form-field-categories" class="admin-form-field">
                                     <label for="product-categories-update" class="form-label">Categories</label>
                                     <select class="form-control chosen-select chosen-select-product-update" id="product-categories-update" name="product-categories-update" data-placeholder = "Choose Categories" multiple>
-                                        <% categories.forEach(category => { %>
+                                        <% if(categories) {
+                                            categories.forEach(category => { %>
                                             <option value="<%= category.name %>"><%= category.name %></option>
-                                        <% }); %>
+                                            <% });
+                                        } %>
                                     </select>
                                     <div id="invalid-feedback" class="text-danger">
 
@@ -255,9 +264,11 @@
                                 <div class="admin-form-field">
                                     <label id="category-label" for="delete-product-categories" class="form-label">Category Name</label>
                                     <select class="form-control chosen-select chosen-select-category-delete" id="delete-product-categories" name="delete-product-categories" data-placeholder = "Choose a Category">
-                                        <% categories.forEach(category => { %>
+                                        <% if(categories) {
+                                            categories.forEach(category => { %>
                                             <option value="<%= category.name %>"><%= category.name %></option>
-                                        <% }); %>
+                                            <% });
+                                        } %>
                                     </select>  
                                 </div>
                                 <div id="delete-category-button-container">
@@ -276,9 +287,11 @@
                             <form id="update-category-form">
                                 <label id="category-label" for="update-product-categories" class="form-label">Category Name</label>
                                 <select class="form-control chosen-select chosen-select-category-update" id="update-product-categories" name="update-product-categories" data-placeholder = "Choose a Category">
-                                    <% categories.forEach(category => { %>
+                                    <% if(categories) {
+                                        categories.forEach(category => { %>
                                         <option value="<%= category.name %>"><%= category.name %></option>
-                                    <% }); %>
+                                        <% });
+                                    } %>
                                 </select>                                
                                 <div id="admin-form-field-update-category" class="admin-form-field">
                                     <label for="category-name" class="form-label">Updated Category Name</label>
