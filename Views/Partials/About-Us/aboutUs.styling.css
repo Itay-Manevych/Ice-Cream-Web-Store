@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@600;700&family=Concert+One&family=Just+Another+Hand&family=PT+Sans:ital,wght@0,700;1,400&family=Rajdhani:wght@500;600&family=Six+Caps&display=swap');
+@font-face {
+    font-family: 'Just Another Hand';
+    src: url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@600;700&family=Concert+One&family=Just+Another+Hand&family=PT+Sans:ital,wght@0,700;1,400&family=Rajdhani:wght@500;600&family=Six+Caps&display=swap');
+
+}
 
 aside {
     padding-left: 0.5rem;
@@ -8,7 +12,6 @@ aside {
     color: #29627e;
     flex-direction: column;
     margin-left: 6rem;
-    margin-right: 6rem;
 }
   
 aside > p {
@@ -18,17 +21,30 @@ aside > p {
 .title {
     font-size: 4rem;
     height: 6rem;
-    margin-left: 10rem;
+    margin-left: 7rem;
     margin-top: 1rem;
 }
 
-.info {
+#views {
+    display: grid;
+    grid-template-columns: 1fr 35rem;
+    gap: 5rem;
+    margin-top: -4rem;
+    margin-bottom: 10rem;
+}
+
+#text {
+    display: grid;
+    width: 80rem;
+    row-gap: 1.5rem;
+}
+
+.image {
     width: 30rem;
-    margin-right: 6rem;
     margin-bottom: 1rem;
 }
 
 .map {
     gap: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
 }
