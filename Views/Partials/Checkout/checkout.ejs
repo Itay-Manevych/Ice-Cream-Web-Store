@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../Partials/Checkout/checkout.styling.css">
+    <%- include("../Navbar/navbar.ejs") %>
+</head>
+<body>
+    <div class="d-flex justify-content-between">
+
+        <div class="card">
+            <div class="card-header">Checkout</div>
+            <div class="card-body"> 
+                <form id="checkout-form" class="mt-3 ml-3" action="/checkout" method="POST">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                            <div id="invalid-feedback" class="text-danger">
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input class="form-control" id="email" name="email">
+                    <div id="invalid-feedback" class="text-danger">
+                        
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone_number">Phone Number:</label>
+                    <input class="form-control" id="phone_number" name="phone_number">
+                    <div id="invalid-feedback" class="text-danger">
+                        
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input class="form-control" id="city" name="address[city]">
+                    <div id="invalid-feedback" class="text-danger">
+                        
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="street">Street:</label>
+                    <input class="form-control" id="street" name="address[street]">
+                    <div id="invalid-feedback" class="text-danger">
+                        
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="apartment">Apartment:</label>
+                    <input class="form-control" id="apartment" name="address[apartment]">
+                    <div id="invalid-feedback" class="text-danger">
+                        
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="floor">Floor:</label>
+                    <input class="form-control" id="floor" name="address[floor]">
+                    <div id="invalid-feedback" class="text-danger">
+                        
+                    </div>
+                </div>     
+                <button id="order-button" type="submit" class="btn btn-primary">Place Order</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="cart-items-container" class="d-flex flex-column align-items-center">
+    <div class="total-container"></div>
+</div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    
+    <script>
+        let total_sum = 0;
+        const LoadCartItems = () => {
+    const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const cart_items_container = document.getElementById('cart-items-container');
+    const total_container = document.querySelector('.total-container');
+
+    cart_items.forEach(item => {
+        const card = document.createElement('div');
+        card.classList.add('card', 'mb-3');
+
+        const card_body = document.createElement('div');
+        card_body.classList.add('card-body', 'product-card');
+
+        const product_details = document.createElement('div');
+        product_details.classList.add('product-details');
+
+        const item_name = document.createElement('h5');
+        item_name.classList.add('card-title');
+        item_name.textContent = `${item.name} x ${item.quantity}`;
+
+        const item_price = document.createElement('p');
+        item_price.classList.add('card-text');
+        item_price.textContent = `Price: $${item.total_price.toFixed(2)}`;
+        
+        const item_additions = document.createElement('p');
+        item_additions.classList.add('card-text');
+        const additions = Object.keys(item.additions)
+        .filter(addition => item.additions[addition])
+        .join(', ');
+        if (additions) {
+            item_additions.textContent = `Additions: ${additions}`;
+        }
+        
+        const item_image = document.createElement('img');
+        item_image.src = item.image;
+        item_image.alt = 'Product Image';
+        item_image.classList.add('product-cart-image');
+        
+        card_body.appendChild(item_image);
+        product_details.appendChild(item_name);
+        if (additions) {
+            product_details.appendChild(item_additions);
+        }
+        product_details.appendChild(item_price);
+        
+        card_body.appendChild(product_details);
+
+        card.appendChild(card_body);
+        cart_items_container.appendChild(card);
+        total_sum += item.total_price;
+    });
+    const total_element = document.createElement('div');
+    total_element.classList.add('total-price');
+    total_element.textContent = `Total Price: $${total_sum.toFixed(2)}`;
+    total_container.appendChild(total_element);
+    
+}
+$(document).ready(() => {
+    let user, users; 
+        const getUser = async () => {
+            await $.ajax({
+                url: '/dashboard/user', 
+                type: 'GET',
+                success: (data) => {
+                    user = data;
+                },
+                error: (error) => {
+                    console.log("Error fetching existing users", error);
+                }
+            });
+        }
+    
+        const getExistingUsers = async () => {
+            await $.ajax({
+                url: '/users', 
+                type: 'GET',
+                success: (data) => {
+                    users = data; 
+                },
+                error: (error) => {
+                    console.log("AJAX error when retrieving users", error);
+                }
+            });
+        }
+    
+        const checkExistingUser = async (user_email) => {
+            await getExistingUsers();
+            await getUser();
+            for(let i = 0; i < users.length; i++) {
+                if(users[i].email === user_email && user.email != user_email) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    
+        const validateEmail = (email) => {
+            const email_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            return email_regex.test(email);
+        };
+        
+        const validateString = (string) => {
+            return string !== "";
+        }
+        
+        const hideError = (element) => {
+            element.removeClass("is-invalid");
+            const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
+            ? element.siblings("#invalid-feedback")
+            : element.closest("div").siblings("#invalid-feedback");
+            error_div.text("");
+        };
+    
+        const showError = (element, error_message) => {
+            element.addClass("is-invalid");
+            const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
+            ? element.siblings("#invalid-feedback")
+            : element.closest("div").siblings("#valid-feedback");
+            error_div.text(error_message);
+        };
+    
+        const hideValidation = (element) => {
+            element.removeClass("is-valid");
+            const valid_div = element.closest("div").siblings("#valid-feedback").length === 0
+            ? element.siblings("#valid-feedback")
+            : element.closest("div").siblings("#valid-feedback");
+            valid_div.text("");
+        };
+    
+        const showValidation = (element, validation_message) => {
+            element.addClass("is-valid");
+            const valid_div = element.closest("div").siblings("#valid-feedback").length === 0
+            ? element.siblings("#valid-feedback")
+            : element.closest("div").siblings("#valid-feedback");
+            valid_div.text(validation_message);
+            setTimeout(() => {
+                hideValidation(element);
+            }, 3000);
+        };
+    
+        const validateUserForm = async (username_input, email_input, password_input) => {
+            let is_valid = true;
+        
+            if (!validateString(username_input.val().trim())) {
+                is_valid = false;
+                showError(username_input, "Username cannot be empty.");
+            } else {
+                hideError(username_input);
+            }
+    
+            if (!validateEmail(email_input.val())) {
+                is_valid = false;
+                showError(email_input, "Invalid email format.");
+            } else if (await checkExistingUser(email_input.val().trim())) {
+                is_valid = false;
+                hideError(email_input);
+                showError(email_input, "Email already in use");
+            } else {
+                hideError(email_input);
+            }
+    
+            if (!validateString(password_input.val().trim())) {
+                is_valid = false;
+                showError(password_input, "Password cannot be empty.");
+            } else {
+                hideError(password_input);
+            }
+        
+            return is_valid;
+        };
+    
+        $("#username, #email, #city").on("input", (event) => {
+            hideError($(event.target));
+        });
+    LoadCartItems();
+
+        $('#checkout-form').submit(async function (event) {
+            event.preventDefault();
+            if(await validateUserForm($("#name"), $("#email"), $("#city"))) {
+            const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+            console.log(cart_items);
+
+            const formData = {
+                name: $('#name').val(),
+                email: $('#email').val(),
+                phone_number: $('#phone_number').val(),
+                address: {
+                    city: $('#city').val(),
+                    street: $('#street').val(),
+                    apartment: parseInt($('#apartment').val()),
+                    floor: parseInt($('#floor').val())
+                },
+                products_info: cart_items.map(item => ({
+                    product_name: item.name,
+                    total_price: item.total_price,
+                    additions: {
+                        sprinkles: item.additions.sprinkles,
+                        hot_chocolate: item.additions.hot_chocolate,
+                        gummy_bears: item.additions.gummy_bears,
+                    },
+                    amount: item.quantity
+                })),
+                amount: total_sum
+            };
+
+            try {
+                const response = await $.ajax({
+                    url: '/orders', 
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData)
+                });
+                localStorage.removeItem('cartItems');
+                window.location.href = '/';
+            } catch (error) {
+                console.error('Error creating order:', error);
+            }
+        }
+        });
+    });
+    </script>
+</body>
+</html>

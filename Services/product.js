@@ -9,6 +9,10 @@ const getProductById = async (id) => {
     return await Product.findById(id);
 }
 
+const getProductByName = async (name) => {
+  return await Product.findOne({ name: name });
+}
+
 const filterProductsByCategory = async (category_name) => {
     const pipeline = [
       {
@@ -33,4 +37,4 @@ const deleteProduct = async (id) => {
     return await Product.findByIdAndDelete(id);
 }
 
-export const ProductService = {createProduct, getProductById, filterProductsByCategory, getAllProducts, updateProduct, deleteProduct};
+export const ProductService = {createProduct, getProductById, getProductByName, filterProductsByCategory, getAllProducts, updateProduct, deleteProduct};

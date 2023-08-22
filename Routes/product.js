@@ -20,6 +20,12 @@ ProductRouter.route('/id/:id')
     .put(ProductController.updateProduct)
     .delete(ProductController.deleteProduct);
 
+ProductRouter.route('/name/:name')
+    .get(async (req,res) => {
+        const product = await ProductController.getProductByName(req,res);
+        res.json(product);
+    })
+
 ProductRouter.route('/category/:name')
     .get(ProductController.getAllProductsByCategory)
 
