@@ -272,7 +272,10 @@
                     header_div.append(total_element);
                     
                     const checkout_button = $('<button>').text('Checkout').addClass('btn btn-primary checkout-button');
-                    // checkout_button.on('click', handleCheckout);
+                    checkout_button.on('click', function () 
+                    {
+                        window.location.href = "/checkout";
+                    });
                     header_div.append(checkout_button);
                     
                     cart_content.append(header_div);
