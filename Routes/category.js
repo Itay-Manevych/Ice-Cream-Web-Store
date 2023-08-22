@@ -7,10 +7,16 @@ CategoryRouter.route('/')
     .get(CategoryController.getAllCategories)
     .post(CategoryController.createCategory);
 
-CategoryRouter.route('/:name')
+CategoryRouter.route('/name/:name')
     .get(CategoryController.getCategoryByName)
     .put(CategoryController.updateCategory)
     .delete(CategoryController.deleteCategory);
+
+CategoryRouter.route('/all')
+    .get(async (req, res) => {
+        const categories = await CategoryController.getAllCategories(req,res);
+        res.json(categories);
+    })
 
 export default CategoryRouter;
 

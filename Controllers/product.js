@@ -30,6 +30,23 @@ const getProductById = async (req, res) => {
     }
 }
 
+const getProductByName = async (req, res) => {
+    try {
+        const product = await ProductService.getProductByName(req.params.name);
+        if(!product) {
+            throw new Error("There is not an existing product model with that name");
+        }
+        res.status(201);
+        return product;
+    }
+    catch(error) {
+        res.status(500).json({
+            error: "Error finding a product model by name",
+            message: error.message,
+        });
+    }
+}
+
 const getAllProductsByCategory = async (req, res) => {
     try {
         const products = await ProductService.filterProductsByCategory(req.params.name);
@@ -49,9 +66,6 @@ const getAllProductsByCategory = async (req, res) => {
 const getAllProducts = async (req, res) => {
     try {
         const products = await ProductService.getAllProducts();
-        if(!products || products.length === 0) {
-            throw new Error("There are no existing product models");
-        }
         res.status(201);
         return products;
     }
@@ -92,4 +106,4 @@ const deleteProduct = async (req, res) => {
     }
 }
 
-export const ProductController = {createProduct, getProductById, getAllProductsByCategory, getAllProducts, updateProduct, deleteProduct};
+export const ProductController = {createProduct, getProductById, getProductByName, getAllProductsByCategory, getAllProducts, updateProduct, deleteProduct};
