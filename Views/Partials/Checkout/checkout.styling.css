@@ -1,0 +1,41 @@
+
+.card {
+    width: 40%;
+    height: 100%;
+    margin: 0;
+}
+
+ #cart-items-container {
+    width: 40rem;
+}
+
+.product-card {
+    padding: 0;
+    height: 16rem;
+}
+
+.product-details {
+    height: 7.5rem;
+    display: flex;
+    margin-left: 0.25rem;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.form-group {
+    height: 4rem;
+    margin-bottom: 1rem;
+}
+
+.total-container {
+    margin-bottom: 1rem;
+}
+
+#order-button {
+    margin-top: 1rem;
+}
+
+.product-cart-image {
+    width: 100%;
+    height: 8rem;
+}
