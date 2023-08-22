@@ -60,7 +60,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/about_us", async (req, res) => {
-  res.render('./Partials/About-Us/aboutUs');
+  res.render('./Partials/About-Us/aboutUs', { GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY });
 });
 
 app.get("/search-products", async (req, res) => {
