@@ -10,10 +10,10 @@ import ProductRouter from "./Routes/product.js";
 import CategoryRouter from "./Routes/category.js";
 import OrderRouter from "./Routes/order.js";
 import UserRouter from "./Routes/user.js";
-// import CartRouter from "./Routes/cart.js";
 import LoginRouter from "./Routes/login.js";
 import RegisterRouter from "./Routes/register.js";
 import DashboardRouter from "./Routes/dashboard.js";
+import CheckoutRouter from "./Routes/checkout.js";
 
 import { ProductController } from "./Controllers/product.js";
 
@@ -50,17 +50,17 @@ app.use("/products", ProductRouter);
 app.use("/categories", CategoryRouter);
 app.use("/orders", OrderRouter);
 app.use("/users", UserRouter);
-// app.use("/carts", CartRouter);
 app.use("/login", LoginRouter);
 app.use("/register", RegisterRouter);
 app.use("/dashboard", DashboardRouter);
+app.use("/checkout", CheckoutRouter);
 
 app.get("/", async (req, res) => {
   res.render('./Carousel/carousel');
 });
 
 app.get("/about_us", async (req, res) => {
-  res.render('./Partials/About-Us/aboutUs');
+  res.render('./Partials/About-Us/aboutUs', { GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY });
 });
 
 app.get("/search-products", async (req, res) => {

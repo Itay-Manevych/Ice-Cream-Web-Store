@@ -145,23 +145,22 @@ nav.navbar {
 #about-btn {
     width: 7rem;
     height: fit-content;
-    margin-left: 2rem;
-    color: rgb(242,132,189);
+    color: rgb(81,190,230)
 }
 
 #shop-btn {
-    color: rgb(81,190,230);
-    width: 4rem;
-    height: fit-content;
-}
-
-#sale-btn { 
     color: rgb(242,132,189);
     width: 4rem;
     height: fit-content;
 }
 
-#about-btn, #shop-btn, #sale-btn, #search-input {
+#home-btn { 
+    color: rgb(242,132,189);
+    width: 4rem;
+    height: fit-content;
+}
+
+#about-btn, #shop-btn, #home-btn, #search-input {
     font-family: 'Just Another Hand';
 }
 
