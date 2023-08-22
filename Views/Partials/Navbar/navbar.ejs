@@ -18,9 +18,9 @@
         <nav class="navbar bg-light align-items-center"> 
             <div class="us-box d-flex bg-light align-items-center">
                 <img id="logo-btn" class="nav-item" src="../../Assets/logo.png" alt="Logo">
+                <button id="home-btn" class="nav-item">HOME</button>
                 <button id="about-btn" class="nav-item">ABOUT US</button>
                 <button id="shop-btn" class="nav-item">SHOP</button>
-                <button id="sale-btn" class="nav-item">SALE</button>
             </div>
             <div class="user-box d-flex bg-light align-items-center justify-content-center">
                 <i id="search-icon" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
@@ -51,7 +51,7 @@
                 const logo_btn = $("#logo-btn")[0];
                 const about_btn = $("#about-btn")[0];
                 const shop_btn = $("#shop-btn")[0];
-                const sale_btn = $("#sale-btn")[0];
+                const home_btn = $("#home-btn")[0];
 
                 const open_search = $(".bi-search")[0];
                 const user_btn = $(".bi-person-square")[0];
@@ -75,7 +75,9 @@
                     window.location.href = "/products";
                 }
 
-                const sale = () => {}
+                const home = () => {
+                    window.location.href = "/";
+                }
 
                 const closeSearch = () => {
                     navbar.style.display = "flex";
@@ -271,7 +273,10 @@
                     header_div.append(total_element);
                     
                     const checkout_button = $('<button>').text('Checkout').addClass('btn btn-primary checkout-button');
-                    // checkout_button.on('click', handleCheckout);
+                    checkout_button.on('click', function () 
+                    {
+                        window.location.href = "/checkout";
+                    });
                     header_div.append(checkout_button);
                     
                     cart_content.append(header_div);
@@ -354,7 +359,7 @@
                 about_btn.onclick = aboutPage;
                 open_search.onclick = openSearch;
                 shop_btn.onclick = shop;
-                sale_btn.onclick = sale;
+                home_btn.onclick = home;
                 user_btn.onclick = user;
                 cart_btn.onclick = cart;
             }); 
