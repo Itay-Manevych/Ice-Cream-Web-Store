@@ -145,8 +145,8 @@
                         <div class="card-body">
                             <form id="update-product-form">
                                 <div class="admin-form-field">
-                                    <label for="products-names-update" class="form-label">Product Name</label>
-                                    <select class="form-control chosen-select" id="products-names-update" name="products-names-update" data-placeholder = "Choose Categories">
+                                    <label for="product-names-update" class="form-label">Product Name</label>
+                                    <select class="form-control chosen-select" id="product-names-update" name="product-names-update" data-placeholder = "Choose Categories">
                                         <% products.forEach(product => { %>
                                             <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
                                         <% }); %>
@@ -157,8 +157,8 @@
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-name-update" class="form-label">Updated Product Name</label>
-                                    <input type="text" class="form-control" id="product-name-update" name="product-name-update">
+                                    <label for="product-input-update" class="form-label">Updated Product Name</label>
+                                    <input type="text" class="form-control" id="product-input-update" name="product-input-update">
                                     <div id="invalid-feedback" class="text-danger">
 
                                     </div>
@@ -304,6 +304,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(() => {
+            $("#product-names-update, #product-categories, #delete-product-categories, #update-product-categories").prop("selectedIndex", -1);
             const house_icon = $("#house-icon");
             const logout_icon = $("#logout-icon");
             const username_input_update_user = $("#username");
@@ -518,20 +519,14 @@
                 return array.length > 0;
             }
 
-            let products;
-            const getProduct = async () => {
-                await $.ajax({
-                    url: '/dashboard/user', 
+            let product, products;
+            const getProduct = async (product_name) => {
+                const response = await $.ajax({
+                    url: `/products/name/${product_name}`, 
                     type: 'GET',
-                    success: (data) => {
-                        user = data;
-                    },
-                    error: (error) => {
-                        console.log("Error fetching existing users", error);
-                    }
                 });
+                return response;
             }
-
             const getExistingProducts = async () => {
                 await $.ajax({
                     url: '/categories/all', 
@@ -555,18 +550,32 @@
                 return false;
             }
 
-            const validateProductForm = async (product_input, price_input, description_input, quantity_input, categories_input) => {
+            const validateProductForm = async (product_input, product_select, price_input, description_input, quantity_input, categories_input) => {
                 let is_valid = true;
-            
-                if (!validateString(product_input.val())) {
-                    is_valid = false;
-                    showError(product_input, "Product name cannot be empty.");
-                } else if(await checkExistingProduct(product_input.val().trimStart().trimEnd())) {
-                    is_valid = false;
-                    showError(product_input, "Product already exists.");
-                } else {
-                    hideError(product_input);
-                }  
+                if(product_select === undefined) {
+                    if (!validateString(product_input.val())) {
+                        is_valid = false;
+                        showError(product_input, "Product name cannot be empty.");
+                    } else if(await checkExistingProduct(product_input.val().trimStart().trimEnd())) {
+                        is_valid = false;
+                        showError(product_input, "Product already exists.");
+                    } else {
+                        hideError(product_input);
+                    }  
+                }
+
+                if(product_select) {
+                    if (!validateString($("#product-names-update :selected").text())) {
+                        is_valid = false;
+                        showError(product_select, "You must select a Product.");
+                    } else if(await checkExistingProduct(product_select.text().trimStart().trimEnd())) {
+                        is_valid = false;
+                        showError(product_select, "Product already exists.");
+                    } else {
+                        hideError(product_select);
+                    }  
+                }
+                
                 
                 if (parseFloat(price_input.val()).toFixed(2) <= 0 || parseFloat(price_input.val()).toFixed(2) > 10000 || !validatePrice(price_input.val())) {
                     is_valid = false;
@@ -609,7 +618,7 @@
             
             $("#create-product-button").on("click", async () => {
                 event.preventDefault();
-                if(await validateProductForm($("#product-name"),  $("#product-price"), $("#product-description"), $("#product-quantity"), $("#product-categories"))) {
+                if(await validateProductForm($("#product-name"), undefined, $("#product-price"), $("#product-description"), $("#product-quantity"), $("#product-categories"))) {
                     try {
                         await $.ajax({
                             url: '/products', 
@@ -633,9 +642,11 @@
                             }),
                         });
 
-                        // $("#product-names-update").append(
-                        //     `<option value="${updated_category_name}">${updated_category_name}</option>`
-                        // );
+                        const product = await getProduct($("#product-name").val());
+
+                        $("#product-names-update").append(
+                            `<option value="${product._id}">${product.name}</option>`
+                        );
 
                         $("#product-names-update").trigger("chosen:updated");
 
@@ -656,9 +667,8 @@
 
             $("#update-product-button").on("click", async () => {
                 event.preventDefault();
-                const selected_product = $("#products-names-update :selected");
-                const product_id = $("#products-names-update :selected").attr("value");
-                if (await validateProductForm($("#product-name-update"),  $("#product-price-update"), $("#product-description-update"), $("#product-quantity-update"), $("#product-categories-update"))) 
+                const product_id = $("#product-names-update :selected").attr("value");
+                if (await validateProductForm($("#product-input-update"), $("#product-names-update"), $("#product-price-update"), $("#product-description-update"), $("#product-quantity-update"), $("#product-categories-update"))) 
                 {
                     try {
                         await $.ajax({
@@ -667,7 +677,7 @@
                             dataType: 'json',
                             contentType: 'application/json',
                             data: JSON.stringify({
-                                name: $("#product-name-update").val(),
+                                name: $("#product-input-update").val(),
                                 price: $("#product-price-update").val(),
                                 description: $("#product-description-update").val(),
                                 image: $("#product-image-update").val(),
@@ -682,8 +692,20 @@
                                 }
                             }),
                         });
+
+                        const product = await getProduct($("#product-input-update").val());
+                        $(`option[value="${product._id}"]`).remove();
+
+                        $("#product-names-update").append(
+                            `<option value="${product._id}">${product.name}</option>`
+                        );
+
+                        $("#product-names-update").prop("selectedIndex", -1);
+
+                        $("#product-names-update").trigger("chosen:updated");
+
                         showValidation($("#update-product-button"),"Product Updated Successfully");
-                        showValidation($("#product-name-update"),"Product Updated Successfully");
+                        showValidation($("#product-names-update"),"Product Updated Successfully");
                         showValidation($("#product-price-update"),"Product Updated Successfully");
                         showValidation($("#product-description-update"),"Product Updated Successfully");
                         showValidation($("#product-image-update"),"Product Updated Successfully");
@@ -697,7 +719,7 @@
                 }
             });
 
-            $("#product-name-update, #product-price-update, #product-description-update, #product-quantity-update").on("input", (event) => {
+            $("#product-names-update, #product-price-update, #product-description-update, #product-quantity-update").on("input", (event) => {
                 hideError($(event.target));
             });
 

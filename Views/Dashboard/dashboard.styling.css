@@ -199,3 +199,7 @@ a.chosen-single {
 #category-label {
     margin-left: 0.15rem;
 }
+
+#product_names_update_chosen {
+    height: 2.5rem;
+}
