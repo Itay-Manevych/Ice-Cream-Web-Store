@@ -13,3 +13,8 @@
     width: 100%;
     transform: rotate(180deg);
 }
+
+.button {
+    z-index: 999; 
+    position: absolute;
+}
