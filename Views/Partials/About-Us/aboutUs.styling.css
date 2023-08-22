@@ -3,6 +3,7 @@
     src: url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@600;700&family=Concert+One&family=Just+Another+Hand&family=PT+Sans:ital,wght@0,700;1,400&family=Rajdhani:wght@500;600&family=Six+Caps&display=swap');
 
 }
+
 aside {
     padding-left: 0.5rem;
     float: right;
@@ -20,19 +21,21 @@ aside > p {
 .title {
     font-size: 4rem;
     height: 6rem;
-    margin-left: 10rem;
+    margin-left: 7rem;
     margin-top: 1rem;
+}
+
+#views {
+    display: grid;
+    grid-template-columns: 1fr 35rem;
+    gap: 5rem;
+    margin-top: -4rem;
+    margin-bottom: 10rem;
 }
 
 #text {
     display: grid;
-    grid-template-columns: 1fr 35rem;
-    margin-top: -1rem;
-    gap: 5rem;
-}
-
-#txt {
-    display: grid;
+    width: 80rem;
     row-gap: 1.5rem;
 }
 
@@ -43,5 +46,5 @@ aside > p {
 
 .map {
     gap: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
