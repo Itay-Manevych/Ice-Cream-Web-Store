@@ -28,15 +28,17 @@ body {
   
 #container {
   width: 100%;
+  column-count: auto;
+  column-gap: 1rem;
 }
   
 #locked-div {
-  position: absolute;
   top: 8rem;
 }
 
 #card-container {
   margin: 1rem;
+  margin-right: 0;
   height: 15rem;
   width: 18rem;
   cursor: pointer;
