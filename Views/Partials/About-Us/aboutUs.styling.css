@@ -30,6 +30,7 @@ aside > p {
     grid-template-columns: 1fr 35rem;
     gap: 5rem;
     margin-top: -4rem;
+    margin-bottom: 10rem;
 }
 
 #text {
