@@ -68,12 +68,12 @@ h2 {
     margin-left: 2rem;
 }
 
-#orders, #create-category, #delete-category{
+#orders, #create-category, #delete-category, #update-category{
     min-width: 40rem;
     margin-right: 2rem;
 }
 
-#delete_product_categories_chosen, #update_product_categories_chosen {
+#delete_product_categories_chosen, #update_product_categories_chosen, #product_names_update_chosen {
     height: 2.4rem;
 }
 
@@ -132,7 +132,7 @@ label {
     right: -2rem;
 }
 
-#product-description {
+#product-description, #product-description-update {
     resize: none;
 }
 
@@ -140,7 +140,7 @@ label {
     font-family: "PT Sans" !important;
 }
 
-#product_categories_chosen {
+#product_categories_chosen, #product_allergies_chosen, #delete_product_categories_chosen, #product_names_update_chosen {
     width: 100% !important;
 }
 
@@ -198,8 +198,4 @@ a.chosen-single {
 
 #category-label {
     margin-left: 0.15rem;
-}
-
-#product_names_update_chosen {
-    height: 2.5rem;
 }

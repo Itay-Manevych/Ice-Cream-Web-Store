@@ -112,7 +112,7 @@
 
                                 <div class="admin-form-field">
                                     <label for="product-categories" class="form-label">Categories</label>
-                                    <select class="form-control chosen-select chosen-select-product-create" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
+                                    <select class="form-control chosen-select" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
                                         <% if(categories) {
                                             categories.forEach(category => { %>
                                             <option value="<%= category.name %>"><%= category.name %></option>
@@ -125,8 +125,8 @@
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-allergies" class="form-label">Allergies</label>
-                                    <select class="form-control chosen-select" id="product-allergies" name="product-allergies" data-placeholder = "Choose Allergies" multiple>
+                                    <label for="product-allergies" class="form-label">Allergens</label>
+                                    <select class="form-control chosen-select" id="product-allergies" name="product-allergies" data-placeholder = "Choose Allergens" multiple>
                                         <option value="lactose">Lactose</option>
                                         <option value="nuts">Nuts</option>
                                         <option value="soy">Soy</option>
@@ -149,9 +149,9 @@
                         <div class="card-header">Update Product</div>
                         <div class="card-body">
                             <form id="update-product-form">
-                                <div class="admin-form-field">
+                                <div id="admin-form-field-choose-product" class="admin-form-field">
                                     <label for="product-names-update" class="form-label">Product Name</label>
-                                    <select class="form-control chosen-select" id="product-names-update" name="product-names-update" data-placeholder = "Choose Categories">
+                                    <select class="form-control chosen-select" id="product-names-update" name="product-names-update" data-placeholder = "Choose Product">
                                         <% if(products) {
                                             products.forEach(product => { %>
                                                 <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
@@ -202,7 +202,7 @@
 
                                 <div id="admin-form-field-categories" class="admin-form-field">
                                     <label for="product-categories-update" class="form-label">Categories</label>
-                                    <select class="form-control chosen-select chosen-select-product-update" id="product-categories-update" name="product-categories-update" data-placeholder = "Choose Categories" multiple>
+                                    <select class="form-control chosen-select" id="product-categories-update" name="product-categories-update" data-placeholder = "Choose Categories" multiple>
                                         <% if(categories) {
                                             categories.forEach(category => { %>
                                             <option value="<%= category.name %>"><%= category.name %></option>
@@ -215,8 +215,8 @@
                                 </div>
                                 
                                 <div class="admin-form-field">
-                                    <label for="product-allergies-update" class="form-label">Allergies</label>
-                                    <select class="form-control chosen-select" id="product-allergies-update" name="product-allergies-update" data-placeholder = "Choose Allergies" multiple>
+                                    <label for="product-allergies-update" class="form-label">Allergens</label>
+                                    <select class="form-control chosen-select" id="product-allergies-update" name="product-allergies-update" data-placeholder = "Choose Allergens" multiple>
                                         <option value="lactose">Lactose</option>
                                         <option value="nuts">Nuts</option>
                                         <option value="soy">Soy</option>
@@ -625,7 +625,7 @@
                 hideError($(event.target));
             });
 
-            $(".chosen-select-product-create").on("change", (event) => {
+            $("#product-categories").on("change", (event) => {
                 hideError($("#product-categories"));
             });
             
@@ -664,13 +664,13 @@
                         $("#product-names-update").trigger("chosen:updated");
 
                         showValidation($("#create-product-button"),"Product Created Successfully");
-                        showValidation($("#product-name"),"Product Created Successfully");
-                        showValidation($("#product-price"),"Product Created Successfully");
-                        showValidation($("#product-description"),"Product Created Successfully");
-                        showValidation($("#product-image"),"Product Created Successfully");
-                        showValidation($("#product-quantity"),"Product Created Successfully");
-                        showValidation($("#product-categories"),"Product Created Successfully");
-                        showValidation($("#product-allergies"),"Product Created Successfully");
+                        showValidation($("#product-name"),"");
+                        showValidation($("#product-price"),"");
+                        showValidation($("#product-description"),"");
+                        showValidation($("#product-image"),"");
+                        showValidation($("#product-quantity"),"");
+                        showValidation($("#product-categories"),"");
+                        showValidation($("#product-allergies"),"");
                     } 
                     catch (error) {
                         console.error("Error:", error);
@@ -785,7 +785,7 @@
                         $("#product-categories, #delete-product-categories, #update-product-categories").append(
                             `<option value="${response.name}">${response.name}</option>`
                         );
-                    
+                        
                         $("#product-categories, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
                     
                         $("#create-category-input").val("");
@@ -819,6 +819,7 @@
                         
                         $(`option[value="${category_name}"]`).remove();
 
+                        $("#delete-product-categories, #update-product-categories").prop("selectedIndex", -1);
                         $("#product-names-update, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
 
                         showValidation($("#delete-category-button"), "Category Deleted Successfully");
@@ -853,6 +854,7 @@
                             `<option value="${updated_category_name}">${updated_category_name}</option>`
                         );
 
+                        $("#delete-product-categories, #update-product-categories").prop("selectedIndex", -1);
                         $("#product-categories, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
 
                         $("#update-category-input").val("");
