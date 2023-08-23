@@ -70,7 +70,7 @@
         </form>
     </div>
 </div>
-    <div id="cart-items-container" class="d-flex row align-items-center justify-content-between">
+    <div id="cart-items-container" class="d-flex row align-items-center">
         <div class="total-container"></div>
     </div>
 </div>
@@ -89,12 +89,12 @@
 
     cart_items.forEach(item => {
         const card = document.createElement('div');
-        card.classList.add('card', 'mb-3');
+        card.classList.add('card', 'mb-3', "cards");
         card.style.width = "16rem";
-        card.style.margin = "1rem auto";
 
         const card_body = document.createElement('div');
         card_body.classList.add('card-body', 'product-card');
+        card_body.style.margin = "0 -5.2%";
 
         const product_details = document.createElement('div');
         product_details.classList.add('product-details');
@@ -135,10 +135,17 @@
         total_sum += item.total_price;
     });
     const total_element = document.createElement('div');
+    const Cart = document.createElement('div');
+    Cart.classList.add('h2');
+    Cart.style.width = "6rem";
+    Cart.style.margin = "0";
+    Cart.textContent = "Cart";
+    total_container.appendChild(Cart);
+
+    total_element.style.width = "10rem"
     total_element.classList.add('total-price');
     total_element.textContent = `Total Price: $${total_sum.toFixed(2)}`;
     total_container.appendChild(total_element);
-    
 }
 $(document).ready(() => {
     let user; 
