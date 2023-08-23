@@ -62,14 +62,19 @@ body {
 #filter-dropdown {
   width: 13rem;
 }
+
 .quantity {
   width: 3rem;
 }
 
+.additions-div {
+  margin-bottom: 0.3rem;
+}
+
 .total-price {
+  width: 18rem;
   float: left;
   font-weight: bold;
-  margin-right: 10rem 
 }
 
 .modal-img {
