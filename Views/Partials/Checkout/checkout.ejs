@@ -71,7 +71,7 @@
     </div>
 </div>
     <div id="cart-items-container" class="d-flex row align-items-center">
-        <div class="total-container"></div>
+        <div class="total-container d-flex"></div>
     </div>
 </div>
 
@@ -94,7 +94,7 @@
 
         const card_body = document.createElement('div');
         card_body.classList.add('card-body', 'product-card');
-        card_body.style.margin = "0 -5.2%";
+        card_body.style.margin = "0 -5.3%";
 
         const product_details = document.createElement('div');
         product_details.classList.add('product-details');
@@ -134,15 +134,16 @@
         cart_items_container.appendChild(card);
         total_sum += item.total_price;
     });
-    const total_element = document.createElement('div');
+
     const Cart = document.createElement('div');
     Cart.classList.add('h2');
-    Cart.style.width = "6rem";
-    Cart.style.margin = "0";
+    Cart.style.height = "2.2rem";
+    Cart.style.width = "7rem";
+    Cart.style.margin = "auto 1rem";
     Cart.textContent = "Cart";
     total_container.appendChild(Cart);
 
-    total_element.style.width = "10rem"
+    const total_element = document.createElement('div');
     total_element.classList.add('total-price');
     total_element.textContent = `Total Price: $${total_sum.toFixed(2)}`;
     total_container.appendChild(total_element);
