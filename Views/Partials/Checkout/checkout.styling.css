@@ -9,7 +9,7 @@
 }
 
 #cart-items-container {
-    width: 52%;
+    width: 48%;
     min-width: 20rem;
     margin: auto;
     margin-top:0;
@@ -35,7 +35,7 @@
 }
 
 .total-container {
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
     margin-bottom: 0.5rem;
 }
 
