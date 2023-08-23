@@ -1,11 +1,13 @@
 
 .card {
     width: 40%;
-    margin: 0;
+    margin: 1rem 1.5rem;
 }
 
  #cart-items-container {
-    width: 40rem;
+    width: 52%;
+    min-width: 20rem;
+    margin: auto;
 }
 
 .product-card {
@@ -43,7 +45,10 @@
 }
 
 #form {
-    margin-left: 1rem;
+    margin: 0;
+    margin-left: 3rem;
+    min-width: 25rem;
+    height: 100%
 }
 
 #container { 
