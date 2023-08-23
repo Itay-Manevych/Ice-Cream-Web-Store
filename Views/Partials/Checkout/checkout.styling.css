@@ -9,7 +9,11 @@
 }
 
 #phone_number::-webkit-outer-spin-button,
-#phone_number::-webkit-inner-spin-button {
+#phone_number::-webkit-inner-spin-button,
+#apartment::-webkit-outer-spin-button,
+#apartment::-webkit-inner-spin-button,
+#floor::-webkit-outer-spin-button,
+#floor::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
