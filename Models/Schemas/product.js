@@ -3,7 +3,7 @@ import Allergies from "./allergies.js";
 import Category from "./category.js";
 
 const Product = new mongoose.Schema({
-    _id: Number,
+    // _id: Number,
     name: {
         type: String,
         unique: true,
@@ -19,15 +19,7 @@ const Product = new mongoose.Schema({
             message: "Price must have a valid value",
         },
     },
-    quantity: {
-        type: Number,
-        validate: {
-          validator: (value) => {
-            return Number.isInteger(value) && value >= 0;
-          },
-          message: "Quantity must have a valid value",
-        },
-    },
+    amount_purchased: Number,
     allergies: Allergies.schema,
     categories: [Category.schema],
 }, {

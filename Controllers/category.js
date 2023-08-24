@@ -32,10 +32,8 @@ const getCategoryByName = async (req, res) => {
 const getAllCategories = async (req, res) => {
     try {
         const categories = await CategoryService.getAllCategories();
-        if(!categories) {
-            throw new Error("There are no existing category models");
-        }
-        res.status(201).json(categories);
+        res.status(201);
+        return categories;
     }
     catch(error) {
         res.status(500).json({

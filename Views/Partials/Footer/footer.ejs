@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../Partials/Footer/footer.styling.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <footer class="footer bg-light d-flex justify-content-center align-items-center text-white">
+            <section class="links-box bg-light d-flex align-items-center justify-content-center">
+                <i class="footer-btn bi bi-facebook h1 d-flex" style="color: #3b5998;"></i>
+                
+                <i class="footer-btn twitter" style="padding:0.5rem; background-color: black;"><img class="d-flex align-items-center justify-content-center" src="../Assets/logo-white.png" style="width:1.3rem; height:1.3rem;"></img></i>
+                
+                <i class="footer-btn bi bi-instagram h1 d-flex" style="color: #ac2bac;"></i>
+                                  
+                <i class="footer-btn bi bi-github h1 d-flex" style="color: #333333;"></i>
+            </section>
+
+            <div class="copy bg-light d-flex align-items-center justify-content-center">
+                <a style="width: 8.5rem;">© 2023 Copyright: </a> 
+                <a href="/" style="color: rgba(0, 0, 0, 0.463);">FrozenFantasies</a>
+            </div>
+        </footer>
+
+        <script>
+            const facebook_btn = $(".bi-facebook")[0];
+            const twitter_btn = $(".twitter")[0];
+            const instagram_btn = $(".bi-instagram")[0];
+            const github_btn = $(".bi-github")[0];
+                
+            facebook_btn.onclick = () => {
+                window.location.href = "https://www.facebook.com/profile.php?id=61550556243559"
+            }
+
+            twitter_btn.onclick = () => {
+                window.location.href = "https://twitter.com/FrozenFantasi"
+            }
+
+            instagram_btn.onclick = () => {
+                window.location.href = "https://www.instagram.com/frozen_fantasies1/"
+            }
+
+            github_btn.onclick = () => {
+                window.location.href = "/"
+            }
+        </script>
+    </body>
+</html>

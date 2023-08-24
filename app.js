@@ -1,15 +1,21 @@
 import dotenv from "dotenv"; 
 import express from "express";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
+import path from "path";
+import { fileURLToPath } from 'url';
 
 import ProductRouter from "./Routes/product.js";
 import CategoryRouter from "./Routes/category.js";
 import OrderRouter from "./Routes/order.js";
 import UserRouter from "./Routes/user.js";
-import CartRouter from "./Routes/cart.js";
-import { ProductController } from "./Controllers/product.js";
+import LoginRouter from "./Routes/login.js";
+import RegisterRouter from "./Routes/register.js";
+import DashboardRouter from "./Routes/dashboard.js";
+import CheckoutRouter from "./Routes/checkout.js";
 
+import { ProductController } from "./Controllers/product.js";
 
 const env_path = "./Config/.env";
 
@@ -31,34 +37,41 @@ const connectToMongoDB = async () => {
 
 connectToMongoDB();
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.static('Views'));
 app.set('view engine', 'ejs');
-app.set('views', './views');
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+app.set('views', path.join(__dirname, 'Views'))
 
 app.use("/products", ProductRouter);
 app.use("/categories", CategoryRouter);
 app.use("/orders", OrderRouter);
 app.use("/users", UserRouter);
-app.use("/carts", CartRouter);
+app.use("/login", LoginRouter);
+app.use("/register", RegisterRouter);
+app.use("/dashboard", DashboardRouter);
+app.use("/checkout", CheckoutRouter);
 
 app.get("/", async (req, res) => {
-  const products = await ProductController.getAllProducts(req,res);
-  res.render('./Navbar/navbar', { products });
+  res.render('./Carousel/carousel');
+});
+
+app.get("/about_us", async (req, res) => {
+  res.render('./Partials/About-Us/aboutUs', { GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY });
 });
 
 app.get("/search-products", async (req, res) => {
   try {
     const products = await ProductController.getAllProducts(req, res);
     res.json(products);
-  } catch (error) {
+  }
+  catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-});
-
-app.get("/login", (req, res) => {
-  res.render('./Login-Register/login');
 });
 
 app.listen(process.env.PORT, () => {

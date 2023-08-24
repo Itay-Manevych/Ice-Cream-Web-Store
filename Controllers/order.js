@@ -3,6 +3,7 @@ import { OrderService } from "../Services/order.js";
 const createOrder = async (req, res) => {
     try {
         const new_order = await OrderService.createOrder(req.body);
+        console.log(new_order);
         res.status(201).json(new_order);
     }
     catch(error) {
