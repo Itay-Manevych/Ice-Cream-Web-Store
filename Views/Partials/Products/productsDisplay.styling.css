@@ -77,6 +77,12 @@ body {
   font-weight: bold;
 }
 
+.modal-description {
+  margin-top: 1rem;
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
 .modal-img {
   width: 100%;
   height: 20rem;

@@ -64,7 +64,7 @@
             </div>
             <div class="modal-body">
               <img id="product-image-modal" class="modal-img" src="<%= product.image %>" alt="Product Image">
-              <p><%= product.description %></p>
+              <p class="modal-description"><%= product.description %></p>
               
               <% if (product.allergies.lactose || product.allergies.nuts || product.allergies.soy || product.allergies.gluten || product.allergies.eggs) { %>
                 <p><strong>Allergens:</strong> <%= generateAllergensString(product.allergies) %></p>
