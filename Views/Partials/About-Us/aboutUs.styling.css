@@ -7,7 +7,7 @@
 aside {
     padding-left: 0.5rem;
     float: right;
-    box-shadow: inset 5px 0 5px -5px #29627e;
+    box-shadow: inset 5px 0 5px -5px #3987ae;
     font-style: italic;
     color: #29627e;
     flex-direction: column;
@@ -35,11 +35,13 @@ aside > p {
 }
 
 #canvas {
-    margin-top: -0.75rem;
-    height: 46.5rem;
-    width: 27rem;
+    margin-top: -0.5rem;
+    margin-left: 0.25rem;
+    height: 46rem;
+    width: 26.5rem;
     position: absolute;
     z-index: 1;
+    border-radius: 0.5rem;
 }
 
 video {
