@@ -46,6 +46,7 @@ video {
     position: absolute;
     z-index: 2;
 }
+
 #text {
     display: grid;
     min-width: 20rem;
