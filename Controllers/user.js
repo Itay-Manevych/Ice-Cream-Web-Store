@@ -34,6 +34,9 @@ const getUserByEmail = async (req, res) => {
 const getUserByToken = async (req, res) => {
     try {
         const token = req.cookies.jwt;
+        if(!token) {
+            return undefined;
+        }
         const user_info = jwt.verify(token, process.env.JWT_SECRET)
         if(!user_info) {
             throw new Error("Token is incorrect");
@@ -49,7 +52,7 @@ const getUserByToken = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({
-            error: "Error finding an user model by email",
+            error: "Error finding a user model by token",
             message: error.message,
         });
     }
