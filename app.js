@@ -56,7 +56,7 @@ app.use("/dashboard", DashboardRouter);
 app.use("/checkout", CheckoutRouter);
 
 app.get("/", async (req, res) => {
-  res.render('./Carousel/carousel');
+  res.render('./Partials/Main-Page/mainPage.ejs');
 });
 
 app.get("/about_us", async (req, res) => {
