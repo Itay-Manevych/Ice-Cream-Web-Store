@@ -14,19 +14,25 @@ DashboardRouter.route('/')
     .post(async (req,res) => {
         const user = await UserController.destroyCookie(req, res);
         res.json(user);
-    })
+    });
 
 DashboardRouter.route('/user')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
         res.json(user);
-    })
+    });
 
 DashboardRouter.route('/update-details')
     .post(async (req, res) => {
         const user = await UserController.updateUserByToken(req,res);
         res.json(user);
-    })
+    });
+
+DashboardRouter.route('/products')
+    .get(async (req, res) => {
+        const products = await ProductController.getAllProducts(req, res);
+        res.json(products);
+    });
 
 export default DashboardRouter;
 

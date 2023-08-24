@@ -154,7 +154,7 @@ $(document).ready(() => {
             });
         }
     
-        const getExistingUsers = async () => {
+        const getAllUsers = async () => {
             await $.ajax({
                 url: '/users', 
                 type: 'GET',
@@ -168,7 +168,7 @@ $(document).ready(() => {
         }
     
         const checkExistingUser = async (user_email) => {
-            await getExistingUsers();
+            await getAllUsers();
             await getUser();
             for(let i = 0; i < users.length; i++) {
                 if(users[i].email === user_email && user.email != user_email) {

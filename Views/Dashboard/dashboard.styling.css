@@ -4,7 +4,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: auto; /* Prevent content overflow */
+    overflow: auto;
 }
 
 * {
@@ -22,6 +22,10 @@ html, body {
     position: relative;
     margin-left: 5rem;
     font-size: 2rem;
+}
+
+#user-username {
+    margin-left: 0.5rem;
 }
 
 #house-icon {
@@ -55,7 +59,7 @@ h2 {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 6.3rem;
+    gap: 5rem;
     flex: 1;
 }
 
@@ -65,11 +69,13 @@ h2 {
 
 #update-details, #create-product, #update-product{
     min-width: 40rem;
+    width: 40rem;
     margin-left: 2rem;
 }
 
 #orders, #create-category, #delete-category, #update-category{
     min-width: 40rem;
+    width: 40rem;
     margin-right: 2rem;
 }
 
