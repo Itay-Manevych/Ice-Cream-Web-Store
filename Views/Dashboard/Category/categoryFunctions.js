@@ -12,7 +12,7 @@ const getAllCategories = async () => {
 } 
 
 const checkExistingCategory = async (category_name) => {
-    await getCategories();
+    const categories = await getAllCategories();
     for(let i = 0; i < categories.length; i++) {
         if(categories[i].name === category_name) {
             return true;
@@ -20,3 +20,5 @@ const checkExistingCategory = async (category_name) => {
     }
     return false;
 }
+
+export const CategoryFunctions = {getAllCategories, checkExistingCategory};

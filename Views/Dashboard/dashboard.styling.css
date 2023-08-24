@@ -31,6 +31,7 @@ html, body {
 #house-icon {
     position: absolute;
     left: -2.7rem;
+    top: 0.5rem;
     cursor: pointer;
     font-size: 1.55rem;
 }
@@ -67,7 +68,7 @@ h2 {
     margin-bottom: 5rem;
 }
 
-#update-details, #create-product, #update-product{
+#update-details, #create-product, #delete-product, #update-product{
     min-width: 40rem;
     width: 40rem;
     margin-left: 2rem;
@@ -79,15 +80,15 @@ h2 {
     margin-right: 2rem;
 }
 
-#delete_product_categories_chosen, #update_product_categories_chosen, #product_names_update_chosen {
+#product_names_update_chosen, #product_names_delete_chosen, #delete_product_categories_chosen, #update_product_categories_chosen {
     height: 2.4rem;
 }
 
-#user-details-button, #create-product-button, #update-product-button, #create-category-button, #delete-category-button, #update-category-button  {
+#user-details-button, #create-product-button, #delete-product-button, #update-product-button, #create-category-button, #delete-category-button, #update-category-button  {
     width: 100%;
 }
 
-#user-details-button-container, #create-category-button-container, #delete-category-button-container, #update-category-button-container {
+#user-details-button-container, #create-product-button-container, #delete-product-button-container, #update-product-button-container, #create-category-button-container, #delete-category-button-container, #update-category-button-container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -114,6 +115,10 @@ form {
     margin-bottom: 1.85rem;
 }
 
+.form-field-password {
+    position: relative;  
+}
+
 #admin-form-field-image {
     margin-top: 4.95rem;
 }
@@ -124,10 +129,6 @@ form {
 
 label {
     margin-bottom: 0.5rem;
-}
-
-.form-field-password {
-    position: relative;  
 }
 
 #eye-icon {
@@ -142,16 +143,8 @@ label {
     resize: none;
 }
 
-.chosen {
-    font-family: "PT Sans" !important;
-}
-
 #product_categories_chosen, #product_allergies_chosen, #delete_product_categories_chosen, #product_names_update_chosen {
     width: 100% !important;
-}
-
-input {
-    font-family: "PT Sans" !important;
 }
 
 ul.chosen-choices {
@@ -175,14 +168,6 @@ ul.chosen-results {
     height: 7.85rem;
 }
 
-#product-container, #category-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 2rem;
-    min-height: 100%;
-}
-
 a.chosen-single {
     height: 2.344rem !important;
     display: flex !important;
@@ -201,6 +186,26 @@ a.chosen-single {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
     margin-bottom: 2rem;
 } 
+
+input {
+    font-family: "PT Sans" !important;
+}
+
+#product-container, #category-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    width: 100%;
+    gap: 2rem;
+}
+
+#product-container {
+    align-items: flex-start;
+}
+
+#category-container {
+    align-items: flex-end;
+}
 
 #category-label {
     margin-left: 0.15rem;

@@ -1,6 +1,6 @@
-import { Error } from "./Visual-Validation/error.js";
-import { Valid } from "./Visual-Validation/valid.js";
-import { ValidateForm } from "./Form-Validation/validateForm.js";
+import { Error } from "../Visual-Validation/error.js";
+import { Valid } from "../Visual-Validation/valid.js";
+import { ValidateForm } from "../Form-Validation/validateForm.js";
 
 $(document).ready(() => {
     const changeIcon = (input, icon) => {
@@ -18,7 +18,7 @@ $(document).ready(() => {
     $("#user-details-button").on("click",async (event) => {
         event.preventDefault();
         
-        if(await ValidateForm.validateUserForm($("#username"), $("#email"), $("#password"))) {
+        if(await ValidateForm.validateUserForm($("#username"), $("#email"), $("#password"), $("#user-details-button"))) {
             try {
                 const email = $("#email").val();
                 const user = await $.ajax({

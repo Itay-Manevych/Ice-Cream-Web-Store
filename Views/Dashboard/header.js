@@ -1,10 +1,8 @@
-$("#product-names-update, #product-categories, #delete-product-categories, #update-product-categories").prop("selectedIndex", -1);
+$("#product-categories, #product-names-update, #product-names-delete, #delete-product-categories, #update-product-categories, #product-categories-update").prop("selectedIndex", -1);
 
 $(".chosen-select").chosen({
     no_results_text: "Oops, nothing found!"
 });
-
-$(document).ready(() => {
 
 
     $("#house-icon").on("click", () => {
@@ -31,5 +29,5 @@ $(document).ready(() => {
             console.log("AJAX error:", error);
         }
     });
-});
+
 

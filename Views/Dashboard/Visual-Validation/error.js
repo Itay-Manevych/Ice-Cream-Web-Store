@@ -5,6 +5,7 @@ const hideError = (element) => {
     : element.closest("div").siblings("#invalid-feedback");
     error_div.text("");
 };
+
 const showError = (element, error_message) => {
     element.addClass("is-invalid");
     const error_div = element.closest("div").siblings("#invalid-feedback").length === 0

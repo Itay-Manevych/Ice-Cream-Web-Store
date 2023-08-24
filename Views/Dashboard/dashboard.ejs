@@ -74,7 +74,7 @@
                         <div class="card-body">
                             <form id="create-product-form">
                                 <div class="admin-form-field">
-                                    <label for="product-name" class="form-label">Product Name</label>
+                                    <label for="product-name" class="form-label">Product Name:</label>
                                     <input type="text" class="form-control" id="product-name" name="product-name">
                                     <div id="invalid-feedback" class="text-danger">
 
@@ -82,7 +82,7 @@
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-price" class="form-label">Price</label>
+                                    <label for="product-price" class="form-label">Price ($):</label>
                                     <input type="number" step="0.1" min="0.1" class="form-control" id="product-price" name="product-price">
                                     <div id="invalid-feedback" class="text-danger">
 
@@ -90,7 +90,7 @@
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-description" class="form-label">Description</label>
+                                    <label for="product-description" class="form-label">Description:</label>
                                     <textarea class="form-control" id="product-description" name="product-description" rows="3"></textarea>
                                     <div id="invalid-feedback" class="text-danger">
 
@@ -98,12 +98,12 @@
                                 </div>
 
                                 <div class="admin-form-field" id="admin-form-field-image">
-                                    <label for="product-image" class="form-label">Image</label>
+                                    <label for="product-image" class="form-label">Image:</label>
                                     <input type="text" class="form-control" id="product-image" name="product-image">
                                 </div>
                                 
                                 <div class="admin-form-field">
-                                    <label for="product-categories" class="form-label">Categories</label>
+                                    <label for="product-categories" class="form-label">Categories:</label>
                                     <select class="form-control chosen-select" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
                                         <% if(categories) {
                                             categories.forEach(category => { %>
@@ -117,8 +117,8 @@
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-allergies" class="form-label">Allergens</label>
-                                    <select class="form-control chosen-select" id="product-allergies" name="product-allergies" data-placeholder = "Choose Allergens" multiple>
+                                    <label for="product-allergens" class="form-label">Allergens:</label>
+                                    <select class="form-control chosen-select" id="product-allergens" name="product-allergens" data-placeholder = "Choose Allergens" multiple>
                                         <option value="lactose">Lactose</option>
                                         <option value="nuts">Nuts</option>
                                         <option value="soy">Soy</option>
@@ -137,12 +137,40 @@
                         </div>
                     </div>
 
+                    <div id="delete-product" class="card">
+                        <div class="card-header">Delete Product</div>
+                        <div class="card-body">
+                            <form id="delete-product-form">
+                                <div id="admin-form-field-choose-product" class="admin-form-field">
+                                    <label for="product-names-delete" class="form-label">Product Name:</label>
+                                    <select class="form-control chosen-select" id="product-names-delete" name="product-names-delete" data-placeholder = "Choose Product">
+                                        <% if(products) {
+                                            products.forEach(product => { %>
+                                                <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
+                                            <% }); 
+                                        } %>
+                                    </select>
+                                    <div id="invalid-feedback" class="text-danger">
+
+                                    </div>
+                                </div>
+                                
+                                <div id="delete-product-button-container">
+                                    <button type="button" class="btn btn-primary" id="delete-product-button">Delete Product</button>
+                                    <div id="valid-feedback" class="text-success">
+    
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                     <div id="update-product" class="card">
                         <div class="card-header">Update Product</div>
                         <div class="card-body">
                             <form id="update-product-form">
                                 <div id="admin-form-field-choose-product" class="admin-form-field">
-                                    <label for="product-names-update" class="form-label">Product Name</label>
+                                    <label for="product-names-update" class="form-label">Product Name:</label>
                                     <select class="form-control chosen-select" id="product-names-update" name="product-names-update" data-placeholder = "Choose Product">
                                         <% if(products) {
                                             products.forEach(product => { %>
@@ -156,7 +184,7 @@
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-input-update" class="form-label">Updated Product Name</label>
+                                    <label for="product-input-update" class="form-label">Updated Product Name:</label>
                                     <input type="text" class="form-control" id="product-input-update" name="product-input-update">
                                     <div id="invalid-feedback" class="text-danger">
 
@@ -164,7 +192,7 @@
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-price-update" class="form-label">Price</label>
+                                    <label for="product-price-update" class="form-label">Price ($):</label>
                                     <input type="number" step="0.1" min="0.1" class="form-control" id="product-price-update" name="product-price-update">
                                     <div id="invalid-feedback" class="text-danger">
 
@@ -172,7 +200,7 @@
                                 </div>
 
                                 <div class="admin-form-field">
-                                    <label for="product-description-update" class="form-label">Description</label>
+                                    <label for="product-description-update" class="form-label">Description:</label>
                                     <textarea class="form-control" id="product-description-update" name="product-description-update" rows="3"></textarea>
                                     <div id="invalid-feedback" class="text-danger">
 
@@ -180,12 +208,12 @@
                                 </div>
 
                                 <div class="admin-form-field" id="admin-form-field-image">
-                                    <label for="product-image-update" class="form-label">Image</label>
+                                    <label for="product-image-update" class="form-label">Image:</label>
                                     <input type="text" class="form-control" id="product-image-update" name="product-image-update">
                                 </div>
                                 
                                 <div id="admin-form-field-categories" class="admin-form-field">
-                                    <label for="product-categories-update" class="form-label">Categories</label>
+                                    <label for="product-categories-update" class="form-label">Categories:</label>
                                     <select class="form-control chosen-select" id="product-categories-update" name="product-categories-update" data-placeholder = "Choose Categories" multiple>
                                         <% if(categories) {
                                             categories.forEach(category => { %>
@@ -199,8 +227,8 @@
                                 </div>
                                 
                                 <div class="admin-form-field">
-                                    <label for="product-allergies-update" class="form-label">Allergens</label>
-                                    <select class="form-control chosen-select" id="product-allergies-update" name="product-allergies-update" data-placeholder = "Choose Allergens" multiple>
+                                    <label for="product-allergens-update" class="form-label">Allergens:</label>
+                                    <select class="form-control chosen-select" id="product-allergens-update" name="product-allergens-update" data-placeholder = "Choose Allergens" multiple>
                                         <option value="lactose">Lactose</option>
                                         <option value="nuts">Nuts</option>
                                         <option value="soy">Soy</option>
@@ -300,205 +328,14 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module" src="./header.js"></script>
-    <script type="module" src="./updateUser.js"></script>
-    <script type="module" src="./createProduct.js"></script>
+    <script type="module" src="./User/updateUser.js"></script>
+    <script type="module" src="./Product/createProduct.js"></script>
+    <script type="module" src="./Product/deleteProduct.js"></script>
+    <script type="module" src="./Product/updateProduct.js"></script>
+    <script type="module" src="./Category/createCategory.js"></script>
+    <script type="module" src="./Category/deleteCategory.js"></script>
+    <script type="module" src="./Category/updateCategory.js"></script>
     <script>
-        $(document).ready(() => {
-            $("#update-product-button").on("click", async () => {
-                event.preventDefault();
-                const product_id = $("#product-names-update :selected").attr("value");
-                if (await validateProductForm($("#product-input-update"), $("#product-names-update"), $("#product-price-update"), $("#product-description-update"), $("#product-categories-update"))) 
-                {
-                    try {
-                        await $.ajax({
-                            url: `/products/id/${product_id}`, 
-                            method: 'PUT',
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify({
-                                name: $("#product-input-update").val(),
-                                price: $("#product-price-update").val(),
-                                description: $("#product-description-update").val(),
-                                image: $("#product-image-update").val(),
-                                categories: $("#product-categories-update").val().map(categoryName => ({ name: categoryName })),
-                                allergies: {
-                                    lactose: $("#product-allergies-update").val().includes("lactose"),
-                                    nuts: $("#product-allergies-update").val().includes("nuts"),
-                                    soy: $("#product-allergies-update").val().includes("soy"),
-                                    gluten: $("#product-allergies-update").val().includes("gluten"),
-                                    eggs: $("#product-allergies-update").val().includes("eggs"),
-                                }
-                            }),
-                        });
-
-                        const product = await getProduct($("#product-input-update").val());
-                        $(`option[value="${product._id}"]`).remove();
-
-                        $("#product-names-update").append(
-                            `<option value="${product._id}">${product.name}</option>`
-                        );
-
-                        $("#product-names-update").prop("selectedIndex", -1);
-
-                        $("#product-names-update").trigger("chosen:updated");
-
-                        showValidation($("#update-product-button"),"Product Updated Successfully");
-                        showValidation($("#product-names-update"),"Product Updated Successfully");
-                        showValidation($("#product-price-update"),"Product Updated Successfully");
-                        showValidation($("#product-description-update"),"Product Updated Successfully");
-                        showValidation($("#product-image-update"),"Product Updated Successfully");
-                        showValidation($("#product-categories-update"),"Product Updated Successfully");
-                        showValidation($("#product-allergies-update"),"Product Updated Successfully");
-                    } 
-                    catch (error) {
-                        console.error("Error:", error);
-                    }
-                }
-            });
-
-            $("#product-names-update, #product-price-update, #product-description-update").on("input", (event) => {
-                hideError($(event.target));
-            });
-
-            $(".chosen-select-product-update").on("change", (event) => {
-                hideError($("#product-categories-update"));
-            });
-            
-            let categories;
-            const getCategories = async () => {
-                await $.ajax({
-                    url: '/categories/all', 
-                    type: 'GET',
-                    success: (data) => {
-                        categories = data; 
-                    },
-                    error: (error) => {
-                        console.log("AJAX error when retrieving categories", error);
-                    }
-                });
-            } 
-
-            const checkExistingCategory = async (category_name) => {
-                await getCategories();
-                for(let i = 0; i < categories.length; i++) {
-                    if(categories[i].name === category_name) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            const containsSpecialCharacters = (str) => {
-                const special_character_regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|^\s*$/;
-                return special_character_regex.test(str);
-            }
-            
-            $("#create-category-button").on("click", async () => {
-                const category_name = $("#create-category-input").val();
-                if(!containsSpecialCharacters(category_name) && !(await checkExistingCategory(category_name))) {
-                    try {
-                        const response = await $.ajax({
-                            url: '/categories',
-                            method: 'POST',
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify({ name: category_name }), 
-                        });
-                        hideError($("#create-category-input"));
-                        
-                        $("#product-categories, #delete-product-categories, #update-product-categories").append(
-                            `<option value="${response.name}">${response.name}</option>`
-                        );
-                        
-                        $("#product-categories, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
-                    
-                        $("#create-category-input").val("");
-
-                        showValidation($("#create-category-button"), "Category Created Successfully");
-                        showValidation($("#create-category-input"), "Category Created Successfully");
-                    } 
-                    catch (error) {
-                        console.error("AJAX error:", error);
-                    }
-                }
-                else {
-                    showError($("#create-category-input"), "Category already exists or value contains special character")
-                }
-                
-            });
-
-            $("#delete-category-button").on("click", async () => {
-                const category_name = $("#delete-product-categories :selected").text();
-                if(!containsSpecialCharacters(category_name) && await checkExistingCategory(category_name)) {
-                    try {
-                        await $.ajax({
-                            url: `/categories/name/${category_name}`,
-                            method: 'DELETE',
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify({ name: category_name })
-                        });
-                        
-                        hideError($("#delete-product-categories"));
-                        
-                        $(`option[value="${category_name}"]`).remove();
-
-                        $("#delete-product-categories, #update-product-categories").prop("selectedIndex", -1);
-                        $("#product-names-update, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
-
-                        showValidation($("#delete-category-button"), "Category Deleted Successfully");
-                    } 
-                    catch (error) {
-                        console.error("AJAX error:", error);
-                    }
-                }
-                else {
-                    showError($("#delete-category-input"), "Category does not exist or value contains special character")
-                }
-            })
-
-            $("#update-category-button").on("click", async () => {
-                const category_name = $("#update-product-categories :selected").text();
-                const updated_category_name = $("#update-category-input").val();
-                if(!containsSpecialCharacters(updated_category_name) && !(await checkExistingCategory(updated_category_name))) {
-                    try {
-                        await $.ajax({
-                            url: `/categories/name/${category_name}`,
-                            method: 'PUT',
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify({ name: updated_category_name })
-                        });
-                        
-                        hideError($("#update-category-input"));
-
-                        $(`option[value="${category_name}"]`).remove();
-
-                        $("#product-categories, #delete-product-categories, #update-product-categories").append(
-                            `<option value="${updated_category_name}">${updated_category_name}</option>`
-                        );
-
-                        $("#delete-product-categories, #update-product-categories").prop("selectedIndex", -1);
-                        $("#product-categories, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
-
-                        $("#update-category-input").val("");
-
-                        showValidation($("#update-category-button"), "Category updated successfully");
-                        showValidation($("#update-category-input"), "Category updated successfully");
-                    } 
-                    catch (error) {
-                        console.error("AJAX error:", error);
-                    }
-                }
-                else {
-                    showError($("#update-category-input"), "Category already exists or value contains special character")
-                }
-            })
-
-            $("#create-category-input, #delete-category-input, #update-category-input").on("input", (event) => {
-                hideError($(event.target));
-            });
-        });
     </script>
 </body>
 </html>
