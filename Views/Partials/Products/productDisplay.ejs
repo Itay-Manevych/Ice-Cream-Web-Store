@@ -51,12 +51,14 @@
             </div>
           </div>
           <div class="add-container">
-            <button id="add-button" class="btn btn-success mt-3 margin-top" onclick="addToCart('<%= product.name %>', '<%= product.price %>', '<%= product.image %>')">
-              Add to Cart
-            </button>
-            <input type="number" class="form-control" id="quantityInput" name="quantity" min="1" max="15" value="1" onchange="updateTotalPrice('<%= product.price %>')">
+            <div class="button-and-input">
+              <button id="add-button" class="btn btn-success mt-3 margin-top" onclick="addToCart('<%= product.name %>', '<%= product.price %>', '<%= product.image %>')">
+                Add to Cart
+              </button>
+              <input type="number" class="form-control" id="quantityInput" name="quantity" min="1" max="15" value="1" onchange="updateTotalPrice('<%= product.price %>')">
+            </div>
             <div>
-              <p>Total Price: $<span id="totalPriceSpan"><%= product.price %></span></p>
+              <p id="total-price">Total Price: $<span id="totalPriceSpan"><%= product.price %></span></p>
             </div>
             
           </div>
@@ -108,7 +110,6 @@ const addToCart = (productName, productPrice, productImage) => {
   localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
 
   console.log(`Added "${productName}" to cart for a total of $${totalPrice.toFixed(2)} (Quantity: ${selectedQuantity})`);
-  console.log("Selected Additions:", selectedAdditions);
   localStorage.setItem('counter', counter);
 };
   </script>

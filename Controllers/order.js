@@ -1,9 +1,16 @@
 import { OrderService } from "../Services/order.js";
+import { ProductService } from "../Services/product.js";
 
 const createOrder = async (req, res) => {
     try {
         const new_order = await OrderService.createOrder(req.body);
-        console.log(new_order);
+        for (const product_info of req.body.products_info) {
+            const product = await ProductService.getProductByName(product_info.product_name);
+            if (product) {
+                product.amount_purchased += product_info.amount;
+                await product.save();
+            }
+        }
         res.status(201).json(new_order);
     }
     catch(error) {

@@ -16,6 +16,7 @@ import DashboardRouter from "./Routes/dashboard.js";
 import CheckoutRouter from "./Routes/checkout.js";
 
 import { ProductController } from "./Controllers/product.js";
+import { CategoryController } from "./Controllers/category.js";
 
 const env_path = "./Config/.env";
 
@@ -56,7 +57,9 @@ app.use("/dashboard", DashboardRouter);
 app.use("/checkout", CheckoutRouter);
 
 app.get("/", async (req, res) => {
-  res.render('./Partials/Main-Page/mainPage.ejs');
+  const categories = await CategoryController.getAllCategories(req,res);
+  const products = await ProductController.getTopProducts(req,res);
+  res.render('Partials/Main-Page/mainPage.ejs', {products: products, categories: categories, pageTitle: 'Trending 🔥'});
 });
 
 app.get("/about_us", async (req, res) => {
