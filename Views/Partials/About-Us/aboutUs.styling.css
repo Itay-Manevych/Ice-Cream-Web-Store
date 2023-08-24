@@ -29,19 +29,14 @@ aside > p {
     display: grid;
     grid-template-columns: 1fr 35rem;
     gap: 5rem;
-    margin-top: -4rem;
     margin-bottom: 10rem;
+    margin-top: -1rem;
 }
 
 #text {
     display: grid;
-    width: 80rem;
+    min-width: 20rem;
     row-gap: 1.5rem;
-}
-
-.image {
-    width: 30rem;
-    margin-bottom: 1rem;
 }
 
 .map {
