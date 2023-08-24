@@ -27,12 +27,25 @@ aside > p {
 
 #views {
     display: grid;
-    grid-template-columns: 1fr 35rem;
-    gap: 5rem;
+    grid-template-columns: 1fr 30rem;
+    gap: 6rem;
     margin-bottom: 10rem;
+    margin-right: 4rem;
     margin-top: -1rem;
 }
 
+#canvas {
+    margin-top: -0.75rem;
+    height: 46.5rem;
+    width: 27rem;
+    position: absolute;
+    z-index: 1;
+}
+
+video {
+    position: absolute;
+    z-index: 2;
+}
 #text {
     display: grid;
     min-width: 20rem;
