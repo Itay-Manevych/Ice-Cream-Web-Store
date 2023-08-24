@@ -29,6 +29,10 @@ const getAllProducts = async () => {
     return await Product.find({});    
 }
 
+const getTopProducts = async () => {
+    return await Product.find().sort({ amount_purchased: -1 }).limit(5);
+};
+
 const updateProduct = async (id, updated_data) => {
     return await Product.findByIdAndUpdate(id, updated_data, {new: true});
 }
@@ -37,4 +41,4 @@ const deleteProduct = async (id) => {
     return await Product.findByIdAndDelete(id);
 }
 
-export const ProductService = {createProduct, getProductById, getProductByName, filterProductsByCategory, getAllProducts, updateProduct, deleteProduct};
+export const ProductService = {createProduct, getProductById, getProductByName, filterProductsByCategory, getAllProducts, getTopProducts, updateProduct, deleteProduct};
