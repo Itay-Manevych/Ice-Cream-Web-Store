@@ -77,6 +77,18 @@ const getAllProducts = async (req, res) => {
     }
 }
 
+const getTopProducts = async (req, res) => {
+    try {
+        const topProducts = await ProductService.getTopProducts();
+        res.status(200).json(topProducts);
+    } catch (error) {
+        res.status(500).json({
+            error: "Error getting top products",
+            message: error.message,
+        });
+    }
+};
+
 const updateProduct = async (req, res) => {
     try {
         const updated_product = await ProductService.updateProduct(req.params.id, req.body);
@@ -106,4 +118,4 @@ const deleteProduct = async (req, res) => {
     }
 }
 
-export const ProductController = {createProduct, getProductById, getProductByName, getAllProductsByCategory, getAllProducts, updateProduct, deleteProduct};
+export const ProductController = {createProduct, getProductById, getProductByName, getAllProductsByCategory, getAllProducts, getTopProducts, updateProduct, deleteProduct};
