@@ -10,7 +10,7 @@
     </head>
     
     <body>
-        <div id="carousel-div" class="carousel slide" data-ride="carousel">
+        <div id="carousel-div" class="carousel slide" data-ride="carousel" style="min-width:100%; margin-left:auto;">
             <ol class="carousel-indicators">
                 <li data-target="#carousel-div" data-slide-to="0" class="active"></li>
                 <li data-target="#carousel-div" data-slide-to="1"></li>
@@ -19,13 +19,13 @@
                 <li data-target="#carousel-div" data-slide-to="4"></li>
             </ol>
 
-            <div class="d-flex justify-content-center align-items-center">
-                    <a class="carousel-control-prev" href="#carousel-div" role="button" data-slide="prev" style="position:relative;">
-                        <canvas id="canvas" height="35rem" width="16rem"></canvas>
-                        <span class="carousel-control-prev-icon" aria-hidden="true" style="z-index: 999; position: absolute;"></span>
-                    </a>
+            <div class="d-flex justify-content-center">
+                <a class="carousel-control-prev" href="#carousel-div" role="button" data-slide="prev" style="position: relative; min-width: 4.98rem;">
+                    <canvas id="canvas" height="40rem" width="16rem"></canvas>
+                    <span class="carousel-control-prev-icon button" aria-hidden="true"></span>
+                </a>
     
-                <div class="carousel-inner">
+                <div class="carousel-inner" style="min-width: 44.5rem;">
                     <div class="carousel-item active">
                         <img src="../Assets/image1.png" alt="First slide">
                     </div>
@@ -42,11 +42,11 @@
                         <img src="../Assets/image5.png" alt="Third slide">
                     </div>
                 </div>
-                <a class="carousel-control-next" href="#carousel-div" role="button" data-slide="next" style="position:relative;">
-                    <canvas id="canvas-r" height="35rem" width="16rem"></canvas>
-                    <span class="carousel-control-next-icon" aria-hidden="true" style="z-index: 999; position: absolute;"></span>
-                </a>
-                    
+
+                <a class="carousel-control-next" href="#carousel-div" role="button" data-slide="next" style="position: relative; min-width: 4.98rem;">
+                    <canvas id="canvas-r" height="40rem" width="16rem"></canvas>
+                    <span class="carousel-control-next-icon button" aria-hidden="true"></span>
+                </a>  
             </div>
         </div>
 
