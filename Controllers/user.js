@@ -111,6 +111,7 @@ const deleteUserByEmail = async (req, res) => {
         if(!deleted_user) {
             throw new Error("The user model you are trying to delete does not exist");
         }
+        res.clearCookie("jwt");
         res.status(201).json(deleted_user);
     }
     catch(error) {

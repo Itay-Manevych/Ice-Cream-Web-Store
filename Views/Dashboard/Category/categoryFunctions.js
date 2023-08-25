@@ -11,10 +11,15 @@ const getAllCategories = async () => {
     }
 } 
 
-const checkExistingCategory = async (category_name) => {
+const checkExistingCategory = async (category_name, is_update) => {
     const categories = await getAllCategories();
+    
+    if(categories.length === 1 && is_update) {
+        return false;
+    }
+
     for(let i = 0; i < categories.length; i++) {
-        if(categories[i].name === category_name) {
+        if(categories[i].name.toLowerCase() === category_name.toLowerCase()) {
             return true;
         }
     }

@@ -6,7 +6,7 @@ import { CategoryFunctions } from "./categoryFunctions.js";
 $(document).ready(() => {
     const createCategory = async () => {
         const category_name = $("#create-category-input").val();
-        if(!Validation.containsSpecialCharacters(category_name) && !(await CategoryFunctions.checkExistingCategory(category_name))) {
+        if(!Validation.containsSpecialCharacters(category_name) && !(await CategoryFunctions.checkExistingCategory(category_name, false))) {
             try {
                 const response = await $.ajax({
                     url: '/categories',

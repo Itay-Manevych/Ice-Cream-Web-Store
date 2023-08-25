@@ -7,7 +7,7 @@ $(document).ready(() => {
     const updateCategory = async () => {
         const category_name = $("#update-product-categories :selected").text();
         const updated_category_name = $("#update-category-input").val();
-        if(!Validation.containsSpecialCharacters(updated_category_name) && !(await CategoryFunctions.checkExistingCategory(updated_category_name))) {
+        if(!Validation.containsSpecialCharacters(updated_category_name) && !(await CategoryFunctions.checkExistingCategory(updated_category_name, true))) {
             try {
                 await $.ajax({
                     url: `/categories/name/${category_name}`,

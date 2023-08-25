@@ -7,186 +7,177 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" integrity="sha512-0nkKORjFgcyxv3HbE4rzFUlENUMNqic/EzDIeYCgsKa/nwqr2B91Vu/tNAu4Q0cBuG4Xe/D1f/freEci/7GDRA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../../Dashboard/Admin/Admin-Product-Display/adminProduct.styling.css">
+    <%- include("../../../Partials/Dashboard-Admin-Header/dashboardAdminHeader.ejs") %>
     <title>Document</title>
 </head>
 <body>
-    <div id="welcome-container" class="d-flex justify-content-between align-items-center">
-        <header id="welcome">
-            <i id="house-icon" class="bi bi-house-door"></i>
-            Product Functions
-        </header>
-        <div id="icons">
-            <i id="dashboard-icon" class="bi bi-speedometer"></i>
-            <i id="logout-icon" class="bi bi-box-arrow-left"></i>
-        </div>
-    </div>
-        <div id="admin-info">
-            <div id="create-update-product-container">
-                <div id="create-product" class="card">
-                    <div class="card-header">Create Product</div>
-                    <div class="card-body">
-                        <form id="create-product-form">
-                            <div class="admin-form-field">
-                                <label for="product-name" class="form-label">Product Name:</label>
-                                <input type="text" class="form-control" id="product-name" name="product-name">
-                                <div id="invalid-feedback" class="text-danger"> 
-                                </div>
-                            </div>  
-                            <div class="admin-form-field">
-                                <label for="product-price" class="form-label">Price ($):</label>
-                                <input type="number" step="0.1" min="0.1" class="form-control" id="product-price" name="product-price">
-                                <div id="invalid-feedback" class="text-danger"> 
-                                </div>
-                            </div>  
-                            <div class="admin-form-field">
-                                <label for="product-description" class="form-label">Description:</label>
-                                <textarea class="form-control" id="product-description" name="product-description" rows="3"></textarea>
-                                <div id="invalid-feedback" class="text-danger"> 
-                                </div>
-                            </div>  
-                            <div class="admin-form-field" id="admin-form-field-image">
-                                <label for="product-image" class="form-label">Image:</label>
-                                <input type="text" class="form-control" id="product-image" name="product-image">
+    <div id="admin-info">
+        <div id="create-update-product-container">
+            <div id="create-product" class="card">
+                <div class="card-header">Create Product</div>
+                <div class="card-body">
+                    <form id="create-product-form">
+                        <div class="admin-form-field">
+                            <label for="product-name" class="form-label">Product Name:</label>
+                            <input type="text" class="form-control" id="product-name" name="product-name">
+                            <div id="invalid-feedback" class="text-danger"> 
                             </div>
+                        </div>  
+                        <div class="admin-form-field">
+                            <label for="product-price" class="form-label">Price ($):</label>
+                            <input type="number" step="0.1" min="0.1" class="form-control" id="product-price" name="product-price">
+                            <div id="invalid-feedback" class="text-danger"> 
+                            </div>
+                        </div>  
+                        <div class="admin-form-field">
+                            <label for="product-description" class="form-label">Description:</label>
+                            <textarea class="form-control" id="product-description" name="product-description" rows="3"></textarea>
+                            <div id="invalid-feedback" class="text-danger"> 
+                            </div>
+                        </div>  
+                        <div class="admin-form-field" id="admin-form-field-image">
+                            <label for="product-image" class="form-label">Image:</label>
+                            <input type="text" class="form-control" id="product-image" name="product-image">
+                        </div>
+                        
+                        <div class="admin-form-field">
+                            <label for="product-categories" class="form-label">Categories:</label>
+                            <select class="form-control chosen-select" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
+                                <% if(categories) {
+                                    categories.forEach(category => { %>
+                                    <option value="<%= category.name %>"><%= category.name %></option>
+                                    <% });
+                                } %>
+                            </select>
+                            <div id="invalid-feedback" class="text-danger"> 
+                            </div>
+                        </div>  
+                        <div class="admin-form-field">
+                            <label for="product-allergens" class="form-label">Allergens:</label>
+                            <select class="form-control chosen-select" id="product-allergens" name="product-allergens" data-placeholder = "Choose Allergens" multiple>
+                                <option value="lactose">Lactose</option>
+                                <option value="nuts">Nuts</option>
+                                <option value="soy">Soy</option>
+                                <option value="gluten">Gluten</option>
+                                <option value="eggs">Eggs</option>
+                            </select>
+                        </div>
+                        
+                        <div id="create-product-button-container">
+                            <button type="button" class="btn btn-primary" id="create-product-button">Create Product</button>
+                            <div id="valid-feedback" class="text-success">  
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>  
+            <div id="update-product" class="card">
+                <div class="card-header">Update Product</div>
+                <div class="card-body">
+                    <form id="update-product-form">
+                        <div id="admin-form-field-choose-product" class="admin-form-field">
+                            <label for="product-names-update" class="form-label">Product Name:</label>
+                            <select class="form-control chosen-select" id="product-names-update" name="product-names-update" data-placeholder = "Choose Product">
+                                <% if(products) {
+                                    products.forEach(product => { %>
+                                        <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
+                                    <% }); 
+                                } else { %>
+                                    <p>No products available.</p>
+                                <% } %>
+                            </select>
+                            <div id="invalid-feedback" class="text-danger"> 
+                            </div>
+                        </div>  
+                        <div class="admin-form-field">
+                            <label for="product-input-update" class="form-label">Updated Product Name:</label>
+                            <input type="text" class="form-control" id="product-input-update" name="product-input-update">
+                            <div id="invalid-feedback" class="text-danger"> 
+                            </div>
+                        </div>  
+                        <div class="admin-form-field">
+                            <label for="product-price-update" class="form-label">Price ($):</label>
+                            <input type="number" step="0.1" min="0.1" class="form-control" id="product-price-update" name="product-price-update">
+                            <div id="invalid-feedback" class="text-danger"> 
+                            </div>
+                        </div>  
+                        <div class="admin-form-field">
+                            <label for="product-description-update" class="form-label">Description:</label>
+                            <textarea class="form-control" id="product-description-update" name="product-description-update" rows="3"></textarea>
+                            <div id="invalid-feedback" class="text-danger"> 
+                            </div>
+                        </div>  
+                        <div class="admin-form-field" id="admin-form-field-image">
+                            <label for="product-image-update" class="form-label">Image:</label>
+                            <input type="text" class="form-control" id="product-image-update" name="product-image-update">
+                        </div>
+                        
+                        <div id="admin-form-field-categories" class="admin-form-field">
+                            <label for="product-categories-update" class="form-label">Categories:</label>
+                            <select class="form-control chosen-select" id="product-categories-update" name="product-categories-update" data-placeholder = "Choose Categories" multiple>
+                                <% if(categories) {
+                                    categories.forEach(category => { %>
+                                    <option value="<%= category.name %>"><%= category.name %></option>
+                                    <% });
+                                } else { %>
+                                    <p>No categories available.</p>
+                                <% } %>
+                            </select>
+                            <div id="invalid-feedback" class="text-danger"> 
+                            </div>
+                        </div>
+                        
+                        <div class="admin-form-field">
+                            <label for="product-allergens-update" class="form-label">Allergens:</label>
+                            <select class="form-control chosen-select" id="product-allergens-update" name="product-allergens-update" data-placeholder = "Choose Allergens" multiple>
+                                <option value="lactose">Lactose</option>
+                                <option value="nuts">Nuts</option>
+                                <option value="soy">Soy</option>
+                                <option value="gluten">Gluten</option>
+                                <option value="eggs">Eggs</option>
+                            </select>
+                        </div>  
+                        <div id="update-product-button-container">
+                            <button type="button" class="btn btn-primary" id="update-product-button">Update Product</button>
+                            <div id="valid-feedback" class="text-success">
                             
-                            <div class="admin-form-field">
-                                <label for="product-categories" class="form-label">Categories:</label>
-                                <select class="form-control chosen-select" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
-                                    <% if(categories) {
-                                        categories.forEach(category => { %>
-                                        <option value="<%= category.name %>"><%= category.name %></option>
-                                        <% });
-                                    } %>
-                                </select>
-                                <div id="invalid-feedback" class="text-danger"> 
-                                </div>
-                            </div>  
-                            <div class="admin-form-field">
-                                <label for="product-allergens" class="form-label">Allergens:</label>
-                                <select class="form-control chosen-select" id="product-allergens" name="product-allergens" data-placeholder = "Choose Allergens" multiple>
-                                    <option value="lactose">Lactose</option>
-                                    <option value="nuts">Nuts</option>
-                                    <option value="soy">Soy</option>
-                                    <option value="gluten">Gluten</option>
-                                    <option value="eggs">Eggs</option>
-                                </select>
                             </div>
-                            
-                            <div id="create-product-button-container">
-                                <button type="button" class="btn btn-primary" id="create-product-button">Create Product</button>
-                                <div id="valid-feedback" class="text-success">  
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>  
-                <div id="update-product" class="card">
-                    <div class="card-header">Update Product</div>
-                    <div class="card-body">
-                        <form id="update-product-form">
-                            <div id="admin-form-field-choose-product" class="admin-form-field">
-                                <label for="product-names-update" class="form-label">Product Name:</label>
-                                <select class="form-control chosen-select" id="product-names-update" name="product-names-update" data-placeholder = "Choose Product">
-                                    <% if(products) {
-                                        products.forEach(product => { %>
-                                            <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
-                                        <% }); 
-                                    } else { %>
-                                        <p>No products available.</p>
-                                    <% } %>
-                                </select>
-                                <div id="invalid-feedback" class="text-danger"> 
-                                </div>
-                            </div>  
-                            <div class="admin-form-field">
-                                <label for="product-input-update" class="form-label">Updated Product Name:</label>
-                                <input type="text" class="form-control" id="product-input-update" name="product-input-update">
-                                <div id="invalid-feedback" class="text-danger"> 
-                                </div>
-                            </div>  
-                            <div class="admin-form-field">
-                                <label for="product-price-update" class="form-label">Price ($):</label>
-                                <input type="number" step="0.1" min="0.1" class="form-control" id="product-price-update" name="product-price-update">
-                                <div id="invalid-feedback" class="text-danger"> 
-                                </div>
-                            </div>  
-                            <div class="admin-form-field">
-                                <label for="product-description-update" class="form-label">Description:</label>
-                                <textarea class="form-control" id="product-description-update" name="product-description-update" rows="3"></textarea>
-                                <div id="invalid-feedback" class="text-danger"> 
-                                </div>
-                            </div>  
-                            <div class="admin-form-field" id="admin-form-field-image">
-                                <label for="product-image-update" class="form-label">Image:</label>
-                                <input type="text" class="form-control" id="product-image-update" name="product-image-update">
-                            </div>
-                            
-                            <div id="admin-form-field-categories" class="admin-form-field">
-                                <label for="product-categories-update" class="form-label">Categories:</label>
-                                <select class="form-control chosen-select" id="product-categories-update" name="product-categories-update" data-placeholder = "Choose Categories" multiple>
-                                    <% if(categories) {
-                                        categories.forEach(category => { %>
-                                        <option value="<%= category.name %>"><%= category.name %></option>
-                                        <% });
-                                    } else { %>
-                                        <p>No categories available.</p>
-                                    <% } %>
-                                </select>
-                                <div id="invalid-feedback" class="text-danger"> 
-                                </div>
-                            </div>
-                            
-                            <div class="admin-form-field">
-                                <label for="product-allergens-update" class="form-label">Allergens:</label>
-                                <select class="form-control chosen-select" id="product-allergens-update" name="product-allergens-update" data-placeholder = "Choose Allergens" multiple>
-                                    <option value="lactose">Lactose</option>
-                                    <option value="nuts">Nuts</option>
-                                    <option value="soy">Soy</option>
-                                    <option value="gluten">Gluten</option>
-                                    <option value="eggs">Eggs</option>
-                                </select>
-                            </div>  
-                            <div id="update-product-button-container">
-                                <button type="button" class="btn btn-primary" id="update-product-button">Update Product</button>
-                                <div id="valid-feedback" class="text-success">
-                                
-                                </div>
-                            </div>
-
-                            
-                        </form>
-                    </div>
+                        </div>
+                        
+                    </form>
                 </div>
             </div>
-            <div id="delete-product-container">
-                <div id="delete-product" class="card">
-                    <div class="card-header">Delete Product</div>
-                    <div class="card-body">
-                        <form id="delete-product-form">
-                            <div id="admin-form-field-choose-product" class="admin-form-field">
-                                <label for="product-names-delete" class="form-label">Product Name:</label>
-                                <select class="form-control chosen-select" id="product-names-delete" name="product-names-delete" data-placeholder = "Choose Product">
-                                    <% if(products) {
-                                        products.forEach(product => { %>
-                                            <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
-                                        <% }); 
-                                    } else { %>
-                                        <p>No products available.</p>
-                                    <% } %>
-                                </select>
-                                <div id="invalid-feedback" class="text-danger"> 
-                                </div>
+        </div>
+        <div id="delete-product-container">
+            <div id="delete-product" class="card">
+                <div class="card-header">Delete Product</div>
+                <div class="card-body">
+                    <form id="delete-product-form">
+                        <div id="admin-form-field-choose-product" class="admin-form-field">
+                            <label for="product-names-delete" class="form-label">Product Name:</label>
+                            <select class="form-control chosen-select" id="product-names-delete" name="product-names-delete" data-placeholder = "Choose Product">
+                                <% if(products) {
+                                    products.forEach(product => { %>
+                                        <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
+                                    <% }); 
+                                } else { %>
+                                    <p>No products available.</p>
+                                <% } %>
+                            </select>
+                            <div id="invalid-feedback" class="text-danger"> 
                             </div>
-                            
-                            <div id="delete-product-button-container">
-                                <button type="button" class="btn btn-primary" id="delete-product-button">Delete Product</button>
-                                <div id="valid-feedback" class="text-success">  
-                                </div>
+                        </div>
+                        
+                        <div id="delete-product-button-container">
+                            <button type="button" class="btn btn-primary" id="delete-product-button">Delete Product</button>
+                            <div id="valid-feedback" class="text-success">  
                             </div>
-                        </form>
-                    </div>
-                </div>  
-            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>  
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -195,5 +186,8 @@
     <script type="module" src="../../../Dashboard/Product/createProduct.js"></script>
     <script type="module" src="../../../Dashboard/Product/updateProduct.js"></script>
     <script type="module" src="../../../Dashboard/Product/deleteProduct.js"></script>
+    <script>
+        $("#welcome").append("Product Functions");
+    </script>
 </body>
 </html>

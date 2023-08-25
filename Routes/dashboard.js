@@ -46,9 +46,20 @@ DashboardRouter.route('/admin-product')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
         const products = await ProductController.getAllProducts(req, res);
-
         const categories = await CategoryController.getAllCategories(req, res);
         res.render("./Dashboard/Admin/Admin-Product-Display/adminProduct",{ user:user, products: products, categories: categories });
+    })
+    .post(async (req,res) => {
+        const user = await UserController.destroyCookie(req, res);
+        res.json(user);
+    });
+
+DashboardRouter.route('/admin-category')
+    .get(async (req, res) => {
+        const user = await UserController.getUserByToken(req, res);
+        const products = await ProductController.getAllProducts(req, res);
+        const categories = await CategoryController.getAllCategories(req, res);
+        res.render("./Dashboard/Admin/Admin-Category-Display/adminCategory",{ user:user, products: products, categories: categories });
     })
     .post(async (req,res) => {
         const user = await UserController.destroyCookie(req, res);
