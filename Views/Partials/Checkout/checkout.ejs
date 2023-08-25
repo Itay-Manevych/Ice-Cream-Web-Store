@@ -111,6 +111,7 @@
         item_additions.classList.add('card-text');
         const additions = Object.keys(item.additions)
         .filter(addition => item.additions[addition])
+        .map(addition => addition.replace('_', ' '))
         .join(', ');
         if (additions) {
             item_additions.textContent = `Additions: ${additions}`;
