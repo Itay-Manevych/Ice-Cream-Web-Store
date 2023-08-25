@@ -159,11 +159,25 @@ label {
     margin-bottom: 0.5rem;
 }
 
+#address-container {
+    margin-bottom: 1rem;
+}
+
+#address-paragraph{
+    margin-bottom: 0.35rem;
+}
+
+#address-paragraph:first-of-type {
+    margin-top: 0.1rem;
+    margin-bottom: 0.35rem;
+}
+
 #product-image {
     height: 5rem;
     margin-left: 1rem;
     margin-right: 1rem;
 }
+
 
 #button {
     display: flex;

@@ -38,6 +38,10 @@ $(document).ready(() => {
         window.location.href = '/dashboard/admin-category';
     })
 
+    $(".order-button").on("click", () => {
+        window.location.href = '/dashboard/admin-order';
+    })
+
     $("#dashboard-icon").on("click", () => {
         window.location.href = '/dashboard/';
     })
