@@ -2,6 +2,7 @@ import express from "express"
 import { UserController } from "../Controllers/user.js";
 import { ProductController } from "../Controllers/product.js";
 import { CategoryController } from "../Controllers/category.js";
+import { OrderController } from "../Controllers/order.js";
 const DashboardRouter = express.Router();
 
 DashboardRouter.route('/')
@@ -9,7 +10,14 @@ DashboardRouter.route('/')
         const user = await UserController.getUserByToken(req, res);
         const products = await ProductController.getAllProducts(req, res);
         const categories = await CategoryController.getAllCategories(req, res);
-        res.render('./Dashboard/dashboard',{user: user, products: products, categories: categories});
+        const orders = await OrderController.getAllOrders(req, res);
+        const orders_of_user = [];
+        for(let i = 0; i < orders.length; i++) {
+            if(orders[i].email === user.email) {
+                orders_of_user.push(orders[i]);
+            }
+        }
+        res.render('./Dashboard/dashboard',{user: user, products: products, categories: categories, orders_of_user, all_orders: orders});
     })
     .post(async (req,res) => {
         const user = await UserController.destroyCookie(req, res);
@@ -34,5 +42,17 @@ DashboardRouter.route('/products')
         res.json(products);
     });
 
+DashboardRouter.route('/admin-product')
+    .get(async (req, res) => {
+        const user = await UserController.getUserByToken(req, res);
+        const products = await ProductController.getAllProducts(req, res);
+
+        const categories = await CategoryController.getAllCategories(req, res);
+        res.render("./Dashboard/Admin/Admin-Product-Display/adminProduct",{ user:user, products: products, categories: categories });
+    })
+    .post(async (req,res) => {
+        const user = await UserController.destroyCookie(req, res);
+        res.json(user);
+    });
 export default DashboardRouter;
 

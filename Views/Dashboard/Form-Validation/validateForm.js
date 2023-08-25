@@ -63,7 +63,7 @@ const validateProductForm = async (product_input, product_select, price_input, d
         Error.hideError(product_input);
         Error.showError(product_input, "Product name cannot contain special characters.");
     }
-    else if(!is_update && await ProductFunctions.checkExistingProduct(product_input.val())) {
+    else if(!is_update && await ProductFunctions.checkExistingProduct(product_input.val().toLowerCase())) {
         is_valid = false;
         Valid.hideAllValid(elements_array);
         Error.hideError(product_input);
