@@ -48,22 +48,26 @@
             let current_user;
             $(document).ready(() => {
                 navbar = $(".navbar")[0];
-
+                
                 const logo_btn = $("#logo-btn")[0];
                 const about_btn = $("#about-btn")[0];
                 const shop_btn = $("#shop-btn")[0];
                 const home_btn = $("#home-btn")[0];
-
+                
                 const open_search = $(".bi-search")[0];
                 const user_btn = $(".bi-person-square")[0];
                 const cart_btn = $(".bi-cart")[0];
-
+                
                 const search_box = $("#search-box")[0];
                 const close_search = $("#close-search")[0];
                 const search_input = $("#search-input")[0];
-
+                
                 const search_btn = $("#search-icon-search-box")[0];
-
+                
+                if (window.location.pathname === '/checkout') {
+                    $('#cart-icon').remove();
+                    $('.user-box').css('gap', '6rem');
+                }
                 const mainPage = () => {
                     window.location.href = "/";
                 }
