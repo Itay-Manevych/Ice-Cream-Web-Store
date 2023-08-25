@@ -53,6 +53,8 @@
   border-radius: 0.5rem;
 }
 
+
+
 #product-cart-image {
     width: 8rem;
     height: 8rem;
@@ -60,7 +62,7 @@
 
 .item-details {
     margin-top: 0.5rem;
-    width: 18rem;
+    width: 65%;
     margin-left: 0.5rem;
 }
 
@@ -173,6 +175,11 @@ nav.navbar {
 #search-icon:hover, #user-icon:hover, #cart-icon:hover, #close-search:hover, #search-icon-search-box:hover {
     font-size: xx-large;
     color: black;
+}
+
+.delete-icon {
+    cursor: pointer;
+    margin-left: auto; 
 }
 
 #user-icon {
