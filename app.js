@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import path from "path";
 import { fileURLToPath } from 'url';
+import http from "http";
+import { Server } from "socket.io";
 
 import ProductRouter from "./Routes/product.js";
 import CategoryRouter from "./Routes/category.js";
@@ -76,4 +78,40 @@ app.get("/search-products", async (req, res) => {
 
 app.listen(process.env.PORT, () => {
   console.log(`server runs on port ${process.env.PORT}`);
+});
+
+
+const adminApp = express();
+const adminServer = http.createServer(adminApp);
+const adminIo = new Server(adminServer);
+
+adminApp.use(cookieParser());
+adminApp.use(bodyParser.json());
+adminApp.use(express.static('Views'));
+adminApp.set('view engine', 'ejs');
+adminApp.set('views', path.join(__dirname, 'Views'))
+
+adminIo.on("connection", (socket) => {
+  console.log("Admin user connected to chat:", socket.id);
+
+  socket.on("disconnect", () => {
+    console.log("Admin user disconnected from chat:", socket.id);
+  });
+
+  socket.on("admin_message", (message) => {
+    adminIo.emit("admin_message", message);
+  });
+});
+
+adminServer.listen(process.env.ADMIN_PORT, () => {
+  console.log(`Admin chat server is running on port ${process.env.ADMIN_PORT}`);
+});
+
+app.get("/get-admin-chat-url", (req, res) => {
+  const adminChatUrl = `http://localhost:${process.env.ADMIN_PORT}/admin-chat`;  
+  res.json({ adminChatUrl });
+});
+
+adminApp.get("/admin-chat", (req, res) => {
+  res.render("./Admin-Chat/adminChat.ejs");
 });

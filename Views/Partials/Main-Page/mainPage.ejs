@@ -8,6 +8,26 @@
 <body>
     <%- include("../Navbar/navbar.ejs") %>
     <%- include("../../Carousel/carousel.ejs") %>
+    <i class="bi bi-chat-dots admin-chat-button"></i>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+    const goToAdminChatButton = $(".admin-chat-button")[0];
+    
+    goToAdminChatButton.addEventListener("click", async () => {
+        $.ajax({
+            url: "/get-admin-chat-url",
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+              window.location.href = data.adminChatUrl;
+            },
+            error: function(error) {
+              console.error("Error getting admin chat URL:", error);
+            }
+     });
+    });
+
+    </script>
     <%- include("../Footer/footer.ejs") %>
     
 </body>
