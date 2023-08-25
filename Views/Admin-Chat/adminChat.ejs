@@ -4,41 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./adminChat.styling.css">
-    <title>Admin Chat</title>
+    <title>Chat</title>
 </head>
 <body>
-    <h1>Admin Chat</h1>
-
+    <h1>Chat</h1>
     <div id="chat-container">
         <input type="text" id="message-input" placeholder="Type your message">
         <button id="send-button">Send</button>
         <div id="chat-messages"></div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io(); 
     
-        const chatMessages = document.getElementById("chat-messages");
-        const messageInput = document.getElementById("message-input");
-        const sendButton = document.getElementById("send-button");
+        const chat_messages = document.getElementById("chat-messages");
+        const message_input = document.getElementById("message-input");
+        const send_button = document.getElementById("send-button");
     
-        function displayMessage(message, sender) {
-            const messageDiv = document.createElement("div");
-            messageDiv.textContent = `${sender}: ${message}`;
-            chatMessages.appendChild(messageDiv);
-        }
+        function displayMessage(message, sender, is_admin) {
+            const message_div = document.createElement("div");
+            if (is_admin === "true") {
+                message_div.textContent = `${sender} (Admin): ${message}`;
+            } 
+            else {
+                message_div.textContent = `${sender}: ${message}`;
+            }
+            chat_messages.appendChild(message_div);
+    }
     
-        sendButton.addEventListener("click", () => {
-            const message = messageInput.value;
+        send_button.addEventListener("click", () => {
+            const message = message_input.value;
             if (message) {
-                socket.emit("admin_message", message); 
-                messageInput.value = "";
+                socket.emit("send_message", { message, sender: '<%= user.username %>' , is_admin: '<%= user.is_admin%>' }); 
+                message_input.value = "";
             }
         });
-    
-        socket.on("admin_message", (message) => {
-            displayMessage(message, "Admin"); 
+        
+        socket.on("send_message", (data) => {
+            displayMessage(data.message, data.sender, data.is_admin); 
         });
     </script>
 </body>

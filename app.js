@@ -18,6 +18,7 @@ import DashboardRouter from "./Routes/dashboard.js";
 import CheckoutRouter from "./Routes/checkout.js";
 
 import { ProductController } from "./Controllers/product.js";
+import { UserController } from "./Controllers/user.js";
 
 const env_path = "./Config/.env";
 
@@ -90,6 +91,14 @@ adminApp.use(bodyParser.json());
 adminApp.use(express.static('Views'));
 adminApp.set('view engine', 'ejs');
 adminApp.set('views', path.join(__dirname, 'Views'))
+adminApp.use("/products", ProductRouter);
+adminApp.use("/categories", CategoryRouter);
+adminApp.use("/orders", OrderRouter);
+adminApp.use("/users", UserRouter);
+adminApp.use("/login", LoginRouter);
+adminApp.use("/register", RegisterRouter);
+adminApp.use("/dashboard", DashboardRouter);
+adminApp.use("/checkout", CheckoutRouter);
 
 adminIo.on("connection", (socket) => {
   console.log("Admin user connected to chat:", socket.id);
@@ -98,8 +107,8 @@ adminIo.on("connection", (socket) => {
     console.log("Admin user disconnected from chat:", socket.id);
   });
 
-  socket.on("admin_message", (message) => {
-    adminIo.emit("admin_message", message);
+  socket.on("send_message", (data) => {
+    adminIo.emit("send_message", data);
   });
 });
 
@@ -112,6 +121,9 @@ app.get("/get-admin-chat-url", (req, res) => {
   res.json({ adminChatUrl });
 });
 
-adminApp.get("/admin-chat", (req, res) => {
-  res.render("./Admin-Chat/adminChat.ejs");
+adminApp.get("/admin-chat", async (req, res) => {
+    const user =  await UserController.getUserByToken(req,res);
+    if(user) {
+      res.render("./Admin-Chat/adminChat.ejs", {user: user});
+    }
 });
