@@ -27,9 +27,12 @@
             const message_div = document.createElement("div");
             if (is_admin === "true") {
                 message_div.textContent = `${sender} (Admin): ${message}`;
+                const senderDisplayName = sender === '<%= user.username %>' ? "You" :`${sender} (Admin)`;
+                message_div.textContent = `${senderDisplayName}: ${message}`;
             } 
             else {
-                message_div.textContent = `${sender}: ${message}`;
+                const senderDisplayName = sender === '<%= user.username %>' ? "You" : sender;
+                message_div.textContent = `${senderDisplayName}: ${message}`;
             }
             chat_messages.appendChild(message_div);
     }
