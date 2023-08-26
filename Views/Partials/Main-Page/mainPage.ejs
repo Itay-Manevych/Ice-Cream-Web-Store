@@ -3,11 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../Partials/Main-Page/mainPage.styling.css">
     <title>FrozenFantazies</title>
 </head>
 <body>
     <%- include("../Navbar/navbar.ejs") %>
     <%- include("../../Carousel/carousel.ejs") %>
+    <i class="bi bi-chat-dots admin-chat-button"></i>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+    const goToAdminChatButton = $(".admin-chat-button");
+    $(document).ready(async ()=>{
+      try {
+        const response = await $.ajax({
+              url: "/dashboard/user",
+              method: "GET",
+              dataType: "json",
+       });
+       goToAdminChatButton.css("display","block");
+      }
+      catch {
+        goToAdminChatButton.css("display","none");
+      }
+    })
+    goToAdminChatButton.on("click", async () => {
+        $.ajax({
+            url: "/get-admin-chat-url",
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+              window.location.href = data.adminChatUrl;
+            },
+            error: function(error) {
+              console.error("Error getting admin chat URL:", error);
+            }
+     });
+    });
+
+    </script>
+    <div id="margin">
+        <%- include("../Products/productsDisplay.ejs") %>
+    </div>
     <%- include("../Footer/footer.ejs") %>
     
 </body>

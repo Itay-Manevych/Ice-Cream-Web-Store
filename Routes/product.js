@@ -8,7 +8,7 @@ ProductRouter.route('/')
 .get(async (req, res) => {
         const categories = await CategoryController.getAllCategories(req,res);
         const products = await ProductController.getAllProducts(req,res);
-        res.render('Partials/Shop-Page/shopPage.ejs', {products: products, categories: categories});
+        res.render('Partials/Shop-Page/shopPage.ejs', {products: products, categories: categories, pageTitle: "Our Proudcts"});
 })
 .post(ProductController.createProduct);
 

@@ -53,6 +53,8 @@
   border-radius: 0.5rem;
 }
 
+
+
 #product-cart-image {
     width: 8rem;
     height: 8rem;
@@ -60,7 +62,7 @@
 
 .item-details {
     margin-top: 0.5rem;
-    width: 18rem;
+    width: 65%;
     margin-left: 0.5rem;
 }
 
@@ -175,6 +177,11 @@ nav.navbar {
     color: black;
 }
 
+.delete-icon {
+    cursor: pointer;
+    margin-left: auto; 
+}
+
 #user-icon {
     color:rgb(88, 88, 88);
     width: 2.25rem;
@@ -190,7 +197,8 @@ nav.navbar {
 .user-box {
     width: 20rem;
     height: 8rem;
-    margin-right: 5.5rem;
+    margin-right: 3.5rem;
+    padding-right:3rem;
     gap: 4rem;
 }
 
