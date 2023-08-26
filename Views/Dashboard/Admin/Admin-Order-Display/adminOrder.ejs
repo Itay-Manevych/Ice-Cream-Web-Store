@@ -88,17 +88,18 @@
                           </ul>
                         </div>
                     </div>
-                    <% });
-                  } else { %>
-                    <div id="no-orders-pargraph-container">
-                        <p id="no-orders-pargraph">
-                            No orders available.
-                        </p>
-                    </div>
-                  <% } %>
+                    <% }) ;
+                  }  %>
+
+                  <div id="no-orders-pargraph-container" class="d-none">
+                      <p id="no-orders-pargraph">
+                          No orders available.
+                      </p>
+                  </div>
+                  
             </div>
         </div>
-    </div>
+    </div> 
     <div class="modal fade" id="delete-order-modal" tabindex="-1" aria-labelledby="Delete Order Modal Label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -117,7 +118,7 @@
         </div>
 
         <div id="delete-order-success-message-container">
-            <div id="delete-order-success-message" class="alert alert-success d-none">
+            <div id="delete-order-success-message" class="alert alert-success">
                 Order deleted successfully.
             </div>
         </div>
@@ -129,36 +130,47 @@
     <script type="module" src="../../../Dashboard/header.js"></script>
     <script>
         $("#welcome").append("Order Functions");
-        $(document).ready(() => {
-            let selected_order_id;
-            console.log($("#user-order"));
+        if($(".card-body").children().length === 1) {
+            $("#no-orders-pargraph-container").removeClass("d-none");
+        }
+            $(document).ready(() => {
+                console.log("hello?", $("#no-orders-pargraph-container"));
+                
+                let selected_order_id;
+                console.log($(".card-body").children());
 
-            $('#delete-order-modal').on('show.bs.modal', function (event) {
-                const button = $(event.relatedTarget);
-                selected_order_id = button.data('order-id');
-            });
+                $('#delete-order-modal').on('show.bs.modal', function (event) {
+                    const button = $(event.relatedTarget);
+                    selected_order_id = button.data('order-id');
+                });
 
-            $("#confirm-delete-order-button").on("click", async () => {
-                try {
-                    $("#confirm-delete-order-button").prop("disabled", true);
-                    const order = await $.ajax({
-                        url: `/orders/${selected_order_id}`,
-                        type: 'DELETE',
-                    });
+                $("#confirm-delete-order-button").on("click", async () => {
+                    try {
+                        $("#confirm-delete-order-button").prop("disabled", true);
+                        $("#cancel-delete-order-button").prop("disabled", true);
+                        const order = await $.ajax({
+                            url: `/orders/${selected_order_id}`,
+                            type: 'DELETE',
+                        });
 
-                    $("#delete-order-success-message").removeClass("d-none");
+                        $("#delete-order-success-message").removeClass("d-none");
 
-                    $(`.user-order-${selected_order_id}`).remove();
-                } 
-                catch (error) {
-                    console.log("Error deleting order", error);
-                }
-            }); 
-            
-            $("cancel-delete-order-button").on("click", () => {
-                $("#delete-order-modal").modal("hide");
+                        $(`.user-order-${selected_order_id}`).remove();
+                        console.log($(".card-body").children());
+                        if($(".card-body").children().length === 1) {
+                            $("#no-orders-pargraph-container").removeClass("d-none");
+                        }
+                    } 
+                    catch (error) {
+                        console.log("Error deleting order", error);
+                    }
+                }); 
+
+                $("#cancel-delete-order-button").on("click", () => {
+                    $("#delete-order-modal").modal("hide");
+                })
             })
-        })
+            
     </script> 
     </body>
 </html>

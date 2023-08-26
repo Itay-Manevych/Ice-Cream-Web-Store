@@ -30,9 +30,6 @@ DashboardRouter.route('/')
 DashboardRouter.route('/user')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
-        if(user === undefined) {
-            res.render('./Partials/Not-Found/notFound');
-        }
         res.json(user);
     });
 
