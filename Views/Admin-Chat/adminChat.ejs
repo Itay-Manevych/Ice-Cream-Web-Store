@@ -80,12 +80,60 @@
         });
 
         function scrollUp() {
-            chat_container.scrollTop = 0;
-        }
-        function scrollDown() {
-            chat_container.scrollTop = chat_container.scrollHeight;
+            const currentScroll = chat_container.scrollTop;
+            const targetScroll = 0;
+            const distance = targetScroll - currentScroll;
+            const duration = 1000; 
+            const startTime = performance.now();
+        
+            function scrollToTimestamp(timestamp) {
+                const elapsedTime = timestamp - startTime;
+                if (elapsedTime < duration) {
+                    const scrollAmount = currentScroll + easeInOut(elapsedTime, 0, distance, duration);
+                    chat_container.scrollTop = scrollAmount;
+                    requestAnimationFrame(scrollToTimestamp);
+                } else {
+                    chat_container.scrollTop = targetScroll;
+                }
+            }
+        
+            function easeInOut(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+        
+            requestAnimationFrame(scrollToTimestamp);
         }
 
+        function scrollDown() {
+            const currentScroll = chat_container.scrollTop;
+            const targetScroll = chat_container.scrollHeight - chat_container.clientHeight;
+            const distance = targetScroll - currentScroll;
+            const duration = 1000; 
+            const startTime = performance.now();
+        
+            function scrollToTimestamp(timestamp) {
+                const elapsedTime = timestamp - startTime;
+                if (elapsedTime < duration) {
+                    const scrollAmount = currentScroll + easeInOut(elapsedTime, 0, distance, duration);
+                    chat_container.scrollTop = scrollAmount;
+                    requestAnimationFrame(scrollToTimestamp);
+                } else {
+                    chat_container.scrollTop = targetScroll;
+                }
+            }
+        
+            function easeInOut(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+        
+            requestAnimationFrame(scrollToTimestamp);
+        }
         function displayMessage(message, sender, is_admin) {
             const message_div = document.createElement("div");
             if (is_admin === "true") {
