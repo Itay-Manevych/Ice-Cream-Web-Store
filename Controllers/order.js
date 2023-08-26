@@ -43,7 +43,8 @@ const getAllOrders = async (req, res) => {
         if(!orders) {
             throw new Error("There are no existing order models");
         }
-        res.status(201).json(orders);
+        res.status(201)
+        return orders;
     }
     catch(error) {
         res.status(500).json({

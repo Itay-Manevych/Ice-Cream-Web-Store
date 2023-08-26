@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../../Dashboard/Admin/Admin-Order-Display/adminOrder.styling.css">
+    <%- include("../../../Partials/Dashboard-Admin-Header/dashboardAdminHeader.ejs") %>
+    <title>Document</title>
+</head>
+<body>
+    <div id="all-orders-container">
+        <div id="user-orders" class="card">
+            <div class="card-header">
+                All Orders
+            </div>
+            <div class="card-body">
+                <% if (all_orders.length > 0) {
+                    all_orders.forEach(order => { %>
+                    <div id="user-order" class="user-order-<%= order._id %>">
+                        <p>Orderer's Name: <%= order.name %></p>
+                        <p>Email: <%= order.email %></p>
+                        <p>Phone Number: <%= order.phone_number %></p>
+                        <p>Date Ordered: <%= order.date %></p>
+                        <div id="address-container">
+                            Address:
+                            <p id="address-paragraph">
+                                City: <%= order.address.city %> 
+                            </p>
+                            <p id="address-paragraph">
+                                Street: <%= order.address.street %>
+                            </p>
+                            <p id="address-paragraph">
+                                Apartment: <%= order.address.apartment %>
+                            </p>
+                            <p id="address-paragraph">
+                                Floor: <%= order.address.floor %>
+                            </p>
+                        </div>
+                        <div id="user-order-products">
+                          <h4>Products Ordered:</h4>
+                          <ul id = "user-order-product-list">
+                            <% let total_order_price = 0; %>
+                            <% order.products_info.forEach(product => { %>
+                                <% total_order_price += product.total_price %>
+                                <li id = "user-order-product-item" class="d-flex align-items-center">
+                                    <div>
+                                        <img id="product-image" src = <%= product.image %>>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <%= product.product_name %> - <%= product.amount %> Units
+                                        </div>
+                                        <div>
+                                            <% function capitalizeWords(str) {
+                                                return str.replace(/\w+/g, function(txt){
+                                                    return txt.charAt(0).toUpperCase() + txt.substr(1);
+                                                });
+                                            } %>
+                                            <% let additions_string = "" %>
+                                            <% let flag = false %>
+                                            <% Object.entries(product.additions).forEach(([addition, value]) => {
+                                                if (value) { 
+                                                    if(!flag) {
+                                                        additions_string += "Additions:"
+                                                        flag = true 
+                                                    } 
+                                                    additions_string += " " + capitalizeWords(addition.replace('_', ' ')) + ",";
+                                                } 
+                                            }); %>
+                                            <%= additions_string.slice(0, -1) %>
+                                        </div>
+                                        <div>
+                                            Total Product Price:
+                                            $<%= product.total_price %>  
+                                        </div>
+                                    </div>
+                                </li>
+                            <% }); %>
+                            <div>
+                                Total Order Price:
+                                $<%= total_order_price %>   
+                            </div>
+                            <div id="delete-order-button-container">
+                                <button id="delete-order-button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-order-modal" data-order-id="<%= order._id %>">Delete Order</button>
+                            </div>
+                          </ul>
+                        </div>
+                    </div>
+                    <% });
+                  } else { %>
+                    <div id="no-orders-pargraph-container">
+                        <p id="no-orders-pargraph">
+                            No orders available.
+                        </p>
+                    </div>
+                  <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete-order-modal" tabindex="-1" aria-labelledby="Delete Order Modal Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this order?
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel-delete-order-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="confirm-delete-order-button" type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="delete-order-success-message-container">
+            <div id="delete-order-success-message" class="alert alert-success d-none">
+                Order deleted successfully.
+            </div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" src="../../../Dashboard/header.js"></script>
+    <script>
+        $("#welcome").append("Order Functions");
+        $(document).ready(() => {
+            let selected_order_id;
+            console.log($("#user-order"));
+
+            $('#delete-order-modal').on('show.bs.modal', function (event) {
+                const button = $(event.relatedTarget);
+                selected_order_id = button.data('order-id');
+            });
+
+            $("#confirm-delete-order-button").on("click", async () => {
+                try {
+                    $("#confirm-delete-order-button").prop("disabled", true);
+                    const order = await $.ajax({
+                        url: `/orders/${selected_order_id}`,
+                        type: 'DELETE',
+                    });
+
+                    $("#delete-order-success-message").removeClass("d-none");
+
+                    $(`.user-order-${selected_order_id}`).remove();
+                } 
+                catch (error) {
+                    console.log("Error deleting order", error);
+                }
+            }); 
+            
+            $("cancel-delete-order-button").on("click", () => {
+                $("#delete-order-modal").modal("hide");
+            })
+        })
+    </script> 
+    </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" integrity="sha512-0nkKORjFgcyxv3HbE4rzFUlENUMNqic/EzDIeYCgsKa/nwqr2B91Vu/tNAu4Q0cBuG4Xe/D1f/freEci/7GDRA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../../Dashboard/Admin/Admin-Category-Display/adminCategory.styling.css">
+    <%- include("../../../Partials/Dashboard-Admin-Header/dashboardAdminHeader.ejs") %>
+</head>
+<body>
+    <div id="create-update-category-container">
+        <div id="create-category" class="card">
+            <div class="card-header">Create Category</div>
+            <div class="card-body">
+                <form id="create-category-form">
+                    <div class="admin-form-field">
+                        <label for="category-name" class="form-label">Category Name</label>
+                        <input type="text" class="form-control" id="create-category-input" name="category-name">
+                        <div id="invalid-feedback" class="text-danger">
+                        </div>
+                    </div>
+                    <div id="create-category-button-container">
+                        <button type="button" class="btn btn-primary" id="create-category-button">Create Category</button>
+                        <div id="valid-feedback" class="text-success">
+                        
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="update-category" class="card">
+            <div class="card-header">Update Category</div>
+            <div class="card-body">
+                <form id="update-category-form">
+                    <label id="category-label" for="update-product-categories" class="form-label">Category Name</label>
+                    <select class="form-control chosen-select chosen-select-category-update" id="update-product-categories" name="update-product-categories" data-placeholder = "Choose a Category">
+                        <% if(categories) {
+                            categories.forEach(category => { %>
+                            <option value="<%= category.name %>"><%= category.name %></option>
+                            <% });
+                        } else { %>
+                            <p>No categories available.</p>
+                        <% } %>
+                    </select>                                
+                    <div id="admin-form-field-update-category" class="admin-form-field">
+                        <label for="category-name" class="form-label">Updated Category Name</label>
+                        <input type="text" class="form-control" id="update-category-input" name="category-name">
+                        <div id="invalid-feedback" class="text-danger">
+                        </div>
+                    </div>
+                    <div id="update-category-button-container">
+                        <button type="button" class="btn btn-primary" id="update-category-button">Update Category</button>
+                        <div id="valid-feedback" class="text-success">
+                        
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-category-container">
+        <div id="delete-category" class="card">
+            <div class="card-header">Delete Category</div>
+            <div class="card-body">
+                <form id="delete-category-form">
+                    <div class="admin-form-field">
+                        <label id="category-label" for="delete-product-categories" class="form-label">Category Name</label>
+                        <select class="form-control chosen-select chosen-select-category-delete" id="delete-product-categories" name="delete-product-categories" data-placeholder = "Choose a Category">
+                            <% if(categories) {
+                                categories.forEach(category => { %>
+                                <option value="<%= category.name %>"><%= category.name %></option>
+                                <% });
+                            } else { %>
+                                <p>No categories available.</p>
+                            <% } %>
+                        </select>  
+                    </div>
+                    <div id="delete-category-button-container">
+                        <button type="button" class="btn btn-primary" id="delete-category-button">Delete Category</button>
+                        <div id="valid-feedback" class="text-success">
+                        
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>   
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" src="../../../Dashboard/header.js"></script>
+    <script type="module" src="../../../Dashboard/Category/createCategory.js"></script>
+    <script type="module" src="../../../Dashboard/Category/updateCategory.js"></script>
+    <script type="module" src="../../../Dashboard/Category/deleteCategory.js"></script>
+    <script>
+        $("#welcome").append("Category Functions");
+    </script>
+</body>
+</html>
