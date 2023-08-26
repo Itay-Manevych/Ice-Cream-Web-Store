@@ -79,9 +79,9 @@ const getAllProducts = async (req, res) => {
 
 const getTopProducts = async (req, res) => {
     try {
-        const topProducts = await ProductService.getTopProducts();
+        const top_products = await ProductService.getTopProducts();
         res.status(200);
-        return topProducts;
+        return top_products;
     } catch (error) {
         res.status(500).json({
             error: "Error getting top products",
