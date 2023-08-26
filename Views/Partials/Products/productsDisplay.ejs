@@ -101,7 +101,7 @@
             </div>
             <footer class="modal-footer">
               <p id="total-price-<%= product._id %>" class="total-price">Total Price: $<%= product.price %></p>
-              <button class="btn btn-success" onclick="addToCart('<%= product.name %>','productModal<%= product._id %>', '<%= product._id %>', '<%= product.image %>', '<%= product.price%>')">
+              <button id="add-button" class="btn btn-success" onclick="addToCart('<%= product.name %>','productModal<%= product._id %>', '<%= product._id %>', '<%= product.image %>', '<%= product.price%>')">
                 Add to Cart
               </button>
               <input type="number" class="quantity" id="quantity-<%= product._id %>" name="quantity" min="1" max="15" value="1" data-product-id="<%= product._id %>" data-product-price="<%= product.price %>">
@@ -156,7 +156,7 @@
         hot_chocolate: document.querySelector(`#${modalId} [name="hot_chocolate"]`).checked,
         gummy_bears: document.querySelector(`#${modalId} [name="gummy_bears"]`).checked,
       };
- 
+    
       const selectedQuantity = parseInt(document.querySelector(`#${modalId} [name="quantity"]`).value, 10);
       const totalPriceText = document.getElementById(`total-price-${productId}`).textContent;
       const totalPrice = parseFloat(totalPriceText.split('$')[1]);
@@ -164,51 +164,64 @@
         id: counter++,
         name: productName,
         price: parseFloat(productPrice),
-        total_price: totalPrice ,
+        total_price: totalPrice,
         additions: selectedAdditions,
         quantity: selectedQuantity,
         image: productImage
-  };
- 
-  const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
- 
+      };
+    
+      const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    
       existingCartItems.push(cartItem);
- 
+    
       localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
- 
- 
-      closeModal(modalId);
+    
       localStorage.setItem('counter', counter);
-    }
     
-    function resetModalContent(modalId, productId, productPrice) {
-      const quantityInput = document.getElementById(`quantity-${productId}`);
-      const totalPriceElement = document.getElementById(`total-price-${productId}`);
-      const checkboxes = document.querySelectorAll(`#${modalId} [type="checkbox"]`);
-      
-      quantityInput.value = 1;
-      totalPriceElement.textContent = `Total Price: $${productPrice}`;
-      
-      checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-      });
-    }
- 
-    function openModal(modalId, productId, productPrice) {
-      if (!modals[modalId]) {
-        modals[modalId] = new bootstrap.Modal(document.getElementById(modalId));
-        
-        document.getElementById(modalId).addEventListener('hidden.bs.modal', function () {
-          resetModalContent(modalId, productId, productPrice);
-        });
-      }
-      modals[modalId].show();
-    }
+      const addedToCartMessage = document.createElement('div');
+      addedToCartMessage.textContent = 'Added to Cart!';
+      addedToCartMessage.classList.add('added-to-cart-message', 'text-success');
+      document.body.appendChild(addedToCartMessage);
     
-    function closeModal(modalId) {
-      if (modals[modalId]) {
-        modals[modalId].hide();
-      }
+      const overlay = document.createElement('div');
+      overlay.classList.add('modal-overlay');
+      document.body.appendChild(overlay);
+    
+      setTimeout(() => {
+        closeModal(modalId);
+        document.body.removeChild(addedToCartMessage);
+        document.body.removeChild(overlay);
+      }, 1000);
+    }   
+
+        function resetModalContent(modalId, productId, productPrice) {
+          const quantityInput = document.getElementById(`quantity-${productId}`);
+          const totalPriceElement = document.getElementById(`total-price-${productId}`);
+          const checkboxes = document.querySelectorAll(`#${modalId} [type="checkbox"]`);
+
+          quantityInput.value = 1;
+          totalPriceElement.textContent = `Total Price: $${productPrice}`;
+
+          checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+          });
+        }
+      
+        function openModal(modalId, productId, productPrice) {
+          if (!modals[modalId]) {
+            modals[modalId] = new bootstrap.Modal(document.getElementById(modalId));
+
+            document.getElementById(modalId).addEventListener('hidden.bs.modal', function () {
+              resetModalContent(modalId, productId, productPrice);
+            });
+          }
+          modals[modalId].show();
+        }
+
+        function closeModal(modalId) {
+          if (modals[modalId]) {
+            modals[modalId].hide();
+          }
     }
  
   $(document).ready(function() {
