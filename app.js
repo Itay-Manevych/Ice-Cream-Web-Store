@@ -126,4 +126,7 @@ adminApp.get("/admin-chat", async (req, res) => {
     if(user) {
       res.render("./Admin-Chat/adminChat.ejs", {user: user});
     }
+    else {
+      res.render("./Partials/Not-Found/notFound.ejs");
+    }
 });
