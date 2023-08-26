@@ -189,29 +189,28 @@
     <script type="module" src="./Category/updateCategory.js"></script>
     <script>
         $(document).ready(() => {
-          $("#confirm-delete-user-button").on("click", async () => {
-            try {
-                const user = await $.ajax({
-                    url: '/dashboard/user',
-                    type: 'GET',
-                });
-                if (user) {
-                    await $.ajax({
-                        url: `/users/${user.email}`, 
-                        method: 'DELETE',
+            $("#confirm-delete-user-button").on("click", async () => {
+                try {
+                    const user = await $.ajax({
+                        url: '/dashboard/user',
+                        type: 'GET',
                     });
-
-                    window.location.href = '/';
+                    if (user) {
+                        await $.ajax({
+                            url: `/users/${user.email}`, 
+                            method: 'DELETE',
+                        });   
+                        window.location.href = '/';
+                    }
+                } 
+                catch (error) {
+                    console.log("Error deleting user", error);
                 }
-            } 
-            catch (error) {
-                console.log("Error deleting user", error);
-            }
-          });
-
-          $("cancel-delete-user-button").on("click", () => {
-            $("#delete-user-modal").modal("hide");
-          })
+            }); 
+            
+            $("cancel-delete-user-button").on("click", () => {
+              $("#delete-user-modal").modal("hide");
+            })
         });
     </script>
 </body>

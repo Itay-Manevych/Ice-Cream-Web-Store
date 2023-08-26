@@ -11,6 +11,18 @@ html, body {
   font-family: "PT Sans";
 }
 
+#no-orders-pargraph-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+}
+
+#no-orders-pargraph {
+    margin: 0;
+    margin-right: 0.5rem;
+}
+
 #all-orders-container {
     width: 100%;
     display: flex;
@@ -74,4 +86,24 @@ html, body {
 #address-paragraph:first-of-type {
     margin-top: 0.1rem;
     margin-bottom: 0.35rem;
+}
+
+#delete-order-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+#delete-order-success-message-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-success {
+    width: 31.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
