@@ -19,22 +19,34 @@
                 <% if (all_orders.length > 0) {
                     all_orders.forEach(order => { %>
                     <div id="user-order" class="user-order-<%= order._id %>">
-                        <p>Orderer's Name: <%= order.name %></p>
-                        <p>Email: <%= order.email %></p>
-                        <p>Phone Number: <%= order.phone_number %></p>
-                        <p>Date Ordered: <%= order.date %></p>
+                        <p class="orderers-name-<%= order._id %>">
+                            Orderer's Name: <%= order.name %>
+                        </p>
+
+                        <p class="email-<%= order._id %>">
+                            Email: <%= order.email %>
+                        </p>
+
+                        <p class="phone-number-<%= order._id %>">
+                            Phone Number: <%= order.phone_number %>
+                        </p>
+
+                        <p>
+                            Date Ordered: <%= order.date %>
+                        </p>
+
                         <div id="address-container">
                             Address:
-                            <p id="address-paragraph">
+                            <p id="address-paragraph" class="city-<%= order._id %>">
                                 City: <%= order.address.city %> 
                             </p>
-                            <p id="address-paragraph">
+                            <p id="address-paragraph" class="street-<%= order._id %>">
                                 Street: <%= order.address.street %>
                             </p>
-                            <p id="address-paragraph">
+                            <p id="address-paragraph" class="apartment-<%= order._id %>">
                                 Apartment: <%= order.address.apartment %>
                             </p>
-                            <p id="address-paragraph">
+                            <p id="address-paragraph" class="floor-<%= order._id %>">
                                 Floor: <%= order.address.floor %>
                             </p>
                         </div>
@@ -82,10 +94,98 @@
                                 Total Order Price:
                                 $<%= total_order_price %>   
                             </div>
-                            <div id="delete-order-button-container">
+                            <div id="buttons-container">
+                                <button id="update-order-button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-order-modal" data-order-id="<%= order._id %>">Edit Order</button>
                                 <button id="delete-order-button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-order-modal" data-order-id="<%= order._id %>">Delete Order</button>
                             </div>
                           </ul>
+                        </div>
+                    </div>
+
+                    <div id="delete-order-modal" class="modal fade" tabindex="-1" aria-labelledby="Delete Order Modal Label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete Order</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this order?
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="cancel-delete-order-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button id="confirm-delete-order-button" type="button" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="delete-order-success-message-container" class="alert-container">
+                            <div id="delete-order-success-message" class="alert alert-success">
+                                Order deleted successfully.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="edit-order-modal" class="modal fade" tabindex="-1" aria-labelledby="Edit Order Modal Label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Edit Order</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="edit-order-form">
+                                        <div class="mb-3">
+                                            <label for="edit-name" class="form-label">Orderer's Name:</label>
+                                            <input type="text" class="form-control" id="edit-name" value="<%= order.name %>"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="edit-email" class="form-label">Email:</label>
+                                            <input type="email" class="form-control" id="edit-email" value="<%= order.email %>" readonly/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="edit-phone-number" class="form-label">Phone Number:</label>
+                                            <input type="tel" class="form-control" id="edit-phone-number" value="<%= order.phone_number %>"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="edit-city" class="form-label">City</label>
+                                            <input type="text" class="form-control" id="edit-city" value="<%= order.address.city %>"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="edit-street" class="form-label">Street</label>
+                                            <input type="text" class="form-control" id="edit-street" value="<%= order.address.street %>"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="edit-apartment" class="form-label">Apartment</label>
+                                            <input type="text" class="form-control" id="edit-apartment" value="<%= order.address.apartment %>"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="edit-floor" class="form-label">Floor</label>
+                                            <input type="text" class="form-control" id="edit-floor" value="<%= order.address.floor %>"/>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="cancel-edit-order-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                    <button id="confirm-edit-order-button" type="button" class="btn btn-primary">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="edit-order-success-message-container" class="alert-container">
+                            <div id="edit-order-success-message" class="alert alert-success">
+                                Order edited successfully.
+                            </div>
                         </div>
                     </div>
                     <% }) ;
@@ -100,34 +200,15 @@
             </div>
         </div>
     </div> 
-    <div class="modal fade" id="delete-order-modal" tabindex="-1" aria-labelledby="Delete Order Modal Label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Delete Order</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this order?
-                </div>
-                <div class="modal-footer">
-                    <button id="cancel-delete-order-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button id="confirm-delete-order-button" type="button" class="btn btn-danger">Delete</button>
-                </div>
-            </div>
-        </div>
 
-        <div id="delete-order-success-message-container">
-            <div id="delete-order-success-message" class="alert alert-success">
-                Order deleted successfully.
-            </div>
-        </div>
 
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module" src="../../../Dashboard/init.js"></script>
     <script type="module" src="../../../Dashboard/Admin/Admin-Order-Display/adminOrder.js"> </script>
+    <script type="module" src="../../../Dashboard/Admin/Admin-Order-Display/Order/deleteOrder.js"> </script>
+    <script type="module" src="../../../Dashboard/Admin/Admin-Order-Display/Order/editOrder.js"> </script>
+    
     </body>
 </html>

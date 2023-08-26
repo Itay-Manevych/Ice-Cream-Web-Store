@@ -88,14 +88,14 @@ html, body {
     margin-bottom: 0.35rem;
 }
 
-#delete-order-button-container {
+#buttons-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-top: 2rem;
 }
 
-#delete-order-success-message-container {
+.alert-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -106,4 +106,20 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#delete-order-success-message-container {
+    z-index: 10000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#edit-order-success-message-container {
+    z-index: 10000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
