@@ -2,6 +2,7 @@ import { Valid } from "../Visual-Validation/valid.js";
 import { Error } from "../Visual-Validation/error.js";
 import { ValidateForm } from "../Form-Validation/validateForm.js";
 import { ProductFunctions } from "./productFunctions.js";
+
 $(document).ready(() => {
 
     const showProductInfo = (product) => {
@@ -17,7 +18,7 @@ $(document).ready(() => {
         $("#product-categories-update").val(selected_categories);
         $("#product-categories-update").trigger("chosen:updated");
 
-        const selected_allergies = [product.allergies];
+        const selected_allergies = Object.keys(product.allergies).filter(allergy => product.allergies[allergy]);
         $("#product-allergens-update").val(selected_allergies);
         $("#product-allergens-update").trigger("chosen:updated");
     }

@@ -37,14 +37,14 @@ html, body {
 }
 
 #user-order {
-    border-bottom: 0.06rem solid #ccc;
-    margin-bottom: 0.5rem;
+    border-top: 0.06rem solid #ccc;
+    padding-top: 0.5rem;
 }
 
-#user-order:last-of-type {
-    border-bottom: none;
+#user-order:first-of-type {
+    border-top: none;
     padding-bottom: 0;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
 }
 
 #user-order-product-list {

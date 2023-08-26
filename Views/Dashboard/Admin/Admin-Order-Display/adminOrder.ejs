@@ -127,50 +127,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="../../../Dashboard/header.js"></script>
-    <script>
-        $("#welcome").append("Order Functions");
-        if($(".card-body").children().length === 1) {
-            $("#no-orders-pargraph-container").removeClass("d-none");
-        }
-            $(document).ready(() => {
-                console.log("hello?", $("#no-orders-pargraph-container"));
-                
-                let selected_order_id;
-                console.log($(".card-body").children());
-
-                $('#delete-order-modal').on('show.bs.modal', function (event) {
-                    const button = $(event.relatedTarget);
-                    selected_order_id = button.data('order-id');
-                });
-
-                $("#confirm-delete-order-button").on("click", async () => {
-                    try {
-                        $("#confirm-delete-order-button").prop("disabled", true);
-                        $("#cancel-delete-order-button").prop("disabled", true);
-                        const order = await $.ajax({
-                            url: `/orders/${selected_order_id}`,
-                            type: 'DELETE',
-                        });
-
-                        $("#delete-order-success-message").removeClass("d-none");
-
-                        $(`.user-order-${selected_order_id}`).remove();
-                        console.log($(".card-body").children());
-                        if($(".card-body").children().length === 1) {
-                            $("#no-orders-pargraph-container").removeClass("d-none");
-                        }
-                    } 
-                    catch (error) {
-                        console.log("Error deleting order", error);
-                    }
-                }); 
-
-                $("#cancel-delete-order-button").on("click", () => {
-                    $("#delete-order-modal").modal("hide");
-                })
-            })
-            
-    </script> 
+    <script type="module" src="../../../Dashboard/init.js"></script>
+    <script type="module" src="../../../Dashboard/Admin/Admin-Order-Display/adminOrder.js"> </script>
     </body>
 </html>

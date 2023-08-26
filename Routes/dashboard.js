@@ -41,10 +41,11 @@ DashboardRouter.route('/update-details')
 
 DashboardRouter.route('/products')
     .get(async (req, res) => {
-        const products = await ProductController.getAllProducts(req, res);
+        const user = await UserController.getUserByToken(req, res);
         if(user === undefined) {
             res.render('./Partials/Not-Found/notFound');
         }
+        const products = await ProductController.getAllProducts(req, res);
         res.json(products);
     });
 
