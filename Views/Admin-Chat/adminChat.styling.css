@@ -7,13 +7,34 @@ html, body {
     flex-direction: column;
 }
 
+#chat {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 5rem;
+}
+
+#house-icon {
+    margin: 0 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+#house-icon:hover {
+    margin: 0 1.4rem;
+    font-size: 2.2rem;
+}
+
 #chat-messages {
-    height: 100%;
     margin: 0 1rem;
+    margin-top: 5rem;
+    margin-bottom: 6.5rem;
 }
 
 #input {
-    margin-top: auto;
+    position: fixed;
+    bottom: 0;
     height: 6rem;
     min-width: 20rem;
     width: 100%;
@@ -43,22 +64,30 @@ html, body {
     height: 3rem;
     border-radius: 1.2rem;
     font-size: x-large;
+    display: flex;
+    align-items: center;
 }
 
 .admin_message {
     background-color: rgb(242,132,189);
     width: fit-content;
+    max-width: 100%;
     margin-left: auto;
     padding: 0.3rem;
     padding-right: 0.4rem;
     margin-top: 0.5rem;
+    border-radius: 0.6rem;
+    word-wrap: break-word;
 }
 
 .user_message {
     background-color: rgb(81,190,230);
     width: fit-content;
+    max-width: 100%;
     padding: 0.3rem;
     padding-right: 0.4rem;
     margin-top: 0.5rem;
     margin-right: auto;
+    border-radius: 0.6rem;
+    word-wrap: break-word;
 }
