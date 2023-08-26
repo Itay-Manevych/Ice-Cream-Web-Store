@@ -35,6 +35,26 @@ html, body {
     margin: 0 1rem;
 }
 
+.up {
+    position: fixed;
+    border-radius: 50%;
+    font-size: 2rem;
+    padding: 0 0.5rem;
+    bottom: 10rem;
+    right: 2rem;
+    cursor: pointer;
+}
+
+.down {
+    position: fixed;
+    border-radius: 50%;
+    font-size: 2rem;
+    padding: 0 0.5rem;
+    bottom: 6.5rem;
+    right: 2rem;
+    cursor: pointer;
+}
+
 #input {
     position: fixed;
     bottom: 0;

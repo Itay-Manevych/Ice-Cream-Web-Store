@@ -16,6 +16,8 @@
 
     <div id="chat-container">
         <div id="chat-messages"></div>
+        <i class="bi bi-arrow-up bg-light" style="display: none;"></i>
+        <i class="bi bi-arrow-down bg-light" style="display: none;"></i>
     </div>
 
     <div id="input" class="bg-light">
@@ -35,11 +37,53 @@
         const send_button = document.getElementById("send-button");
         const home_button = document.getElementById("house-icon");
         const chat_container = document.getElementById("chat-container");
+        const up = $(".bi-arrow-up")[0];
+        const down = $(".bi-arrow-down")[0];
 
         message_input.focus();
 
         home_button.onclick = () => {
             window.location.href = "localhost:3000/";
+        }
+
+        up.addEventListener('click', scrollUp);
+        down.addEventListener('click', scrollDown);
+
+        chat_container.addEventListener("scroll", () => {
+            if (chat_container.scrollTop > 0) {
+                up.style.display = 'block';
+                up.classList.add('up');
+                up.classList.remove('down');
+            } 
+            else {
+                up.style.display = 'none';
+                up.classList.add('down');
+                up.classList.remove('up');
+            }
+        
+            if (chat_container.scrollTop + chat_container.clientHeight < chat_container.scrollHeight) {
+                down.style.display = 'block';
+                if(up.style.display == 'block') {
+                    up.classList.add('up');
+                    up.classList.remove('down');
+                }
+                down.classList.add('down');
+                down.classList.remove('up');
+            } 
+            else {
+                down.style.display = 'none';
+                if(up.style.display == 'block') {
+                    up.classList.add('down');
+                    up.classList.remove('up');
+                }
+            }
+        });
+
+        function scrollUp() {
+            chat_container.scrollTop = 0;
+        }
+        function scrollDown() {
+            chat_container.scrollTop = chat_container.scrollHeight;
         }
 
         function displayMessage(message, sender, is_admin) {
@@ -62,7 +106,7 @@
                 message_div.classList.add('others_message');
             }    
 
-            chat_container.scrollTop = chat_messages.scrollHeight;
+            scrollDown();
         }
     
         send_button.addEventListener("click", () => {
