@@ -7,17 +7,19 @@
     <title>Chat</title>
 </head>
 <body>
-    <h1 style="margin-left: 3rem;">Chat</h1>
-    <div id="chat-container">
-        <div id="chat-messages"></div>
-    </div>
+    <h1 style="margin-left: 3rem; margin-bottom: 1rem;">Chat</h1>
+    
+    <div id="chat-messages"></div>
+
     <div id="input">
         <input type="text" id="message-input" placeholder="Type your message">
         <button id="send-button">Send</button>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
     <script src="/socket.io/socket.io.js"></script>
+
     <script>
         const socket = io(); 
     
@@ -25,18 +27,20 @@
         const message_input = document.getElementById("message-input");
         const send_button = document.getElementById("send-button");
     
+        message_input.focus();
+
         function displayMessage(message, sender, is_admin) {
             const message_div = document.createElement("div");
             if (is_admin === "true") {
                 message_div.textContent = `${sender} (Admin): ${message}`;
                 const senderDisplayName = sender === '<%= user.username %>' ? "You" :`${sender} (Admin)`;
                 message_div.textContent = `${senderDisplayName}: ${message}`;
-                message_div.classList('admin_msg');
+                message_div.classList.add('admin_message');
             } 
             else {
                 const senderDisplayName = sender === '<%= user.username %>' ? "You" : sender;
                 message_div.textContent = `${senderDisplayName}: ${message}`;
-                message_div.classList('user_msg');
+                message_div.classList.add('user_message');
             }
             chat_messages.appendChild(message_div);
     }
@@ -47,8 +51,17 @@
                 socket.emit("send_message", { message, sender: '<%= user.username %>' , is_admin: '<%= user.is_admin%>' }); 
                 message_input.value = "";
             }
+            message_input.focus();
         });
         
+        message_input.addEventListener("keydown", (event) => {
+            const message = message_input.value;
+            if (message && event.key == "Enter") {
+                socket.emit("send_message", { message, sender: '<%= user.username %>' , is_admin: '<%= user.is_admin%>' }); 
+                message_input.value = "";
+            }
+        });message_input
+
         socket.on("send_message", (data) => {
             displayMessage(data.message, data.sender, data.is_admin); 
         });
