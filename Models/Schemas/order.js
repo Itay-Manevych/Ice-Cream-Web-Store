@@ -4,6 +4,7 @@ import Address from "./address.js";
 const ProductInfo = new mongoose.Schema({
     product_name: String,
     total_price: Number,
+    image: String,
     additions: {
         sprinkles: Boolean,
         hot_chocolate: Boolean,

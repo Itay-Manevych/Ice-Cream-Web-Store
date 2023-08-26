@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@600;700&family=Concert+One&family=Just+Another+Hand&family=PT+Sans:ital,wght@0,700;1,400&family=Rajdhani:wght@500;600&family=Six+Caps&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+* {
+  font-family: "PT Sans";
+}
+
+#no-orders-pargraph-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+}
+
+#no-orders-pargraph {
+    margin: 0;
+    margin-right: 0.5rem;
+}
+
+#all-orders-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#user-orders {
+    width: 35rem;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+}
+
+#user-order {
+    border-bottom: 0.06rem solid #ccc;
+    margin-bottom: 0.5rem;
+}
+
+#user-order:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+#user-order-product-list {
+    counter-reset: item;
+    padding: 0;
+}
+
+#user-order-product-item::before {
+    max-width: 1rem;
+    content: counter(item) ".";
+}
+
+#user-order-product-item {
+    display: flex;
+    flex-direction: row;
+    height: 6rem;
+    counter-increment: item;
+    margin-bottom: 1rem;
+}
+
+#user-order-product-item:last-of-type {
+    margin-bottom: 0.5rem;
+}
+
+#product-image {
+    height: 5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#address-container {
+    margin-bottom: 1rem;
+}
+
+#address-paragraph{
+    margin-bottom: 0.35rem;
+}
+
+#address-paragraph:first-of-type {
+    margin-top: 0.1rem;
+    margin-bottom: 0.35rem;
+}
+
+#delete-order-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+#delete-order-success-message-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-success {
+    width: 31.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
