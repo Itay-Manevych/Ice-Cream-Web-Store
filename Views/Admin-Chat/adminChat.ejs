@@ -7,11 +7,13 @@
     <title>Chat</title>
 </head>
 <body>
-    <h1>Chat</h1>
+    <h1 style="margin-left: 3rem;">Chat</h1>
     <div id="chat-container">
+        <div id="chat-messages"></div>
+    </div>
+    <div id="input">
         <input type="text" id="message-input" placeholder="Type your message">
         <button id="send-button">Send</button>
-        <div id="chat-messages"></div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
@@ -29,10 +31,12 @@
                 message_div.textContent = `${sender} (Admin): ${message}`;
                 const senderDisplayName = sender === '<%= user.username %>' ? "You" :`${sender} (Admin)`;
                 message_div.textContent = `${senderDisplayName}: ${message}`;
+                message_div.classList('admin_msg');
             } 
             else {
                 const senderDisplayName = sender === '<%= user.username %>' ? "You" : sender;
                 message_div.textContent = `${senderDisplayName}: ${message}`;
+                message_div.classList('user_msg');
             }
             chat_messages.appendChild(message_div);
     }
