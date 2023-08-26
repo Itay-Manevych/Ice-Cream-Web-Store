@@ -18,7 +18,7 @@
 
     <div id="input" class="bg-light">
         <input type="text" id="message-input" class="form-control" placeholder="Type your message">      
-        <button type="button" id="send-button" class="btn btn-secondary">Send</button>
+        <button type="button" id="send-button" class="btn">Send</button>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
@@ -45,12 +45,22 @@
                 message_div.textContent = `${sender} (Admin): ${message}`;
                 const senderDisplayName = sender === '<%= user.username %>' ? "You" :`${sender} (Admin)`;
                 message_div.textContent = `${senderDisplayName}: ${message}`;
-                message_div.classList.add('admin_message');
+                if(sender === '<%= user.username %>') {
+                    message_div.classList.add('user_message');
+                }
+                else {
+                    message_div.classList.add('admin_message');
+                }
             } 
             else {
                 const senderDisplayName = sender === '<%= user.username %>' ? "You" : sender;
                 message_div.textContent = `${senderDisplayName}: ${message}`;
-                message_div.classList.add('user_message');
+                if(sender !== '<%= user.username %>') {
+                    message_div.classList.add('admin_message');
+                }
+                else {
+                    message_div.classList.add('user_message');
+                }            
             }
             chat_messages.appendChild(message_div);
             document.body.scrollTop = chat_messages.scrollHeight;

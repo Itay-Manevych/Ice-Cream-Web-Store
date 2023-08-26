@@ -66,6 +66,8 @@ html, body {
     font-size: x-large;
     display: flex;
     align-items: center;
+    background-color: rgb(81,190,230);
+    color: white;
 }
 
 .admin_message {
@@ -73,21 +75,27 @@ html, body {
     width: fit-content;
     max-width: 100%;
     margin-left: auto;
-    padding: 0.3rem;
-    padding-right: 0.4rem;
+    padding: 0.2rem;
+    padding-left: 0.4rem;
+    padding-right: 0.5rem;
     margin-top: 0.5rem;
     border-radius: 0.6rem;
     word-wrap: break-word;
+    font-size: large;    
+    color: white;
 }
 
 .user_message {
     background-color: rgb(81,190,230);
     width: fit-content;
     max-width: 100%;
-    padding: 0.3rem;
-    padding-right: 0.4rem;
+    padding: 0.2rem;
+    padding-left: 0.4rem;
+    padding-right: 0.5rem;
     margin-top: 0.5rem;
     margin-right: auto;
     border-radius: 0.6rem;
     word-wrap: break-word;
+    font-size: large;    
+    color: white;
 }
