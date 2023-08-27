@@ -9,7 +9,7 @@
     </head>
     <body>
         <%- include("../Navbar/navbar.ejs") %>
-        <h1>Reviews:</h1>
+        <div id="title">Reviews:</div>
         <div id="reviews-list"></div>
         <%- include("../Footer/footer.ejs") %>
         <script>
@@ -21,11 +21,20 @@
                     dataType: "json",
                     success: function(reviews) {
                         $.each(reviews, function(index, review) {
-                            const reviews_element = $("<a>").html(
-                                `<h3>Rating: ${review.recommendation_type}</h3>
-                                <p>${review.review_text}</p>`
-                            );
-                            reviews_list.append(reviews_element);
+                            if(review.recommendation_type == "positive"){
+                                const reviews_element = $("<a>").html(  
+                                    `<div id="review"> <h3> Rating: <span id="positive">positive</span> </h3>
+                                    <h5 id="negative"> ${review.review_text} </h5> </div>`
+                                );
+                                reviews_list.append(reviews_element);
+                            }
+                            else if(review.recommendation_type == "negative"){
+                                const reviews_element = $("<a>").html(  
+                                    `<h3>Rating: <span id="negative">negative</span> </h3>
+                                    <h5 id="positive">${review.review_text}</h5>`
+                                );
+                                reviews_list.append(reviews_element);
+                            }
                         });
                     },
                     error: function(error) {
