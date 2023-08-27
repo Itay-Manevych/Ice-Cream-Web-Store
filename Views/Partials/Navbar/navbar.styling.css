@@ -156,13 +156,19 @@ nav.navbar {
     height: fit-content;
 }
 
+#reviews-btn {
+    width: 7rem;
+    height: fit-content;
+    color: rgb(81,190,230)
+}
+
 #home-btn { 
     color: rgb(242,132,189);
     width: 4rem;
     height: fit-content;
 }
 
-#about-btn, #shop-btn, #home-btn, #search-input {
+#about-btn, #shop-btn, #home-btn, #reviews-btn, #search-input {
     font-family: 'Just Another Hand';
 }
 

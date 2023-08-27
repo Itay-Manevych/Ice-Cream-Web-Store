@@ -21,6 +21,7 @@
                 <button id="home-btn" class="nav-item">HOME</button>
                 <button id="about-btn" class="nav-item">ABOUT US</button>
                 <button id="shop-btn" class="nav-item">SHOP</button>
+                <button id="reviews-btn" class="nav-item">REVIEWS</button>
             </div>
             <div class="user-box d-flex bg-light align-items-center justify-content-center">
                 <i id="search-icon" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
@@ -53,6 +54,7 @@
                 const about_btn = $("#about-btn")[0];
                 const shop_btn = $("#shop-btn")[0];
                 const home_btn = $("#home-btn")[0];
+                const reviews_btn = $("#reviews-btn")[0];
                 
                 const open_search = $(".bi-search")[0];
                 const user_btn = $(".bi-person-square")[0];
@@ -82,6 +84,10 @@
 
                 const home = () => {
                     window.location.href = "/";
+                }
+
+                const reviews = () => {
+                    window.location.href = "/reviews";
                 }
 
                 const closeSearch = () => {
@@ -417,6 +423,7 @@
                 home_btn.onclick = home;
                 user_btn.onclick = user;
                 cart_btn.onclick = cart;
+                reviews_btn.onclick = reviews;
             }); 
         </script>
     </body>
