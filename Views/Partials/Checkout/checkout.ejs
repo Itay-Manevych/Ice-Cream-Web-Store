@@ -309,10 +309,15 @@ $(document).ready(() => {
                         data: JSON.stringify(formData)
                     });
                     showValidation($("#order-button"),"Order Created Successfully");
+                    const overlay = document.createElement('div');
+                    overlay.classList.add('overlay');
+                    document.body.appendChild(overlay);
+
                     setTimeout(() => {
+                        document.body.removeChild(overlay);
                         localStorage.removeItem('cartItems');
                         window.location.href = '/';
-                    } ,3000)
+                    } ,2000)
                 } catch (error) {
                     console.error('Error creating order:', error);
                 }
