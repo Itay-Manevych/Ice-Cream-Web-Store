@@ -274,7 +274,10 @@ $(document).ready(() => {
             if(await validateUserForm($("#name"), $("#phone_number"), $("#city"), $("#street"), $("#apartment"), $("#floor"))) {
                 const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
                 await getUser();
+                const currentDate = new Date();
 
+                // Add one day
+                currentDate.setDate(currentDate.getDate() + 2);
                 const formData = {
                     name: $('#name').val(),
                     email: user.email,
@@ -297,7 +300,7 @@ $(document).ready(() => {
                         amount: item.quantity
                     })),
                     amount: total_sum,
-                    date: new Date()
+                    date: currentDate,
                 };
 
                 try {
