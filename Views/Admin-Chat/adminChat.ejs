@@ -43,7 +43,17 @@
         message_input.focus();
 
         home_button.onclick = () => {
-            window.location.href = "localhost:3000/";
+            $.ajax({
+                url: "/get-home-url",
+                method: "GET",
+                dataType: "json",
+                success: function(data) {
+                  window.location.href = data.homeUrl;
+                },
+                error: function(error) {
+                  console.error("Error getting home URL:", error);
+                }
+            });
         }
 
         up.addEventListener('click', scrollUp);
@@ -173,6 +183,38 @@
                 message_input.value = "";
             }
         });message_input
+
+        const username = `<%=user.username%>`;
+        const user_is_admin =`<%=user.is_admin%>`;
+
+        if(user_is_admin === "true") {
+            socket.emit("join_chat", `${username} (Admin)`);
+        }
+        else {
+            socket.emit("join_chat", username);
+        }
+
+        socket.on("user_joined", (message, is_you) => {
+            const messageElement = document.createElement("div");
+            messageElement.textContent = message;
+
+            if (is_you) {
+              messageElement.classList.add("chat-message", "self");
+            } 
+            else {
+              messageElement.classList.add("chat-message", "other");
+            }
+        
+            document.getElementById("chat-messages").appendChild(messageElement);
+        });
+
+        socket.on("user_left", (message) => {
+            const messageElement = document.createElement("div");
+            messageElement.textContent = message;
+            messageElement.classList.add("chat-message", "other");
+        
+            document.getElementById("chat-messages").appendChild(messageElement);
+    });
 
         socket.on("send_message", (data) => {
             displayMessage(data.message, data.sender, data.is_admin); 
