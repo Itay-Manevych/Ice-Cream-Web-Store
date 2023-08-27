@@ -1,17 +1,10 @@
+#carousel-div {
+    min-width:58rem;
+}
+
 .carousel-inner img {
-    height: 40rem;
+    height: 45rem;
     width: 100%;
-}
-
-#canvas {
-    height: 40rem;
-    width: 100%;
-}
-
-#canvas-r {
-    height: 40rem;
-    width: 100%;
-    transform: rotate(180deg);
 }
 
 .button {
