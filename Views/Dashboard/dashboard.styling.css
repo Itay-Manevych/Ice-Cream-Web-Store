@@ -222,19 +222,26 @@ label {
 
 .btn {
     color: white;
-    background-color: rgb(81,190,230);
+    background-color: rgb(81,190,230) !important;
 }
-
 .btn:hover {
     color: white;
-    background-color: rgb(242,132,189);
+    background-color: rgb(242,132,189) !important;
+}
+.btn:active {
+    color: rgb(242,132,189) !important;
+    background-color: white !important;
 }
 
 .delete {
-    color: white;
+    color: white  !important;
     background-color: rgb(242,132,189) !important;
 }
 .delete:hover {
     color: white;
     background-color: rgb(81,190,230) !important;
+}
+.delete:active {
+    color: rgb(81,190,230) !important;
+    background-color: white !important;
 }

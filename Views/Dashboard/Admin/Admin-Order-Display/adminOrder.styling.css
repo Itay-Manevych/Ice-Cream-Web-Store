@@ -135,10 +135,13 @@ html, body {
     color: white;
     background-color: rgb(81,190,230);
 }
-
 .btn:hover {
     color: white;
     background-color: rgb(242,132,189);
+}
+.btn:active {
+    color: rgb(242,132,189) !important;
+    background-color: white !important;
 }
 
 .delete {
@@ -148,4 +151,8 @@ html, body {
 .delete:hover {
     color: white;
     background-color: rgb(81,190,230) !important;
+}
+.delete:active {
+    color: rgb(81,190,230) !important;
+    background-color: white !important;
 }
