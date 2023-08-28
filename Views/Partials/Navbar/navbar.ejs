@@ -48,22 +48,26 @@
             let current_user;
             $(document).ready(() => {
                 navbar = $(".navbar")[0];
-
+                
                 const logo_btn = $("#logo-btn")[0];
                 const about_btn = $("#about-btn")[0];
                 const shop_btn = $("#shop-btn")[0];
                 const home_btn = $("#home-btn")[0];
-
+                
                 const open_search = $(".bi-search")[0];
                 const user_btn = $(".bi-person-square")[0];
                 const cart_btn = $(".bi-cart")[0];
-
+                
                 const search_box = $("#search-box")[0];
                 const close_search = $("#close-search")[0];
                 const search_input = $("#search-input")[0];
-
+                
                 const search_btn = $("#search-icon-search-box")[0];
-
+                
+                if (window.location.pathname === '/checkout') {
+                    $('#cart-icon').remove();
+                    $('.user-box').css('gap', '6rem');
+                }
                 const mainPage = () => {
                     window.location.href = "/";
                 }
@@ -305,7 +309,6 @@
                                     {
                                         await getUser();
                                         const errorExists = $('#invalid-feedback').length > 0;
-                                        console.log(current_user);
                                         if(!current_user && !errorExists) {
                                             const error = $('<div>').attr('id', "invalid-feedback").addClass('text-danger').text('You must login before checkout');
                                                 header_and_error.append(error);
@@ -335,39 +338,47 @@
                                             const quantity_input = $('<input>').attr('type', 'number').attr('min', '0').attr("id", "quantity-input").val(item.quantity);
                                             details_container.append(quantity_input);
                                             item_details.append(details_container);
-                                            quantity_input.on('change', event => {
+
+                                            const delete_icon = $('<i>').addClass('bi bi-x-lg delete-icon');
+                                                delete_icon.on('click', () => {
+                                                    quantity_input.val(0);
+                                                    quantity_input.trigger('change');
+                                                })
                                                 
-                                                let new_quantity = parseInt(event.target.value);
-                                                if (isNaN(new_quantity) || new_quantity < 0) {
-                                                    new_quantity = 0;
-                                                } 
-                                                else if (new_quantity > 15) {
-                                                    new_quantity = 15;
-                                                }
-                                                
-                                                quantity_input.val(new_quantity);
-                                                
-                                                item_price.text(`$${(item.price * new_quantity).toFixed(2)}`);
-                                                
-                                                if (event.target.value === "0") {
-                                                    cart_item.addClass('hidden');
-                                                }
-                                                
-                                                updateCartItemQuantity(item.id, new_quantity);
-                                                const updated_cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
-                                                total_price = updated_cart_items.reduce((total, item) => total + item.total_price, 0);
-                                                const updated_total_element = $('#total-price-element');
-                                                updated_total_element.text(`Total Price: $${total_price.toFixed(2)}`);
-                                                total_element.replaceWith(updated_total_element);
-                                                if(updated_cart_items.length === 0) {
-                                                    $('#total-price-element').remove();
-                                                    $('.checkout-button').remove();
-                                                    const empty_cart_message = $('<p>').addClass('empty-cart-message').text('No products added to cart.');
-                                                    cart_content.append(empty_cart_message);
-                                                }
-                                            });
-                                            
-                                            details_container.append(quantity_input);
+                                                quantity_input.on('change', event => {
+                                                    
+                                                    let new_quantity = parseInt(event.target.value);
+                                                    if (isNaN(new_quantity) || new_quantity < 0) {
+                                                        new_quantity = 0;
+                                                    } 
+                                                    else if (new_quantity > 15) {
+                                                        new_quantity = 15;
+                                                    }
+                                                    
+                                                    quantity_input.val(new_quantity);
+                                                    
+                                                    item_price.text(`$${(item.price * new_quantity).toFixed(2)}`);
+                                                    
+                                                    if (event.target.value === "0") {
+                                                        cart_item.addClass('hidden');
+                                                    }
+                                                    
+                                                    updateCartItemQuantity(item.id, new_quantity);
+                                                    const updated_cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+                                                    total_price = updated_cart_items.reduce((total, item) => total + item.total_price, 0);
+                                                    const updated_total_element = $('#total-price-element');
+                                                    updated_total_element.text(`Total Price: $${total_price.toFixed(2)}`);
+                                                    total_element.replaceWith(updated_total_element);
+                                                    if(updated_cart_items.length === 0) {
+                                                        $('#total-price-element').remove();
+                                                        $('.checkout-button').remove();
+                                                        const empty_cart_message = $('<p>').addClass('empty-cart-message').text('No products added to cart.');
+                                                            cart_content.append(empty_cart_message);
+                                                        }
+                                                    });
+                                                    
+                                                    details_container.append(quantity_input);
+                                                    details_container.append(delete_icon);
                                             
                                             const selected_additions = item.additions;
                                             const addition_names = [];

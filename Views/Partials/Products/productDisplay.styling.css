@@ -5,25 +5,30 @@
 }
 
 .product-container {
-    display: flex;
-    gap: 3rem;
-
+  display: flex;
+  gap: 3rem;
 }
 
 .product-image {
   height: 31rem;
   min-width: 37rem;
+  width: 37rem;
 }
 
 .product-description {
+  max-width: 55em;
   white-space: pre-line;
+  word-wrap: break-word;
   overflow-wrap: break-word;
 }
-
 #add-button {
   height: 3rem;
   width:  8rem;
   font-size: 1.2rem;
+}
+
+.container {
+  margin-left: 20rem;
 }
 
 .add-container {
@@ -38,10 +43,16 @@
 
 .product-details {
   display: flex;
-  height: 100%;
   flex-direction: column;
   justify-content: space-between;
   font-size: 1.2rem;
+  width: 100%;
+}
+
+.text-wrap {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .button-and-input {
@@ -58,4 +69,14 @@
 
 #add-button {
   margin-right: 0.3rem;
+}
+
+.added-to-cart-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
 }

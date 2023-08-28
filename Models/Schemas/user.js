@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import makeAllRequired from "./makeAllRequired.js";
 
 const User = new mongoose.Schema({
     username: {
@@ -10,8 +11,8 @@ const User = new mongoose.Schema({
     },
     password: String,
     is_admin: Boolean,
-}, { 
-    required: true,
 });
+
+makeAllRequired(User);
 
 export default mongoose.model("User", User);

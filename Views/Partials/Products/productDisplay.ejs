@@ -18,7 +18,7 @@
         
         <div class="product-details">
             <h1><%= product.name %></h1>
-            <p class="product-description"><%= product.description %></p>
+            <p class="product-description text-wrap"><%= product.description %></p>
 
             <% if (product.allergies.lactose || product.allergies.nuts || product.allergies.soy || product.allergies.gluten || product.allergies.eggs) { %>
               <p><strong>Allergens:</strong> <%= generateAllergensString(product.allergies) %></p>
@@ -60,14 +60,13 @@
             <div>
               <p id="total-price">Total Price: $<span id="totalPriceSpan"><%= product.price %></span></p>
             </div>
-            
           </div>
       </div>
     </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   <script> 
 let counter = parseInt(localStorage.getItem('counter')) || 1;
 const updateTotalPrice = (productPrice) => {
@@ -85,6 +84,9 @@ const updateTotalPrice = (productPrice) => {
   document.getElementById('totalPriceSpan').textContent = totalPrice.toFixed(2);
 };
 const addToCart = (productName, productPrice, productImage) => {
+  const addButton = document.getElementById('add-button');
+  addButton.disabled = true;
+
   const selectedAdditions = {
     sprinkles: document.querySelector('[name="sprinkles"]').checked,
     hot_chocolate: document.querySelector('[name="hot_chocolate"]').checked,
@@ -111,7 +113,19 @@ const addToCart = (productName, productPrice, productImage) => {
 
   console.log(`Added "${productName}" to cart for a total of $${totalPrice.toFixed(2)} (Quantity: ${selectedQuantity})`);
   localStorage.setItem('counter', counter);
+
+  const addedToCartMessage = document.createElement('div');
+  addedToCartMessage.textContent = 'Added to Cart!';
+  addedToCartMessage.classList.add('added-to-cart-message', 'text-success');
+  document.body.appendChild(addedToCartMessage);
+
+  setTimeout(() => {
+    document.body.removeChild(addedToCartMessage);
+    window.location.href = '/';
+  }, 2000);
+  
 };
+  
   </script>
 </body>
 </html>
