@@ -42,9 +42,9 @@ DashboardRouter.route('/update-details')
 DashboardRouter.route('/products')
     .get(async (req, res) => {
         const products = await ProductController.getAllProducts(req, res);
-        if(user === undefined) {
-            res.render('./Partials/Not-Found/notFound');
-        }
+        // if(user === undefined) {
+        //     res.render('./Partials/Not-Found/notFound');
+        // }
         res.json(products);
     });
 

@@ -1,9 +1,16 @@
 import mongoose from "mongoose";
-import Allergies from "./allergies.js";
 import Category from "./category.js";
+import makeAllRequired from "./makeAllRequired.js";
+
+const Allergies = new mongoose.Schema({
+    lactose: Boolean,
+    nuts: Boolean,
+    soy: Boolean,
+    gluten: Boolean,
+    eggs: Boolean,
+});
 
 const Product = new mongoose.Schema({
-    // _id: Number,
     name: {
         type: String,
         unique: true,
@@ -20,10 +27,12 @@ const Product = new mongoose.Schema({
         },
     },
     amount_purchased: Number,
-    allergies: Allergies.schema,
+    allergies: Allergies,
     categories: [Category.schema],
-}, {
-    required: true,
 });
+
+
+makeAllRequired(Product)
+makeAllRequired(Allergies);
 
 export default mongoose.model("Product", Product);
