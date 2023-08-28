@@ -25,3 +25,15 @@
 #negative {
     color: rgb(242,132,189);
 }
+
+.bi-hand-thumbs-up-fill {
+    cursor: default;
+    font-size: 2rem;
+    color: orange;
+}
+
+.bi-hand-thumbs-down-fill {
+    cursor: default;
+    font-size: 2rem;
+    color: orange;
+}
