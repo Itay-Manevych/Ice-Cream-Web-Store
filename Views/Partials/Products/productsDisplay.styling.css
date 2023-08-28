@@ -99,14 +99,18 @@ body {
   max-height: 8rem;
   overflow-y: auto;
   --bs-dropdown-padding-y: 0;
-  --bs-dropdown-link-active-bg: rgb(81,190,230) !important;
 }
 
 .dropdown-item {
   color: rgb(242,132,189) !important;
 }
+.dropdown-item:hover {
+  background-color: rgb(81,190,230) !important;
+  color: white !important;
+}
 .dropdown-item:active {
   color: white !important;
+  background-color: rgb(242,132,189) !important;
 }
 
 #filter-dropdown {
