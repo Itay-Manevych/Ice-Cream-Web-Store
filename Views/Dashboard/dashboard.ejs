@@ -15,6 +15,29 @@
             </header>
             <i id="logout-icon" class="bi bi-box-arrow-left"></i>
         </div>
+
+        <% if (user.is_admin) { %>
+            <h2 id="info-header">
+                Admin Functions
+            </h2>
+            <div id="admin-info">
+                <button id="button" class="btn btn-primary product-button" type="button">
+                    <i class="bi bi-arrow-right-square-fill"></i>
+                    Product Functions    
+                </button>
+                
+                <button id="button" class="btn btn-primary category-button" type="button">
+                    <i class="bi bi-arrow-right-square-fill"></i>
+                    Category Functions    
+                </button>
+
+                <button id="button" class="btn btn-primary order-button" type="button">
+                    <i class="bi bi-arrow-right-square-fill"></i>
+                    Order Functions    
+                </button>
+            </div>
+        <% } %>
+
         <h2 id="info-header">
             User Functions
         </h2>
@@ -139,27 +162,6 @@
                 </div>
             </div>
         </div>
-        <% if (user.is_admin) { %>
-            <h2 id="info-header">
-                Admin Functions
-            </h2>
-            <div id="admin-info">
-                <button id="button" class="btn btn-primary product-button" type="button">
-                    <i class="bi bi-arrow-right-square-fill"></i>
-                    Product Functions    
-                </button>
-                
-                <button id="button" class="btn btn-primary category-button" type="button">
-                    <i class="bi bi-arrow-right-square-fill"></i>
-                    Category Functions    
-                </button>
-
-                <button id="button" class="btn btn-primary order-button" type="button">
-                    <i class="bi bi-arrow-right-square-fill"></i>
-                    Order Functions    
-                </button>
-            </div>
-        <% } %>
 
         <div class="modal fade" id="delete-user-modal" tabindex="-1" aria-labelledby="Delete User Modal Label" aria-hidden="true">
           <div class="modal-dialog">
