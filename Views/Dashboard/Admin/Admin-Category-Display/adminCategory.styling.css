@@ -166,3 +166,7 @@ li.no-results {
 li span {
     color: rgb(81,190,230);
 }
+
+.highlighted {
+    background-image: linear-gradient(rgb(242,132,189) 100%, rgb(242,132,189) 100%) !important;
+}
