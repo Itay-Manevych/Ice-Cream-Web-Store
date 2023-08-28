@@ -171,11 +171,11 @@ ul.chosen-choices {
     border-radius: 0.375rem !important;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
 }
-
-.default.chosen-search-input{
+.chosen-container-active .chosen-choices li.search-field input[type="text"]{
     color: rgb(81,190,230) !important;
 }
-.default.chosen-search-input:focus{
+
+.default.chosen-search-input{
     color: rgb(81,190,230) !important;
 }
 
@@ -245,4 +245,7 @@ li span {
 
 .highlighted {
     background-image: linear-gradient(rgb(242,132,189) 100%, rgb(242,132,189) 100%) !important;
+}
+.highlighted:active {
+    background-image: linear-gradient(rgb(81,190,230) 100%, rgb(81,190,230) 100%) !important;
 }
