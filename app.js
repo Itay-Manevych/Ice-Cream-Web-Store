@@ -40,6 +40,10 @@ const connectToMongoDB = async () => {
 };
 
 connectToMongoDB();
+app.use((request, response, next) => {
+  response.set('X-Content-Type-Options', 'nosniff');
+  next();
+});
 
 app.use(cookieParser());
 app.use(bodyParser.json());
