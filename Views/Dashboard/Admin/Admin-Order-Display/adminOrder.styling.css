@@ -11,6 +11,10 @@ html, body {
   font-family: "PT Sans";
 }
 
+.card-header {
+    color: rgb(81,190,230);
+}
+
 #no-orders-pargraph-container {
     display: flex;
     align-items: center;
@@ -34,10 +38,12 @@ html, body {
     width: 35rem;
     margin-top: 2rem;
     margin-bottom: 5rem;
+    border: 0.2rem solid rgb(242,132,189) !important;
+    border-radius: 1rem;
 }
 
 #user-order {
-    border-top: 0.06rem solid #ccc;
+    border-top: 0.15rem solid rgb(81,190,230);
     padding-top: 0.5rem;
 }
 
@@ -54,6 +60,7 @@ html, body {
 
 #user-order-product-item::before {
     max-width: 1rem;
+    color: rgb(81,190,230);
     content: counter(item) ".";
 }
 

@@ -27,6 +27,7 @@ html, body {
 
 #user-username {
     margin-left: 0.5rem;
+    color: rgb(81,190,230);
 }
 
 #house-icon {
@@ -38,6 +39,8 @@ html, body {
 }
 
 #house-icon:hover {
+    left: -2.75rem;
+    top: 0.42rem;
     font-size: 1.65rem;
 }
 
@@ -53,6 +56,7 @@ html, body {
 }
 
 #info-header {
+    color: rgb(242,132,189);
     margin-top: 3.5rem;
     margin-left: 2.25rem;
 }
@@ -70,10 +74,13 @@ html, body {
     justify-content: space-around;
     width: 100%;
     margin-bottom: 3.5rem;
+    margin-top: 2rem;
     gap: 5rem;
 }
 
 #update-details, #user-orders {
+    border: 0.2rem solid rgb(242,132,189) !important;
+    border-radius: 1rem;
     width: 35rem;
 }
 
@@ -126,8 +133,25 @@ label {
     right: -2rem;
 }
 
+.card-header {
+    color: rgb(81,190,230);
+}
+
+#user-orders {
+    width: 35rem;
+    margin-bottom: 5rem;
+    border: 0.2rem solid rgb(242,132,189) !important;
+    border-radius: 1rem;
+}
+
 #user-order {
-    border-bottom: 0.06rem solid #ccc;
+    border-top: 0.15rem solid rgb(81,190,230);
+    padding-top: 0.5rem;
+}
+
+#user-order:first-of-type {
+    border-top: none;
+    padding-bottom: 0;
     margin-bottom: 0.5rem;
 }
 
@@ -144,6 +168,7 @@ label {
 
 #user-order-product-item::before {
     max-width: 1rem;
+    color: rgb(81,190,230);
     content: counter(item) ".";
 }
 
@@ -184,4 +209,32 @@ label {
     gap: 1.5rem;
     margin-left: 3rem;
     width: 14rem;
+}
+
+.form-control {
+    color: rgb(81,190,230) !important;
+    border-color: rgb(242,132,189);
+}
+
+.form-control:focus {
+    border-color: rgb(81,190,230);
+}
+
+.btn {
+    color: white;
+    background-color: rgb(81,190,230);
+}
+
+.btn:hover {
+    color: white;
+    background-color: rgb(242,132,189);
+}
+
+.delete {
+    color: white;
+    background-color: rgb(242,132,189) !important;
+}
+.delete:hover {
+    color: white;
+    background-color: rgb(81,190,230) !important;
 }
