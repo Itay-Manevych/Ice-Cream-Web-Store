@@ -108,51 +108,52 @@ app.get("/reviews", async (req, res) => {
 });
 
 
-// const adminApp = express();
-// const adminServer = http.createServer(adminApp);
-// const adminIo = new Server(adminServer);
+const adminApp = express();
+const adminServer = http.createServer(adminApp);
+const adminIo = new Server(adminServer);
 
-// adminApp.use(cookieParser());
-// adminApp.use(bodyParser.json());
-// adminApp.use(express.static('Views'));
-// adminApp.set('view engine', 'ejs');
-// adminApp.set('views', path.join(__dirname, 'Views'))
-// adminApp.use("/products", ProductRouter);
-// adminApp.use("/categories", CategoryRouter);
-// adminApp.use("/orders", OrderRouter);
-// adminApp.use("/users", UserRouter);
-// adminApp.use("/login", LoginRouter);
-// adminApp.use("/register", RegisterRouter);
-// adminApp.use("/dashboard", DashboardRouter);
-// adminApp.use("/checkout", CheckoutRouter);
+adminApp.use(cookieParser());
+adminApp.use(bodyParser.json());
+adminApp.use(express.static('Views'));
+adminApp.set('view engine', 'ejs');
+adminApp.set('views', path.join(__dirname, 'Views'))
+adminApp.use("/products", ProductRouter);
+adminApp.use("/categories", CategoryRouter);
+adminApp.use("/orders", OrderRouter);
+adminApp.use("/users", UserRouter);
+adminApp.use("/login", LoginRouter);
+adminApp.use("/register", RegisterRouter);
+adminApp.use("/dashboard", DashboardRouter);
+adminApp.use("/checkout", CheckoutRouter);
 
-// adminIo.on("connection", (socket) => {
-//   console.log("Admin user connected to chat:", socket.id);
+adminIo.on("connection", (socket) => {
+  
+  console.log("Admin user connected to chat:", socket.id);
 
-//   socket.on("disconnect", () => {
-//     console.log("Admin user disconnected from chat:", socket.id);
-//   });
+  socket.on("disconnect", () => {
+    console.log("Admin user disconnected from chat:", socket.id);
+  });
 
-//   socket.on("send_message", (data) => {
-//     adminIo.emit("send_message", data);
-//   });
-// });
+  socket.on("send_message", (data) => {
+    adminIo.emit("send_message", data);
+  });
+});
 
-// adminServer.listen(process.env.ADMIN_PORT, () => {
-//   console.log(`Admin chat server is running on port ${process.env.ADMIN_PORT}`);
-// });
+adminServer.listen(process.env.ADMIN_PORT, () => {
+  console.log(`Admin chat server is running on port ${process.env.ADMIN_PORT}`);
+});
 
-// app.get("/get-admin-chat-url", (req, res) => {
-//   const adminChatUrl = `http://localhost:${process.env.ADMIN_PORT}/admin-chat`;  
-//   res.json({ adminChatUrl });
-// });
+app.get("/get-admin-chat-url", (req, res) => {
+  const adminChatUrl = `http://localhost:${process.env.ADMIN_PORT}/admin-chat`;  
+  res.json({ adminChatUrl });
+});
 
-// adminApp.get("/admin-chat", async (req, res) => {
-//     const user =  await UserController.getUserByToken(req,res);
-//     if(user) {
-//       res.render("./Admin-Chat/adminChat.ejs", {user: user});
-//     }
-//     else {
-//       res.render("./Partials/Not-Found/notFound.ejs");
-//     }
-// });
+adminApp.get("/admin-chat", async (req, res) => {
+    const user =  await UserController.getUserByToken(req,res);
+    if(user) {
+      res.render("./Admin-Chat/adminChat.ejs", {user: user});
+    }
+    else {
+      res.render("./Partials/Not-Found/notFound.ejs");
+    }
+});

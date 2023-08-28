@@ -77,6 +77,38 @@ body {
   font-weight: bold;
 }
 
+.category-label {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+#price-filter {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  margin-left: 2rem;
+}
+
+#from-price,#to-price {
+  width: 7rem;
+  height: 2rem;
+  margin-right: 1rem;
+}
+
+.dropdown-menu {
+  max-height: 8rem;
+  overflow-y: auto;
+}
+
+#filter-dropdown {
+  width: 15rem;
+}
+
+.dropdown-item .category-checkbox-input {
+  margin-right: 5px;
+}
+
+
 .modal-description {
   margin-top: 1rem;
   width: 100%;

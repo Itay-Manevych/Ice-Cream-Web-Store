@@ -15,18 +15,22 @@
         <h1 id="page-title" class="ml-3 medium-margin-right"><%= pageTitle %></h1>
         
         <div id="filter-dropdown" class="dropdown">
-          <label class="small-margin-right" for="categoryDropdown">Category:</label>
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-            All
+          <label class="small-margin-right category-label">Filter By:</label>
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
           </button>
-          <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-            <li><a class="dropdown-item category-dropdown-item" data-category="All">All</a></li>
-            <% categories.forEach(category => { %>
-              <li><a class="dropdown-item category-dropdown-item" data-category="<%= category.name %>"><%= category.name %></a></li>
-            <% }); %>
-          </ul>
+          <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <div class="checkbox-container">
+              <% categories.forEach(category => { %>
+                <label class="dropdown-item">
+                  <input type="checkbox" class="category-checkbox category-checkbox-input" data-category="<%= category.name %>">
+                  <%= category.name %>
+                </label>
+              <% }); %>
+            </div>
+          </div>
         </div>
-        <div class="dropdown medium-margin-left">
+        <div class="dropdown">
           <label class="small-margin-right" for="sortDropdown">Sort by:</label>
           <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Default
@@ -37,6 +41,13 @@
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Lowest - Highest">Price Lowest - Highest</a></li>
             <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Highest - Lowest">Price Highest - Lowest</a></li>
           </ul>
+        </div>
+
+        <div id="price-filter" class="medium-margin-left">
+          <label class="small-margin-right" for="fromPrice">Price Range:</label>
+          <input type="number" id="from-price" class="price-input" placeholder="From">
+          <input type="number" id="to-price" class="price-input" placeholder="To">
+          <button class="btn btn-primary" id="applyPriceFilter">Apply</button>
         </div>
       </div>
     </div>
@@ -225,27 +236,44 @@
     }
  
   $(document).ready(function() {
-
-    $('.category-dropdown-item').on('click', function(){
-        $('.category-dropdown-item').removeClass('active');
-        $(this).addClass('active');
- 
-        const selectedCategory = $(this).data('category');
-        if (selectedCategory === 'All') {
-          $('.card-container').css('display', 'block');
-          $('#categoryDropdown').text('All');
-        } 
-        else {
-          $('.card-container').css('display', 'none');
-          $('.card-container').each(function() {
-              const productCategories = $(this).attr('data-categories');
-               if (productCategories.includes(selectedCategory)) {
-                 $(this).css('display', 'block');
-               }
-          });
-          $('#categoryDropdown').text(selectedCategory);
-        }
+    $('#applyPriceFilter').on('click', function () {
+      filterProducts();
     });
+
+    const selectedCategories = new Set();
+
+    $('.category-checkbox').on('click', function() {
+      const category = $(this).data('category');
+      if ($(this).prop('checked')) {
+        selectedCategories.add(`'${category}',`);
+      } else {
+        selectedCategories.delete(`'${category}',`);
+      }
+
+      filterProducts();
+    });
+
+    function filterProducts() {
+      const products = $('.card-container').toArray();
+      const fromPrice = parseFloat($('#from-price').val()) || 0;
+      const toPrice = parseFloat($('#to-price').val()) || Infinity;
+      if (selectedCategories.size === 0) {
+        products.forEach(product => {
+          const productPrice = parseFloat($(product).find('.card-price').text().replace(/[^0-9.-]+/g, ''));
+          const showPrice = productPrice >= fromPrice && productPrice <= toPrice;
+          $(product).css('display', showPrice? 'block': 'none');
+        });
+      }
+      else {
+        products.forEach(product => {
+          const productCategories = $(product).attr('data-categories').split(' ');
+          const productPrice = parseFloat($(product).find('.card-price').text().replace(/[^0-9.-]+/g, ''));
+          const showProduct = productCategories.some(category => selectedCategories.has(category));
+          const showPrice = productPrice >= fromPrice && productPrice <= toPrice;
+          $(product).css('display', showProduct && showPrice ? 'block' : 'none');
+        });
+      }
+    }
  
     $('.sort-dropdown-item').on('click', function () {
       const selectedSort = $(this).data('sort');
