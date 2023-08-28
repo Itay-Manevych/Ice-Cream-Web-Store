@@ -98,6 +98,15 @@ body {
 .dropdown-menu {
   max-height: 8rem;
   overflow-y: auto;
+  --bs-dropdown-padding-y: 0;
+  --bs-dropdown-link-active-bg: rgb(81,190,230) !important;
+}
+
+.dropdown-item {
+  color: rgb(242,132,189) !important;
+}
+.dropdown-item:active {
+  color: white !important;
 }
 
 #filter-dropdown {
@@ -107,7 +116,6 @@ body {
 .dropdown-item .category-checkbox-input {
   margin-right: 5px;
 }
-
 
 .modal-description {
   margin-top: 1rem;
@@ -141,27 +149,33 @@ body {
 }
 
 .price-input {
-  color: rgb(81,190,230);
-  border: 0.1rem solid rgb(242,132,189);
+  color: rgb(81,190,230) !important;
+  border: 0.1rem solid rgb(242,132,189) !important;
   border-radius: 0.355rem;
 }
 
 .btn {
-  background-color: rgb(81,190,230);
   color: white;
+  background-color: rgb(81,190,230) !important;
 }
-
 .btn:hover {
-  background-color: rgb(242,132,189);
   color: white;
+  background-color: rgb(242,132,189) !important;
+}
+.btn:active {
+  color: rgb(242,132,189) !important;
+  background-color: white !important;
 }
 
 .category {
-  background-color: rgb(242,132,189);
-  color: white;
+  color: white  !important;
+  background-color: rgb(242,132,189) !important;
 }
-
-.category:hover, .btn.show {
-  background-color: rgb(81,190,230);
+.category:hover, .btn.show{
   color: white;
+  background-color: rgb(81,190,230) !important;
+}
+.category:active{
+  color: rgb(81,190,230) !important;
+  background-color: white !important;
 }
