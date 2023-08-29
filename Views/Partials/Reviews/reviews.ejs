@@ -24,16 +24,17 @@
                         $.each(reviews, function(index, review) {
                             if(review.recommendation_type == "positive"){
                                 const reviews_element = $("<a>").html(  
-                                    `<div id="review"><h3 style="margin-bottom: 0;"> Rating: <span id="positive"> positive </span></h3>
-                                    <h5 id="negative"> ${review.review_text} <i class="bi bi-hand-thumbs-up-fill"></i></h5></div>`
+                                    `<div id="review"><h3 style="margin-bottom: 0.5rem;"> Rating: <span id="positive"> positive 
+                                    </span> <i class="bi bi-hand-thumbs-up-fill"></i></h3>
+                                    <h5 id="negative"> ${review.review_text}</h5></div>`
                                 );
                                 reviews_list.append(reviews_element);
                             }
                             else if(review.recommendation_type == "negative"){
                                 const reviews_element = $("<a>").html( 
-                                    `<div><h3> Rating: <span id="negative"> negative </span></h3>
-                                    <span class="d-flex align-items-center" style="height:3rem; margin-top:0.2rem;">
-                                    <h5 id="positive"> ${review.review_text} </h5><i class="bi bi-hand-thumbs-down-fill"></i></span></div>`
+                                    `<div style="margin-bottom: 1rem;"><h3><span class="d-flex align-items-center" style="height:2.4rem;"> Rating: 
+                                    <span id="negative" style="margin-left: 0.5rem; margin-right: 0.5rem;"> negative </span><i id="down" class="bi bi-hand-thumbs-down-fill"></i></span></h3>
+                                    <h5 id="positive"> ${review.review_text} </h5></div>`
                                 );
                                 reviews_list.append(reviews_element);
                             }
