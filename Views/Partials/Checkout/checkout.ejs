@@ -264,7 +264,12 @@ $(document).ready(() => {
                 hideError(floor_input);
                 showValidation($("#floor"),"");
             }
-        
+            if(is_valid) {
+                showValidation($("#order-button"),"Order Created Successfully");
+            }
+            else {
+                $('#order-button').attr('disabled', false);
+            }
             return is_valid;
         };
     
@@ -275,12 +280,12 @@ $(document).ready(() => {
 
         $('#checkout-form').submit(async function (event) {
             event.preventDefault();
+            $('#order-button').attr('disabled', true);
             if(await validateUserForm($("#name"), $("#phone_number"), $("#city"), $("#street"), $("#apartment"), $("#floor"))) {
                 const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
                 await getUser();
                 const currentDate = new Date();
 
-                // Add one day
                 currentDate.setDate(currentDate.getDate() + 2);
                 const formData = {
                     name: $('#name').val(),
@@ -306,7 +311,6 @@ $(document).ready(() => {
                     amount: total_sum,
                     date: new Date(new Date().getTime() + 3 * 60 * 60 * 1000),
                 };
-
                 try {
                     const response = await $.ajax({
                         url: '/orders', 
@@ -315,14 +319,11 @@ $(document).ready(() => {
                         contentType: 'application/json',
                         data: JSON.stringify(formData)
                     });
-                    showValidation($("#order-button"),"Order Created Successfully");
-                    const overlay = document.createElement('div');
-                    overlay.classList.add('overlay');
-                    document.body.appendChild(overlay);
+
 
                     setTimeout(() => {
-                        document.body.removeChild(overlay);
                         localStorage.removeItem('cartItems');
+                        $('#order-button').attr('disabled', false);
                         window.location.href = '/';
                     } ,2000)
                 } catch (error) {
