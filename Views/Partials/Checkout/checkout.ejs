@@ -267,6 +267,9 @@ $(document).ready(() => {
             if(is_valid) {
                 showValidation($("#order-button"),"Order Created Successfully");
             }
+            else {
+                $('#order-button').attr('disabled', false);
+            }
             return is_valid;
         };
     
