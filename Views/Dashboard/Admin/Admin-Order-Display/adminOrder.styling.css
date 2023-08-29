@@ -11,6 +11,10 @@ html, body {
   font-family: "PT Sans";
 }
 
+.card-header {
+    color: rgb(81,190,230);
+}
+
 #no-orders-pargraph-container {
     display: flex;
     align-items: center;
@@ -34,17 +38,19 @@ html, body {
     width: 35rem;
     margin-top: 2rem;
     margin-bottom: 5rem;
+    border: 0.2rem solid rgb(242,132,189) !important;
+    border-radius: 1rem;
 }
 
 #user-order {
-    border-bottom: 0.06rem solid #ccc;
-    margin-bottom: 0.5rem;
+    border-top: 0.15rem solid rgb(81,190,230);
+    padding-top: 0.5rem;
 }
 
-#user-order:last-of-type {
-    border-bottom: none;
+#user-order:first-of-type {
+    border-top: none;
     padding-bottom: 0;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
 }
 
 #user-order-product-list {
@@ -54,6 +60,7 @@ html, body {
 
 #user-order-product-item::before {
     max-width: 1rem;
+    color: rgb(81,190,230);
     content: counter(item) ".";
 }
 
@@ -88,14 +95,14 @@ html, body {
     margin-bottom: 0.35rem;
 }
 
-#delete-order-button-container {
+#buttons-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-top: 2rem;
 }
 
-#delete-order-success-message-container {
+.alert-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -106,4 +113,46 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#delete-order-success-message-container {
+    z-index: 10000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#edit-order-success-message-container {
+    z-index: 10000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn {
+    color: white;
+    background-color: rgb(81,190,230);
+}
+.btn:hover {
+    color: white;
+    background-color: rgb(242,132,189);
+}
+.btn:active {
+    color: rgb(242,132,189) !important;
+    background-color: white !important;
+}
+
+.delete {
+    color: white;
+    background-color: rgb(242,132,189) !important;
+}
+.delete:hover {
+    color: white;
+    background-color: rgb(81,190,230) !important;
+}
+.delete:active {
+    color: rgb(81,190,230) !important;
+    background-color: white !important;
 }

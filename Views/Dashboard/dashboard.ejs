@@ -11,16 +11,44 @@
         <div id="welcome-container" class="d-flex justify-content-between align-items-center">
             <header id="welcome">
                 <i id="house-icon" class="bi bi-house-door"></i>
-                Welcome, <span id="user-username"><%= user.username %></span>!
+                <span >Welcome, <span id="user-username"><%= user.username %></span>!</span>
             </header>
             <i id="logout-icon" class="bi bi-box-arrow-left"></i>
         </div>
+
+        <% if (user.is_admin) { %>
+            <h2 id="info-header">
+                Admin Functions
+            </h2>
+            <div id="admin-info">
+                <button id="button" class="btn product-button" type="button">
+                    <i class="bi bi-arrow-right-square-fill"></i>
+                    Product Functions    
+                </button>
+                
+                <button id="button" class="btn category-button" type="button">
+                    <i class="bi bi-arrow-right-square-fill"></i>
+                    Category Functions    
+                </button>
+
+                <button id="button" class="btn order-button" type="button">
+                    <i class="bi bi-arrow-right-square-fill"></i>
+                    Order Functions    
+                </button>
+
+                <button id="button" class="btn statistics-button" type="button">
+                    <i class="bi bi-arrow-right-square-fill"></i>
+                    Statistics    
+                </button>
+            </div>
+        <% } %>
+
         <h2 id="info-header">
             User Functions
         </h2>
         <div id="user-info">
                 <div id="update-details" class="card">
-                    <button id="delete-user-button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal">
+                    <button id="delete-user-button" class="btn delete" data-bs-toggle="modal" data-bs-target="#delete-user-modal">
                         Delete User
                     </button>
                     <div class="card-header">
@@ -29,28 +57,28 @@
                     <div id="card-body" class="card-body d-flex flex-column justify-content-center align-items-center">
                         <form id="user-details-form">
                             <div id="form-field">
-                                <label for="username">Username:</label>
-                                <input type="text" class="form-control text-dark" id="username" name="username" placeholder="<%= user.username %>">
+                                <label for="username" style="color: rgb(242,132,189);">Username:</label>
+                                <input type="text" class="form-control text-dark" id="username" name="username" value="<%= user.username %>">
                                 <div id="invalid-feedback" class="text-danger">
 
                                 </div>
                             </div>
                             <div id="form-field">
-                                <label for="email">Email:</label>
-                                <input type="email" class="form-control text-dark" id="email" name="email" placeholder="<%= user.email %>">
+                                <label for="email" style="color: rgb(242,132,189);">Email:</label>
+                                <input type="email" class="form-control text-dark" id="email" name="email" value="<%= user.email %>">
                                 <div id="invalid-feedback" class="text-danger">
 
                                 </div>
                             </div>
                             <div id="form-field" class="form-field-password">
-                                <label for="password">Password:</label>
+                                <label for="password" style="color: rgb(242,132,189);">Password:</label>
                                 <input type="password" class="form-control text-dark" id="password">
                                 <i id="eye-icon" class="bi bi-eye-fill"></i>
                                 <div id="invalid-feedback" class="text-danger">
                                 </div>
                             </div>
                             <div id="user-details-button-container">
-                                <button id="user-details-button" class="btn btn-primary" type="button">Update Details</button>
+                                <button id="user-details-button" class="btn" type="button">Update Details</button>
                                 <div id="valid-feedback" class="text-success">
                                 
                                 </div>
@@ -86,7 +114,7 @@
                                 </p>
                             </div>
                             <div id="user-order-products">
-                              <h4>Products Ordered:</h4>
+                              <h4  style="color: rgb(242,132,189);">Products Ordered:</h4>
                               <ul id = "user-order-product-list">
                                 <% let total_order_price = 0; %>
                                 <% order.products_info.forEach(product => { %>
@@ -139,27 +167,6 @@
                 </div>
             </div>
         </div>
-        <% if (user.is_admin) { %>
-            <h2 id="info-header">
-                Admin Functions
-            </h2>
-            <div id="admin-info">
-                <button id="button" class="btn btn-primary product-button" type="button">
-                    <i class="bi bi-arrow-right-square-fill"></i>
-                    Product Functions    
-                </button>
-                
-                <button id="button" class="btn btn-primary category-button" type="button">
-                    <i class="bi bi-arrow-right-square-fill"></i>
-                    Category Functions    
-                </button>
-
-                <button id="button" class="btn btn-primary order-button" type="button">
-                    <i class="bi bi-arrow-right-square-fill"></i>
-                    Order Functions    
-                </button>
-            </div>
-        <% } %>
 
         <div class="modal fade" id="delete-user-modal" tabindex="-1" aria-labelledby="Delete User Modal Label" aria-hidden="true">
           <div class="modal-dialog">
@@ -172,8 +179,8 @@
                 Are you sure you want to delete this user - <%= user.username %>?
               </div>
               <div class="modal-footer">
-                <button id="cancel-delete-user-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button id="confirm-delete-user-button" type="button" class="btn btn-danger">Delete</button>
+                <button id="cancel-delete-user-button" type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+                <button id="confirm-delete-user-button" type="button" class="btn delete">Delete</button>
               </div>
             </div>
           </div>
@@ -182,36 +189,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="./header.js"></script>
+    <script type="module" src="./init.js"></script>
+    <script type="module" src="./dashboardMainPage.js"> </script>
     <script type="module" src="./User/updateUser.js"></script>
     <script type="module" src="./Category/createCategory.js"></script>
     <script type="module" src="./Category/deleteCategory.js"></script>
     <script type="module" src="./Category/updateCategory.js"></script>
-    <script>
-        $(document).ready(() => {
-            $("#confirm-delete-user-button").on("click", async () => {
-                try {
-                    const user = await $.ajax({
-                        url: '/dashboard/user',
-                        type: 'GET',
-                    });
-                    if (user) {
-                        await $.ajax({
-                            url: `/users/${user.email}`, 
-                            method: 'DELETE',
-                        });   
-                        window.location.href = '/';
-                    }
-                } 
-                catch (error) {
-                    console.log("Error deleting user", error);
-                }
-            }); 
-            
-            $("cancel-delete-user-button").on("click", () => {
-              $("#delete-user-modal").modal("hide");
-            })
-        });
-    </script>
 </body>
 </html>

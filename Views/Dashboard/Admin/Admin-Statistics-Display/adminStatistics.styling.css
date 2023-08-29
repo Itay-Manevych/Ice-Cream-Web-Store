@@ -1,0 +1,37 @@
+#product-bar-chart-header-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+#product-bar-chart-header {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.chart-header p {
+    font-size: 0.75rem;
+    color: #777;
+}
+
+.tooltip {
+    width: 28rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5rem;
+}
+
+#sales-heatmap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5rem;
+}
+
+rect {
+    margin-top: 2rem;
+}
+
+#heatmap-container {
+    margin-top: 4rem;
+}

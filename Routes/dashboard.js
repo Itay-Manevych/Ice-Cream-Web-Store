@@ -42,17 +42,24 @@ DashboardRouter.route('/update-details')
 DashboardRouter.route('/products')
     .get(async (req, res) => {
         const products = await ProductController.getAllProducts(req, res);
-        if(user === undefined) {
-            res.render('./Partials/Not-Found/notFound');
-        }
         res.json(products);
+    });
+
+DashboardRouter.route('/orders')
+    .get(async (req, res) => {
+        const user = await UserController.getUserByToken(req, res);
+        if(user === undefined || user.is_admin === false) {
+            return res.render('./Partials/Not-Found/notFound');
+        }
+        const orders = await OrderController.getAllOrders(req, res);
+        res.json(orders);
     });
 
 DashboardRouter.route('/admin-product')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
-        if(user === undefined) {
-            res.render('./Partials/Not-Found/notFound');
+        if(user === undefined || user.is_admin === false) {
+            return res.render('./Partials/Not-Found/notFound');
         }
         const products = await ProductController.getAllProducts(req, res);
         const categories = await CategoryController.getAllCategories(req, res);
@@ -63,8 +70,8 @@ DashboardRouter.route('/admin-product')
 DashboardRouter.route('/admin-category')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
-        if(user === undefined) {
-            res.render('./Partials/Not-Found/notFound');
+        if(user === undefined || user.is_admin === false) {
+            return res.render('./Partials/Not-Found/notFound');
         }
         const products = await ProductController.getAllProducts(req, res);
         const categories = await CategoryController.getAllCategories(req, res);
@@ -74,13 +81,22 @@ DashboardRouter.route('/admin-category')
 DashboardRouter.route('/admin-order')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
-        if(user === undefined) {
-            res.render('./Partials/Not-Found/notFound');
+        if(user === undefined || user.is_admin === false) {
+            return res.render('./Partials/Not-Found/notFound');
         }
         const products = await ProductController.getAllProducts(req, res);
         const categories = await CategoryController.getAllCategories(req, res);
         const orders = await OrderController.getAllOrders(req, res);
         res.render("./Dashboard/Admin/Admin-Order-Display/adminOrder",{ user: user, products: products, categories: categories, all_orders: orders });
+    });
+
+DashboardRouter.route('/statistics')
+    .get(async (req, res) => {
+        const user = await UserController.getUserByToken(req, res);
+        if(user === undefined || user.is_admin === false) {
+            return res.render('./Partials/Not-Found/notFound');
+        }
+        res.render("./Dashboard/Admin/Admin-Statistics-Display/adminStatistics.ejs");
     });
 export default DashboardRouter;
 

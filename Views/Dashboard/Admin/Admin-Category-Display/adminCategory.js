@@ -1,0 +1,1 @@
+$("#welcome").append("Category Functions");

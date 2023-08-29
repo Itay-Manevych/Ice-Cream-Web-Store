@@ -79,6 +79,10 @@ app.get("/search-products", async (req, res) => {
   }
 });
 
+// app.get("/statistics", (req, res) => {
+//   res.render("./Dashboard/Admin/Admin-Statistics-Display/adminStatistics.ejs");
+// })
+
 app.listen(process.env.PORT, () => {
   console.log(`server runs on port ${process.env.PORT}`);
 });
