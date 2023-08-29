@@ -40,7 +40,6 @@ const connectToMongoDB = async () => {
 };
 
 connectToMongoDB();
-
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.static('Views'));
