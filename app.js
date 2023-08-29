@@ -40,7 +40,6 @@ const connectToMongoDB = async () => {
 };
 
 connectToMongoDB();
-
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.static('Views'));
@@ -84,6 +83,29 @@ app.listen(process.env.PORT, () => {
   console.log(`server runs on port ${process.env.PORT}`);
 });
 
+app.get("/get-reviews", async (req, res) => {
+  try {
+    const pageId = process.env.FACEBOOK_PAGE_ID;
+    const accessToken = process.env.FACEBOOK_API_KEY;
+    const apiRequestUrl = `https://graph.facebook.com/v17.0/${pageId}/ratings?access_token=${accessToken}`;
+    const response = await fetch(apiRequestUrl);
+    
+    const retrieved_reviews = await response.json();
+
+    res.json(retrieved_reviews.data);
+
+  } 
+  catch (error) {
+    console.error("Error retrieving reviews:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+app.get("/reviews", async (req, res) => {
+  res.render("./Partials/Reviews/reviews.ejs");
+});
+
 
 const adminApp = express();
 const adminServer = http.createServer(adminApp);
@@ -104,6 +126,7 @@ adminApp.use("/dashboard", DashboardRouter);
 adminApp.use("/checkout", CheckoutRouter);
 
 adminIo.on("connection", (socket) => {
+  
   console.log("Admin user connected to chat:", socket.id);
 
   socket.on("disconnect", () => {
