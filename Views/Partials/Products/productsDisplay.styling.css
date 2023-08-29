@@ -183,3 +183,9 @@ body {
   color: rgb(81,190,230) !important;
   background-color: white !important;
 }
+
+.quantity {
+  color: rgb(81,190,230) !important;
+  border: 0.1rem solid rgb(242,132,189) !important;
+  border-radius: 0.355rem;
+}
