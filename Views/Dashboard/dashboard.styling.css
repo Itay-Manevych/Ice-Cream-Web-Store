@@ -237,11 +237,24 @@ label {
     color: white  !important;
     background-color: rgb(242,132,189) !important;
 }
+
 .delete:hover {
     color: white;
     background-color: rgb(81,190,230) !important;
 }
+
 .delete:active {
     color: rgb(81,190,230) !important;
     background-color: white !important;
+}
+
+#no-orders-pargraph-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+}
+
+#no-orders-pargraph {
+    margin: 0;
 }
