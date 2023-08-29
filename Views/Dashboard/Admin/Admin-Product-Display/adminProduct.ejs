@@ -88,7 +88,7 @@
                                         <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
                                     <% }); 
                                 } else { %>
-                                    <option value="" disabled> 
+                                    <option value="no-data-update-product" disabled> 
                                         No products available 
                                     </option>
                                 <% } %>
@@ -170,7 +170,7 @@
                                         <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
                                     <% }); 
                                 } else { %>
-                                    <option value="" disabled> 
+                                    <option value="no-data-delete-product" disabled> 
                                         No products available 
                                     </option>
                                 <% } %>

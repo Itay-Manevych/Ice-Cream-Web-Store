@@ -1,6 +1,7 @@
 import { Valid } from "../Visual-Validation/valid.js";
 import { Error } from "../Visual-Validation/error.js";
 import { ProductFunctions } from "../Product/productFunctions.js";
+import { CategoryFunctions } from "./categoryFunctions.js";
 
 $(document).ready(() => {
     const deleteCategory = async () => {
@@ -23,6 +24,18 @@ $(document).ready(() => {
                 $("#product-names-update, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
         
                 Valid.showValid($("#delete-category-button"), "Category Deleted Successfully");
+
+                if((await CategoryFunctions.getAllCategories()).length === 0) {
+                    $("#update-product-categories").append(
+                        `<option value="no-data-update-category" disabledz>No categories available </option>`
+                    );
+
+                    $("#delete-product-categories").append(
+                        `<option value="no-data-delete-category" disabled>No categories available</option>`
+                    );
+
+                    $("#delete-product-categories, #update-product-categories").trigger("chosen:updated");
+                }
             } 
             catch (error) {
                 console.log("AJAX error occured when deleting category", error);

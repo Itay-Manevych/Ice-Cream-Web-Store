@@ -43,7 +43,7 @@
                             <option value="<%= category.name %>"><%= category.name %></option>
                             <% });
                         } else { %>
-                            <option value="" disabled> 
+                            <option value="no-data-update-category" disabled> 
                                 No categories available 
                             </option>
                         <% } %>
@@ -79,7 +79,7 @@
                                 <option value="<%= category.name %>"><%= category.name %></option>
                                 <% });
                             } else { %>
-                                <option value="" disabled> 
+                                <option value="no-data-delete-category" disabled> 
                                     No categories available 
                                 </option>
                             <% } %>
