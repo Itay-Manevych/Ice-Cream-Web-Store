@@ -27,7 +27,7 @@ $(document).ready(() => {
 
                 if((await CategoryFunctions.getAllCategories()).length === 0) {
                     $("#update-product-categories").append(
-                        `<option value="no-data-update-category" disabledz>No categories available </option>`
+                        `<option value="no-data-update-category" disabled>No categories available </option>`
                     );
 
                     $("#delete-product-categories").append(
