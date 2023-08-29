@@ -4,25 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./adminChat.styling.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <title>Chat</title>
 </head>
 <body>
-    <h1>Chat</h1>
-    <div id="chat-container">
-        <input type="text" id="message-input" placeholder="Type your message">
-        <button id="send-button">Send</button>
-        <div id="chat-messages"></div>
+    <div id="title" class="bg-light">
+        <i id="house-icon" class="bi bi-house-door"></i>
+        <h1 style="margin: 0;">Chat</h1>
     </div>
+
+    <div id="chat-container">
+        <div id="chat-messages"></div>
+        <i class="bi bi-arrow-up bg-light" style="display: none;"></i>
+        <i class="bi bi-arrow-down bg-light" style="display: none;"></i>
+    </div>
+
+    <div id="input" class="bg-light">
+        <input type="text" id="message-input" class="form-control" placeholder="Type your message">      
+        <button type="button" id="send-button" class="btn">Send</button>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
     <script src="/socket.io/socket.io.js"></script>
+
     <script>
         const socket = io(); 
     
         const chat_messages = document.getElementById("chat-messages");
         const message_input = document.getElementById("message-input");
         const send_button = document.getElementById("send-button");
-    
+        const home_button = document.getElementById("house-icon");
+        const chat_container = document.getElementById("chat-container");
+        const up = $(".bi-arrow-up")[0];
+        const down = $(".bi-arrow-down")[0];
+
+        message_input.focus();
+
+        home_button.onclick = () => {
+            $.ajax({
+                url: "/get-home-url",
+                method: "GET",
+                dataType: "json",
+                success: function(data) {
+                  window.location.href = data.homeUrl;
+                },
+                error: function(error) {
+                  console.error("Error getting home URL:", error);
+                }
+            });
+        }
+
+        up.addEventListener('click', scrollUp);
+        down.addEventListener('click', scrollDown);
+
+        chat_container.addEventListener("scroll", () => {
+            if (chat_container.scrollTop > 0) {
+                up.style.display = 'block';
+                up.classList.add('up');
+                up.classList.remove('down');
+            } 
+            else {
+                up.style.display = 'none';
+                up.classList.add('down');
+                up.classList.remove('up');
+            }
+        
+            if (chat_container.scrollTop + chat_container.clientHeight < chat_container.scrollHeight) {
+                down.style.display = 'block';
+                if(up.style.display == 'block') {
+                    up.classList.add('up');
+                    up.classList.remove('down');
+                }
+                down.classList.add('down');
+                down.classList.remove('up');
+            } 
+            else {
+                down.style.display = 'none';
+                if(up.style.display == 'block') {
+                    up.classList.add('down');
+                    up.classList.remove('up');
+                }
+            }
+        });
+
+        function scrollUp() {
+            const currentScroll = chat_container.scrollTop;
+            const targetScroll = 0;
+            const distance = targetScroll - currentScroll;
+            const duration = 1000; 
+            const startTime = performance.now();
+        
+            function scrollToTimestamp(timestamp) {
+                const elapsedTime = timestamp - startTime;
+                if (elapsedTime < duration) {
+                    const scrollAmount = currentScroll + easeInOut(elapsedTime, 0, distance, duration);
+                    chat_container.scrollTop = scrollAmount;
+                    requestAnimationFrame(scrollToTimestamp);
+                } else {
+                    chat_container.scrollTop = targetScroll;
+                }
+            }
+        
+            function easeInOut(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+        
+            requestAnimationFrame(scrollToTimestamp);
+        }
+
+        function scrollDown() {
+            const currentScroll = chat_container.scrollTop;
+            const targetScroll = chat_container.scrollHeight - chat_container.clientHeight;
+            const distance = targetScroll - currentScroll;
+            const duration = 1000; 
+            const startTime = performance.now();
+        
+            function scrollToTimestamp(timestamp) {
+                const elapsedTime = timestamp - startTime;
+                if (elapsedTime < duration) {
+                    const scrollAmount = currentScroll + easeInOut(elapsedTime, 0, distance, duration);
+                    chat_container.scrollTop = scrollAmount;
+                    requestAnimationFrame(scrollToTimestamp);
+                } else {
+                    chat_container.scrollTop = targetScroll;
+                }
+            }
+        
+            function easeInOut(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+        
+            requestAnimationFrame(scrollToTimestamp);
+        }
         function displayMessage(message, sender, is_admin) {
             const message_div = document.createElement("div");
             if (is_admin === "true") {
@@ -35,7 +156,16 @@
                 message_div.textContent = `${senderDisplayName}: ${message}`;
             }
             chat_messages.appendChild(message_div);
-    }
+
+            if(sender === '<%= user.username %>') {
+                message_div.classList.add('user_message');
+            }
+            else {
+                message_div.classList.add('others_message');
+            }    
+
+            scrollDown();
+        }
     
         send_button.addEventListener("click", () => {
             const message = message_input.value;
@@ -43,8 +173,49 @@
                 socket.emit("send_message", { message, sender: '<%= user.username %>' , is_admin: '<%= user.is_admin%>' }); 
                 message_input.value = "";
             }
+            message_input.focus();
         });
         
+        message_input.addEventListener("keydown", (event) => {
+            const message = message_input.value;
+            if (message && event.key == "Enter") {
+                socket.emit("send_message", { message, sender: '<%= user.username %>' , is_admin: '<%= user.is_admin%>' }); 
+                message_input.value = "";
+            }
+        });message_input
+
+        const username = `<%=user.username%>`;
+        const user_is_admin =`<%=user.is_admin%>`;
+
+        if(user_is_admin === "true") {
+            socket.emit("join_chat", `${username} (Admin)`);
+        }
+        else {
+            socket.emit("join_chat", username);
+        }
+
+        socket.on("user_joined", (message, is_you) => {
+            const messageElement = document.createElement("div");
+            messageElement.textContent = message;
+
+            if (is_you) {
+              messageElement.classList.add("chat-message", "self");
+            } 
+            else {
+              messageElement.classList.add("chat-message", "other");
+            }
+        
+            document.getElementById("chat-messages").appendChild(messageElement);
+        });
+
+        socket.on("user_left", (message) => {
+            const messageElement = document.createElement("div");
+            messageElement.textContent = message;
+            messageElement.classList.add("chat-message", "other");
+        
+            document.getElementById("chat-messages").appendChild(messageElement);
+    });
+
         socket.on("send_message", (data) => {
             displayMessage(data.message, data.sender, data.is_admin); 
         });

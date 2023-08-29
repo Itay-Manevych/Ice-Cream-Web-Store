@@ -79,6 +79,10 @@ app.get("/search-products", async (req, res) => {
   }
 });
 
+// app.get("/statistics", (req, res) => {
+//   res.render("./Dashboard/Admin/Admin-Statistics-Display/adminStatistics.ejs");
+// })
+
 app.listen(process.env.PORT, () => {
   console.log(`server runs on port ${process.env.PORT}`);
 });
@@ -126,11 +130,16 @@ adminApp.use("/dashboard", DashboardRouter);
 adminApp.use("/checkout", CheckoutRouter);
 
 adminIo.on("connection", (socket) => {
-  
-  console.log("Admin user connected to chat:", socket.id);
+  socket.on("join_chat", (username) => {
+    socket.username = username;
+    socket.broadcast.emit("user_joined", `${username} joined!`, false);
+    socket.emit("user_joined", "You joined!", true);
+  });
 
   socket.on("disconnect", () => {
-    console.log("Admin user disconnected from chat:", socket.id);
+    if (socket.username) {
+      socket.broadcast.emit("user_left", `${socket.username} left the chat.`);
+    }
   });
 
   socket.on("send_message", (data) => {
@@ -145,6 +154,11 @@ adminServer.listen(process.env.ADMIN_PORT, () => {
 app.get("/get-admin-chat-url", (req, res) => {
   const adminChatUrl = `http://localhost:${process.env.ADMIN_PORT}/admin-chat`;  
   res.json({ adminChatUrl });
+});
+
+adminApp.get("/get-home-url", (req, res) => {
+  const homeUrl = `http://localhost:${process.env.PORT}`;  
+  res.json({ homeUrl });
 });
 
 adminApp.get("/admin-chat", async (req, res) => {

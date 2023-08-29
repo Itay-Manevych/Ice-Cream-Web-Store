@@ -1,9 +1,3 @@
-$("#product-categories, #product-names-update, #product-names-delete, #delete-product-categories, #update-product-categories, #product-categories-update").prop("selectedIndex", -1);
-
-$(".chosen-select").chosen({
-    no_results_text: "Oops, nothing found!"
-});
-
 $(document).ready(() => {
     $("#house-icon").on("click", () => {
         window.location.href = "/";
@@ -40,6 +34,10 @@ $(document).ready(() => {
 
     $(".order-button").on("click", () => {
         window.location.href = '/dashboard/admin-order';
+    })
+
+    $(".statistics-button").on("click", () => {
+        window.location.href = '/dashboard/statistics';
     })
 
     $("#dashboard-icon").on("click", () => {
