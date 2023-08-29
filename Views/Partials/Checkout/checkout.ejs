@@ -327,11 +327,10 @@ $(document).ready(() => {
                 }
             }
         });
-         // Fetch city data from the API
-         const fetchCityNames = async () => {
+        const fetchCityNames = async () => {
         let cityNames = [];
         let offset = 0;
-        const limit = 100; // The API's maximum limit
+        const limit = 100;
             
         while (true) {
             const response = await $.ajax({
@@ -346,7 +345,7 @@ $(document).ready(() => {
         
             const records = response.result.records;
             if (records.length === 0) {
-                break; // No more records to fetch
+                break;
             }
         
             const cityNamesFromPage = records.map(record => record["שם_ישוב_לועזי"]);
