@@ -5,6 +5,7 @@
 
 #container {
     margin-left: 1.4rem;
+    width: fit-content !important;
 }
 
 .admin-chat-button {

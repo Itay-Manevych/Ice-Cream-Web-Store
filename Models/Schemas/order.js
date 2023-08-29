@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
-import Address from "./address.js";
+import makeAllRequired from "./makeAllRequired.js";
+
+const Address = new mongoose.Schema({
+    city: String,
+    street: String,
+    apartment: Number,
+    floor: Number
+});
+
 
 const ProductInfo = new mongoose.Schema({
     product_name: String,
@@ -19,18 +27,14 @@ const ProductInfo = new mongoose.Schema({
             message: "Amount must have a valid value",
         },
     },
-}, {
-    required: true,
 });
 
 const Order = new mongoose.Schema({
-    // _id: Number,
     name: String,
     email: String,
-    // cart: Cart.schema,
     products_info: [ProductInfo],
     phone_number: Number,
-    address: Address.schema,
+    address: Address,
     amount: {
         type: Number,
         validate: {
@@ -41,9 +45,9 @@ const Order = new mongoose.Schema({
         },
     },
     date: Date,
-}, {
-    required: true,
-    unique: false,
 });
+makeAllRequired(ProductInfo);
+makeAllRequired(Order);
+makeAllRequired(Address);
 
 export default mongoose.model("Order", Order);
