@@ -31,6 +31,9 @@ $(document).ready(() => {
                 
                 const product = await ProductFunctions.getProduct($("#product-name").val());
                 
+                $(`option[value="no-data-update-product"]`).remove();
+                $(`option[value="no-data-delete-product"]`).remove();
+
                 $("#product-names-delete, #product-names-update").append(
                     `<option value="${product._id}">${product.name}</option>`
                 );

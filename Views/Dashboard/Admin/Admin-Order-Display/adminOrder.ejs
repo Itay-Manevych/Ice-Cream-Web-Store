@@ -16,7 +16,7 @@
                 All Orders
             </div>
             <div class="card-body">
-                <% if (all_orders.length > 0) {
+                <% if (all_orders != "undefined" && all_orders.length > 0) {
                     all_orders.forEach(order => { %>
                     <div id="user-order" class="user-order-<%= order._id %>">
                         <p class="orderers-name-<%= order._id %>">

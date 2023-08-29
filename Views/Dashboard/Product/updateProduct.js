@@ -3,25 +3,42 @@ import { Error } from "../Visual-Validation/error.js";
 import { ValidateForm } from "../Form-Validation/validateForm.js";
 import { ProductFunctions } from "./productFunctions.js";
 
-$(document).ready(() => {
+const resetValues = () => {
+    $("#product-input-update").val("");
 
-    const showProductInfo = (product) => {
-        $("#product-input-update").val(product.name);
+    $("#product-price-update").val("");
     
-        $("#product-price-update").val(product.price);
+    $("#product-description-update").val("");
+    
+    $("#product-image-update").val("");
+    
+    $("#product-categories-update").val([]);
+    $("#product-categories-update").trigger("chosen:updated");
+    
+    $("#product-allergens-update").val([]);
+    $("#product-allergens-update").trigger("chosen:updated");
+}
 
-        $("#product-description-update").val(product.price);
+const showProductInfo = (product) => {
+    $("#product-input-update").val(product.name);
 
-        $("#product-image-update").val(product.image);
+    $("#product-price-update").val(product.price);
 
-        const selected_categories = product.categories.map(category => category.name);
-        $("#product-categories-update").val(selected_categories);
-        $("#product-categories-update").trigger("chosen:updated");
+    $("#product-description-update").val(product.description);
 
-        const selected_allergies = Object.keys(product.allergies).filter(allergy => product.allergies[allergy]);
-        $("#product-allergens-update").val(selected_allergies);
-        $("#product-allergens-update").trigger("chosen:updated");
-    }
+    $("#product-image-update").val(product.image);
+
+    const selected_categories = product.categories.map(category => category.name);
+    $("#product-categories-update").val(selected_categories);
+    $("#product-categories-update").trigger("chosen:updated");
+
+    const selected_allergies = Object.keys(product.allergies).filter(allergy => product.allergies[allergy]);
+    $("#product-allergens-update").val(selected_allergies);
+    $("#product-allergens-update").trigger("chosen:updated");
+}
+
+$(document).ready(() => {
+    resetValues();
 
     $("#product-names-update").on("change", async () => {
         const product_name = $("#product-names-update :selected").text();

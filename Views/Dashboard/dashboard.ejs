@@ -91,7 +91,7 @@
                     Your Orders
                 </div>
                 <div class="card-body">
-                    <% if (orders_of_user) {
+                    <% if (orders_of_user.length > 0) {
                         orders_of_user.forEach(order => { %>
                         <div id="user-order">
                             <p>Orderer's Name: <%= order.name %></p>
@@ -162,7 +162,11 @@
                         </div>
                         <% });
                       } else { %>
-                        <p>No orders available.</p>
+                        <div id="no-orders-pargraph-container">
+                            <p id="no-orders-pargraph">
+                                No orders available.
+                            </p>
+                        </div>
                       <% } %>
                 </div>
             </div>

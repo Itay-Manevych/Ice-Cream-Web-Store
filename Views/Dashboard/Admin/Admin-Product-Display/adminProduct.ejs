@@ -43,11 +43,16 @@
                         <div class="admin-form-field">
                             <label for="product-categories" class="form-label">Categories:</label>
                             <select class="form-control chosen-select" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
-                                <% if(categories) {
+                                <% if(categories !== "undefined" && categories.length > 0) {
                                     categories.forEach(category => { %>
                                     <option value="<%= category.name %>"><%= category.name %></option>
                                     <% });
-                                } %>
+                                } else { %>
+                                    <option value="" disabled> 
+                                        No categories available 
+                                    </option>
+                                <% } %>
+                                
                             </select>
                             <div id="invalid-feedback" class="text-danger"> 
                             </div>
@@ -78,12 +83,14 @@
                         <div id="admin-form-field-choose-product" class="admin-form-field">
                             <label for="product-names-update" class="form-label">Product Name:</label>
                             <select class="form-control chosen-select" id="product-names-update" name="product-names-update" data-placeholder = "Choose Product">
-                                <% if(products) {
+                                <% if(products !== "undefined" && products.length > 0) {
                                     products.forEach(product => { %>
                                         <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
                                     <% }); 
                                 } else { %>
-                                    <p>No products available.</p>
+                                    <option value="no-data-update-product" disabled> 
+                                        No products available 
+                                    </option>
                                 <% } %>
                             </select>
                             <div id="invalid-feedback" class="text-danger"> 
@@ -115,12 +122,14 @@
                         <div id="admin-form-field-categories" class="admin-form-field">
                             <label for="product-categories-update" class="form-label">Categories:</label>
                             <select class="form-control chosen-select" id="product-categories-update" name="product-categories-update" data-placeholder = "Choose Categories" multiple>
-                                <% if(categories) {
+                                <% if(categories !== "undefined" && categories.length > 0) {
                                     categories.forEach(category => { %>
                                     <option value="<%= category.name %>"><%= category.name %></option>
                                     <% });
                                 } else { %>
-                                    <p>No categories available.</p>
+                                    <option value="" disabled> 
+                                        No categories available 
+                                    </option>
                                 <% } %>
                             </select>
                             <div id="invalid-feedback" class="text-danger"> 
@@ -156,12 +165,14 @@
                         <div id="admin-form-field-choose-product" class="admin-form-field">
                             <label for="product-names-delete" class="form-label">Product Name:</label>
                             <select class="form-control chosen-select" id="product-names-delete" name="product-names-delete" data-placeholder = "Choose Product">
-                                <% if(products) {
+                                <% if(products !== "undefined" && products.length > 0) {
                                     products.forEach(product => { %>
                                         <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
                                     <% }); 
                                 } else { %>
-                                    <p>No products available.</p>
+                                    <option value="no-data-delete-product" disabled> 
+                                        No products available 
+                                    </option>
                                 <% } %>
                             </select>
                             <div id="invalid-feedback" class="text-danger"> 
