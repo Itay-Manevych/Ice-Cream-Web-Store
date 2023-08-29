@@ -17,9 +17,13 @@ $(document).ready(() => {
                 });
                 Error.hideError($("#create-category-input"));
                 
+                $(`option[value="no-data-update-category"]`).remove();
+                $(`option[value="no-data-delete-category"]`).remove();
+
                 $("#product-categories, #delete-product-categories, #update-product-categories").append(
                     `<option value="${response.name}">${response.name}</option>`
                 );
+                
                 $("#delete-product-categories, #update-product-categories").prop("selectedIndex", -1);
                 $("#product-categories, #delete-product-categories, #update-product-categories").trigger("chosen:updated");
             
@@ -27,6 +31,9 @@ $(document).ready(() => {
     
                 Valid.showValid($("#create-category-button"), "Category Created Successfully");
                 Valid.showValid($("#create-category-input"), "Category Created Successfully");
+
+    
+                console.log($("#no-data-update-category"));
             } 
             catch (error) {
                 console.log("AJAX error occured when creating category", error);
