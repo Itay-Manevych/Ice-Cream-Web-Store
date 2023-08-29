@@ -23,6 +23,7 @@ html, body {
     margin-left: 5rem;
     width: 100%;
     font-size: 2rem;
+    color: rgb(242,132,189);
 }
 
 #user-username {
@@ -36,22 +37,26 @@ html, body {
     top: 0.5rem;
     cursor: pointer;
     font-size: 1.55rem;
+    color: rgb(242,132,189);
 }
 
 #house-icon:hover {
     left: -2.75rem;
     top: 0.42rem;
     font-size: 1.65rem;
+    color: rgb(81,190,230);
 }
 
 #logout-icon {
     padding: 0;
     font-size: 1.55rem;
     margin-right: 5.5rem;
+    color: rgb(242,132,189);
 }
 
 #logout-icon:hover {
     font-size: 1.65rem;
+    color: rgb(81,190,230);
     cursor: pointer;
 }
 
@@ -257,4 +262,6 @@ label {
 
 #no-orders-pargraph {
     margin: 0;
+    font-size: 1rem;
+    color: rgb(81,190,230);
 }

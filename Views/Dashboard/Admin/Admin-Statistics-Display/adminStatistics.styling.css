@@ -1,16 +1,22 @@
-#product-bar-chart-header-container {
+#graph-header-container {
     text-align: center;
     margin-top: 2rem;
 }
 
-#product-bar-chart-header {
+#graph-header {
     font-size: 2rem;
     margin-bottom: 0.5rem;
+    color: rgb(242,132,189);
 }
 
-.chart-header p {
-    font-size: 0.75rem;
-    color: #777;
+#graph-header-paragraph {
+    margin-bottom: 0.5rem;
+    color: rgb(81,190,230);
+}
+
+.no-data {
+    margin-top: 2rem;
+    color: rgb(242,132,189);
 }
 
 .tooltip {

@@ -239,6 +239,11 @@ li.no-results {
     color: rgb(81,190,230) !important;
 }
 
+li.disabled-result {
+    font-size: 1rem;
+    color: rgb(242,132,189) !important;
+}
+
 li span {
     color: rgb(81,190,230);
 }

@@ -34,5 +34,19 @@ const checkExistingProduct = async (product_name) => {
     return false;
 }
 
+const checkExistingProductByCategory = async (category_name) => {
+    const products = await getAllProducts();
+    if(products !== "undefined") {
+        for(let i = 0; i < products.length; i++) {
+            const categories = products[i].categories.map(category => category.name);
+            if(categories.includes(category_name)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
-export const ProductFunctions = {getProduct, getAllProducts, checkExistingProduct};
+
+
+export const ProductFunctions = {getProduct, getAllProducts, checkExistingProduct, checkExistingProductByCategory};

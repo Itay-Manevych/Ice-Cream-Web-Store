@@ -1,5 +1,5 @@
 const getAllCategories = async () => {
-    try{
+    try {
         const response = await $.ajax({
             url: '/categories/all', 
             type: 'GET',
