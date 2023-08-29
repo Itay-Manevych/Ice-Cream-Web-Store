@@ -95,6 +95,11 @@ body {
   margin-right: 1rem;
 }
 
+#no-products-message {
+  background-color: rgb(242,132,189);
+  color: white;
+}
+
 .dropdown-menu {
   max-height: 8rem;
   overflow-y: auto;
@@ -104,10 +109,12 @@ body {
 .dropdown-item {
   color: rgb(242,132,189) !important;
 }
+
 .dropdown-item:hover {
   background-color: rgb(81,190,230) !important;
   color: white !important;
 }
+
 .dropdown-item:active {
   color: white !important;
   background-color: rgb(242,132,189) !important;

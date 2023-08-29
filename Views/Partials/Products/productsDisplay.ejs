@@ -81,6 +81,9 @@
   </div>
   
   <div id="container" class="d-flex flex-wrap">
+    <div id="no-products-message" class="alert alert-info" style="display: none;">
+      No products available.
+    </div>        
     <% products.forEach(product => { %>
       <div id="card-container" style="display: block;" class="card card-container" data-categories="<%= product.categories%>" data-allergies = "<%= generateAllergensString(product.allergies) %>"  onclick="openModal('productModal<%=product._id%>', '<%=product._id%>', '<%= product.price%>')">
         <div id="image-container">
@@ -263,7 +266,15 @@
     }
  
   $(document).ready(function() {
-    
+    const products = $('.card-container').toArray();
+    if(products.length === 0){
+      const noProductsMessage = $('#no-products-message');
+      noProductsMessage.css('display','block');
+    }
+    else {
+      const noProductsMessage = $('#no-products-message');
+      noProductsMessage.css('display','none');
+    }
     const selectedCategories = new Set();
     const selectedAllergies = new Set();
     $('#apply-price-filter').on('click', function () {
@@ -293,6 +304,7 @@
   });
 
   function filterProducts() {
+    let showProductsMessage = true;
     const products = $('.card-container').toArray();
     const fromPrice = parseFloat($('#from-price').val()) || 0;
     const toPrice = parseFloat($('#to-price').val()) || Infinity;
@@ -300,6 +312,9 @@
       products.forEach(product => {
         const productPrice = parseFloat($(product).find('.card-price').text().replace(/[^0-9.-]+/g, ''));
         const showPrice = productPrice >= fromPrice && productPrice <= toPrice;
+        if(showPrice) {
+          showProductsMessage = false;
+        }
         $(product).css('display', showPrice ? 'block' : 'none');
       });
     } else {
@@ -317,8 +332,18 @@
         }
         const showPrice = productPrice >= fromPrice && productPrice <= toPrice;
         const hideExcludedAllergens = productAllergies.some(allergy => selectedAllergies.has(allergy));
+        if(showCatgeory && showPrice && !hideExcludedAllergens ) {
+          showProductsMessage = false;
+        }
         $(product).css('display', showCatgeory && showPrice && !hideExcludedAllergens ? 'block' : 'none');
       });
+    }
+    const noProductsMessage = $('#no-products-message');
+    if(showProductsMessage) {
+      noProductsMessage.css('display','block');
+    }
+    else {
+      noProductsMessage.css('display','none');
     }
   }
  
