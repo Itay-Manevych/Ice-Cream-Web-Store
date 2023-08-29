@@ -45,7 +45,7 @@ const getUserByToken = async (req, res) => {
         const user = await UserService.getUserByEmail(user_info.userEmail);
 
         if(!user) {
-            throw new Error("There is not an existing user model with that email");
+            return undefined;
         }
         res.status(201);
         return user;
