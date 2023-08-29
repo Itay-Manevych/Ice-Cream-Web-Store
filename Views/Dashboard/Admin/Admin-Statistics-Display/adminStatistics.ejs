@@ -11,39 +11,48 @@
 </head>
 <body>
     <div class="d-flex flex-column align-items-center">
-        <div>
-            <div id="product-bar-chart-header-container">
-                <h2 id="product-bar-chart-header">
+        <div class="d-flex flex-column align-items-center">
+            <div id="graph-header-container">
+                <h2 id="graph-header">
                     Product Amount Analysis
                 </h2>
-                <p id="product-bar-chart-header-pargraph">
+                <p id="graph-header-paragraph">
                     Explore the distribution of the products that have been ordered.
                 </p>
             </div>       
+            <p id="no-data-product-bar-chart" class="d-none no-data">
+                No data available
+            </p>
             <div id="product-bar-chart"></div>
         </div>
     
-        <div>
-            <div id="product-bar-chart-header-container">
-                <h2 id="product-bar-chart-header">
+        <div class="d-flex flex-column align-items-center">
+            <div id="graph-header-container">
+                <h2 id="graph-header">
                     Additions Amount Analysis
                 </h2>
-                <p id="product-bar-chart-header-pargraph">
+                <p id="graph-header-paragraph">
                     Explore the distribution of the additions that have been ordered.
                 </p>
             </div>    
+            <p id="no-data-addition-pie-chart" class="d-none no-data">
+                No data available
+            </p>
             <div id="addition-pie-chart"></div>
         </div>
         
-        <div id="heatmap-container">
-            <div id="product-bar-chart-header-container">
-                <h2 id="product-bar-chart-header">
+        <div id="heatmap-container" class="d-flex flex-column align-items-center">
+            <div id="graph-header-container">
+                <h2 id="graph-header">
                     Product Amount-Date Analysis
                 </h2>
-                <p id="product-bar-chart-header-pargraph">
+                <p id="graph-header-paragraph">
                     Explore the correllation between the product and the date it has been purchased.
                 </p>
             </div> 
+            <p id="no-data-sales-heatmap" class="d-none no-data">
+                No data available
+            </p>
             <div id="sales-heatmap"></div>
         </div>
     </div>
