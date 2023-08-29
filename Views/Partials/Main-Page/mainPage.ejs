@@ -9,6 +9,10 @@
 <body>
     <%- include("../Navbar/navbar.ejs") %>
     <%- include("../../Carousel/carousel.ejs") %>
+    <div id="margin">
+        <%- include("../Products/productsDisplay.ejs") %>
+    </div>
+    <%- include("../Footer/footer.ejs") %>
     <i class="bi bi-chat-dots admin-chat-button"></i>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script>
@@ -39,12 +43,6 @@
             }
      });
     });
-
     </script>
-    <div id="margin">
-        <%- include("../Products/productsDisplay.ejs") %>
-    </div>
-    <%- include("../Footer/footer.ejs") %>
-    
 </body>
 </html>

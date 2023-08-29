@@ -40,7 +40,6 @@ const connectToMongoDB = async () => {
 };
 
 connectToMongoDB();
-
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.static('Views'));
@@ -88,6 +87,29 @@ app.listen(process.env.PORT, () => {
   console.log(`server runs on port ${process.env.PORT}`);
 });
 
+app.get("/get-reviews", async (req, res) => {
+  try {
+    const pageId = process.env.FACEBOOK_PAGE_ID;
+    const accessToken = process.env.FACEBOOK_API_KEY;
+    const apiRequestUrl = `https://graph.facebook.com/v17.0/${pageId}/ratings?access_token=${accessToken}`;
+    const response = await fetch(apiRequestUrl);
+    
+    const retrieved_reviews = await response.json();
+
+    res.json(retrieved_reviews.data);
+
+  } 
+  catch (error) {
+    console.error("Error retrieving reviews:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+app.get("/reviews", async (req, res) => {
+  res.render("./Partials/Reviews/reviews.ejs");
+});
+
 
 const adminApp = express();
 const adminServer = http.createServer(adminApp);
@@ -108,10 +130,16 @@ adminApp.use("/dashboard", DashboardRouter);
 adminApp.use("/checkout", CheckoutRouter);
 
 adminIo.on("connection", (socket) => {
-  console.log("Admin user connected to chat:", socket.id);
+  socket.on("join_chat", (username) => {
+    socket.username = username;
+    socket.broadcast.emit("user_joined", `${username} joined!`, false);
+    socket.emit("user_joined", "You joined!", true);
+  });
 
   socket.on("disconnect", () => {
-    console.log("Admin user disconnected from chat:", socket.id);
+    if (socket.username) {
+      socket.broadcast.emit("user_left", `${socket.username} left the chat.`);
+    }
   });
 
   socket.on("send_message", (data) => {
@@ -126,6 +154,11 @@ adminServer.listen(process.env.ADMIN_PORT, () => {
 app.get("/get-admin-chat-url", (req, res) => {
   const adminChatUrl = `http://localhost:${process.env.ADMIN_PORT}/admin-chat`;  
   res.json({ adminChatUrl });
+});
+
+adminApp.get("/get-home-url", (req, res) => {
+  const homeUrl = `http://localhost:${process.env.PORT}`;  
+  res.json({ homeUrl });
 });
 
 adminApp.get("/admin-chat", async (req, res) => {
