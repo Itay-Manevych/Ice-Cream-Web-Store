@@ -58,7 +58,7 @@ $(document).ready(() => {
                     contentType: 'application/json',
                     data: JSON.stringify({
                         name: $("#product-input-update").val(),
-                        price: $("#product-price-update").val(),
+                        price: parseFloat($("#product-price-update").val()).toFixed(2),
                         description: $("#product-description-update").val(),
                         image: $("#product-image-update").val(),
                         categories: $("#product-categories-update").val().map(categoryName => ({ name: categoryName })),

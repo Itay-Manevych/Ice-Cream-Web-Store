@@ -148,14 +148,14 @@
                                             </div>
                                             <div>
                                                 Total Product Price:
-                                                $<%= product.total_price %>  
+                                                $<%= parseFloat(product.total_price).toFixed(2) %>  
                                             </div>
                                         </div>
                                     </li>
                                 <% }); %>
                                 <div>
                                     Total Order Price:
-                                    $<%= total_order_price %>   
+                                    $<%= parseFloat(total_order_price).toFixed(2) %>   
                                 </div>
                               </ul>
                             </div>

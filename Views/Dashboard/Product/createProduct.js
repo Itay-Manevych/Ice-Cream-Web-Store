@@ -14,7 +14,7 @@ $(document).ready(() => {
                     contentType: 'application/json',
                     data: JSON.stringify({
                         name: $("#product-name").val(),
-                        price: $("#product-price").val(),
+                        price: parseFloat($("#product-price").val()).toFixed(2),
                         amount_purchased: 0,
                         description: $("#product-description").val(),
                         image: $("#product-image").val(),

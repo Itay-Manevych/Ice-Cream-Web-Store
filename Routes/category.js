@@ -9,8 +9,10 @@ CategoryRouter.route('/')
 
 CategoryRouter.route('/name/:name')
     .get(CategoryController.getCategoryByName)
-    .put(CategoryController.updateCategory)
     .delete(CategoryController.deleteCategory);
+
+CategoryRouter.route('/update')
+    .put(CategoryController.updateCategory)
 
 CategoryRouter.route('/all')
     .get(async (req, res) => {

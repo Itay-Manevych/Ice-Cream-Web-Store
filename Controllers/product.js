@@ -51,9 +51,10 @@ const getAllProductsByCategory = async (req, res) => {
     try {
         const products = await ProductService.filterProductsByCategory(req.params.name);
         if(products.length === 0) {
-            throw new Error("There are no existing products in that category");
+            return undefined;
         }
-        res.status(201).json(products);
+        res.status(201);
+        return products;
     }
     catch(error) {
         res.status(500).json({
@@ -93,7 +94,8 @@ const getTopProducts = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
         const updated_product = await ProductService.updateProduct(req.params.id, req.body);
-        res.status(201).json(updated_product);
+        res.status(201)
+        return updated_product;
     }
     catch(error) {
         res.status(500).json({
