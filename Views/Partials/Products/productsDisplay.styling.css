@@ -175,6 +175,10 @@ body {
   border-radius: 0.355rem;
 }
 
+#sort-dropdown {
+  min-width: 10rem;
+}
+
 .btn {
   color: white;
   background-color: rgb(81,190,230) !important;
