@@ -41,6 +41,10 @@ const validateUserForm = async (username_input, email_input, password_input, sub
         Valid.hideAllValid(elements_array);
         Error.showError(password_input, "Password cannot be empty.");
     } 
+    else if (password_input.val().length < 4) {
+        is_valid = false;
+        Error.showError(password_input, "Password length cannot be smaller than 4 characters.");
+    }
     else {
         Error.hideError(password_input);
     }
