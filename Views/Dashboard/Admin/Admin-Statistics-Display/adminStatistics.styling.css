@@ -19,6 +19,15 @@
     color: rgb(242,132,189);
 }
 
+#product-bar-chart-svg {
+    margin-right: 14rem;
+}
+
+#sales-heatmap-svg {
+    width: 100rem;
+    margin-left: 10rem;
+}
+
 .tooltip {
     width: 28rem;
     display: flex;

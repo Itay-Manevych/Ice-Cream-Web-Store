@@ -34,21 +34,21 @@ else {
         .append("g")
         .attr("transform", `translate(${width / 2}, ${height / 2})`);
     
-    const additionData = {};
+    const addition_data = {};
 
     orders.forEach(order => {
         order.products_info.forEach(product => {
             Object.keys(product.additions).forEach(addition => {
-                const formattedAddition = capitalizeWords(addition.replace(/_/g, ' '));
-                const additionCount = product.additions[addition] ? product.amount : 0;
-                additionData[formattedAddition] = (additionData[formattedAddition] || 0) + additionCount;
+                const formatted_addition = capitalizeWords(addition.replace(/_/g, ' '));
+                const addition_count = product.additions[addition] ? product.amount : 0;
+                addition_data[formatted_addition] = (addition_data[formatted_addition] || 0) + addition_count;
             });
         });
     });
-
-    const data_ready = Object.entries(additionData).map(([addition, count]) => ({
-        addition,
-        count
+    console.log(Object.entries(addition_data));
+    const data_ready = Object.entries(addition_data).map(([addition, count]) => ({
+        addition: addition,
+        count: count
     }));
 
     const color = d3.scaleOrdinal()
@@ -62,17 +62,17 @@ else {
         .innerRadius(0)
         .outerRadius(radius);
 
-    svg.selectAll('mySlices')
+    svg.selectAll()
         .data(pie_data)
         .enter()
         .append('path')
         .attr('d', arcGenerator)
         .attr('fill', function(d) { return color(d.data.addition); })
         .attr("stroke", "black")
-        .style("stroke-width", "2px")
-        .style("opacity", 0.7);
+        .style("stroke-width", "0.125rem")
+        .style("opacity", 0.85);
 
-    svg.selectAll('mySlices')
+    svg.selectAll()
         .data(pie_data)
         .enter()
         .append('text')
