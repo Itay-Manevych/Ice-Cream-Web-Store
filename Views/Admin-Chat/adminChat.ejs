@@ -147,17 +147,17 @@
         function displayMessage(message, sender, is_admin) {
             const message_div = document.createElement("div");
             if (is_admin === "true") {
-                message_div.textContent = `${sender} (Admin): ${message}`;
-                const senderDisplayName = sender === '<%= user.username %>' ? "You" :`${sender} (Admin)`;
+                message_div.textContent = `<%= user.username %> (Admin): ${message}`;
+                const senderDisplayName = sender === '<%= user.email %>' ? "You" :`<%= user.username %> (Admin)`;
                 message_div.textContent = `${senderDisplayName}: ${message}`;
             } 
             else {
-                const senderDisplayName = sender === '<%= user.username %>' ? "You" : sender;
+                const senderDisplayName = sender === '<%= user.email %>' ? "You" : `<%= user.username %>`;
                 message_div.textContent = `${senderDisplayName}: ${message}`;
             }
             chat_messages.appendChild(message_div);
 
-            if(sender === '<%= user.username %>') {
+            if(sender === '<%= user.email %>') {
                 message_div.classList.add('user_message');
             }
             else {
@@ -170,7 +170,7 @@
         send_button.addEventListener("click", () => {
             const message = message_input.value;
             if (message) {
-                socket.emit("send_message", { message, sender: '<%= user.username %>' , is_admin: '<%= user.is_admin%>' }); 
+                socket.emit("send_message", { message, sender: '<%= user.email %>' , is_admin: '<%= user.is_admin%>' }); 
                 message_input.value = "";
             }
             message_input.focus();
@@ -179,7 +179,7 @@
         message_input.addEventListener("keydown", (event) => {
             const message = message_input.value;
             if (message && event.key == "Enter") {
-                socket.emit("send_message", { message, sender: '<%= user.username %>' , is_admin: '<%= user.is_admin%>' }); 
+                socket.emit("send_message", { message, sender: '<%= user.email %>' , is_admin: '<%= user.is_admin%>' }); 
                 message_input.value = "";
             }
         });
