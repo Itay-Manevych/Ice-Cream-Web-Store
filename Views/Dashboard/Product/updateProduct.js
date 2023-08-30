@@ -95,18 +95,27 @@ $(document).ready(() => {
             }
         }
 
-        $("#product-input-update, #product-price-update, #product-description-update").on("input", (event) => {
+        $("#product-input-update, #product-price-update, #product-image-update, #product-description-update").on("input", (event) => {
             Error.hideError($(event.target));
         });
     
         $("#product-categories-update").on("change", () => {
             Error.hideError($("#product-categories-update"));
         });
+
+        $("#product-names-update").on("change", () => {
+            Error.hideError($("#product-names-update"));
+            Error.hideError($("#product-input-update"));
+            Error.hideError($("#product-price-update"));
+            Error.hideError($("#product-image-update"));
+            Error.hideError($("#product-description-update"));
+            Error.hideError($("#product-categories-update"));
+        })
         
     };
     $("#update-product-button").on("click", updateProduct);
 
-    $("#product-input-update, #product-price-update, #product-description-update, #product-image-update").on("keydown",async (event) => {
+    $("#product-input-update, #product-price-update, #product-description-update, #product-image-update").on("keydown", async (event) => {
         if(event.key === "Enter") {
             event.preventDefault();
             await updateProduct();
