@@ -119,7 +119,7 @@ else {
           .style("opacity", 1);
     };
 
-    const mouseleave = function(d) {
+    const mouseleave = function() {
         tooltip
           .style("opacity", 0)
         d3.select(this)
