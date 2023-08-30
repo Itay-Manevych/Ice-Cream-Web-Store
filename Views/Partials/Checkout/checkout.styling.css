@@ -144,3 +144,7 @@
     font-weight: bold !important;
     color: #ffffff !important;
 } 
+
+.ui-helper-hidden-accessible {
+    display:none;
+}
