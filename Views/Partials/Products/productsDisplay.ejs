@@ -54,7 +54,7 @@
             </div>
           </div>
           
-          <div class="dropdown medium-margin-left" >
+          <div id="sort-dropdown" class="dropdown medium-margin-left" >
             <label class="small-margin-right" for="sortDropdown">Sort by:</label>
             <button class="btn category dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Default
@@ -224,13 +224,23 @@
       const overlay = document.createElement('div');
       overlay.classList.add('modal-overlay');
       document.body.appendChild(overlay);
+      updateCartBadge();
     
       setTimeout(() => {
         closeModal(modalId);
         document.body.removeChild(addedToCartMessage);
         document.body.removeChild(overlay);
       }, 1000);
-    }   
+    }
+
+    function updateCartBadge() {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const cartBadge = document.getElementById('cart-badge');
+        
+      if (cartBadge) {
+        cartBadge.textContent = cartItems.length;
+      }
+    }
 
         function resetModalContent(modalId, productId, productPrice) {
           const quantityInput = document.getElementById(`quantity-${productId}`);
@@ -263,6 +273,7 @@
     }
  
   $(document).ready(function() {
+    updateCartBadge();
 
     $('.custom-dropdown').on('click', function (e) {
     e.stopPropagation();
