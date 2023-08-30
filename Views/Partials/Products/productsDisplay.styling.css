@@ -8,16 +8,19 @@ body {
   position: relative;
 }
 
+#page-title {
+  min-width: 15rem;
+}
+
 .medium-margin-right {
   margin-right: 4rem;
 }
 
 .medium-margin-left {
-  margin-left: 4rem;
+  margin-left: 7rem;
 }
 
-.small-margin-right
-{
+.small-margin-right {
   margin-right: 0.5rem;
 }
 
@@ -80,13 +83,15 @@ body {
 .category-label {
   font-weight: bold;
   margin-right: 1rem;
+  min-width: 4rem;
+
 }
 
 #price-filter {
   display: flex;
   align-items: center;
   height: 3rem;
-  margin-left: 2rem;
+  margin-left: 5rem;
 }
 
 #from-price,#to-price {
@@ -95,19 +100,31 @@ body {
   margin-right: 1rem;
 }
 
+#no-products-message {
+  background-color: rgb(242,132,189);
+  color: white;
+}
+
 .dropdown-menu {
   max-height: 8rem;
   overflow-y: auto;
   --bs-dropdown-padding-y: 0;
 }
 
+
+#category-dropdown {
+  margin-right: 1rem;
+}
+
 .dropdown-item {
   color: rgb(242,132,189) !important;
 }
+
 .dropdown-item:hover {
   background-color: rgb(81,190,230) !important;
   color: white !important;
 }
+
 .dropdown-item:active {
   color: white !important;
   background-color: rgb(242,132,189) !important;
@@ -118,7 +135,7 @@ body {
 }
 
 .dropdown-item .category-checkbox-input {
-  margin-right: 5px;
+  margin-right: 0.75rem;
 }
 
 .modal-description {
@@ -152,10 +169,22 @@ body {
   border-radius: 1rem;
 }
 
+.modal-header {
+  align-items: flex-start;
+}
+
 .price-input {
   color: rgb(81,190,230) !important;
   border: 0.1rem solid rgb(242,132,189) !important;
   border-radius: 0.355rem;
+}
+
+#price-range {
+  width: 6rem;
+}
+
+#sort-dropdown {
+  min-width: 17rem;
 }
 
 .btn {

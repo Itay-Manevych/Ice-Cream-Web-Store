@@ -1,14 +1,14 @@
 import express from "express";
 import { UserController } from "../Controllers/user.js";
 
-const checkoutRouter = express.Router();
+const CheckoutRouter = express.Router();
 
-checkoutRouter.route('/')
+CheckoutRouter.route('/')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res)
         if(!user)
-            res.render('Partials/Not-Found/notFound.ejs');
+            res.render('Partials/No-Access/noAccess.ejs');
         res.render('Partials/Checkout/checkout.ejs');
 })
 
-export default checkoutRouter;
+export default CheckoutRouter;

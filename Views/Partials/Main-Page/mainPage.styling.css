@@ -7,15 +7,3 @@
     margin-left: 1.4rem;
     width: fit-content !important;
 }
-
-.admin-chat-button {
-    position: fixed;
-    z-index: 999;
-    bottom: 1rem;
-    right: 1rem;
-    margin: 0rem;
-    font-size: 3rem;
-    font-weight: 500;
-    line-height: 1;
-    color: var(--bs-heading-color);
-}
