@@ -9,7 +9,7 @@ $(document).ready(() => {
 
         $("#edit-name").val(order.name);
         $("#edit-email").val(order.email);
-        $("#edit-phone-number").val(order.phone_number);
+        $("#edit-phone-number").val("0" + order.phone_number);
         $("#edit-city").val(order.address.city);
         $("#edit-street").val(order.address.street);
         $("#edit-apartment").val(order.address.apartment);

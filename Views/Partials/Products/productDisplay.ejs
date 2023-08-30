@@ -123,7 +123,6 @@ const addToCart = (productName, productPrice, productImage) => {
   localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
   updateCartBadge();
 
-  console.log(`Added "${productName}" to cart for a total of $${totalPrice.toFixed(2)} (Quantity: ${selectedQuantity})`);
   localStorage.setItem('counter', counter);
 
   const addedToCartMessage = document.createElement('div');
