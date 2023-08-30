@@ -13,7 +13,7 @@ body {
 }
 
 .medium-margin-left {
-  margin-left: 4rem;
+  margin-left: 7rem;
 }
 
 .small-margin-right
@@ -80,13 +80,15 @@ body {
 .category-label {
   font-weight: bold;
   margin-right: 1rem;
+  min-width: 4rem;
+
 }
 
 #price-filter {
   display: flex;
   align-items: center;
   height: 3rem;
-  margin-left: 2rem;
+  margin-left: 5rem;
 }
 
 #from-price,#to-price {
@@ -104,6 +106,10 @@ body {
   max-height: 8rem;
   overflow-y: auto;
   --bs-dropdown-padding-y: 0;
+}
+
+#category-dropdown {
+  margin-right: 1rem;
 }
 
 .dropdown-item {
