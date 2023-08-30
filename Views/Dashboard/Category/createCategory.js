@@ -31,9 +31,6 @@ $(document).ready(() => {
     
                 Valid.showValid($("#create-category-button"), "Category Created Successfully");
                 Valid.showValid($("#create-category-input"), "Category Created Successfully");
-
-    
-                console.log($("#no-data-update-category"));
             } 
             catch (error) {
                 console.log("AJAX error occured when creating category", error);
