@@ -29,7 +29,6 @@ const validateUserForm = async (username_input, email_input, password_input, sub
     } else if (await UserFunctions.checkExistingUser(email_input.val().trim())) {
         is_valid = false;
         Valid.hideAllValid(elements_array);
-        Error.hideError(email_input);
         Error.showError(email_input, "Email already in use");
     } else {
         Error.hideError(email_input);
@@ -49,8 +48,9 @@ const validateUserForm = async (username_input, email_input, password_input, sub
 const validateProductForm = async (product_input, product_select, price_input, description_input, image_input, categories_input, submit_button, is_update) => {
     const elements_array = [product_input, price_input, description_input, image_input, submit_button];
     product_select ? elements_array.push(product_select) : null;
+    
     let is_valid = true;
-    console.log(product_input.val(), !Validation.validateString(product_input.val()))
+
     if (!Validation.validateString(product_input.val())) {
         is_valid = false;
         Valid.hideAllValid(elements_array);
