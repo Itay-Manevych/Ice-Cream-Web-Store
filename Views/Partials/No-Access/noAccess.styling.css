@@ -19,6 +19,12 @@ h1 {
     margin: 0 auto;
 }
 
+.bi {
+    cursor: default;
+    font-size: 2rem;
+    color: orange;
+}
+
 .cat {
     width: 50%;
     margin: 3% 25%;
