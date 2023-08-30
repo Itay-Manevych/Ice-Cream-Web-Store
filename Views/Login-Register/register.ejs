@@ -188,7 +188,11 @@
                 if (!validateUsername(username_input.val().trim())) {
                     is_valid = false;
                     showError(username_input, "Username cannot be empty.");
-                } else {
+                }
+                else if(username_input.val().length > 40) {
+                    showError(username_input, "Username's length cannot be larger than 40 characters.");
+                }
+                else {
                     hideError(username_input);
                 }
 

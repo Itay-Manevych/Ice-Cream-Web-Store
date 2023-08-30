@@ -52,7 +52,7 @@ $(document).ready(() => {
                 console.error("Error:", error);
             }
         }
-        $("#product-name, #product-price, #product-description").on("input", (event) => {
+        $("#product-name, #product-price, #product-description, #product-image").on("input", (event) => {
             Error.hideError($(event.target));
         });
     

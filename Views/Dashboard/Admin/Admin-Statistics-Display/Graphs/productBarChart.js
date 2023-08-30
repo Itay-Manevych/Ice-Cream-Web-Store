@@ -13,7 +13,7 @@ else {
     const svg = d3.select('#product-bar-chart')
         .append('svg')
         .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom + 100)
+        .attr('height', height + margin.top + margin.bottom + 250)
         .append('g')
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
@@ -70,7 +70,7 @@ else {
     svg.append("text")
         .attr("class", "x-axis-label")
         .attr("x", width / 2)
-        .attr("y", height + 90) 
+        .attr("y", height + 150) 
         .style("text-anchor", "middle")
         .text("Product Name")
 }
