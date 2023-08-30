@@ -105,7 +105,7 @@ else {
       .style("border-radius", "0.313rem")
       .style("padding", "0.313rem");
 
-    const mouseover = function(d) {
+    const mouseover = function() {
         tooltip
           .style("opacity", 1)
         d3.select(this)

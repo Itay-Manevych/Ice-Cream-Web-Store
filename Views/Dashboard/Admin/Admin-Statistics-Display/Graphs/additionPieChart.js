@@ -45,7 +45,6 @@ else {
             });
         });
     });
-    console.log(Object.entries(addition_data));
     const data_ready = Object.entries(addition_data).map(([addition, count]) => ({
         addition: addition,
         count: count

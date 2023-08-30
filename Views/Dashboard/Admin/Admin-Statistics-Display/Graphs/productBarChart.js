@@ -74,5 +74,3 @@ else {
         .style("text-anchor", "middle")
         .text("Product Name")
 }
-
-
