@@ -16,7 +16,7 @@
                 All Orders
             </div>
             <div class="card-body">
-                <% if (all_orders != "undefined" && all_orders.length > 0) {
+                <% if (all_orders != undefined && all_orders.length > 0) {
                     all_orders.forEach(order => { %>
                     <div id="user-order" class="user-order-<%= order._id %>">
                         <p class="orderers-name-<%= order._id %>">
@@ -85,14 +85,14 @@
                                         </div>
                                         <div>
                                             Total Product Price:
-                                            $<%= product.total_price %>  
+                                            $<%= parseFloat(product.total_price).toFixed(2) %>  
                                         </div>
                                     </div>
                                 </li>
                             <% }); %>
                             <div>
                                 Total Order Price:
-                                $<%= total_order_price %>   
+                                $<%= parseFloat(total_order_price).toFixed(2) %>   
                             </div>
                             <div id="buttons-container">
                                 <button id="update-order-button" class="btn" data-bs-toggle="modal" data-bs-target="#edit-order-modal" data-order-id="<%= order._id %>">Edit Order</button>

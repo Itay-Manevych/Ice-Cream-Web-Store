@@ -43,7 +43,7 @@
                         <div class="admin-form-field">
                             <label for="product-categories" class="form-label">Categories:</label>
                             <select class="form-control chosen-select" id="product-categories" name="product-categories" data-placeholder = "Choose Categories" multiple>
-                                <% if(categories !== "undefined" && categories.length > 0) {
+                                <% if(categories !== undefined && categories.length > 0) {
                                     categories.forEach(category => { %>
                                     <option value="<%= category.name %>"><%= category.name %></option>
                                     <% });
@@ -83,7 +83,7 @@
                         <div id="admin-form-field-choose-product" class="admin-form-field">
                             <label for="product-names-update" class="form-label">Product Name:</label>
                             <select class="form-control chosen-select" id="product-names-update" name="product-names-update" data-placeholder = "Choose Product">
-                                <% if(products !== "undefined" && products.length > 0) {
+                                <% if(products !== undefined && products.length > 0) {
                                     products.forEach(product => { %>
                                         <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
                                     <% }); 
@@ -122,7 +122,7 @@
                         <div id="admin-form-field-categories" class="admin-form-field">
                             <label for="product-categories-update" class="form-label">Categories:</label>
                             <select class="form-control chosen-select" id="product-categories-update" name="product-categories-update" data-placeholder = "Choose Categories" multiple>
-                                <% if(categories !== "undefined" && categories.length > 0) {
+                                <% if(categories !== undefined && categories.length > 0) {
                                     categories.forEach(category => { %>
                                     <option value="<%= category.name %>"><%= category.name %></option>
                                     <% });
@@ -165,7 +165,7 @@
                         <div id="admin-form-field-choose-product" class="admin-form-field">
                             <label for="product-names-delete" class="form-label">Product Name:</label>
                             <select class="form-control chosen-select" id="product-names-delete" name="product-names-delete" data-placeholder = "Choose Product">
-                                <% if(products !== "undefined" && products.length > 0) {
+                                <% if(products !== undefined && products.length > 0) {
                                     products.forEach(product => { %>
                                         <option value="<%= product._id %>" data-product-id="<%= product._id %>"><%= product.name %></option>
                                     <% }); 

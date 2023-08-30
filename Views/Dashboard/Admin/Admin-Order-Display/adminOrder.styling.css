@@ -61,7 +61,7 @@ html, body {
 }
 
 #user-order-product-item::before {
-    max-width: 1rem;
+    width: 2rem;
     color: rgb(81,190,230);
     content: counter(item) ".";
 }
@@ -80,8 +80,9 @@ html, body {
 
 #product-image {
     height: 5rem;
-    margin-left: 1rem;
+    margin-left: 0.85rem;
     margin-right: 1rem;
+    width: 8rem;
 }
 
 #address-container {
