@@ -26,7 +26,12 @@
             <div class="user-box d-flex bg-light align-items-center justify-content-center">
                 <i id="search-icon" class="bi bi-search h3 d-flex align-items-center justify-content-center"></i>
                 <i id="user-icon" class="bi bi-person-square h3 d-flex align-items-center justify-content-center"></i>
-                <i id="cart-icon" class="bi bi-cart h3 d-flex align-items-center justify-content-center"></i>
+                <div class="position-relative">
+                    <i id="cart-icon" class="bi bi-cart h3 d-flex align-items-center justify-content-center"></i>
+                    <span id="cart-badge"class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        0
+                    <span class="visually-hidden">unread messages</span>
+                    </div>
             </div>
         </nav>
 
@@ -68,6 +73,7 @@
                 
                 if (window.location.pathname === '/checkout') {
                     $('#cart-icon').remove();
+                    $('#cart-badge').remove();
                     $('.user-box').css('gap', '6rem');
                 }
                 const mainPage = () => {
@@ -287,6 +293,16 @@
                         current_user = undefined;
                     }
             }
+
+            const updateCartBadge = () => {
+                const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                const cartBadge = document.getElementById('cart-badge');
+
+                if (cartBadge) {
+                  cartBadge.textContent = cartItems.length;
+                }
+             }
+             updateCartBadge();
                 const populateCart = () => {
                     const cart_container = $('#cart-container');
                     const cart_content = $('<div>').addClass('cart-content');
@@ -382,6 +398,9 @@
                                                         const empty_cart_message = $('<p>').addClass('empty-cart-message').text('No products added to cart.');
                                                             cart_content.append(empty_cart_message);
                                                         }
+                                                    if(updated_cart_items.length!=cart_items.length) {
+                                                        updateCartBadge();
+                                                    }
                                                     });
                                                     
                                                     details_container.append(quantity_input);
