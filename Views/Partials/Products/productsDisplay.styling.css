@@ -13,7 +13,7 @@ body {
 }
 
 .medium-margin-left {
-  margin-left: 4rem;
+  margin-left: 7rem;
 }
 
 .small-margin-right
@@ -80,13 +80,15 @@ body {
 .category-label {
   font-weight: bold;
   margin-right: 1rem;
+  min-width: 4rem;
+
 }
 
 #price-filter {
   display: flex;
   align-items: center;
   height: 3rem;
-  margin-left: 2rem;
+  margin-left: 5rem;
 }
 
 #from-price,#to-price {
@@ -95,19 +97,30 @@ body {
   margin-right: 1rem;
 }
 
+#no-products-message {
+  background-color: rgb(242,132,189);
+  color: white;
+}
+
 .dropdown-menu {
   max-height: 8rem;
   overflow-y: auto;
   --bs-dropdown-padding-y: 0;
 }
 
+#category-dropdown {
+  margin-right: 1rem;
+}
+
 .dropdown-item {
   color: rgb(242,132,189) !important;
 }
+
 .dropdown-item:hover {
   background-color: rgb(81,190,230) !important;
   color: white !important;
 }
+
 .dropdown-item:active {
   color: white !important;
   background-color: rgb(242,132,189) !important;
@@ -150,6 +163,10 @@ body {
   background-color: white;
   padding: 1rem;
   border-radius: 1rem;
+}
+
+.modal-header {
+  align-items: flex-start;
 }
 
 .price-input {

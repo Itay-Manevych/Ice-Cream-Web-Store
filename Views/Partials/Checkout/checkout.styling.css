@@ -13,6 +13,32 @@
     margin: 1rem;
 }
 
+#form {
+    border: 0.2rem solid rgb(242,132,189);
+    border-radius: 1rem;
+    color: rgb(242,132,189);
+}
+
+.form-control {
+    color: rgb(81,190,230);
+    border-color: rgb(242,132,189);
+}
+
+.form-control:focus {
+    border-color: rgb(81,190,230);
+    color: rgb(81,190,230);
+}
+
+.btn {
+    color: white;
+    background-color: rgb(81,190,230);
+}
+
+.btn:hover {
+    color: white;
+    background-color: rgb(242,132,189);
+}
+
 #phone_number::-webkit-outer-spin-button,
 #phone_number::-webkit-inner-spin-button,
 #apartment::-webkit-outer-spin-button,
@@ -34,11 +60,11 @@
 
 .product-card {
     padding: 0;
-    height: 16rem;
+    height: 18rem;
 }
 
 .product-details {
-    height: 7.5rem;
+    height: 9rem;
     display: flex;
     margin-left: 0.25rem;
     flex-direction: column;
