@@ -13,7 +13,7 @@ $(document).ready(() => {
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify({
-                        name: $("#product-name").val(),
+                        name: $("#product-name").val().trimStart().trimEnd(),
                         price: parseFloat($("#product-price").val()).toFixed(2),
                         amount_purchased: 0,
                         description: $("#product-description").val(),
