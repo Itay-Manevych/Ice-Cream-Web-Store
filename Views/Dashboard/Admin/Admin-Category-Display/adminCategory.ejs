@@ -38,18 +38,21 @@
                 <form id="update-category-form">
                     <label id="category-label" for="update-product-categories" class="form-label">Category Name</label>
                     <select class="form-control chosen-select chosen-select-category-update" id="update-product-categories" name="update-product-categories" data-placeholder = "Choose a Category">
-                        <% if(categories) {
+                        <% if(categories !== "undefined" && categories.length > 0) {
                             categories.forEach(category => { %>
                             <option value="<%= category.name %>"><%= category.name %></option>
                             <% });
                         } else { %>
-                            <p>No categories available.</p>
+                            <option value="no-data-update-category" disabled> 
+                                No categories available 
+                            </option>
                         <% } %>
                     </select>                                
                     <div id="admin-form-field-update-category" class="admin-form-field">
                         <label for="category-name" class="form-label">Updated Category Name</label>
                         <input type="text" class="form-control" id="update-category-input" name="category-name">
                         <div id="invalid-feedback" class="text-danger">
+                            
                         </div>
                     </div>
                     <div id="update-category-button-container">
@@ -71,21 +74,26 @@
                     <div class="admin-form-field">
                         <label id="category-label" for="delete-product-categories" class="form-label">Category Name</label>
                         <select class="form-control chosen-select chosen-select-category-delete" id="delete-product-categories" name="delete-product-categories" data-placeholder = "Choose a Category">
-                            <% if(categories) {
+                            <% if(categories !== "undefined" && categories.length > 0) {
                                 categories.forEach(category => { %>
                                 <option value="<%= category.name %>"><%= category.name %></option>
                                 <% });
                             } else { %>
-                                <p>No categories available.</p>
+                                <option value="no-data-delete-category" disabled> 
+                                    No categories available 
+                                </option>
                             <% } %>
                         </select>  
                     </div>
                     <div id="delete-category-button-container">
                         <button type="button" class="btn" id="delete-category-button">Delete Category</button>
+                        <div id="invalid-feedback" class="text-danger">
+
+                        </div>
                         <div id="valid-feedback" class="text-success">
                         
                         </div>
-                    </div>
+                        </div>
                 </form>
             </div>
         </div>   

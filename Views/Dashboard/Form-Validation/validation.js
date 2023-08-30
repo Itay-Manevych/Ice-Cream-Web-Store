@@ -22,8 +22,9 @@ const validateArray = (array) => {
 }
 
 const containsSpecialCharacters = (str) => {
-    const special_character_regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|^\s*$/;
+    const special_character_regex = /[!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?]|^\s*$/;
     return special_character_regex.test(str);
+    return false;
 }
 
 export const Validation = {validateEmail, validateString, validatePrice, validateNumber, validateArray, containsSpecialCharacters};

@@ -12,80 +12,85 @@ const getAllOrders = async () => {
 } 
 const orders = await getAllOrders();
 
-const capitalizeWords = (str) => {
-    return str.replace(/\w+/g, function(txt){
-        return txt.charAt(0).toUpperCase() + txt.substr(1);
-    });
-}
+if (orders !== "undefined" && orders.length === 0) {
+    $("#no-data-addition-pie-chart").removeClass("d-none");
+} 
+else {
+    const capitalizeWords = (str) => {
+        return str.replace(/\w+/g, function(txt){
+            return txt.charAt(0).toUpperCase() + txt.substr(1);
+        });
+    }
+    
+    const width = 450;
+    const height = 450;
+    const margin = 20;
+    const radius = Math.min(width, height) / 2 - margin;
+    
+    const svg = d3.select("#addition-pie-chart")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${width / 2}, ${height / 2})`);
+    
+    const additionData = {};
 
-const width = 450;
-const height = 450;
-const margin = 20;
-const radius = Math.min(width, height) / 2 - margin;
-
-const svg = d3.select("#addition-pie-chart")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .append("g")
-    .attr("transform", `translate(${width / 2}, ${height / 2})`);
-
-const additionData = {};
-
-orders.forEach(order => {
-    order.products_info.forEach(product => {
-        Object.keys(product.additions).forEach(addition => {
-            const formattedAddition = capitalizeWords(addition.replace(/_/g, ' '));
-            const additionCount = product.additions[addition] ? product.amount : 0;
-            additionData[formattedAddition] = (additionData[formattedAddition] || 0) + additionCount;
+    orders.forEach(order => {
+        order.products_info.forEach(product => {
+            Object.keys(product.additions).forEach(addition => {
+                const formattedAddition = capitalizeWords(addition.replace(/_/g, ' '));
+                const additionCount = product.additions[addition] ? product.amount : 0;
+                additionData[formattedAddition] = (additionData[formattedAddition] || 0) + additionCount;
+            });
         });
     });
-});
 
-const data_ready = Object.entries(additionData).map(([addition, count]) => ({
-    addition,
-    count
-}));
+    const data_ready = Object.entries(additionData).map(([addition, count]) => ({
+        addition,
+        count
+    }));
 
-const color = d3.scaleOrdinal()
-    .range(d3.schemeSet2);
+    const color = d3.scaleOrdinal()
+        .range(d3.schemeSet2);
 
-const pie = d3.pie()
-    .value(d => d.count);
+    const pie = d3.pie()
+        .value(d => d.count);
 
-const pie_data = pie(data_ready);
-const arcGenerator = d3.arc()
-    .innerRadius(0)
-    .outerRadius(radius);
+    const pie_data = pie(data_ready);
+    const arcGenerator = d3.arc()
+        .innerRadius(0)
+        .outerRadius(radius);
 
-svg.selectAll('mySlices')
-    .data(pie_data)
-    .enter()
-    .append('path')
-    .attr('d', arcGenerator)
-    .attr('fill', function(d) { return color(d.data.addition); })
-    .attr("stroke", "black")
-    .style("stroke-width", "2px")
-    .style("opacity", 0.7);
-    
-svg.selectAll('mySlices')
-    .data(pie_data)
-    .enter()
-    .append('text')
-    .attr("transform", function(d) { return `translate(${arcGenerator.centroid(d)})`; })
-    .style("text-anchor", "middle")
-    .style("font-size", 17)
-    .selectAll("tspan")
-    .data(function(d) {
-        const totalCount = pie_data.reduce((total, entry) => total + entry.data.count, 0);
-        const percentage = ((d.data.count / totalCount) * 100).toFixed(2);
-        return [
-            { label: d.data.addition },
-            { label: `${d.data.count} (${percentage}%)` }
-        ];
-    })
-    .enter()
-    .append("tspan")
-    .attr("x", 0)
-    .attr("dy", (d, i) => (i === 0) ? 0 : "1.2em")
-    .text(d => d.label);
+    svg.selectAll('mySlices')
+        .data(pie_data)
+        .enter()
+        .append('path')
+        .attr('d', arcGenerator)
+        .attr('fill', function(d) { return color(d.data.addition); })
+        .attr("stroke", "black")
+        .style("stroke-width", "2px")
+        .style("opacity", 0.7);
+
+    svg.selectAll('mySlices')
+        .data(pie_data)
+        .enter()
+        .append('text')
+        .attr("transform", function(d) { return `translate(${arcGenerator.centroid(d)})`; })
+        .style("text-anchor", "middle")
+        .style("font-size", 17)
+        .selectAll("tspan")
+        .data(function(d) {
+            const totalCount = pie_data.reduce((total, entry) => total + entry.data.count, 0);
+            const percentage = ((d.data.count / totalCount) * 100).toFixed(2);
+            return [
+                { label: d.data.addition },
+                { label: `${d.data.count} (${percentage}%)` }
+            ];
+        })
+        .enter()
+        .append("tspan")
+        .attr("x", 0)
+        .attr("dy", (d, i) => (i === 0) ? 0 : "1.2em")
+        .text(d => d.label);
+}
