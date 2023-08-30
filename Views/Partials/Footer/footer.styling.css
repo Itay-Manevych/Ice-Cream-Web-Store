@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@600;700&family=Concert+One&family=Just+Another+Hand&family=PT+Sans:ital,wght@0,700;1,400&family=Rajdhani:wght@500;600&family=Six+Caps&display=swap');
+
 body {
     display: flex;
     flex-direction: column;
@@ -10,6 +12,7 @@ body {
     padding: 0;
     min-width: 65.49rem;
     flex-wrap: nowrap;
+    font-family: "PT Sans";
 }
 
 .copy {
@@ -30,6 +33,7 @@ body {
     padding: 0.2rem;
     margin: 0;
     border-radius: 50%;
+    text-decoration: none;
 }
 
 .twitter {
