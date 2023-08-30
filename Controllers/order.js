@@ -56,7 +56,6 @@ const getAllOrders = async (req, res) => {
 
 const updateOrder = async (req, res) => {
     try {
-        console.log("hi", req.body);
         const updated_order = await OrderService.updateOrder(req.params.id, req.body);
         res.status(201).json(updated_order);
     }

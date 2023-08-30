@@ -25,7 +25,6 @@ $(document).ready(() => {
         await updateModalInfo()
     });
     
-    console.log($("#edit-phone-number").val());
     $("#confirm-edit-order-button").on("click", async () => {
         try {
             await $.ajax({

@@ -362,14 +362,10 @@ $(document).ready(() => {
     };
 
     fetchCityNames().then(cityNames => {
-        console.log(cityNames);
-
         $('.city-autocomplete').autocomplete({
             source: function(request, response) {
                 const relevantCityNames = cityNames.filter(city => city.toLowerCase().startsWith(request.term.toLowerCase()));
-                console.log(relevantCityNames);
                 const limitedCityNames = relevantCityNames.slice(0, 5);
-
                 response(limitedCityNames);
             },
             select: function(event, ui) {

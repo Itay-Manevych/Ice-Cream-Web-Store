@@ -7,13 +7,11 @@ const hideError = (element) => {
 };
 
 const showError = (element, error_message) => {
-    console.log("hello???", element);
     element.addClass("is-invalid");
     const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
     ? element.siblings("#invalid-feedback")
     : element.closest("div").siblings("#valid-feedback");
     error_div.text(error_message);
-    console.log("shdufghjsdfg", error_div);
 };
 
 export const Error = {hideError, showError};

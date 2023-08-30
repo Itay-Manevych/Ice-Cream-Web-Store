@@ -307,7 +307,6 @@
         const productCategories = $(product).attr('data-categories').split(' ');
         const productPrice = parseFloat($(product).find('.card-price').text().replace(/[^0-9.-]+/g, ''));
         const productAllergies = $(product).attr('data-allergies').split(', ').map(allergy => allergy.toLowerCase());
-        console.log(productAllergies)
         let showCatgeory;
         if(selectedCategories.size === 0) {
           showCatgeory = true;
