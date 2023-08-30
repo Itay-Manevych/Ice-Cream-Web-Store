@@ -1,4 +1,5 @@
 import { CategoryService } from "../Services/category.js";
+import { ProductController } from "./product.js";
 
 const createCategory = async (req, res) => {
     try {
@@ -45,8 +46,24 @@ const getAllCategories = async (req, res) => {
 
 const updateCategory = async (req, res) => {
     try {
-        const updated_category = await CategoryService.updateCategory(req.params.name, req.body);
-        res.status(201).json(updated_category);
+        const old_category_name = req.query.old_name;
+        const new_category_name = req.body.name;
+        const updated_category = await CategoryService.updateCategory(old_category_name, req.body);
+        const products = await ProductController.getAllProductsByCategory({ params: { name: old_category_name } }, res);
+        if(products !== undefined) {
+            for (const product of products) {
+                const updatedCategories = product.categories.map(category => {
+                    if (category.name === old_category_name) {
+                        return { name: new_category_name }; 
+                    }
+                    return category;
+                });
+    
+                await ProductController.updateProduct({ params: { id: product._id }, body: { ...product, categories: updatedCategories }},);
+            }
+        }
+
+        res.status(201).json({updated_category});
     }
     catch(error) {
         res.status(500).json({

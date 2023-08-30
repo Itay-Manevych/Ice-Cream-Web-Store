@@ -10,7 +10,7 @@ $(document).ready(() => {
         if(!Validation.containsSpecialCharacters(updated_category_name) && !(await CategoryFunctions.checkExistingCategory(updated_category_name, true))) {
             try {
                 await $.ajax({
-                    url: `/categories/name/${category_name}`,
+                    url: `/categories/update?old_name=${encodeURIComponent(category_name)}`,
                     method: 'PUT',
                     dataType: 'json',
                     contentType: 'application/json',
