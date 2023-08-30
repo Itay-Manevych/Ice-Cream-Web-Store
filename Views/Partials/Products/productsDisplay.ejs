@@ -165,13 +165,11 @@
       document.getElementById(`total-price-${productId}`).textContent = `Total Price: $${totalPrice.toFixed(2)}`;
     }
     document.getElementById('container').addEventListener('change', function (event) {
-    const target = event.target;
-      if (target.classList.contains('quantity')) {
+        const target = event.target;
         const productId = target.dataset.productId;
         const productPrice = parseFloat(target.dataset.productPrice);
         const enteredValue = parseInt(target.value);
         handleQuantityChange(productId, productPrice, enteredValue);
-      }
     });
  
   function handleQuantityChange(productId,productPrice) {

@@ -323,6 +323,7 @@ $(document).ready(() => {
 
                     setTimeout(() => {
                         localStorage.removeItem('cartItems');
+                        localStorage.removeItem('counter');
                         $('#order-button').attr('disabled', false);
                         window.location.href = '/';
                     } ,2000)
