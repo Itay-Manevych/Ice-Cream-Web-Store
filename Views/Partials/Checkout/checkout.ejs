@@ -291,9 +291,7 @@
                 if(await validateUserForm($("#name"), $("#phone_number"), $("#city"), $("#street"), $("#apartment"), $("#floor"))) {
                     const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
                     await getUser();
-                    const currentDate = new Date();
-                
-                    currentDate.setDate(currentDate.getDate() + 2);
+
                     const formData = {
                         name: $('#name').val(),
                         email: user.email,
