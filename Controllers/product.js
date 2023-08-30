@@ -94,8 +94,12 @@ const getTopProducts = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
         const updated_product = await ProductService.updateProduct(req.params.id, req.body);
-        res.status(201)
-        return updated_product;
+        if(req.params.is_update_category === undefined) {
+            res.status(201).json(updated_product);
+        }
+        else {
+            return updated_product;
+        }
     }
     catch(error) {
         res.status(500).json({

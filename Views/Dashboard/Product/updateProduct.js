@@ -41,7 +41,7 @@ $(document).ready(() => {
     resetValues();
 
     $("#product-names-update").on("change", async () => {
-        const product_name = $("#product-names-update :selected").text();
+        const product_name = $("#product-names-update :selected").text().trimStart().trimEnd();
         const product = await ProductFunctions.getProduct(product_name);
         showProductInfo(product);
     });
@@ -57,7 +57,7 @@ $(document).ready(() => {
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify({
-                        name: $("#product-input-update").val(),
+                        name: $("#product-input-update").val().trimStart().trimEnd(),
                         price: parseFloat($("#product-price-update").val()).toFixed(2),
                         description: $("#product-description-update").val(),
                         image: $("#product-image-update").val(),
@@ -68,7 +68,7 @@ $(document).ready(() => {
                             soy: $("#product-allergens-update").val().includes("soy"),
                             gluten: $("#product-allergens-update").val().includes("gluten"),
                             eggs: $("#product-allergens-update").val().includes("eggs"),
-                        }
+                        },
                     }),
                 });
     
