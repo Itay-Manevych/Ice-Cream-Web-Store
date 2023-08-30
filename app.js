@@ -16,6 +16,7 @@ import LoginRouter from "./Routes/login.js";
 import RegisterRouter from "./Routes/register.js";
 import DashboardRouter from "./Routes/dashboard.js";
 import CheckoutRouter from "./Routes/checkout.js";
+import NoAccessRouter from "./Routes/noAccess.js";
 
 import { ProductController } from "./Controllers/product.js";
 import { UserController } from "./Controllers/user.js";
@@ -57,6 +58,7 @@ app.use("/login", LoginRouter);
 app.use("/register", RegisterRouter);
 app.use("/dashboard", DashboardRouter);
 app.use("/checkout", CheckoutRouter);
+app.use("/no-access", NoAccessRouter);
 
 app.get("/", async (req, res) => {
   const categories = await CategoryController.getAllCategories(req,res);
@@ -128,6 +130,7 @@ adminApp.use("/login", LoginRouter);
 adminApp.use("/register", RegisterRouter);
 adminApp.use("/dashboard", DashboardRouter);
 adminApp.use("/checkout", CheckoutRouter);
+adminApp.use("/no-access", NoAccessRouter);
 
 adminIo.on("connection", (socket) => {
   socket.on("join_chat", (username) => {
