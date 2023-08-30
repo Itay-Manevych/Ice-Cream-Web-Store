@@ -304,6 +304,7 @@
                 }
              }
              updateCartBadge();
+             
                 const populateCart = () => {
                     const cart_container = $('#cart-container');
                     const cart_content = $('<div>').addClass('cart-content');
@@ -312,7 +313,6 @@
                     
                     const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-                    console.log('Cart items length:', cart_items.length);
                     if (cart_items.length === 0) {
                         const empty_cart_message = $('<p>').addClass('empty-cart-message').text('No products added to cart.');
                         cart_content.append(empty_cart_message);
