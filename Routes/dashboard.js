@@ -9,7 +9,7 @@ DashboardRouter.route('/')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
         if(user === undefined) {
-            res.render('./Partials/Not-Found/notFound');
+            return res.render('./Login-Register/login');
         }
         const products = await ProductController.getAllProducts(req, res);
         const categories = await CategoryController.getAllCategories(req, res);

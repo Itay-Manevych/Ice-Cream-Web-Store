@@ -14,73 +14,75 @@
       <div id="title-container" class="col-md-12 d-flex align-items-center">
         <h1 id="page-title" class="ml-3 medium-margin-right"><%= pageTitle %></h1>
         
-        <div id="filter-dropdown" class="dropdown">
+        <div id="filter-dropdown" class="dropdown d-flex align-items-center">
           <label class="small-margin-right category-label">Filter By:</label>
-          <button class="btn category dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn category dropdown-toggle" type="button" id="category-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Categories
           </button>
           <div class="dropdown-menu" aria-labelledby="categoryDropdown">
             <div class="checkbox-container">
               <% categories.forEach(category => { %>
-                <label class="dropdown-item">
+                <label class="dropdown-item custom-dropdown">
                   <input type="checkbox" class="category-checkbox category-checkbox-input" data-category="<%= category.name %>">
                   <%= category.name %>
                 </label>
               <% }); %>
             </div>
           </div>
-        </div>
-
-        <div id="allergies-filter" class="medium-margin-left">
-          <label class="small-margin-right">Filter By:</label>
-          <div class="dropdown">
-            <button class="btn category dropdown-toggle" type="button" id="allergiesDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Allergens
-            </button>
-            <div class="dropdown-menu" aria-labelledby="allergiesDropdown">
-              <label class="dropdown-item">
-                <input type="checkbox" class="allergy-checkbox" data-allergy="lactose"> Lactose free
-              </label>
-              <label class="dropdown-item">
-                <input type="checkbox" class="allergy-checkbox" data-allergy="nuts"> Nuts free
-              </label>
-              <label class="dropdown-item">
-                <input type="checkbox" class="allergy-checkbox" data-allergy="soy"> Soy free
-              </label>
-              <label class="dropdown-item">
-                <input type="checkbox" class="allergy-checkbox" data-allergy="gluten"> Gluten free
-              </label>
-              <label class="dropdown-item">
-                <input type="checkbox" class="allergy-checkbox" data-allergy="eggs"> Eggs free
-              </label>
+  
+            <div class="dropdown">
+              <button class="btn category dropdown-toggle custom-dropdown" type="button" id="allergiesDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Allergens
+              </button>
+              <div class="dropdown-menu" aria-labelledby="allergiesDropdown">
+                <label class="dropdown-item custom-dropdown">
+                  <input type="checkbox" class="allergy-checkbox" data-allergy="lactose"> Lactose free
+                </label>
+                <label class="dropdown-item custom-dropdown">
+                  <input type="checkbox" class="allergy-checkbox" data-allergy="nuts"> Nuts free
+                </label>
+                <label class="dropdown-item custom-dropdown">
+                  <input type="checkbox" class="allergy-checkbox" data-allergy="soy"> Soy free
+                </label>
+                <label class="dropdown-item custom-dropdown">
+                  <input type="checkbox" class="allergy-checkbox" data-allergy="gluten"> Gluten free
+                </label>
+                <label class="dropdown-item custom-dropdown">
+                  <input type="checkbox" class="allergy-checkbox" data-allergy="eggs"> Eggs free
+                </label>
+              </div>
             </div>
           </div>
-        </div>
+          
+          <div class="dropdown medium-margin-left" >
+            <label class="small-margin-right" for="sortDropdown">Sort by:</label>
+            <button class="btn category dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Default
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+              <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically A-Z">Alphabetically A-Z</a></li>
+              <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically Z-A">Alphabetically Z-A</a></li>
+              <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Lowest - Highest">Price Lowest - Highest</a></li>
+              <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Highest - Lowest">Price Highest - Lowest</a></li>
+            </ul>
+          </div>
 
-        <div class="dropdown medium-margin-left" >
-          <label class="small-margin-right" for="sortDropdown">Sort by:</label>
-          <button class="btn category dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Default
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-            <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically A-Z">Alphabetically A-Z</a></li>
-            <li><a class="dropdown-item sort-dropdown-item" data-sort="Alphabetically Z-A">Alphabetically Z-A</a></li>
-            <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Lowest - Highest">Price Lowest - Highest</a></li>
-            <li><a class="dropdown-item sort-dropdown-item" data-sort="Price Highest - Lowest">Price Highest - Lowest</a></li>
-          </ul>
+          <div id="price-filter">
+            <label class="small-margin-right" for="fromPrice">Price Range:</label>
+            <input type="number" id="from-price" class="price-input" placeholder="From">
+            <input type="number" id="to-price" class="price-input" placeholder="To">
+            <button class="btn" id="apply-price-filter">Apply</button>
+          </div>
         </div>
-
-        <div id="price-filter" class="medium-margin-left">
-          <label class="small-margin-right" for="fromPrice">Price Range:</label>
-          <input type="number" id="from-price" class="price-input" placeholder="From">
-          <input type="number" id="to-price" class="price-input" placeholder="To">
-          <button class="btn" id="apply-price-filter">Apply</button>
-        </div>
+          
       </div>
     </div>
   </div>
   
   <div id="container" class="d-flex flex-wrap">
+    <div id="no-products-message" class="alert alert-info" style="display: none;">
+      No products available.
+    </div>        
     <% products.forEach(product => { %>
       <div id="card-container" style="display: block;" class="card card-container" data-categories="<%= product.categories%>" data-allergies = "<%= generateAllergensString(product.allergies) %>"  onclick="openModal('productModal<%=product._id%>', '<%=product._id%>', '<%= product.price%>')">
         <div id="image-container">
@@ -98,7 +100,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="productModalLabel<%= product._id %>"><%= product.name %></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <img id="product-image-modal" class="modal-img" src="<%= product.image %>" alt="Product Image">
@@ -163,13 +165,11 @@
       document.getElementById(`total-price-${productId}`).textContent = `Total Price: $${totalPrice.toFixed(2)}`;
     }
     document.getElementById('container').addEventListener('change', function (event) {
-    const target = event.target;
-      if (target.classList.contains('quantity')) {
+        const target = event.target;
         const productId = target.dataset.productId;
         const productPrice = parseFloat(target.dataset.productPrice);
         const enteredValue = parseInt(target.value);
         handleQuantityChange(productId, productPrice, enteredValue);
-      }
     });
  
   function handleQuantityChange(productId,productPrice) {
@@ -263,7 +263,20 @@
     }
  
   $(document).ready(function() {
-    
+
+    $('.custom-dropdown').on('click', function (e) {
+    e.stopPropagation();
+  });
+
+    const products = $('.card-container').toArray();
+    if(products.length === 0){
+      const noProductsMessage = $('#no-products-message');
+      noProductsMessage.css('display','block');
+    }
+    else {
+      const noProductsMessage = $('#no-products-message');
+      noProductsMessage.css('display','none');
+    }
     const selectedCategories = new Set();
     const selectedAllergies = new Set();
     $('#apply-price-filter').on('click', function () {
@@ -293,38 +306,56 @@
   });
 
   function filterProducts() {
+    let showProductsMessage = true;
     const products = $('.card-container').toArray();
     const fromPrice = parseFloat($('#from-price').val()) || 0;
-    const toPrice = parseFloat($('#to-price').val()) || Infinity;
+    const toPriceValue = $('#to-price').val();
+    const toPrice = toPriceValue === '' ? Infinity : parseFloat(toPriceValue);
     if (selectedCategories.size === 0 && selectedAllergies.size === 0) {
       products.forEach(product => {
         const productPrice = parseFloat($(product).find('.card-price').text().replace(/[^0-9.-]+/g, ''));
         const showPrice = productPrice >= fromPrice && productPrice <= toPrice;
+        if(showPrice) {
+          showProductsMessage = false;
+        }
         $(product).css('display', showPrice ? 'block' : 'none');
       });
     } else {
       products.forEach(product => {
-        const productCategories = $(product).attr('data-categories').split(' ');
+        let productCategories = $(product).attr('data-categories');
+        productCategories = productCategories.replace(/([a-zA-Z0-9_]+)(?=:)/g, '"$1"');
+        productCategories = productCategories.replace(/'/g, '"');
+        productCategories = productCategories.replace(/new ObjectId\("(.+)"\)/g, '"$1"');
+        productCategories = Object.values(JSON.parse(productCategories));
         const productPrice = parseFloat($(product).find('.card-price').text().replace(/[^0-9.-]+/g, ''));
         const productAllergies = $(product).attr('data-allergies').split(', ').map(allergy => allergy.toLowerCase());
-        console.log(productAllergies)
         let showCatgeory;
         if(selectedCategories.size === 0) {
           showCatgeory = true;
         }
         else{
-          showCatgeory = productCategories.some(category => selectedCategories.has(category));
+          showCatgeory = productCategories.some(category => selectedCategories.has(`'${category}',`));
         }
         const showPrice = productPrice >= fromPrice && productPrice <= toPrice;
         const hideExcludedAllergens = productAllergies.some(allergy => selectedAllergies.has(allergy));
+        if(showCatgeory && showPrice && !hideExcludedAllergens ) {
+          showProductsMessage = false;
+        }
         $(product).css('display', showCatgeory && showPrice && !hideExcludedAllergens ? 'block' : 'none');
       });
+    }
+    const noProductsMessage = $('#no-products-message');
+    if(showProductsMessage) {
+      noProductsMessage.css('display','block');
+    }
+    else {
+      noProductsMessage.css('display','none');
     }
   }
  
     $('.sort-dropdown-item').on('click', function () {
       const selectedSort = $(this).data('sort');
-      let currentCategory = $('#categoryDropdown').text().trim();
+      let currentCategory = $('#category-dropdown').text().trim();
       $('#sortDropdown').text(selectedSort);
  
       if (selectedSort === 'Alphabetically A-Z') {

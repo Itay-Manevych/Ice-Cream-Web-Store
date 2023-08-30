@@ -311,7 +311,7 @@
                             const total_element = $('<p>').attr('id', "total-price-element").text(`Total Price: $${total_price.toFixed(2)}`);
                                 header_div.append(total_element);
                                 
-                                const checkout_button = $('<button>').text('Checkout').addClass('btn btn-primary checkout-button');
+                                const checkout_button = $('<button>').text('Checkout').addClass('btn checkout-button');
                                     checkout_button.on('click', async function () 
                                     {
                                         await getUser();
