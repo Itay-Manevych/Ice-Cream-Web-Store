@@ -72,7 +72,7 @@
     </div>
 </div>
     <div id="cart-items-container" class="d-flex row">
-        <div class="total-container d-flex"></div>
+        <div class="total-container d-flex align-items-center"></div>
     </div>
 </div>
 
@@ -86,302 +86,318 @@
     
     <script>
         let total_sum = 0;
+        
         const LoadCartItems = () => {
-    const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const cart_items_container = document.getElementById('cart-items-container');
-    const total_container = document.querySelector('.total-container');
+            const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cart_items_container = document.getElementById('cart-items-container');
+            const total_container = document.querySelector('.total-container');
 
-    cart_items.forEach(item => {
-        const card = document.createElement('div');
-        card.classList.add('card', 'mb-3', "cards");
-        card.style.width = "16rem";
+            cart_items.forEach(item => {
+                const card = document.createElement('div');
+                card.classList.add('card', 'mb-3', "cards");
+                card.style.width = "16rem";
 
-        const card_body = document.createElement('div');
-        card_body.classList.add('card-body', 'product-card');
-        card_body.style.margin = "0 -5.3%";
+                const card_body = document.createElement('div');
+                card_body.classList.add('card-body', 'product-card');
+                card_body.style.margin = "0 -5.3%";
 
-        const product_details = document.createElement('div');
-        product_details.classList.add('product-details');
+                const product_details = document.createElement('div');
+                product_details.classList.add('product-details');
 
-        const item_name = document.createElement('h5');
-        item_name.classList.add('card-title');
-        item_name.textContent = `${item.name} x ${item.quantity}`;
+                const item_name = document.createElement('h5');
+                item_name.classList.add('card-title');
+                item_name.textContent = `${item.name} x ${item.quantity}`;
 
-        const item_price = document.createElement('p');
-        item_price.classList.add('card-text');
-        item_price.textContent = `Price: $${item.total_price.toFixed(2)}`;
-        
-        const item_additions = document.createElement('p');
-        item_additions.classList.add('card-text');
-        const additions = Object.keys(item.additions)
-        .filter(addition => item.additions[addition])
-        .map(addition => addition.replace('_', ' '))
-        .join(', ');
-        if (additions) {
-            item_additions.textContent = `Additions: ${additions}`;
-        }
-        
-        const item_image = document.createElement('img');
-        item_image.src = item.image;
-        item_image.alt = 'Product Image';
-        item_image.classList.add('product-cart-image');
-        
-        card_body.appendChild(item_image);
-        product_details.appendChild(item_name);
-        if (additions) {
-            product_details.appendChild(item_additions);
-        }
-        product_details.appendChild(item_price);
-        
-        card_body.appendChild(product_details);
+                const item_price = document.createElement('p');
+                item_price.classList.add('card-text');
+                item_price.textContent = `Price: $${item.total_price.toFixed(2)}`;
 
-        card.appendChild(card_body);
-        cart_items_container.appendChild(card);
-        total_sum += item.total_price;
-    });
-
-    const Cart = document.createElement('div');
-    Cart.classList.add('h2');
-    Cart.style.height = "2.2rem";
-    Cart.style.width = "7rem";
-    Cart.style.margin = "auto 0.2rem";
-    Cart.textContent = "Cart";
-    total_container.appendChild(Cart);
-
-    const total_element = document.createElement('div');
-    total_element.classList.add('total-price');
-    total_element.textContent = `Total Price: $${total_sum.toFixed(2)}`;
-    total_container.appendChild(total_element);
-}
-$(document).ready(() => {
-    let user; 
-        const getUser = async () => {
-            await $.ajax({
-                url: '/dashboard/user', 
-                type: 'GET',
-                success: (data) => {
-                    user = data;
-                },
-                error: (error) => {
-                    console.log("Error fetching existing user", error);
+                const item_additions = document.createElement('p');
+                item_additions.classList.add('card-text');
+                const additions = Object.keys(item.additions)
+                .filter(addition => item.additions[addition])
+                .map(addition => addition.replace('_', ' '))
+                .join(', ');
+                if (additions) {
+                    item_additions.textContent = `Additions: ${additions}`;
                 }
+
+                const item_image = document.createElement('img');
+                item_image.src = item.image;
+                item_image.alt = 'Product Image';
+                item_image.classList.add('product-cart-image');
+
+                card_body.appendChild(item_image);
+                product_details.appendChild(item_name);
+                if (additions) {
+                    product_details.appendChild(item_additions);
+                }
+                product_details.appendChild(item_price);
+
+                card_body.appendChild(product_details);
+
+                card.appendChild(card_body);
+                cart_items_container.appendChild(card);
+                total_sum += item.total_price;
             });
+
+            const Cart = document.createElement('div');
+            Cart.classList.add('h2');
+            Cart.style.height = "2.2rem";
+            Cart.style.width = "7rem";
+            Cart.style.margin = "auto 0.2rem";
+            Cart.textContent = "Cart";
+            total_container.appendChild(Cart);
+
+            const total_element = document.createElement('div');
+            total_element.classList.add('total-price');
+            total_element.textContent = `Total Price: $${total_sum.toFixed(2)}`;
+            total_container.appendChild(total_element);
         }
-    
-        const validateEmail = (email) => {
-            const email_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            return email_regex.test(email);
-        };
-        
-        const validateString = (string) => {
-            return string !== "";
-        }
-        
-        const hideError = (element) => {
-            element.removeClass("is-invalid");
-            const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
-            ? element.siblings("#invalid-feedback")
-            : element.closest("div").siblings("#invalid-feedback");
-            error_div.text("");
-        };
-    
-        const showError = (element, error_message) => {
-            element.addClass("is-invalid");
-            const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
-            ? element.siblings("#invalid-feedback")
-            : element.closest("div").siblings("#valid-feedback");
-            error_div.text(error_message);
-        };
 
-        const validateNumber = (number) => {
-            const number_regex = /^[0-9]+$/;
-            return number_regex.test(number);
-        }
-    
-        const hideValidation = (element) => {
-            element.removeClass("is-valid");
-            const valid_div = element.closest("div").siblings("#valid-feedback").length === 0
-            ? element.siblings("#valid-feedback")
-            : element.closest("div").siblings("#valid-feedback");
-            valid_div.text("");
-        };
-    
-        const showValidation = (element, validation_message) => {
-            element.addClass("is-valid");
-            const valid_div = element.closest("div").siblings("#valid-feedback").length === 0
-            ? element.siblings("#valid-feedback")
-            : element.closest("div").siblings("#valid-feedback");
-            valid_div.text(validation_message);
-        };
-    
-        const validateUserForm = async (name_input, phone_number_input, city_input, street_input, apartment_input, floor_input) => {
-            let is_valid = true;
-        
-            if (!validateString(name_input.val().trim())) {
-                is_valid = false;
-                showError(name_input, "name cannot be empty.");
-            } else {
-                hideError(name_input);
-                showValidation($("#name"),"");
-            }
-
-            if (!validateNumber(phone_number_input.val().trim())) {
-                is_valid = false;
-                showError(phone_number_input, "phone number cannot be empty.");
-            } else {
-                hideError(phone_number_input);
-                showValidation($("#phone_number"),"");  
-            }
-    
-            if (!validateString(city_input.val().trim())) {
-                is_valid = false;
-                showError(city_input, "city cannot be empty.");
-            } else {
-                hideError(city_input);
-                showValidation($("#city"),"");
-            }
-
-            if (!validateString(street_input.val().trim())) {
-                is_valid = false;
-                showError(street_input, "street cannot be empty.");
-            } else {
-                hideError(street_input);
-                showValidation($("#street"),"");
-            }
-
-            if (!validateNumber(apartment_input.val().trim())) {
-                is_valid = false;
-                showError(apartment_input, "apartment cannot be empty.");
-            } else {
-                hideError(apartment_input);
-                showValidation($("#apartment"),"");
-            }
-
-            if (!validateNumber(floor_input.val().trim())) {
-                is_valid = false;
-                showError(floor_input, "floor cannot be empty.");
-            } else {
-                hideError(floor_input);
-                showValidation($("#floor"),"");
-            }
-            if(is_valid) {
-                showValidation($("#order-button"),"Order Created Successfully");
-            }
-            else {
-                $('#order-button').attr('disabled', false);
-            }
-            return is_valid;
-        };
-    
-        $("#name, #phone_number, #city, #street, #apartment, #floor").on("input", (event) => {
-            hideError($(event.target));
-        });
-        LoadCartItems();
-
-        $('#checkout-form').submit(async function (event) {
-            event.preventDefault();
-            $('#order-button').attr('disabled', true);
-            if(await validateUserForm($("#name"), $("#phone_number"), $("#city"), $("#street"), $("#apartment"), $("#floor"))) {
-                const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
-                await getUser();
-                const currentDate = new Date();
-
-                currentDate.setDate(currentDate.getDate() + 2);
-                const formData = {
-                    name: $('#name').val(),
-                    email: user.email,
-                    phone_number: $('#phone_number').val(),
-                    address: {
-                        city: $('#city').val(),
-                        street: $('#street').val(),
-                        apartment: parseInt($('#apartment').val()),
-                        floor: parseInt($('#floor').val())
+        $(document).ready(() => {
+            let user; 
+            const getUser = async () => {
+                await $.ajax({
+                    url: '/dashboard/user', 
+                    type: 'GET',
+                    success: (data) => {
+                        user = data;
                     },
-                    products_info: cart_items.map(item => ({
-                        product_name: item.name,
-                        total_price: item.total_price,
-                        image: item.image,
-                        additions: {
-                            sprinkles: item.additions.sprinkles,
-                            hot_chocolate: item.additions.hot_chocolate,
-                            gummy_bears: item.additions.gummy_bears,
-                        },
-                        amount: item.quantity
-                    })),
-                    amount: total_sum,
-                    date: new Date(new Date().getTime() + 3 * 60 * 60 * 1000),
-                };
-                try {
-                    const response = await $.ajax({
-                        url: '/orders', 
-                        method: 'POST',
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        data: JSON.stringify(formData)
-                    });
-
-
-                    setTimeout(() => {
-                        localStorage.removeItem('cartItems');
-                        localStorage.removeItem('counter');
-                        $('#order-button').attr('disabled', false);
-                        window.location.href = '/';
-                    } ,2000)
-                } catch (error) {
-                    console.error('Error creating order:', error);
-                }
+                    error: (error) => {
+                        console.log("Error fetching existing user", error);
+                    }
+                });
             }
-        });
-        const fetchCityNames = async () => {
-        let cityNames = [];
-        let offset = 0;
-        const limit = 100;
+        
+            const validateEmail = (email) => {
+                const email_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                return email_regex.test(email);
+            };
             
-        while (true) {
-            const response = await $.ajax({
-                url: 'https://data.gov.il/api/3/action/datastore_search',
-                data: {
-                    resource_id: 'd4901968-dad3-4845-a9b0-a57d027f11ab',
-                    offset: offset,
-                    limit: limit
-                },
-                dataType: 'json'
-            });
+            const validateString = (string) => {
+                return string !== "";
+            }
+            
+            const hideError = (element) => {
+                element.removeClass("is-invalid");
+                const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
+                ? element.siblings("#invalid-feedback")
+                : element.closest("div").siblings("#invalid-feedback");
+                error_div.text("");
+            };
         
-            const records = response.result.records;
-            if (records.length === 0) {
-                break;
+            const showError = (element, error_message) => {
+                element.addClass("is-invalid");
+                const error_div = element.closest("div").siblings("#invalid-feedback").length === 0
+                ? element.siblings("#invalid-feedback")
+                : element.closest("div").siblings("#valid-feedback");
+                error_div.text(error_message);
+            };
+        
+            const validateNumber = (number) => {
+                const number_regex = /^[0-9]+$/;
+                return number_regex.test(number);
             }
         
-            const cityNamesFromPage = records.map(record => record["שם_ישוב_לועזי"]);
-            cityNames = cityNames.concat(cityNamesFromPage);
+            const hideValidation = (element) => {
+                element.removeClass("is-valid");
+                const valid_div = element.closest("div").siblings("#valid-feedback").length === 0
+                ? element.siblings("#valid-feedback")
+                : element.closest("div").siblings("#valid-feedback");
+                valid_div.text("");
+            };
         
-            offset += limit;
-        }
-    
-        return cityNames;
-    };
+            const showValidation = (element, validation_message) => {
+                element.addClass("is-valid");
+                const valid_div = element.closest("div").siblings("#valid-feedback").length === 0
+                ? element.siblings("#valid-feedback")
+                : element.closest("div").siblings("#valid-feedback");
+                valid_div.text(validation_message);
+            };
+        
+            const validateUserForm = async (name_input, phone_number_input, city_input, street_input, apartment_input, floor_input) => {
+                let is_valid = true;
+            
+                if (!validateString(name_input.val().trim())) {
+                    is_valid = false;
+                    showError(name_input, "Name cannot be empty.");
+                } else {
+                    hideError(name_input);
+                    showValidation($("#name"),"");
+                }
+            
+                if (!validateNumber(phone_number_input.val().trim())) {
+                    is_valid = false;
+                    showError(phone_number_input, "Phone number cannot be empty.");
+                } else {
+                    hideError(phone_number_input);
+                    showValidation($("#phone_number"),"");  
+                }
+            
+                if (!validateString(city_input.val().trim())) {
+                    is_valid = false;
+                    showError(city_input, "City cannot be empty.");
+                } else {
+                    hideError(city_input);
+                    showValidation($("#city"),"");
+                }
+            
+                if (!validateString(street_input.val().trim())) {
+                    is_valid = false;
+                    showError(street_input, "Street cannot be empty.");
+                } else {
+                    hideError(street_input);
+                    showValidation($("#street"),"");
+                }
+            
+                if (!validateNumber(apartment_input.val().trim())) {
+                    is_valid = false;
+                    showError(apartment_input, "Apartment cannot be empty.");
+                } else {
+                    hideError(apartment_input);
+                    showValidation($("#apartment"),"");
+                }
+            
+                if (!validateNumber(floor_input.val().trim())) {
+                    is_valid = false;
+                    showError(floor_input, "Floor cannot be empty.");
+                } else {
+                    hideError(floor_input);
+                    showValidation($("#floor"),"");
+                }
+                if(is_valid) {
+                    showValidation($("#order-button"),"Order Created Successfully");
+                }
+                else {
+                    $('#order-button').attr('disabled', false);
+                }
+                return is_valid;
+            };
+        
+            $("#name, #phone_number, #city, #street, #apartment, #floor").on("input", (event) => {
+                hideError($(event.target));
+            });
+            LoadCartItems();
+        
+            $('#checkout-form').submit(async function (event) {
+                event.preventDefault();
+                $('#order-button').attr('disabled', true);
+                if(await validateUserForm($("#name"), $("#phone_number"), $("#city"), $("#street"), $("#apartment"), $("#floor"))) {
+                    const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+                    await getUser();
+                    const currentDate = new Date();
+                
+                    currentDate.setDate(currentDate.getDate() + 2);
+                    const formData = {
+                        name: $('#name').val(),
+                        email: user.email,
+                        phone_number: $('#phone_number').val(),
+                        address: {
+                            city: $('#city').val(),
+                            street: $('#street').val(),
+                            apartment: parseInt($('#apartment').val()),
+                            floor: parseInt($('#floor').val())
+                        },
+                        products_info: cart_items.map(item => ({
+                            product_name: item.name,
+                            total_price: item.total_price,
+                            image: item.image,
+                            additions: {
+                                sprinkles: item.additions.sprinkles,
+                                hot_chocolate: item.additions.hot_chocolate,
+                                gummy_bears: item.additions.gummy_bears,
+                            },
+                            amount: item.quantity
+                        })),
+                        amount: total_sum,
+                        date: new Date(new Date().getTime() + 3 * 60 * 60 * 1000),
+                    };
+                    try {
+                        const response = await $.ajax({
+                            url: '/orders', 
+                            method: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify(formData)
+                        });
+                    
+                    
+                        setTimeout(() => {
+                            localStorage.removeItem('cartItems');
+                            localStorage.removeItem('counter');
+                            $('#order-button').attr('disabled', false);
+                            window.location.href = '/';
+                        } ,2000)
+                    } catch (error) {
+                        console.error('Error creating order:', error);
+                    }
+                }
+            });
+                
+            const fetchCityNames = async () => {
+                let cityNames = [];
+                let offset = 0;
+                const limit = 100;
+                    
+                while (true) {
+                    const response = await $.ajax({
+                        url: 'https://data.gov.il/api/3/action/datastore_search',
+                        data: {
+                            resource_id: 'd4901968-dad3-4845-a9b0-a57d027f11ab',
+                            offset: offset,
+                            limit: limit
+                        },
+                        dataType: 'json'
+                    });
+                
+                    const records = response.result.records;
+                    if (records.length === 0) {
+                        break;
+                    }
+                
+                    const cityNamesFromPage = records.map(record => record["שם_ישוב_לועזי"]);
+                    cityNames = cityNames.concat(cityNamesFromPage);
+                
+                    offset += limit;
+                }
+            
+                return cityNames;
+            };
+        
+            (async () => {
+                try {
+                    const cityNames = await fetchCityNames();
+                
+                    $('.city-autocomplete').autocomplete({
+                        source: function(request, response) {
+                            const capitalizeWords = (str) => {
+                                return str.replace(/\w+/g, function(txt){
+                                    return txt.charAt(0).toUpperCase() + txt.substr(1);
+                                });
+                            };
+                        
+                            const relevantCityNames = cityNames.filter(city => city.toLowerCase().startsWith(request.term.toLowerCase()));
 
-    fetchCityNames().then(cityNames => {
-        console.log(cityNames);
+                            const formattedCityNames = relevantCityNames.map(city => {
+                                const trimmedCity = city.toLowerCase().trimEnd(); 
+                                return capitalizeWords(trimmedCity); 
+                            });
 
-        $('.city-autocomplete').autocomplete({
-            source: function(request, response) {
-                const relevantCityNames = cityNames.filter(city => city.toLowerCase().startsWith(request.term.toLowerCase()));
-                console.log(relevantCityNames);
-                const limitedCityNames = relevantCityNames.slice(0, 5);
-
-                response(limitedCityNames);
-            },
-            select: function(event, ui) {
-              console.log(ui);
-            },
-            minLength: 1,
-            appendTo: '.form-group'
+                            const limitedCityNames = formattedCityNames.slice(0, 5);
+                        
+                            response(limitedCityNames);
+                        },
+                        minLength: 1,
+                        appendTo: '.form-group'
+                    });
+                } 
+                    
+                catch (error) {
+                    console.log("An error occurred when fetching city names: ", error);
+                }
+            })();
         });
-
-    });
-});
     </script>
 </body>
 </html>

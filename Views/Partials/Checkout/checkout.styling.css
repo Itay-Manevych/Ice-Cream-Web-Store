@@ -83,8 +83,9 @@
 
 .total-price{
     width: 30rem;
-    height:1.5rem;
-    margin-top: auto;
+    margin-top: 0.3rem;
+    font-size: 1.5rem;
+    text-decoration: underline;
 }
 
 #order-button {
@@ -139,7 +140,7 @@
 }
 
 .ui-state-active {
-    background-color: #6693bc !important;
+    background-color: rgb(81,190,230) !important;
     font-weight: bold !important;
     color: #ffffff !important;
 } 
