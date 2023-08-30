@@ -165,6 +165,10 @@ body {
   border-radius: 1rem;
 }
 
+.modal-header {
+  align-items: flex-start;
+}
+
 .price-input {
   color: rgb(81,190,230) !important;
   border: 0.1rem solid rgb(242,132,189) !important;
