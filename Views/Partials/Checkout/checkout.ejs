@@ -155,6 +155,11 @@
             total_container.appendChild(total_element);
         }
 
+        const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+        if(cart_items.length===0) {
+            window.location.href = "/no-access"
+        }
+
         $(document).ready(() => {
             let user; 
             const getUser = async () => {
