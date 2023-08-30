@@ -164,7 +164,7 @@ adminApp.get("/get-home-url", (req, res) => {
 adminApp.get("/admin-chat", async (req, res) => {
     const user =  await UserController.getUserByToken(req,res);
     if(user) {
-      res.render("./Admin-Chat/adminChat.ejs", {user: user});
+      res.render("./Partials/Admin-Chat/adminChat.ejs", {user: user});
     }
     else {
       res.render("./Partials/Not-Found/notFound.ejs");
