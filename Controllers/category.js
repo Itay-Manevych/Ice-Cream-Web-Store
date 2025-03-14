@@ -59,7 +59,7 @@ const updateCategory = async (req, res) => {
                     return category;
                 });
     
-                await ProductController.updateProduct({ params: { id: product._id }, body: { ...product, categories: updatedCategories }},);
+                await ProductController.updateProduct({ params: { id: product._id, is_update_category: true}, body: { ...product, categories: updatedCategories}});
             }
         }
 

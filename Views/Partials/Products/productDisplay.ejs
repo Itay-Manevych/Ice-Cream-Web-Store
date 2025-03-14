@@ -73,7 +73,8 @@ const updateCartBadge = () => {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const cartBadge = document.getElementById('cart-badge');
     if (cartBadge) {
-      cartBadge.textContent = cartItems.length;
+      const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+      cartBadge.textContent = totalQuantity;
     }
 }
 $(document).ready(() => {
@@ -122,7 +123,6 @@ const addToCart = (productName, productPrice, productImage) => {
   localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
   updateCartBadge();
 
-  console.log(`Added "${productName}" to cart for a total of $${totalPrice.toFixed(2)} (Quantity: ${selectedQuantity})`);
   localStorage.setItem('counter', counter);
 
   const addedToCartMessage = document.createElement('div');

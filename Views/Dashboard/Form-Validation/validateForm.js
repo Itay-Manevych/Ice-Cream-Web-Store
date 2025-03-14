@@ -16,7 +16,7 @@ const validateUserForm = async (username_input, email_input, password_input, sub
     else if(username_input.val().length > 40) {
         is_valid = false;
         Valid.hideAllValid(elements_array);
-        Error.showError(username_input, "Username cannot be larger than 40 letters.");
+        Error.showError(username_input, "Username's length cannot be larger than 40 letters.");
     } 
     else {
         Error.hideError(username_input);
@@ -26,12 +26,13 @@ const validateUserForm = async (username_input, email_input, password_input, sub
         is_valid = false;
         Valid.hideAllValid(elements_array);
         Error.showError(email_input, "Invalid email format.");
-    } else if (await UserFunctions.checkExistingUser(email_input.val().trim())) {
+    } 
+    else if (await UserFunctions.checkExistingUser(email_input.val().trim())) {
         is_valid = false;
         Valid.hideAllValid(elements_array);
-        Error.hideError(email_input);
         Error.showError(email_input, "Email already in use");
-    } else {
+    } 
+    else {
         Error.hideError(email_input);
     }
 
@@ -39,7 +40,12 @@ const validateUserForm = async (username_input, email_input, password_input, sub
         is_valid = false;
         Valid.hideAllValid(elements_array);
         Error.showError(password_input, "Password cannot be empty.");
-    } else {
+    } 
+    else if (password_input.val().length < 4) {
+        is_valid = false;
+        Error.showError(password_input, "Password length cannot be smaller than 4 characters.");
+    }
+    else {
         Error.hideError(password_input);
     }
 
@@ -49,33 +55,34 @@ const validateUserForm = async (username_input, email_input, password_input, sub
 const validateProductForm = async (product_input, product_select, price_input, description_input, image_input, categories_input, submit_button, is_update) => {
     const elements_array = [product_input, price_input, description_input, image_input, submit_button];
     product_select ? elements_array.push(product_select) : null;
+
     let is_valid = true;
-    
+
     if (!Validation.validateString(product_input.val())) {
         is_valid = false;
         Valid.hideAllValid(elements_array);
-        Error.hideError(product_input);
         Error.showError(product_input, "Product name cannot be empty.");
     } 
+    else if(product_input.val().length > 100) {
+        is_valid = false;
+        Valid.hideAllValid(elements_array);
+        Error.showError(product_input, "Product name's length cannot be larger than 100 characters.");
+    }
     else if(Validation.containsSpecialCharacters(product_input.val())) {
         is_valid = false;
         Valid.hideAllValid(elements_array);
-        Error.hideError(product_input);
         Error.showError(product_input, "Product name cannot contain special characters.");
     }
     else if(!is_update && await ProductFunctions.checkExistingProduct(product_input.val().toLowerCase())) {
         is_valid = false;
         Valid.hideAllValid(elements_array);
-        Error.hideError(product_input);
         Error.showError(product_input, "Product already exists.");
     } 
     else if(is_update && await ProductFunctions.checkExistingProduct(product_input.val())) {
         const selected_product_name = $("#product-names-update :selected").text();
-        console.log(product_input.val());
         if(product_input.val() !== selected_product_name && selected_product_name != "") {
             is_valid = false;
             Valid.hideAllValid(elements_array);
-            Error.hideError(product_input);
             Error.showError(product_input, "Product already exists.");
         }
     }
@@ -87,13 +94,11 @@ const validateProductForm = async (product_input, product_select, price_input, d
         if (!Validation.validateString($("#product-names-update :selected").text())) {
             is_valid = false;
             Valid.hideAllValid(elements_array);
-            Error.hideError(product_input);
             Error.showError(product_select, "You must select a Product.");
         } 
         else if(await ProductFunctions.checkExistingProduct(product_select.text())) {
             is_valid = false;
             Valid.hideAllValid(elements_array);
-            Error.hideError(product_select);
             Error.showError(product_select, "Product already exists.");
         } 
         else {
@@ -105,7 +110,8 @@ const validateProductForm = async (product_input, product_select, price_input, d
         is_valid = false;
         Valid.hideAllValid(elements_array);
         Error.showError(price_input, "Invalid price format, or price is less than $0 or greater than $10,000.");
-    } else {
+    } 
+    else {
         Error.hideError(price_input);
     }
 
@@ -123,11 +129,21 @@ const validateProductForm = async (product_input, product_select, price_input, d
         Error.hideError(description_input);
     }
 
+    if (!Validation.validateString(image_input.val())) {
+        is_valid = false;
+        Valid.hideAllValid(elements_array);
+        Error.showError(image_input, "Image cannot be empty.");
+    } 
+    else {
+        Error.hideError(product_input);
+    }  
+
     if (!Validation.validateArray(categories_input.val())) {
         is_valid = false;
         Valid.hideAllValid(elements_array);
         Error.showError(categories_input, "Select at least 1 category.");
-    } else {
+    } 
+    else {
         Error.hideError(categories_input);
     }
 

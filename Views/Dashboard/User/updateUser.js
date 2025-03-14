@@ -41,7 +41,6 @@ $(document).ready(() => {
                     Valid.showValid($("#username"),"");
                     Valid.showValid($("#email"),"");
                     Valid.showValid($("#password"),"");
-                    console.log($("#user-username"), $("#user-username"));
                     $("#user-username").text($("#username").val());
                 }
             } 

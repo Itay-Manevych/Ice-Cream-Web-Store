@@ -188,32 +188,44 @@
                 if (!validateUsername(username_input.val().trim())) {
                     is_valid = false;
                     showError(username_input, "Username cannot be empty.");
-                } else {
+                }
+                else if(username_input.val().length > 40) {
+                    showError(username_input, "Username's length cannot be larger than 40 characters.");
+                }
+                else {
                     hideError(username_input);
                 }
 
                 if (!validateEmail(email_input.val())) {
                     is_valid = false;
                     showError(email_input, "Invalid email format.");
-                } else if (await checkExistingUser(email_input.val())) {
+                } 
+                else if (await checkExistingUser(email_input.val())) {
                     is_valid = false;
-                    hideError(email_input);
                     showError(email_input, "Email already in use");
-                } else {
+                } 
+                else {
                     hideError(email_input);
                 }
 
-                if (!validatePassowrd(password_input.val().trim())) {
+                if (!validatePassowrd(password_input.val())) {
                     is_valid = false;
                     showError(password_input, "Password cannot be empty.");
-                } else {
+                    
+                } 
+                else if (password_input.val().length < 4) {
+                    is_valid = false;
+                    showError(password_input, "Password length cannot be smaller than 4 characters.");
+                }
+                else {
                     hideError(password_input);
                 }
             
                 if (!validatePassowrd(repeat_password_input.val().trim()) || !comparePasswords(password_input.val().trim(), repeat_password_input.val().trim())) {
                     is_valid = false;
                     showError(repeat_password_input, "Passwords do not match.");
-                } else {
+                } 
+                else {
                     hideError(repeat_password_input);
                 }
             
@@ -242,7 +254,6 @@
                         contentType: 'application/json',
                         data: JSON.stringify(form_data),
                         success: () => {
-                            console.log("User registered successfully");
                             window.location.href = "/login";
                         },
                         error: (error) => {

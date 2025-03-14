@@ -5,7 +5,7 @@ import { CategoryFunctions } from "./categoryFunctions.js";
 
 $(document).ready(() => {
     const deleteCategory = async () => {
-        const category_name = $("#delete-product-categories :selected").val();
+        const category_name = $("#delete-product-categories :selected").val().trimStart().trimEnd();
         if(!(await ProductFunctions.checkExistingProductByCategory(category_name))) {
             try {
                 await $.ajax({

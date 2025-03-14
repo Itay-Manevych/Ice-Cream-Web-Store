@@ -75,7 +75,7 @@
         <div class="total-container d-flex align-items-center"></div>
     </div>
 </div>
-
+<%- include("../Admin-Chat/adminChatButton.ejs")%>
 <%- include("../Footer/footer.ejs") %>
 
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
@@ -153,6 +153,11 @@
             total_element.classList.add('total-price');
             total_element.textContent = `Total Price: $${total_sum.toFixed(2)}`;
             total_container.appendChild(total_element);
+        }
+
+        const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+        if(cart_items.length===0) {
+            window.location.href = "/no-access"
         }
 
         $(document).ready(() => {
@@ -286,9 +291,7 @@
                 if(await validateUserForm($("#name"), $("#phone_number"), $("#city"), $("#street"), $("#apartment"), $("#floor"))) {
                     const cart_items = JSON.parse(localStorage.getItem('cartItems')) || [];
                     await getUser();
-                    const currentDate = new Date();
-                
-                    currentDate.setDate(currentDate.getDate() + 2);
+
                     const formData = {
                         name: $('#name').val(),
                         email: user.email,

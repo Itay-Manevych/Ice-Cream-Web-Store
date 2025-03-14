@@ -41,7 +41,7 @@ $(document).ready(() => {
     resetValues();
 
     $("#product-names-update").on("change", async () => {
-        const product_name = $("#product-names-update :selected").text();
+        const product_name = $("#product-names-update :selected").text().trimStart().trimEnd();
         const product = await ProductFunctions.getProduct(product_name);
         showProductInfo(product);
     });
@@ -57,7 +57,7 @@ $(document).ready(() => {
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify({
-                        name: $("#product-input-update").val(),
+                        name: $("#product-input-update").val().trimStart().trimEnd(),
                         price: parseFloat($("#product-price-update").val()).toFixed(2),
                         description: $("#product-description-update").val(),
                         image: $("#product-image-update").val(),
@@ -68,7 +68,7 @@ $(document).ready(() => {
                             soy: $("#product-allergens-update").val().includes("soy"),
                             gluten: $("#product-allergens-update").val().includes("gluten"),
                             eggs: $("#product-allergens-update").val().includes("eggs"),
-                        }
+                        },
                     }),
                 });
     
@@ -95,18 +95,27 @@ $(document).ready(() => {
             }
         }
 
-        $("#product-input-update, #product-price-update, #product-description-update").on("input", (event) => {
+        $("#product-input-update, #product-price-update, #product-image-update, #product-description-update").on("input", (event) => {
             Error.hideError($(event.target));
         });
     
         $("#product-categories-update").on("change", () => {
             Error.hideError($("#product-categories-update"));
         });
+
+        $("#product-names-update").on("change", () => {
+            Error.hideError($("#product-names-update"));
+            Error.hideError($("#product-input-update"));
+            Error.hideError($("#product-price-update"));
+            Error.hideError($("#product-image-update"));
+            Error.hideError($("#product-description-update"));
+            Error.hideError($("#product-categories-update"));
+        })
         
     };
     $("#update-product-button").on("click", updateProduct);
 
-    $("#product-input-update, #product-price-update, #product-description-update, #product-image-update").on("keydown",async (event) => {
+    $("#product-input-update, #product-price-update, #product-description-update, #product-image-update").on("keydown", async (event) => {
         if(event.key === "Enter") {
             event.preventDefault();
             await updateProduct();

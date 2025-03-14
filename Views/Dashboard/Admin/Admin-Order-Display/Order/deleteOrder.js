@@ -20,7 +20,6 @@ $(document).ready(() => {
 
             $("#delete-order-success-message-container").removeClass("d-none");
             
-            console.log($(`.user-order-${selected_order_id}`).nextAll("#user-order").first());
             if($(`.user-order-${selected_order_id}`).nextAll("#user-order").first()) {
                 $(`.user-order-${selected_order_id}`).nextAll("#user-order").first().css("border-top", "none");
                 $(`.user-order-${selected_order_id}`).nextAll("#user-order").first().css("padding-bottom", "0");

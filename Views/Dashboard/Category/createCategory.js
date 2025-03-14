@@ -5,7 +5,7 @@ import { CategoryFunctions } from "./categoryFunctions.js";
 
 $(document).ready(() => {
     const createCategory = async () => {
-        const category_name = $("#create-category-input").val();
+        const category_name = $("#create-category-input").val().trimStart().trimEnd();
         if(!Validation.containsSpecialCharacters(category_name) && !(await CategoryFunctions.checkExistingCategory(category_name, false))) {
             try {
                 const response = await $.ajax({
@@ -31,9 +31,6 @@ $(document).ready(() => {
     
                 Valid.showValid($("#create-category-button"), "Category Created Successfully");
                 Valid.showValid($("#create-category-input"), "Category Created Successfully");
-
-    
-                console.log($("#no-data-update-category"));
             } 
             catch (error) {
                 console.log("AJAX error occured when creating category", error);

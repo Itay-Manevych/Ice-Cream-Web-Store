@@ -19,6 +19,7 @@ aside > p {
 }
   
 .title {
+    text-shadow:  0.2rem 0 1rem;
     font-size: 4rem;
     height: 6rem;
     margin-left: 6rem;

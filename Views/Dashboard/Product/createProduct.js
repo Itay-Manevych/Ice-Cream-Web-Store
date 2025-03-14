@@ -13,7 +13,7 @@ $(document).ready(() => {
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify({
-                        name: $("#product-name").val(),
+                        name: $("#product-name").val().trimStart().trimEnd(),
                         price: parseFloat($("#product-price").val()).toFixed(2),
                         amount_purchased: 0,
                         description: $("#product-description").val(),
@@ -52,7 +52,7 @@ $(document).ready(() => {
                 console.error("Error:", error);
             }
         }
-        $("#product-name, #product-price, #product-description").on("input", (event) => {
+        $("#product-name, #product-price, #product-description, #product-image").on("input", (event) => {
             Error.hideError($(event.target));
         });
     

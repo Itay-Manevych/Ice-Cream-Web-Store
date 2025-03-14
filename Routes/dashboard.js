@@ -49,7 +49,7 @@ DashboardRouter.route('/orders')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
         if(user === undefined || user.is_admin === false) {
-            return res.render('./Partials/Not-Found/notFound');
+            return res.render('./Partials/No-Access/noAccess');
         }
         const orders = await OrderController.getAllOrders(req, res);
         res.json(orders);
@@ -59,7 +59,7 @@ DashboardRouter.route('/admin-product')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
         if(user === undefined || user.is_admin === false) {
-            return res.render('./Partials/Not-Found/notFound');
+            return res.render('./Partials/No-Access/noAccess');
         }
         const products = await ProductController.getAllProducts(req, res);
         const categories = await CategoryController.getAllCategories(req, res);
@@ -71,7 +71,7 @@ DashboardRouter.route('/admin-category')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
         if(user === undefined || user.is_admin === false) {
-            return res.render('./Partials/Not-Found/notFound');
+            return res.render('./Partials/No-Access/noAccess');
         }
         const products = await ProductController.getAllProducts(req, res);
         const categories = await CategoryController.getAllCategories(req, res);
@@ -82,7 +82,7 @@ DashboardRouter.route('/admin-order')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
         if(user === undefined || user.is_admin === false) {
-            return res.render('./Partials/Not-Found/notFound');
+            return res.render('./Partials/No-Access/noAccess');
         }
         const products = await ProductController.getAllProducts(req, res);
         const categories = await CategoryController.getAllCategories(req, res);
@@ -94,7 +94,7 @@ DashboardRouter.route('/statistics')
     .get(async (req, res) => {
         const user = await UserController.getUserByToken(req, res);
         if(user === undefined || user.is_admin === false) {
-            return res.render('./Partials/Not-Found/notFound');
+            return res.render('./Partials/No-Access/noAccess');
         }
         res.render("./Dashboard/Admin/Admin-Statistics-Display/adminStatistics.ejs");
     });
